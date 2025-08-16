@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="main-container">
+        <nav class="breadcrumb">
+            <a href="index.html">Trang chủ</a> &gt; 
+            <a href="subject.html" id="breadcrumb-subject">Môn học</a> &gt; Flashcards
+        </nav>
+        <div class="main-header">
+            <h1 id="flashcard-title">Flashcards</h1>
+        </div>
+
+        <div class="flashcard-container-interactive">
+            <div id="question-area">
+                <p id="flashcard-question-text">Đang tải câu hỏi...</p>
+            </div>
+            <div id="options-area">
+                </div>
+            <div id="feedback-area" style="display: none;">
+                <p id="feedback-text"></p>
+                <div id="explanation-box">
+                    <h4>Giải thích</h4>
+                    <p id="explanation-text"></p>
+                </div>
+            </div>
+            <div class="flashcard-nav">
+                 <button class="back-btn" onclick="window.location.href='subject.html'">← Quay lại</button>
+                 <button id="next-flashcard-btn" class="start-btn">Câu Tiếp Theo →</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="data/ssl101c.js"></script>
+    <script src="data/aig202c.js"></script>
+    <script src="data/database.js"></script>
+    <script src="js/flashcards.js"></script>
+</body>
+</html>

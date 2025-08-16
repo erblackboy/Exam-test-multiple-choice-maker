@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tên môn học</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="main-container">
+        <nav class="breadcrumb">
+            <a href="index.html">Trang chủ</a> &gt; Môn học
+        </nav>
+        <h1 class="main-header">Tên môn học</h1>
+        <div class="mode-selection-container">
+            <div class="mode-card" id="theory-btn" onclick="window.location.href='flashcards.html'">
+                <h2>Lý Thuyết</h2>
+                <p>Học qua flashcards.</p>
+            </div>
+            <div class="mode-card" id="practice-btn" onclick="window.location.href='quiz-setup.html'">
+                <h2>Bài Tập</h2>
+                <p>Làm bài thi trắc nghiệm.</p>
+            </div>
+        </div>
+        <button class="back-btn" onclick="window.location.href='index.html'">← Quay lại chọn môn</button>
+    </div>
+    <script src="data/ssl101c.js"></script>
+    <script src="data/aig202c.js"></script>
+    <script src="data/database.js"></script>
+</body>
+</html>
