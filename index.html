@@ -3,29 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chọn Môn Học</title>
+    <title>Trang chủ - Hệ thống học tập</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="dark-mode-toggle" id="dark-mode-toggle">🌙</div>
+
     <div class="main-container">
-        <nav class="breadcrumb">
-            <a href="index.html">Trang chủ</a>
-        </nav>
-        <h1 class="main-header">Chọn Môn Học</h1>
-        <div id="subject-selection-container" class="subject-grid"></div>
-        <div id="history-container">
-            <h2>Lịch sử thi</h2>
-            <table id="history-table">
-                <thead>
-                    <tr><th>Môn</th><th>Điểm</th><th>Ngày</th></tr>
-                </thead>
-                <tbody id="history-body"></tbody>
-            </table>
+        <h1 class="main-header">Hệ Thống Học Tập</h1>
+        <p class="breadcrumb" style="text-align: center; margin-top: -20px; margin-bottom: 30px;">Vui lòng chọn môn học để bắt đầu.</p>
+        
+        <div id="subject-selection-container">
+            <p style="text-align: center;">Đang tải danh sách môn học...</p>
         </div>
     </div>
-    <script src="data/ssl101c.js"></script>
-    <script src="data/aig202c.js"></script>
-    <script src="data/database.js"></script>
-    <script src="js/main.js"></script>
+    
+    <script src="data/ssl101c.js" defer></script>
+    <script src="data/aig202c.js" defer></script>
+    <script src="data/mai391.js" defer></script>
+    <script src="data/database.js" defer></script>
+    
+    <script src="js/main.js" defer></script>
 </body>
 </html>
