@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.addEventListener('click', () => {
                     if (!subject.disabled) {
                         if (subject.customLink) {
-                            window.location.href = subject.customLink;
+                            window.location.href = `${subjectId}_Web/${subjectId}_index.html`;
                         } else {
                             window.location.href = `subject.html?subject=${subjectId}`;
                         }
