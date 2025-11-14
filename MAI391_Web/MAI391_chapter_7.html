@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 7: Continuous Optimization</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color, #f4f7f6);
+            color: var(--text-color, #333);
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color-secondary, #ffffff);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3 {
+            color: var(--text-color-primary, #2c3e50);
+            border-bottom: 2px solid var(--accent-color, #007bff);
+            padding-bottom: 10px;
+        }
+        h1 { font-size: 2.2rem; }
+        h2 {
+            margin-top: 2.5rem;
+            font-size: 1.8rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            border-bottom: 1px dashed #ccc;
+        }
+        .content-box {
+            margin: 1.5rem 0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .definition {
+            background-color: #e6f7ff;
+            border-left: 5px solid #1890ff;
+        }
+        .theorem {
+            background-color: #f6ffed;
+            border-left: 5px solid #52c41a;
+        }
+        .example {
+            background-color: #fffbe6;
+            border-left: 5px solid #faad14;
+        }
+        .content-box h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 0;
+            color: #333;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: var(--accent-color, #007bff);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">&larr; Quay lại mục lục</a>
+        
+        [cite_start]<h1>Chương 7. Continuous Optimization</h1> [cite: 1287]
+
+        [cite_start]<h2 id="sec7.1">7.1 Optimization Using Gradient Descent</h2> [cite: 1296]
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Gradient Descent)</h4>
+            [cite_start]<p>Cho bài toán tối ưu: \( \min_{x} f(x) \), [cite: 1330] [cite_start]trong đó \(f\) là hàm khả vi. [cite: 1329]</p>
+            [cite_start]<p>Thuật toán <strong>Gradient Descent</strong> là một thuật toán tối ưu hóa bậc nhất. [cite: 1331] [cite_start]Công thức cập nhật lặp: [cite: 1352]</p>
+            [cite_start]<p>\[ x_{i+1} = x_{i} - \gamma_{i}((\nabla f)(x_{i}))^{T} \] [cite: 1353]</p>
+            [cite_start]<p>với \(\gamma_i > 0\) là learning rate (tốc độ học). [cite: 1351, 1354]</p>
+        </div>
+        
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Gradient Descent with Momentum)</h4> [cite: 1468]
+            [cite_start]<p>Phương pháp này "ghi nhớ" bản cập nhật ở mỗi vòng lặp: [cite: 1472]</p>
+            [cite_start]<p>\[ \Delta x_{i} = x_{i} - x_{i-1} \] [cite: 1471]</p>
+            [cite_start]<p>Công thức cập nhật mới là sự kết hợp tuyến tính của gradient hiện tại và gradient trước đó: [cite: 1472]</p>
+            [cite_start]<p>\[ x_{i+1} = x_{i} - \gamma_{i}((\nabla f)(x_{i}))^{T} + \alpha\Delta x_{i} \] [cite: 1473]</p>
+        </div>
+
+        [cite_start]<h2 id="sec7.2">7.2 Constrained Optimization and Lagrange Multipliers</h2> [cite: 1477]
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Primal Problem - Bài toán gốc)</h4> [cite: 1532]
+            [cite_start]<p>\[ \min_{x} f(x) \] [cite: 1534]</p>
+            [cite_start]<p>subject to (với điều kiện) \( g_{i}(x) \le 0, \quad i=1,...,m \) [cite: 1535]</p>
+        </div>
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (The Lagrangian)</h4>
+            [cite_start]<p>Hàm Lagrangian liên kết là: [cite: 1509]</p>
+            [cite_start]<p>\[ \mathcal{L}(x, \lambda) = f(x) + \sum_{i=1}^{m} \lambda_{i}g_{i}(x) = f(x) + \lambda^{T}g(x) \] [cite: 1512]</p>
+            [cite_start]<p>trong đó \(\lambda_i \ge 0\) là các nhân tử Lagrange. [cite: 1559]</p>
+        </div>
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Lagrangian Dual Problem - Bài toán đối ngẫu)</h4> [cite: 1546]
+            <p>Hàm đối ngẫu \(\mathcal{D}(\lambda)\) được định nghĩa là:</p>
+            [cite_start]<p>\[ \mathcal{D}(\lambda) = \min_{x \in \mathbb{R}^{D}} \mathcal{L}(x, \lambda) \] [cite: 1560]</p>
+            <p>Bài toán đối ngẫu là tìm cách cực đại hóa hàm này:</p>
+            [cite_start]<p>\[ \max_{\lambda \in (\mathbb{R}^{+})^{m}} \mathcal{D}(\lambda) \] [cite: 1559]</p>
+        </div>
+
+        <div class="content-box theorem">
+            [cite_start]<h4>Định lý (Minimax Inequality and Weak Duality)</h4> [cite: 1576]
+            [cite_start]<p>Bất đẳng thức Minimax: [cite: 1576]</p>
+            [cite_start]<p>\[ \max_{y} \min_{x} \varphi(x, y) \le \min_{x} \max_{y} \varphi(x, y) \] [cite: 1577]</p>
+            [cite_start]<p>Hệ quả (Đối ngẫu yếu - Weak Duality): [cite: 1602]</p>
+            [cite_start]<p>\[ \underbrace{\max_{\lambda\in(\mathbb{R}^{+})^{m}} \min_{x\in\mathbb{R}^{D}} \mathcal{L}(x, \lambda)}_{\text{Dual Problem}} \le \underbrace{\min_{x\in\mathbb{R}^{D}} \max_{\lambda\in(\mathbb{R}^{+})^{m}} \mathcal{L}(x, \lambda)}_{\text{Primal Problem}} \] [cite: 1603]</p>
+        </div>
+
+        [cite_start]<h2 id="sec7.3">7.3 Convex Optimization</h2> [cite: 1617]
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Convex Function - Hàm lồi)</h4> [cite: 1679]
+            [cite_start]<p>Một hàm \(f\) là lồi nếu: [cite: 1681]</p>
+            [cite_start]<p>\[ f[\theta x + (1-\theta)y] \le \theta f(x) + (1-\theta)f(y), \quad \forall 0 \le \theta \le 1 \] [cite: 1682]</p>
+        </div>
+        
+        <div class="content-box theorem">
+            [cite_start]<h4>Định lý (Conditions for Convexity)</h4> [cite: 1689]
+            <p>Giả sử \(f\) khả vi. [cite_start]\(f\) là lồi khi và chỉ khi: [cite: 1691]</p>
+            [cite_start]<p>\[ f(y) \ge f(x) + \nabla_{x}f(x)^{T}(y-x) \] [cite: 1701]</p>
+            [cite_start]<p>Nếu \(f\) khả vi bậc hai, \(f\) là lồi khi và chỉ khi ma trận Hessian \(\nabla_{x}^{2}f(x)\) là nửa xác định dương. [cite: 1712]</p>
+        </div>
+
+        [cite_start]<h3>7.3.1 Linear Programming (Quy hoạch tuyến tính)</h3> [cite: 1828]
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (LP Primal Problem)</h4>
+            [cite_start]<p>\[ \min_{x \in \mathbb{R}^{n}} c^{T}x \] [cite: 1832]</p>
+            [cite_start]<p>subject to \( Ax \le b \) [cite: 1833]</p>
+        </div>
+        
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (LP Dual Problem)</h4> [cite: 1892]
+            [cite_start]<p>\[ \max_{\lambda \in (\mathbb{R}^{+})^{m}} -b^{T}\lambda \] [cite: 1893]</p>
+            [cite_start]<p>subject to \( c + A^{T}\lambda = 0 \) [cite: 1894]</p>
+        </div>
+
+        [cite_start]<h3>7.3.2 Quadratic Programming (Quy hoạch toàn phương)</h3> [cite: 1910]
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (QP Primal Problem)</h4>
+            [cite_start]<p>Giả sử \(Q\) là ma trận xác định dương: [cite: 1915]</p>
+            [cite_start]<p>\[ \min_{x \in \mathbb{R}^{n}} \frac{1}{2}x^{T}Qx + c^{T}x \] [cite: 1912]</p>
+            [cite_start]<p>subject to \( Ax \le b \) [cite: 1913]</p>
+        </div>
+        
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (QP Dual Problem)</h4> [cite: 1959]
+            [cite_start]<p>\[ \max_{\lambda \in (\mathbb{R}^{+})^{m}} -\frac{1}{2}(c+A^{T}\lambda)^{T}Q^{-1}(c+A^{T}\lambda) - \lambda^{T}b \] [cite: 1960]</p>
+            [cite_start]<p>subject to \( \lambda \ge 0 \) [cite: 1961]</p>
+        </div>
+
+    </div>
+</body>
+</html>

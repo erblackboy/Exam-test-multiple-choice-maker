@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 5: Vector Calculus</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color, #f4f7f6);
+            color: var(--text-color, #333);
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color-secondary, #ffffff);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3 {
+            color: var(--text-color-primary, #2c3e50);
+            border-bottom: 2px solid var(--accent-color, #007bff);
+            padding-bottom: 10px;
+        }
+        h1 { font-size: 2.2rem; }
+        h2 {
+            margin-top: 2.5rem;
+            font-size: 1.8rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            border-bottom: 1px dashed #ccc;
+        }
+        .content-box {
+            margin: 1.5rem 0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .definition {
+            background-color: #e6f7ff;
+            border-left: 5px solid #1890ff;
+        }
+        .theorem {
+            background-color: #f6ffed;
+            border-left: 5px solid #52c41a;
+        }
+        .example {
+            background-color: #fffbe6;
+            border-left: 5px solid #faad14;
+        }
+        .content-box h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 0;
+            color: #333;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: var(--accent-color, #007bff);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">&larr; Quay lại mục lục</a>
+        
+        <h1>Chương 5. Vector Calculus</h1>
+
+        <h2 id="sec5.1">5.1 Differentiation of Univariate Functions</h2>
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Taylor Polynomial and Series)</h4>
+            [cite_start]<p><strong>Taylor polynomial (Đa thức Taylor) bậc n</strong> của một hàm \(f\) tại \(x_0\): [cite: 2597]</p>
+            [cite_start]<p>\[ T_{n}(x) := \sum_{k=0}^{n}\frac{f^{(k)}(x_{0})}{k!}(x-x_{0})^{k} \] [cite: 2598]</p>
+            [cite_start]<p><strong>Taylor series (Chuỗi Taylor)</strong> của \(f\) tại \(x_0\): [cite: 2599]</p>
+            [cite_start]<p>\[ T_{\infty}(x) := \sum_{k=0}^{\infty}\frac{f^{(k)}(x_{0})}{k!}(x-x_{0})^{k} \] [cite: 2599]</p>
+        </div>
+
+        <div class="content-box example">
+            [cite_start]<h4>Ví dụ (Maclaurin series of basic functions)</h4> [cite: 2647]
+            [cite_start]<p>\[ e^{x} = 1 + x + \frac{x^2}{2!} + \dots = \sum_{k=0}^{\infty}\frac{x^{k}}{k!} \] [cite: 2650]</p>
+            [cite_start]<p>\[ \sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots = \sum_{k=0}^{\infty}\frac{(-1)^{k}x^{2k+1}}{(2k+1)!} \] [cite: 2650]</p>
+            [cite_start]<p>\[ \cos(x) = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \dots = \sum_{k=0}^{\infty}\frac{(-1)^{k}x^{2k}}{(2k)!} \] [cite: 2650]</p>
+            [cite_start]<p>\[ \frac{1}{1-x} = 1 + x + x^2 + \dots = \sum_{k=0}^{\infty}x^{k} \] [cite: 2650]</p>
+        </div>
+
+        <h2 id="sec5.2">5.2 Partial Differentiation and Gradients</h2>
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Partial Derivatives)</h4> [cite: 2660]
+            [cite_start]<p>\[ \frac{\partial f}{\partial x_{i}} := \lim_{h\rightarrow0}\frac{f(x_{1},...,x_{i}+h,...,x_{n})-f(x_{1},...,x_{n})}{h} \] [cite: 2661, 2662]</p>
+        </div>
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Gradient)</h4> [cite: 2673]
+            [cite_start]<p>Với hàm \(f: \mathbb{R}^{n} \rightarrow \mathbb{R}\), gradient là một vector hàng \(1 \times n\): [cite: 2674]</p>
+            [cite_start]<p>\[ \nabla_{x}f = \text{grad } f = \frac{df}{dx} = \left[\frac{\partial f}{\partial x_{1}} \cdot\cdot\cdot \frac{\partial f}{\partial x_{n}}\right] \] [cite: 2676]</p>
+        </div>
+
+        <div class="content-box definition">
+            [cite_start]<h4>Các quy tắc (Basic Rules)</h4> [cite: 2684]
+            <ul>
+                [cite_start]<li><strong>Sum Rule:</strong> \( \nabla_{x}[f+g] = \nabla_{x}f + \nabla_{x}g \) [cite: 2688]</li>
+                [cite_start]<li><strong>Product Rule:</strong> \( \nabla_{x}[fg] = g(x)\nabla_{x}f + f(x)\nabla_{x}g \) [cite: 2689]</li>
+                [cite_start]<li><strong>Chain Rule</strong> (với \( \mathbf{x} \) là hàm của \( t \)): [cite: 2690]
+                    [cite_start]\[ \frac{df}{dt} = \sum_{i=1}^{n}\frac{\partial f}{\partial x_{i}}\frac{dx_{i}}{dt} \] [cite: 2691]
+                </li>
+            </ul>
+        </div>
+
+        [cite_start]<h2 id="sec5.3">5.3 Gradients of Vector-Valued Functions</h2> [cite: 2704]
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Partial Derivative of Vector Function)</h4> [cite: 2709, 2714]
+            <p>Với \(f: \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}\), đạo hàm riêng theo \(x_i\) là một vector cột:</p>
+            [cite_start]<p>\[ \frac{\partial f}{\partial x_{i}} = \begin{bmatrix} \frac{\partial f_{1}}{\partial x_{i}} \\ \vdots \\ \frac{\partial f_{m}}{\partial x_{i}} \end{bmatrix} \in \mathbb{R}^{m} \] [cite: 2716]</p>
+        </div>
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Jacobian Matrix)</h4> [cite: 2736, 2737]
+            [cite_start]<p>Ma trận Jacobian \(m \times n\) là tập hợp tất cả các đạo hàm riêng bậc nhất: [cite: 2738]</p>
+            <p>\[ J = \nabla_{x}f = \frac{df}{dx} = \begin{bmatrix} \frac{\partial f}{\partial x_{1}} & \cdot\cdot\cdot & \frac{\partial f}{\partial x_{n}} \end{bmatrix} = \begin{bmatrix}
+                \frac{\partial f_{1}}{\partial x_{1}} & \cdot\cdot\cdot & \frac{\partial f_{1}}{\partial x_{n}} \\
+                \vdots & \ddots & \vdots \\
+                \frac{\partial f_{m}}{\partial x_{1}} & \cdot\cdot\cdot & \frac{\partial f_{m}}{\partial x_{n}}
+            [cite_start]\end{bmatrix} \] [cite: 2741]</p>
+        </div>
+
+        <div class="content-box theorem">
+            [cite_start]<h4>Định lý (Chain Rule for Vector Functions)</h4> [cite: 2760]
+            [cite_start]<p>Với \(f: \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}\) và \(x: \mathbb{R}^{l} \rightarrow \mathbb{R}^{n}\): [cite: 2761, 2763]</p>
+            [cite_start]<p>\[ \frac{\partial f_{j}}{\partial t_{k}} = \sum_{i=1}^{n}\frac{\partial f_{j}}{\partial x_{i}}\frac{\partial x_{i}}{\partial t_{k}} \] [cite: 2766]</p>
+            <p>Dạng ma trận:</p>
+            [cite_start]<p>\[ \nabla_{t}f = \nabla_{x}f \nabla_{t}x \] [cite: 2767]</p>
+        </div>
+
+        <h2 id="sec5.6">5.6 Backpropagation and Automatic Differentiation</h2>
+
+        <div class="content-box definition">
+            <h4>Định nghĩa (Backpropagation / Reverse Mode AD)</h4>
+            [cite_start]<p>Backpropagation là một trường hợp đặc biệt của kỹ thuật tổng quát Automatic Differentiation (AD). [cite: 2881]</p>
+            [cite_start]<p>Reverse mode AD (chính là Backpropagation) truyền ngược gradient qua đồ thị tính toán. [cite: 2897, 2898] Cho \(f = x_D\) là output, và \(x_i\) là một node trung gian:</p>
+            [cite_start]<p>\[ \frac{\partial f}{\partial x_{i}} = \sum_{x_{j}:x_{i} \in Pa(x_{j})} \frac{\partial f}{\partial x_{j}} \frac{\partial x_{j}}{\partial x_{i}} \] [cite: 2935]</p>
+            [cite_start]<p>trong đó \(Pa(x_j)\) là tập hợp các node cha của \(x_j\). [cite: 2936]</p>
+        </div>
+
+        [cite_start]<h2 id="sec5.7">5.7 Higher-Order Derivatives</h2> [cite: 2940]
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Hessian Matrix)</h4> [cite: 2946]
+            <p>Với hàm \(f: \mathbb{R}^{n} \rightarrow \mathbb{R}\), ma trận Hessian \(H\) (là ma trận \(n \times n\)) được định nghĩa là:</p>
+            <p>\[ H = \nabla_{x}^{2}f(x) = \begin{bmatrix}
+                \frac{\partial^{2}f}{\partial x_{1}^{2}} & \frac{\partial^{2}f}{\partial x_{1}\partial x_{2}} & \cdots & \frac{\partial^{2}f}{\partial x_{1}\partial x_{n}} \\
+                \frac{\partial^{2}f}{\partial x_{2}\partial x_{1}} & \frac{\partial^{2}f}{\partial x_{2}^{2}} & \cdots & \frac{\partial^{2}f}{\partial x_{2}\partial x_{n}} \\
+                \vdots & \vdots & \ddots & \vdots \\
+                \frac{\partial^{2}f}{\partial x_{n}\partial x_{1}} & \frac{\partial^{2}f}{\partial x_{n}\partial x_{2}} & \cdots & \frac{\partial^{2}f}{\partial x_{n}^{2}}
+            [cite_start]\end{bmatrix} \] [cite: 2950]</p>
+            [cite_start]<p>Nếu \(f\) khả vi liên tục bậc hai, ma trận Hessian là đối xứng. [cite: 2945, 2949]</p>
+        </div>
+
+        [cite_start]<h2 id="sec5.8">5.8 Linearization and Multivariate Taylor Series</h2> [cite: 2961]
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (First-order Taylor polynomial)</h4> [cite: 2970]
+            <p>Đây là phép xấp xỉ tuyến tính (linearization) của \(f\) tại \(a\):</p>
+            [cite_start]<p>\[ T_{1}(x) = f(a) + \nabla_{x}f(a) \cdot (x-a) \] [cite: 2972]</p>
+        </div>
+        
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Second-order Taylor polynomial)</h4> [cite: 2993]
+            <p>Đây là phép xấp xỉ toàn phương (quadratic approximation) của \(f\) tại \(a\):</p>
+            [cite_start]<p>\[ T_{2}(x) = f(a) + \nabla_{x}f(a) \cdot (x-a) + \frac{1}{2}(x-a)^{T}\nabla_{x}^{2}f(a)(x-a) \] [cite: 2991, 2995]</p>
+        </div>
+
+    </div>
+</body>
+</html>

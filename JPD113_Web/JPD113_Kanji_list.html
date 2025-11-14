@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng hợp Kanji</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        .kanji-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .kanji-card {
+            background: var(--white-color, #ffffff);
+            border: 1px solid var(--border-color, #e0e0e0);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow, 0 4px 8px rgba(0,0,0,0.05));
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .kanji-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover, 0 8px 16px rgba(0,0,0,0.1));
+        }
+        .kanji-char {
+            font-size: 72px;
+            font-weight: bold;
+            color: #34495e;
+            margin: 0 0 15px 0;
+            line-height: 1;
+            cursor: pointer; /* Thêm con trỏ để báo hiệu có thể nhấn vào */
+        }
+        .kanji-info {
+            width: 100%; text-align: left; border-top: 1px solid #eee; padding-top: 15px;
+        }
+        .kanji-info p { margin: 8px 0; font-size: 1rem; }
+        .kanji-info strong { color: var(--primary-color, #4a90e2); min-width: 80px; display: inline-block; }
+        .kanji-examples { margin-top: 15px; width: 100%; border-top: 1px solid #eee; padding-top: 15px; }
+        .kanji-examples h4 { margin-top: 0; margin-bottom: 10px; color: #34495e; }
+        .kanji-examples ul { list-style-type: none; padding: 0; margin: 0; }
+        .kanji-examples li { background-color: var(--light-bg, #f8f9fa); padding: 10px; border-radius: 6px; margin-bottom: 8px; font-size: 1rem; }
+        .kanji-examples .reading { font-size: 0.9em; color: #555; display: block; margin-top: 2px; }
+        .kanji-controls { margin: 30px 0; padding: 20px; background-color: var(--light-bg); border-radius: 12px; display: flex; justify-content: center; box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); }
+        #kanji-search-input { width: 100%; max-width: 600px; padding: 15px 20px; font-size: 1.1em; border-radius: 8px; border: 1px solid var(--border-color); transition: border-color 0.3s, box-shadow 0.3s; font-family: 'Noto Sans JP', sans-serif; }
+        #kanji-search-input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); }
+        .kanji-card.hidden { display: none; }
+
+        /* [THÊM MỚI] CSS cho Modal xem chi tiết Kanji */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: var(--white-color, #fff);
+            padding: 40px;
+            border-radius: 16px;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            line-height: 1;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.2s;
+        }
+        .modal-close-btn:hover {
+            color: #333;
+        }
+        .modal-kanji-char {
+            font-size: 180px;
+            font-weight: bold;
+            color: var(--primary-color);
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .modal-kanji-details {
+            font-size: 1.2rem;
+        }
+        .modal-kanji-details h3 {
+            margin-top: 0;
+            color: var(--primary-hover);
+            font-size: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .modal-kanji-details p {
+            margin: 12px 0;
+        }
+        .modal-kanji-details strong {
+            color: var(--dark-text);
+            min-width: 110px;
+            display: inline-block;
+        }
+        .modal-kanji-details .kana {
+            font-weight: 500;
+            color: #c92a2a; /* Red color for Kana */
+        }
+        .modal-kanji-details .romaji {
+            font-style: italic;
+            color: var(--secondary-color);
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Trang chủ</a> &gt;
+            <a href="index.html">JPD113</a> &gt;   
+            <a href="alphabet.html">Bảng chữ cái</a> &gt; Danh sách Kanji
+        </nav>
+        <h1 class="main-header">Bảng Tổng Hợp Kanji</h1>
+        <button class="back-btn" onclick="location.href='alphabet.html'">← Quay lại Bảng chữ cái</button>
+        <div class="kanji-controls">
+            <input type="text" id="kanji-search-input" placeholder="Tìm Kanji, Hán Việt, nghĩa...">
+        </div>
+        <div class="kanji-grid" id="kanji-grid">
+            <div class="kanji-card">
+                <p class="kanji-char">一</p>
+                <div class="kanji-info">
+                    <p><strong>Hán Việt:</strong> <span class="info-hv">NHẤT</span></p>
+                    <p><strong>Nghĩa:</strong> <span class="info-nghia">một</span></p>
+                    <p><strong>Kun'yomi:</strong> <span class="info-kun">ひと・つ</span></p>
+                    <p><strong>On'yomi:</strong> <span class="info-on">いち</span></p>
+                </div>
+                <div class="kanji-examples">
+                    <h4>Ví dụ:</h4>
+                    <ul>
+                        <li>一月 <span class="reading">いちがつ</span></li>
+                        <li>一人 <span class="reading">ひとり</span></li>
+                        <li>一日 <span class="reading">ついたち / いちにち</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="kanji-card">
+                <p class="kanji-char">二</p>
+                <div class="kanji-info">
+                    <p><strong>Hán Việt:</strong> <span class="info-hv">NHỊ</span></p>
+                    <p><strong>Nghĩa:</strong> <span class="info-nghia">hai</span></p>
+                    <p><strong>Kun'yomi:</strong> <span class="info-kun">ふた・つ</span></p>
+                    <p><strong>On'yomi:</strong> <span class="info-on">に</span></p>
+                </div>
+                <div class="kanji-examples"><h4>Ví dụ:</h4><ul><li>二月 <span class="reading">にがつ</span></li><li>二人 <span class="reading">ふたり</span></li><li>二日 <span class="reading">ふつか</span></li></ul></div>
+            </div>
+            <div class="kanji-card">
+                <p class="kanji-char">三</p>
+                <div class="kanji-info"><p><strong>Hán Việt:</strong> <span class="info-hv">TAM</span></p><p><strong>Nghĩa:</strong> <span class="info-nghia">ba</span></p><p><strong>Kun'yomi:</strong> <span class="info-kun">みっ・つ</span></p><p><strong>On'yomi:</strong> <span class="info-on">さん</span></p></div>
+                <div class="kanji-examples"><h4>Ví dụ:</h4><ul><li>三月 <span class="reading">さんがつ</span></li><li>三人 <span class="reading">さんにん</span></li><li>三日 <span class="reading">みっか</span></li></ul></div>
+            </div>
+            <div class="kanji-card">
+                <p class="kanji-char">四</p>
+                <div class="kanji-info"><p><strong>Hán Việt:</strong> <span class="info-hv">TỨ</span></p><p><strong>Nghĩa:</strong> <span class="info-nghia">bốn</span></p><p><strong>Kun'yomi:</strong> <span class="info-kun">よん, よっ・つ</span></p><p><strong>On'yomi:</strong> <span class="info-on">し</span></p></div>
+                <div class="kanji-examples"><h4>Ví dụ:</h4><ul><li>四月 <span class="reading">しがつ</span></li><li>四人 <span class="reading">よにん</span></li><li>四日 <span class="reading">よっか</span></li></ul></div>
+            </div>
+             </div>
+    </div>
+
+    <div id="kanji-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+            <div id="modal-kanji-char" class="modal-kanji-char"></div>
+            <div class="modal-kanji-details">
+                <h3 id="modal-hanviet"></h3>
+                <p><strong>Nghĩa:</strong> <span id="modal-nghia"></span></p>
+                <p><strong>Kun'yomi:</strong> <span id="modal-kun" class="kana"></span><span id="modal-kun-romaji" class="romaji"></span></p>
+                <p><strong>On'yomi:</strong> <span id="modal-on" class="kana"></span><span id="modal-on-romaji" class="romaji"></span></p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('kanji-search-input');
+        const kanjiGrid = document.getElementById('kanji-grid');
+        const kanjiCards = kanjiGrid.querySelectorAll('.kanji-card');
+        
+        // [CẬP NHẬT] Tự động focus vào ô tìm kiếm khi tải trang
+        searchInput.focus();
+
+        // Chức năng tìm kiếm (đã có)
+        searchInput.addEventListener('keyup', function() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            kanjiCards.forEach(function(card) {
+                const cardText = card.textContent.toLowerCase();
+                if (cardText.includes(searchTerm)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+
+        // [THÊM MỚI] Logic cho Modal xem chi tiết Kanji
+        const modal = document.getElementById('kanji-modal');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const modalKanjiChar = document.getElementById('modal-kanji-char');
+        const modalHanViet = document.getElementById('modal-hanviet');
+        const modalNghia = document.getElementById('modal-nghia');
+        const modalKun = document.getElementById('modal-kun');
+        const modalKunRomaji = document.getElementById('modal-kun-romaji');
+        const modalOn = document.getElementById('modal-on');
+        const modalOnRomaji = document.getElementById('modal-on-romaji');
+
+        // Bộ chuyển đổi Kana sang Romaji đơn giản
+        const kanaToRomaji = {
+            'あ':'a', 'い':'i', 'う':'u', 'え':'e', 'お':'o',
+            'か':'ka', 'き':'ki', 'く':'ku', 'け':'ke', 'こ':'ko',
+            'さ':'sa', 'し':'shi', 'す':'su', 'せ':'se', 'そ':'so',
+            'た':'ta', 'ち':'chi', 'つ':'tsu', 'て':'te', 'と':'to',
+            'な':'na', 'に':'ni', 'ぬ':'nu', 'ね':'ne', 'の':'no',
+            'は':'ha', 'ひ':'hi', 'ふ':'fu', 'へ':'he', 'ほ':'ho',
+            'ま':'ma', 'み':'mi', 'む':'mu', 'め':'me', 'も':'mo',
+            'や':'ya', 'ゆ':'yu', 'よ':'yo',
+            'ら':'ra', 'り':'ri', 'る':'ru', 'れ':'re', 'ろ':'ro',
+            'わ':'wa', 'を':'o', 'ん':'n',
+            'が':'ga', 'ぎ':'gi', 'ぐ':'gu', 'げ':'ge', 'ご':'go',
+            'ざ':'za', 'じ':'ji', 'ず':'zu', 'ぜ':'ze', 'ぞ':'zo',
+            'だ':'da', 'ぢ':'ji', 'づ':'zu', 'で':'de', 'ど':'do',
+            'ば':'ba', 'び':'bi', 'ぶ':'bu', 'べ':'be', 'ぼ':'bo',
+            'ぱ':'pa', 'ぴ':'pi', 'ぷ':'pu', 'ぺ':'pe', 'ぽ':'po'
+        };
+
+        function convertToRomaji(kanaString) {
+            if (!kanaString) return '';
+            let romaji = kanaString;
+            // Xử lý các âm dài (trường âm)
+            romaji = romaji.replace(/う/g, 'ū').replace(/お/g, 'ō');
+            
+            let result = '';
+            let i = 0;
+            while(i < kanaString.length) {
+                let char = kanaString[i];
+                if (char === 'っ') { // Xử lý âm ngắt
+                    let nextChar = kanaString[i+1];
+                    if(nextChar && kanaToRomaji[nextChar]) {
+                        result += kanaToRomaji[nextChar].charAt(0);
+                    }
+                    i++;
+                    continue;
+                }
+                result += kanaToRomaji[char] || char;
+                i++;
+            }
+            return result.replace(/・/g, ', ');
+        }
+
+        // Gán sự kiện click cho từng chữ Kanji
+        kanjiCards.forEach(card => {
+            const kanjiCharEl = card.querySelector('.kanji-char');
+            kanjiCharEl.addEventListener('click', function() {
+                const parentCard = this.closest('.kanji-card');
+                const hanviet = parentCard.querySelector('.info-hv')?.textContent || '';
+                const nghia = parentCard.querySelector('.info-nghia')?.textContent || '';
+                const kun = parentCard.querySelector('.info-kun')?.textContent || '';
+                const on = parentCard.querySelector('.info-on')?.textContent || '';
+
+                modalKanjiChar.textContent = this.textContent;
+                modalHanViet.textContent = hanviet;
+                modalNghia.textContent = nghia;
+                
+                modalKun.textContent = kun;
+                modalKunRomaji.textContent = `(${convertToRomaji(kun)})`;
+                
+                modalOn.textContent = on;
+                modalOnRomaji.textContent = `(${convertToRomaji(on)})`;
+
+                modal.classList.add('active');
+            });
+        });
+
+        // Hàm đóng modal
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Đóng modal bằng phím Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 1: Giới thiệu và Vai trò của Thống kê</title>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; margin: 0; cursor: default; }
+        #toc-sidebar { height: 100%; width: 280px; position: fixed; z-index: 100; top: 0; left: 0; background-color: #f8f9fa; border-right: 1px solid #dee2e6; overflow-y: auto; transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        body.sidebar-open #toc-sidebar { transform: translateX(0); }
+        #toc-sidebar h3 { padding: 20px 25px; margin: 0; color: #0056b3; font-size: 1.2em; background-color: #e9ecef; border-bottom: 1px solid #dee2e6; }
+        #toc-sidebar ul { list-style-type: none; padding: 0; margin: 0; }
+        #toc-sidebar li a { padding: 12px 25px; text-decoration: none; font-size: 16px; color: #212529; display: block; border-bottom: 1px solid #e9ecef; transition: background-color 0.2s; font-weight: 500; }
+        #toc-sidebar li a.special-link { font-weight: bold; color: #0056b3; }
+        #toc-sidebar li a:hover { background-color: #d4eaff; }
+        #toc-toggle { position: fixed; top: 15px; left: 15px; z-index: 101; cursor: pointer; width: 40px; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: white; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .bar { width: 22px; height: 2px; background-color: #0056b3; margin: 3px 0; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        body.sidebar-open .bar1 { transform: translateY(8px) rotate(45deg); }
+        body.sidebar-open .bar2 { opacity: 0; }
+        body.sidebar-open .bar3 { transform: translateY(-8px) rotate(-45deg); }
+        #main-content { max-width: 800px; margin: 20px auto; padding: 20px; }
+        .container { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h1, h2, h3 { color: #0056b3; border-bottom: 2px solid #ddd; padding-bottom: 5px; margin-top: 20px; }
+        h1 { text-align: center; border-bottom: 3px solid #0056b3; }
+        strong { color: #d9534f; }
+        ul li { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div id="toc-toggle">
+        <div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3"></div>
+    </div>
+    <nav id="toc-sidebar">
+        <h3>Sổ tay MAS291</h3>
+        <ul>
+            <li><a href="symbol.html" class="special-link">Sổ tay Ký hiệu & Giải đáp</a></li>
+            <li><a href="chapter_1.html">Chương 1: Giới thiệu</a></li>
+            <li><a href="chapter_2.html">Chương 2: Xác suất</a></li>
+            <li><a href="chapter_3.html">Chương 3: Biến ngẫu nhiên rời rạc</a></li>
+            <li><a href="chapter_4.html">Chương 4: Biến ngẫu nhiên liên tục</a></li>
+            <li><a href="chapter_6.html">Chương 6: Thống kê mô tả</a></li>
+            <li><a href="chapter_7.html">Chương 7: Phân phối mẫu</a></li>
+            <li><a href="chapter_8.html">Chương 8: Khoảng tin cậy (1 Mẫu)</a></li>
+            <li><a href="chapter_9.html">Chương 9: Kiểm định giả thuyết (1 Mẫu)</a></li>
+            <li><a href="chapter_10.html">Chương 10: Suy luận cho 2 Mẫu</a></li>
+            <li><a href="chapter_11.html">Chương 11: Hồi quy và Tương quan</a></li>
+        </ul>
+    </nav>
+    <main id="main-content">
+        <div class="container">
+            <h1>Chương 1: Giới thiệu và Vai trò của Thống kê trong Kỹ thuật</h1>
+            <p>Xác suất thống kê được ứng dụng trong kỹ thuật và công nghệ để phân tích dữ liệu, đưa ra kết luận và giải quyết vấn đề.</p>
+        </div>
+
+        <div class="container">
+            <h2 id="section1-1">Phương pháp thống kê chính</h2>
+            <ul>
+                <li><strong>Descriptive statistics (thống kê mô tả):</strong> Tóm tắt, trình bày dữ liệu bằng các đồ thị, bảng biểu và các đại lượng đặc trưng.</li>
+                <li><strong>Inferential statistics (thống kê suy luận):</strong> Mô tả, suy đoán tính chất của một tổng thể dựa trên một mẫu, sử dụng trong việc kiểm định giả thuyết và ước lượng tham số.</li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <h2 id="section1-2">Các khái niệm quan trọng</h2>
+            <ul>
+                <li><strong>Data:</strong> Thông tin từ quan sát, đo lường.</li>
+                <li><strong>Population (Tổng thể):</strong> Toàn bộ các đối tượng nghiên cứu.</li>
+                <li><strong>Parameter (Tham số):</strong> Một đặc trưng của Population.</li>
+                <li><strong>Sample (Mẫu):</strong> Một tập con của Population.</li>
+                <li><strong>Statistic (Thống kê):</strong> Một đặc trưng của Sample, dùng để ước lượng Parameter.</li>
+                <li>=&gt; Chúng ta sử dụng <strong>Statistic (từ Sample)</strong> để suy luận về <strong>Parameter (của Population)</strong>.</li>
+                <li>VD: Để xác định tỉ lệ lỗi của <strong>tất cả sản phẩm (Population)</strong>, ta lấy <strong>300 sản phẩm (Sample)</strong> để kiểm tra.</li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <h2 id="section1-3">Phân loại dữ liệu</h2>
+            <ul>
+                <li><strong>Qualitative data (dữ liệu định tính):</strong> Không thể đo lường bằng số (ví dụ: màu sắc, loại vật liệu).</li>
+                <li><strong>Quantitative data (dữ liệu định lượng):</strong> Có thể đo lường bằng số (ví dụ: chiều cao, trọng lượng).</li>
+                <li><strong>Discrete data (dữ liệu rời rạc):</strong> Dữ liệu định lượng có thể đếm được (ví dụ: số sản phẩm lỗi).</li>
+                <li><strong>Continuous data (dữ liệu liên tục):</strong> Dữ liệu định lượng có thể nhận bất kỳ giá trị nào trong một khoảng (ví dụ: thời gian, nhiệt độ).</li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <h2 id="section1-4">Phương pháp thu thập dữ liệu</h2>
+            <ul>
+                <li><strong>Observational study (Nghiên cứu quan sát):</strong> Nghiên cứu không can thiệp vào đối tượng.
+                    <ul><li>VD: Quan sát hành vi ăn uống của học sinh trong căng tin.</li></ul>
+                </li>
+                <li><strong>Experiment (Thí nghiệm):</strong> Nghiên cứu có can thiệp và kiểm soát các yếu tố.
+                    <ul><li>VD: Thử nghiệm tác động của thuốc mới bằng cách chia ngẫu nhiên bệnh nhân thành hai nhóm.</li></ul>
+                </li>
+                <li><strong>Retrospective study (Nghiên cứu hồi cứu):</strong> Dựa trên dữ liệu trong quá khứ.
+                    <ul><li>VD: Phân tích hồ sơ y tế của bệnh nhân ung thư phổi để tìm mối liên hệ với hút thuốc.</li></ul>
+                </li>
+                <li><strong>Prospective study (Nghiên cứu tiến cứu):</strong> Theo dõi đối tượng trong tương lai.
+                    <ul><li>VD: Theo dõi một nhóm người không hút thuốc trong 20 năm để xem tỷ lệ mắc bệnh tim.</li></ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <h2>Ứng dụng trong kỹ thuật</h2>
+            <ul>
+                <li>Kiểm soát chất lượng sản phẩm</li>
+                <li>Tối ưu hóa quy trình sản xuất</li>
+                <li>Phân tích độ tin cậy hệ thống</li>
+                <li>Dự đoán tuổi thọ thiết bị</li>
+                <li>Thiết kế và phân tích thí nghiệm</li>
+            </ul>
+        </div>
+    </main>
+    <script>
+        document.getElementById('toc-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('sidebar-open');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 11: Hồi quy Tuyến tính và Tương quan</title>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; margin: 0; cursor: default; }
+        #toc-sidebar { height: 100%; width: 280px; position: fixed; z-index: 100; top: 0; left: 0; background-color: #f8f9fa; border-right: 1px solid #dee2e6; overflow-y: auto; transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        body.sidebar-open #toc-sidebar { transform: translateX(0); }
+        #toc-sidebar h3 { padding: 20px 25px; margin: 0; color: #0056b3; font-size: 1.2em; background-color: #e9ecef; border-bottom: 1px solid #dee2e6; }
+        #toc-sidebar ul { list-style-type: none; padding: 0; margin: 0; }
+        #toc-sidebar li a { padding: 12px 25px; text-decoration: none; font-size: 16px; color: #212529; display: block; border-bottom: 1px solid #e9ecef; transition: background-color 0.2s; font-weight: 500; }
+        #toc-sidebar li a.special-link { font-weight: bold; color: #0056b3; }
+        #toc-sidebar li a:hover { background-color: #d4eaff; }
+        #toc-toggle { position: fixed; top: 15px; left: 15px; z-index: 101; cursor: pointer; width: 40px; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: white; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .bar { width: 22px; height: 2px; background-color: #0056b3; margin: 3px 0; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        body.sidebar-open .bar1 { transform: translateY(8px) rotate(45deg); }
+        body.sidebar-open .bar2 { opacity: 0; }
+        body.sidebar-open .bar3 { transform: translateY(-8px) rotate(-45deg); }
+        #main-content { max-width: 800px; margin: 20px auto; padding: 20px; }
+        .container { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h1, h2, h3 { color: #0056b3; border-bottom: 2px solid #ddd; padding-bottom: 5px; margin-top: 20px; }
+        h1 { text-align: center; border-bottom: 3px solid #0056b3; }
+        .formula { text-align: center; font-size: 1.2em; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <div id="toc-toggle">
+        <div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3"></div>
+    </div>
+    <nav id="toc-sidebar">
+        <h3>Sổ tay MAS291</h3>
+        <ul>
+            <li><a href="symbol.html" class="special-link">Sổ tay Ký hiệu & Giải đáp</a></li>
+            <li><a href="chapter_1.html">Chương 1: Giới thiệu</a></li>
+            <li><a href="chapter_2.html">Chương 2: Xác suất</a></li>
+            <li><a href="chapter_3.html">Chương 3: Biến ngẫu nhiên rời rạc</a></li>
+            <li><a href="chapter_4.html">Chương 4: Biến ngẫu nhiên liên tục</a></li>
+            <li><a href="chapter_6.html">Chương 6: Thống kê mô tả</a></li>
+            <li><a href="chapter_7.html">Chương 7: Phân phối mẫu</a></li>
+            <li><a href="chapter_8.html">Chương 8: Khoảng tin cậy (1 Mẫu)</a></li>
+            <li><a href="chapter_9.html">Chương 9: Kiểm định giả thuyết (1 Mẫu)</a></li>
+            <li><a href="chapter_10.html">Chương 10: Suy luận cho 2 Mẫu</a></li>
+            <li><a href="chapter_11.html">Chương 11: Hồi quy và Tương quan</a></li>
+        </ul>
+    </nav>
+    <main id="main-content">
+        <div class="container">
+            <h1>Chương 11: Hồi quy Tuyến tính Đơn giản và Tương quan</h1>
+        </div>
+
+        <div class="container" id="section11-1">
+            <h2>11.1 Mô hình Hồi quy Tuyến tính Đơn giản</h2>
+            <p>Mô hình mô tả mối quan hệ tuyến tính giữa biến phụ thuộc Y và biến độc lập X:</p>
+            <div class="formula">$$ Y = \beta_0 + \beta_1 X + \epsilon $$</div>
+            <p>Phương trình hồi quy ước lượng (đường thẳng phù hợp nhất):</p>
+            <div class="formula">$$ \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x $$</div>
+            <p>Các hệ số được ước lượng bằng phương pháp bình phương nhỏ nhất:</p>
+            <div class="formula">$$ \hat{\beta}_1 = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum(x_i - \bar{x})^2} $$</div>
+            <div class="formula">$$ \hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x} $$</div>
+        </div>
+
+        <div class="container" id="section11-2">
+            <h2>11.2 Kiểm định Giả thuyết trong Hồi quy</h2>
+            <p>Kiểm định ý nghĩa của mối quan hệ tuyến tính bằng cách kiểm tra hệ số góc \( \beta_1 \).</p>
+            <p><strong>Giả thuyết:</strong> \(H_0: \beta_1 = 0\) (không có mối quan hệ tuyến tính) vs \(H_1: \beta_1 \ne 0\)</p>
+            <p><strong>Thống kê kiểm định (df = n - 2):</strong></p>
+            <div class="formula">$$ t = \frac{\hat{\beta}_1}{\text{se}(\hat{\beta}_1)} = \frac{\hat{\beta}_1}{s / \sqrt{\sum(x_i-\bar{x})^2}} $$</div>
+            <p>Trong đó \( s = \sqrt{\frac{SSE}{n-2}} \) là sai số chuẩn của phần dư.</p>
+        </div>
+
+        <div class="container" id="section11-3">
+            <h2>11.3 Tương quan (Correlation)</h2>
+            <p><strong>Hệ số tương quan mẫu (r):</strong> Đo lường mức độ và hướng của mối quan hệ tuyến tính giữa hai biến.</p>
+            <div class="formula">$$ r = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum(x_i - \bar{x})^2 \sum(y_i - \bar{y})^2}} $$</div>
+            <ul>
+                <li>\( -1 \le r \le 1 \)</li>
+                <li>Giá trị gần 1 hoặc -1 chỉ ra mối quan hệ tuyến tính mạnh.</li>
+                <li>Giá trị gần 0 chỉ ra mối quan hệ tuyến tính yếu.</li>
+            </ul>
+            <p><strong>Hệ số xác định (r²):</strong> Tỷ lệ phần trăm biến thiên của Y được giải thích bởi X.</p>
+            
+            <h3>Kiểm định Giả thuyết cho Hệ số Tương quan (\(\rho\))</h3>
+            <p><strong>Giả thuyết:</strong> \(H_0: \rho = 0\) vs \(H_1: \rho \ne 0\)</p>
+            <p><strong>Thống kê kiểm định (df = n - 2):</strong></p>
+            <div class="formula">$$ t = \frac{r \sqrt{n-2}}{\sqrt{1-r^2}} $$</div>
+        </div>
+    </main>
+    <script>
+        document.getElementById('toc-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('sidebar-open');
+        });
+    </script>
+</body>
+</html>

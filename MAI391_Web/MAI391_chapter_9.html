@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 9: Linear Regression</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color, #f4f7f6);
+            color: var(--text-color, #333);
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color-secondary, #ffffff);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3 {
+            color: var(--text-color-primary, #2c3e50);
+            border-bottom: 2px solid var(--accent-color, #007bff);
+            padding-bottom: 10px;
+        }
+        h1 { font-size: 2.2rem; }
+        h2 {
+            margin-top: 2.5rem;
+            font-size: 1.8rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            border-bottom: 1px dashed #ccc;
+        }
+        .content-box {
+            margin: 1.5rem 0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .definition {
+            background-color: #e6f7ff;
+            border-left: 5px solid #1890ff;
+        }
+        .theorem {
+            background-color: #f6ffed;
+            border-left: 5px solid #52c41a;
+        }
+        .example {
+            background-color: #fffbe6;
+            border-left: 5px solid #faad14;
+        }
+        .content-box h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 0;
+            color: #333;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: var(--accent-color, #007bff);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">&larr; Quay lại mục lục</a>
+        
+        [cite_start]<h1>Chương 9. Linear Regression</h1> [cite: 1]
+
+        [cite_start]<h2 id="sec9.1">9.1 Problem Formulation</h2> [cite: 15]
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Problem Formulation)</h4>
+            <p>Giả định về Likelihood (Hàm hợp lý):</p>
+            [cite_start]<p>\[ p(y|x) = \mathcal{N}(y|f(x), \sigma^{2}) \] [cite: 19]</p>
+            [cite_start]<p>Mô hình cơ bản: [cite: 22]</p>
+            [cite_start]<p>\[ y = f(x) + \epsilon \quad \text{với } \epsilon \sim \mathcal{N}(0, \sigma^{2}) \] [cite: 23]</p>
+            [cite_start]<p>Mô hình hồi quy tuyến tính (Linear Regression Model): [cite: 30]</p>
+            [cite_start]<p>\[ y = x^{T}\theta + \epsilon \] [cite: 32]</p>
+            <p>Likelihood cho mô hình tuyến tính:</p>
+            [cite_start]<p>\[ p(y|x, \theta) = \mathcal{N}(y|x^{T}\theta, \sigma^{2}) \] [cite: 31]</p>
+        </div>
+
+        [cite_start]<h2 id="sec9.2">9.2 Parameter Estimation</h2> [cite: 39]
+
+        <div class="content-box definition">
+            <h4>Định nghĩa (Likelihood of Training Set)</h4>
+            [cite_start]<p>Cho tập huấn luyện \(\mathcal{D} = \{(x_1, y_1), \dots, (x_N, y_N)\}:\) [cite: 41]</p>
+            [cite_start]<p>\[ p(\mathcal{Y}|\mathcal{X}, \theta) = \prod_{n=1}^{N} p(y_{n}|x_{n}, \theta) = \prod_{n=1}^{N} \mathcal{N}(y_{n}|x_{n}^{T}\theta, \sigma^{2}) \] [cite: 45, 46]</p>
+        </div>
+        
+        [cite_start]<h3>9.2.1 Maximum Likelihood Estimation (MLE)</h3> [cite: 58]
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Negative Log-Likelihood - NLL)</h4>
+            [cite_start]<p>Để tìm \(\theta_{ML}\), chúng ta cực tiểu hóa hàm Âm Log-Likelihood: [cite: 59, 64]</p>
+            [cite_start]<p>\[ -log~p(\mathcal{Y}|\mathcal{X}, \theta) = - \sum_{n=1}^{N} log~p(y_{n}|x_{n}, \theta) \] [cite: 65]</p>
+            [cite_start]<p>Bỏ qua các hằng số, điều này tương đương với việc cực tiểu hóa <strong>Sum of Squared Errors (SSE)</strong>: [cite: 72]</p>
+            [cite_start]<p>\[ \mathcal{L}(\theta) := \frac{1}{2\sigma^{2}} \sum_{n=1}^{N} (y_{n} - x_{n}^{T}\theta)^{2} = \frac{1}{2\sigma^{2}} \|y - X\theta\|^{2} \] [cite: 74]</p>
+        </div>
+        
+        <div class="content-box theorem">
+            <h4>Định lý (ML Estimate - Normal Equations)</h4>
+            [cite_start]<p>Nghiệm cho \(\theta_{ML}\) (còn gọi là phương trình chuẩn) thu được bằng cách đặt gradient \(\frac{d\mathcal{L}}{d\theta} = 0\): [cite: 84]</p>
+            [cite_start]<p>\[ \theta_{ML} = (X^{T}X)^{-1}X^{T}y \] [cite: 86]</p>
+        </div>
+        
+        <div class="content-box theorem">
+            [cite_start]<h4>Định lý (MLE with Features)</h4> [cite: 92]
+            [cite_start]<p>Sử dụng một phép biến đổi phi tuyến \(\phi(x)\), mô hình trở thành: [cite: 95]</p>
+            [cite_start]<p>\[ p(y|x,\theta) = \mathcal{N}(y|\phi^{T}(x)\theta, \sigma^{2}) \] [cite: 97]</p>
+            [cite_start]<p>Ước lượng ML, với \(\Phi\) là ma trận thiết kế (design matrix) \([\phi(x_1) \dots \phi(x_N)]^T\): [cite: 101]</p>
+            [cite_start]<p>\[ \theta_{ML} = (\Phi^{T}\Phi)^{-1}\Phi^{T}y \] [cite: 109]</p>
+        </div>
+        
+        <div class="content-box theorem">
+            [cite_start]<h4>Định lý (MLE for Noise Variance)</h4> [cite: 115]
+            [cite_start]<p>Ước lượng ML cho phương sai nhiễu \(\sigma^2\) là: [cite: 119]</p>
+            [cite_start]<p>\[ \sigma_{ML}^{2} = \frac{1}{N}\sum_{n=1}^{N}(y_{n} - \phi^{T}(x_{n})\theta)^{2} \] [cite: 125]</p>
+        </div>
+
+        [cite_start]<h3>9.2.3 Maximum A Posteriori (MAP) Estimation</h3> [cite: 128]
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (MAP Objective)</h4>
+            [cite_start]<p>Chúng ta tối đa hóa phân phối hậu nghiệm \(p(\theta|\mathcal{X},\mathcal{Y}) \propto p(\mathcal{Y}|\mathcal{X},\theta) p(\theta)\). [cite: 130, 132]</p>
+            <p>Giả sử một hàm tiên nghiệm (prior) Gaussian cho \(\theta\):</p>
+            [cite_start]<p>\[ p(\theta) = \mathcal{N}(0, b^{2}I) \] [cite: 136]</p>
+            [cite_start]<p>Cực tiểu hóa âm log-hậu nghiệm tương đương với: [cite: 147]</p>
+            [cite_start]<p>\[ \min_{\theta} \left( \underbrace{\frac{1}{2\sigma^{2}}(y-\Phi\theta)^{T}(y-\Phi\theta)}_{\text{Negative Log-Likelihood}} + \underbrace{\frac{1}{2b^{2}}\theta^{T}\theta}_{\text{Negative Log-Prior}} \right) \] [cite: 137]</p>
+        </div>
+        
+        <div class="content-box theorem">
+            <h4>Định lý (MAP Estimate - Ridge Regression)</h4>
+            <p>Nghiệm cho \(\theta_{MAP}\) (còn gọi là <strong>Ridge Regression</strong>):</p>
+            [cite_start]<p>\[ \theta_{MAP} = \left(\Phi^{T}\Phi + \frac{\sigma^{2}}{b^{2}}I\right)^{-1}\Phi^{T}y \] [cite: 152]</p>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện thi Tiếng Nhật</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --primary-hover: #0056b3;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --light-bg: #f8f9fa;
+            --white-bg: #ffffff;
+            --text-color: #333;
+            --border-color: #dee2e6;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: var(--white-bg);
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+        .main-menu {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .main-menu button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+        }
+        .main-menu button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+        .main-menu button.active {
+            background-color: var(--primary-hover);
+        }
+        .view { display: none; }
+        .view.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        h1, h2, h3 { color: var(--primary-hover); text-align: center; }
+        
+        /* Vocab View */
+        #filter-container {
+            text-align: center;
+            margin: -10px 0 20px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        #filter-container label {
+            margin: 0 15px;
+            font-size: 1.05em;
+            cursor: pointer;
+        }
+         #filter-container input {
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .lesson-group {
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fdfdfd;
+            overflow: hidden;
+        }
+        .lesson-group h3 {
+            margin: 0;
+            padding: 15px 20px;
+            color: white;
+            background-color: #6c757d;
+        }
+        .vocab-list { list-style: none; padding: 0; margin: 0; }
+        .vocab-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-bottom: 1px solid var(--border-color); }
+        .vocab-item:last-child { border-bottom: none; }
+        .vocab-jp { font-size: 1.15em; font-weight: 500; }
+        .vocab-jp .kana { font-size: 0.85em; color: #555; font-weight: normal; display: block; }
+        .vocab-jp .furigana-reading {
+            font-size: 0.8em;
+            color: #6c757d;
+            font-weight: normal;
+            margin-left: 8px;
+        }
+        .vocab-vi { font-size: 1.05em; color: #444; text-align: right; }
+
+        /* Quiz View */
+        #quiz-status { text-align: center; margin-bottom: 20px; font-size: 1.1em; }
+        #progress-bar-container { background-color: #e9ecef; border-radius: 0.25rem; }
+        #progress-bar { height: 10px; background-color: var(--success-color); border-radius: 0.25rem; transition: width 0.4s ease; }
+        #quiz-container { padding: 20px; background: #fdfdfd; border-radius: 8px; border: 1px solid var(--border-color); }
+        #question { font-size: 1.6em; font-weight: bold; margin-bottom: 25px; text-align: center; }
+        #options { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        #options button { width: 100%; padding: 18px; font-size: 1.1em; cursor: pointer; background-color: var(--white-bg); border: 1px solid var(--border-color); border-radius: 8px; transition: all 0.2s; text-align: left; }
+        #options button:hover:not(:disabled) { border-color: var(--primary-color); color: var(--primary-color); background-color: #e9f7ff; }
+        #options button.correct { background-color: var(--success-color); color: white; border-color: var(--success-color); }
+        #options button.incorrect { background-color: var(--danger-color); color: white; border-color: var(--danger-color); }
+        #options button:disabled { cursor: default; }
+        #explanation { display: none; margin-top: 20px; padding: 20px; background-color: #e9f7ff; border: 1px solid #bce8f1; border-radius: 8px; }
+        #explanation h4 { margin-top: 0; color: #31708f; border-bottom: 1px solid #bce8f1; padding-bottom: 10px; }
+        #explanation p { margin: 8px 0; font-size: 1.1em; }
+        #explanation .jp-sentence { font-weight: bold; font-size: 1.2em; }
+        #explanation .romaji-sentence { font-style: italic; color: #555; }
+        #quiz-controls { text-align: center; margin-top: 20px; }
+        #quiz-controls button {
+            background-color: var(--warning-color); color: #333; border: none; padding: 12px 30px;
+            border-radius: 8px; cursor: pointer; font-size: 1.1em; font-weight: 500;
+        }
+        #quiz-complete-message { text-align: center; font-size: 1.3em; color: var(--success-color); }
+        #reset-progress { background-color: #6c757d; color: white; margin-left: 10px;}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🇯🇵 Luyện thi Tiếng Nhật 🇻🇳</h1>
+        <div class="main-menu">
+            <button id="show-vocab-btn" class="active">📚 Tra cứu Từ vựng</button>
+            <button id="show-quiz-btn">✍️ Ôn tập Trắc nghiệm</button>
+        </div>
+
+        <div id="vocab-view" class="view active">
+            <h2>Danh sách Từ vựng</h2>
+            <div id="filter-container">
+                <label><input type="checkbox" name="vocab-filter" value="kanji"> Kanji</label>
+                <label><input type="checkbox" name="vocab-filter" value="hiragana"> Hiragana</label>
+                <label><input type="checkbox" name="vocab-filter" value="katakana"> Katakana</label>
+            </div>
+            <div id="vocab-content"></div>
+        </div>
+
+        <div id="quiz-view" class="view">
+            <h2>Ôn tập Trắc nghiệm</h2>
+            <div id="quiz-status">
+                <p>Tiến độ: <span id="completed-count">0</span> / <span id="total-count">0</span></p>
+                <div id="progress-bar-container">
+                    <div id="progress-bar" style="width: 0%;"></div>
+                </div>
+            </div>
+            
+            <div id="quiz-start-screen">
+                 <div id="quiz-controls">
+                    <button id="start-quiz-session-btn">Bắt đầu phiên ôn tập (10 câu)</button>
+                    <button id="reset-progress">Reset tiến độ</button>
+                </div>
+            </div>
+
+            <div id="quiz-container" style="display: none;">
+                <div id="question"></div>
+                <div id="options"></div>
+                <div id="explanation">
+                    <h4>📖 Giải thích chi tiết</h4>
+                    <p><strong>Kanji:</strong> <span id="exp-kanji"></span></p>
+                    <p><strong>Hiragana/Katakana:</strong> <span id="exp-kana"></span></p>
+                    <p><strong>Romaji:</strong> <span id="exp-romaji"></span></p>
+                    <p><strong>Nghĩa:</strong> <span id="exp-vi"></span></p>
+                    <hr>
+                    <p><strong>Câu ví dụ:</strong></p>
+                    <p class="jp-sentence" id="exp-sentence-jp"></p>
+                    <p class="romaji-sentence" id="exp-sentence-romaji"></p>
+                    <p class="vi-sentence" id="exp-sentence-vi"></p>
+                </div>
+                <div id="quiz-session-controls" style="text-align:center; margin-top:20px;">
+                    <button id="next-question-btn" style="display:none;">Câu tiếp theo</button>
+                </div>
+            </div>
+            
+             <div id="quiz-complete-message" style="display:none;">
+                <h3>🎉 Chúc mừng! Bạn đã hoàn thành tất cả câu hỏi!</h3>
+                <p>Hãy nhấn nút Reset để bắt đầu lại từ đầu.</p>
+            </div>
+
+        </div>
+    </div>
+
+<script>
+const vocabulary = [
+    // BÀI 1: Tên, Quốc gia, Công việc, Sở thích
+    { id: 1, lesson: 1, kanji: '私', hiragana: 'わたし', romaji: 'watashi', vietnamese: 'tôi', example_jp: '私の名前はタナカです。', example_romaji: 'Watashi no namae wa Tanaka desu.', example_vi: 'Tên của tôi là Tanaka.' },
+    { id: 2, lesson: 1, kanji: '名前', hiragana: 'なまえ', romaji: 'namae', vietnamese: 'tên', example_jp: 'お名前は何ですか。', example_romaji: 'O-namae wa nan desu ka.', example_vi: 'Tên của bạn là gì?' },
+    { id: 3, lesson: 1, kanji: '国', hiragana: 'くに', romaji: 'kuni', vietnamese: 'nước, đất nước', example_jp: 'お国はどちらですか。', example_romaji: 'O-kuni wa dochira desu ka.', example_vi: 'Nước của bạn là nước nào?' },
+    { id: 4, lesson: 1, kanji: '日本', hiragana: 'にほん', romaji: 'Nihon', vietnamese: 'Nhật Bản', example_jp: '私は日本人です。', example_romaji: 'Watashi wa Nihon-jin desu.', example_vi: 'Tôi là người Nhật.' },
+    { id: 5, lesson: 1, katakana: 'アメリカ', romaji: 'Amerika', vietnamese: 'Mỹ', example_jp: 'アメリカから来ました。', example_romaji: 'Amerika kara kimashita.', example_vi: 'Tôi đến từ Mỹ.' },
+    { id: 6, lesson: 1, katakana: 'イタリア', romaji: 'Itaria', vietnamese: 'Ý', example_jp: 'イタリアの料理が好きです。', example_romaji: 'Itaria no ryouri ga suki desu.', example_vi: 'Tôi thích món ăn của Ý.' },
+    { id: 7, lesson: 1, katakana: 'オーストラリア', romaji: 'Oosutoraria', vietnamese: 'Úc', example_jp: 'オーストラリアは広い国です。', example_romaji: 'Oosutoraria wa hiroi kuni desu.', example_vi: 'Nước Úc là một đất nước rộng lớn.' },
+    { id: 8, lesson: 1, kanji: '韓国', hiragana: 'かんこく', romaji: 'Kankoku', vietnamese: 'Hàn Quốc', example_jp: '韓国のドラマを見ます。', example_romaji: 'Kankoku no dorama o mimasu.', example_vi: 'Tôi xem phim truyền hình Hàn Quốc.' },
+    { id: 9, lesson: 1, katakana: 'タイ', romaji: 'Tai', vietnamese: 'Thái Lan', example_jp: 'タイへ旅行に行きたいです。', example_romaji: 'Tai e ryokou ni ikitai desu.', example_vi: 'Tôi muốn đi du lịch Thái Lan.' },
+    { id: 10, lesson: 1, kanji: '中国', hiragana: 'ちゅうごく', romaji: 'Chuugoku', vietnamese: 'Trung Quốc', example_jp: '彼は中国出身です。', example_romaji: 'Kare wa Chuugoku shusshin desu.', example_vi: 'Anh ấy đến từ Trung Quốc.' },
+    { id: 11, lesson: 1, katakana: 'ロシア', romaji: 'Roshia', vietnamese: 'Nga', example_jp: 'ロシアは寒いです。', example_romaji: 'Roshia wa samui desu.', example_vi: 'Nước Nga thì lạnh.' },
+    { id: 12, lesson: 1, kanji: '高校', hiragana: 'こうこう', romaji: 'koukou', vietnamese: 'trung học phổ thông', example_jp: '私は高校の先生です。', example_romaji: 'Watashi wa koukou no sensei desu.', example_vi: 'Tôi là giáo viên cấp 3.' },
+    { id: 13, lesson: 1, kanji: '大学', hiragana: 'だいがく', romaji: 'daigaku', vietnamese: 'đại học', example_jp: '彼は大学で勉強しています。', example_romaji: 'Kare wa daigaku de benkyou shiteimasu.', example_vi: 'Anh ấy đang học ở trường đại học.' },
+    { id: 14, lesson: 1, kanji: '日本語学校', hiragana: 'にほんごがっこう', romaji: 'nihongo gakkou', vietnamese: 'trường tiếng Nhật', example_jp: '日本語学校で日本語を習います。', example_romaji: 'Nihongo gakkou de nihongo o naraimasu.', example_vi: 'Tôi học tiếng Nhật ở trường tiếng Nhật.' },
+    { id: 15, lesson: 1, kanji: '仕事', hiragana: 'しごと', romaji: 'shigoto', vietnamese: 'công việc', example_jp: 'あなたの仕事は何ですか。', example_romaji: 'Anata no shigoto wa nan desu ka.', example_vi: 'Công việc của bạn là gì?' },
+    { id: 16, lesson: 1, kanji: '学生', hiragana: 'がくせい', romaji: 'gakusei', vietnamese: 'học sinh, sinh viên', example_jp: '私は学生です。', example_romaji: 'Watashi wa gakusei desu.', example_vi: 'Tôi là học sinh.' },
+    { id: 17, lesson: 1, kanji: '先生', hiragana: 'せんせい', romaji: 'sensei', vietnamese: 'giáo viên (dùng khi xưng hô)', example_jp: '田中先生、おはようございます。', example_romaji: 'Tanaka-sensei, ohayou gozaimasu.', example_vi: 'Chào buổi sáng, thầy Tanaka.' },
+    { id: 18, lesson: 1, kanji: '教師', hiragana: 'きょうし', romaji: 'kyoushi', vietnamese: 'giáo viên (dùng khi nói về nghề nghiệp)', example_jp: '私の仕事は教師です。', example_romaji: 'Watashi no shigoto wa kyoushi desu.', example_vi: 'Nghề của tôi là giáo viên.' },
+    { id: 19, lesson: 1, kanji: '会社員', hiragana: 'かいしゃいん', romaji: 'kaishain', vietnamese: 'nhân viên công ty', example_jp: '父は会社員です。', example_romaji: 'Chichi wa kaishain desu.', example_vi: 'Bố tôi là nhân viên công ty.' },
+    { id: 20, lesson: 1, kanji: '社員', hiragana: 'しゃいん', romaji: 'shain', vietnamese: 'nhân viên (của một công ty cụ thể)', example_jp: 'IMCの社員です。', example_romaji: 'IMC no shain desu.', example_vi: 'Tôi là nhân viên của công ty IMC.' },
+    { id: 21, lesson: 1, kanji: '人', hiragana: 'じん', romaji: '-jin', vietnamese: 'người- (hậu tố quốc tịch)', example_jp: '私はベトナム人です。', example_romaji: 'Watashi wa Betonamu-jin desu.', example_vi: 'Tôi là người Việt Nam.' },
+    { id: 22, lesson: 1, hiragana: 'どちら', romaji: 'dochira', vietnamese: 'nào, ở đâu (lịch sự)', example_jp: 'トイレはどちらですか。', example_romaji: 'Toire wa dochira desu ka.', example_vi: 'Nhà vệ sinh ở đâu ạ?' },
+    { id: 23, lesson: 1, hiragana: 'はじめまして', romaji: 'hajimemashite', vietnamese: 'chào lần đầu gặp', example_jp: 'はじめまして。どうぞよろしくお願いします。', example_romaji: 'Hajimemashite. Douzo yoroshiku onegaishimasu.', example_vi: 'Rất vui được gặp bạn. Mong được bạn giúp đỡ.' },
+    { id: 24, lesson: 1, hiragana: 'どうぞよろしくおねがいします', romaji: 'douzo yoroshiku onegaishimasu', vietnamese: 'rất mong được sự giúp đỡ', example_jp: 'はじめまして。どうぞよろしくお願いします。', example_romaji: 'Hajimemashite. Douzo yoroshiku onegaishimasu.', example_vi: 'Rất vui được gặp bạn. Mong được bạn giúp đỡ.' },
+    { id: 25, lesson: 1, hiragana: 'こちらこそ', romaji: 'kochirakoso', vietnamese: 'chính tôi cũng thế', example_jp: 'こちらこそ、よろしくお願いします。', example_romaji: 'Kochirakoso, yoroshiku onegaishimasu.', example_vi: 'Chính tôi cũng rất mong được bạn giúp đỡ.' },
+    { id: 26, lesson: 1, hiragana: 'すみません', romaji: 'sumimasen', vietnamese: 'xin lỗi', example_jp: 'すみません、これはいくらですか。', example_romaji: 'Sumimasen, kore wa ikura desu ka.', example_vi: 'Xin lỗi, cái này bao nhiêu tiền?' },
+    { id: 27, lesson: 1, hiragana: 'そうですか', romaji: 'sou desu ka', vietnamese: 'thế à', example_jp: 'A: 彼は学生です。 B: そうですか。', example_romaji: 'A: Kare wa gakusei desu. B: Sou desu ka.', example_vi: 'A: Anh ấy là học sinh. B: Thế à.' },
+    { id: 28, lesson: 1, hiragana: 'はい', romaji: 'hai', vietnamese: 'vâng, dạ', example_jp: 'A: 学生ですか。 B: はい、そうです。', example_romaji: 'A: Gakusei desu ka. B: Hai, sou desu.', example_vi: 'A: Bạn là học sinh phải không? B: Vâng, đúng vậy.' },
+    { id: 29, lesson: 1, hiragana: 'いいえ', romaji: 'iie', vietnamese: 'không', example_jp: 'A: 学生ですか。 B: いいえ、違います。', example_romaji: 'A: Gakusei desu ka. B: Iie, chigaimasu.', example_vi: 'A: Bạn là học sinh phải không? B: Không, không phải.' },
+    { id: 30, lesson: 1, kanji: '誕生日', hiragana: 'たんじょうび', romaji: 'tanjoubi', vietnamese: 'sinh nhật', example_jp: '誕生日はいつですか。', example_romaji: 'Tanjoubi wa itsu desu ka.', example_vi: 'Sinh nhật của bạn là khi nào?' },
+    { id: 31, lesson: 1, katakana: 'ブラジル', romaji: 'Burajiru', vietnamese: 'Brazil', example_jp: '彼女はブラジル人です。', example_romaji: 'Kanojo wa Burajiru-jin desu.', example_vi: 'Cô ấy là người Brazil.' },
+    { id: 32, lesson: 1, kanji: '月', hiragana: 'がつ', romaji: '-gatsu', vietnamese: 'tháng', example_jp: '今は八月です。', example_romaji: 'Ima wa hachi-gatsu desu.', example_vi: 'Bây giờ là tháng 8.' },
+    { id: 33, lesson: 1, kanji: '日', hiragana: 'にち', romaji: '-nichi', vietnamese: 'ngày', example_jp: '今日は七日です。', example_romaji: 'Kyou wa nanoka desu.', example_vi: 'Hôm nay là ngày 7.' },
+    { id: 34, lesson: 1, kanji: '歳', hiragana: 'さい', romaji: '-sai', vietnamese: 'tuổi', example_jp: '私は二十歳です。', example_romaji: 'Watashi wa hatachi desu.', example_vi: 'Tôi 20 tuổi.' },
+    { id: 35, lesson: 1, hiragana: 'いつ', romaji: 'itsu', vietnamese: 'khi nào, bao giờ', example_jp: 'いつ日本へ来ましたか。', example_romaji: 'Itsu Nihon e kimashita ka.', example_vi: 'Bạn đã đến Nhật khi nào?' },
+    { id: 36, lesson: 1, kanji: '趣味', hiragana: 'しゅみ', romaji: 'shumi', vietnamese: 'sở thích', example_jp: '私の趣味は読書です。', example_romaji: 'Watashi no shumi wa dokusho desu.', example_vi: 'Sở thích của tôi là đọc sách.' },
+    { id: 37, lesson: 1, katakana: 'スポーツ', romaji: 'supootsu', vietnamese: 'thể thao', example_jp: 'どんなスポーツが好きですか。', example_romaji: 'Donna supootsu ga suki desu ka.', example_vi: 'Bạn thích môn thể thao nào?' },
+    { id: 38, lesson: 1, katakana: 'サッカー', romaji: 'sakkaa', vietnamese: 'bóng đá', example_jp: '週末、サッカーをします。', example_romaji: 'Shuumatsu, sakkaa o shimasu.', example_vi: 'Cuối tuần tôi chơi bóng đá.' },
+    { id: 39, lesson: 1, katakana: 'テニス', romaji: 'tenisu', vietnamese: 'quần vợt', example_jp: 'テニスができますか。', example_romaji: 'Tenisu ga dekimasu ka.', example_vi: 'Bạn có thể chơi tennis không?' },
+    { id: 40, lesson: 1, kanji: '水泳', hiragana: 'すいえい', romaji: 'suiei', vietnamese: 'bơi lội', example_jp: '趣味は水泳です。', example_romaji: 'Shumi wa suiei desu.', example_vi: 'Sở thích của tôi là bơi lội.' },
+    { id: 41, lesson: 1, kanji: '映画', hiragana: 'えいが', romaji: 'eiga', vietnamese: 'điện ảnh, phim', example_jp: '昨日、映画を見ました。', example_romaji: 'Kinou, eiga o mimashita.', example_vi: 'Hôm qua tôi đã xem phim.' },
+    { id: 42, lesson: 1, kanji: '音楽', hiragana: 'おんがく', romaji: 'ongaku', vietnamese: 'âm nhạc', example_jp: '音楽を聞くのが好きです。', example_romaji: 'Ongaku o kiku no ga suki desu.', example_vi: 'Tôi thích nghe nhạc.' },
+    { id: 43, lesson: 1, kanji: '読書', hiragana: 'どくしょ', romaji: 'dokusho', vietnamese: 'đọc sách', example_jp: '私の趣味は読書です。', example_romaji: 'Watashi no shumi wa dokusho desu.', example_vi: 'Sở thích của tôi là đọc sách.' },
+    { id: 44, lesson: 1, kanji: '旅行', hiragana: 'りょこう', romaji: 'ryokou', vietnamese: 'du lịch', example_jp: '夏休みに旅行します。', example_romaji: 'Natsuyasumi ni ryokou shimasu.', example_vi: 'Tôi sẽ đi du lịch vào kỳ nghỉ hè.' },
+    { id: 45, lesson: 1, kanji: '料理', hiragana: 'りょうり', romaji: 'ryouri', vietnamese: 'nấu ăn, món ăn', example_jp: '私の趣味は料理です。', example_romaji: 'Watashi no shumi wa ryouri desu.', example_vi: 'Sở thích của tôi là nấu ăn.' },
+    { id: 46, lesson: 1, kanji: '何', hiragana: 'なん', romaji: 'nan', vietnamese: 'gì, cái gì', example_jp: 'これは何ですか。', example_romaji: 'Kore wa nan desu ka.', example_vi: 'Đây là cái gì?' },
+
+    // BÀI 2: Địa điểm, Mua sắm, Nhà hàng
+    { id: 47, lesson: 2, hiragana: 'おいしい', romaji: 'oishii', vietnamese: 'ngon', example_jp: 'このケーキはとてもおいしいです。', example_romaji: 'Kono keeki wa totemo oishii desu.', example_vi: 'Cái bánh này rất ngon.' },
+    { id: 48, lesson: 2, hiragana: 'ここ', romaji: 'koko', vietnamese: 'chỗ này, đây', example_jp: 'ここは教室です。', example_romaji: 'Koko wa kyoushitsu desu.', example_vi: 'Đây là phòng học.' },
+    { id: 49, lesson: 2, hiragana: 'そこ', romaji: 'soko', vietnamese: 'chỗ đó, đó', example_jp: 'そこは図書館です。', example_romaji: 'Soko wa toshokan desu.', example_vi: 'Đó là thư viện.' },
+    { id: 50, lesson: 2, hiragana: 'あそこ', romaji: 'asoko', vietnamese: 'chỗ kia, kia', example_jp: 'あそこは銀行です。', example_romaji: 'Asoko wa ginkou desu.', example_vi: 'Kia là ngân hàng.' },
+    { id: 51, lesson: 2, katakana: 'インフォメーション', romaji: 'infomeeshon', vietnamese: 'thông tin, quầy thông tin', example_jp: 'インフォメーションはどこですか。', example_romaji: 'Infomeeshon wa doko desu ka.', example_vi: 'Quầy thông tin ở đâu ạ?' },
+    { id: 52, lesson: 2, katakana: 'ATM', romaji: 'ee tii emu', vietnamese: 'máy rút tiền', example_jp: 'ATMでお金をおろします。', example_romaji: 'ATM de okane o oroshimasu.', example_vi: 'Tôi rút tiền ở máy ATM.' },
+    { id: 53, lesson: 2, katakana: 'エスカレーター', romaji: 'esukareetaa', vietnamese: 'cầu thang cuốn', example_jp: 'エスカレーターで上に上がります。', example_romaji: 'Esukareetaa de ue ni agarimasu.', example_vi: 'Đi lên trên bằng thang cuốn.' },
+    { id: 54, lesson: 2, katakana: 'エレベーター', romaji: 'erebeetaa', vietnamese: 'thang máy', example_jp: 'エレベーターはあそこです。', example_romaji: 'Erebeetaa wa asoko desu.', example_vi: 'Thang máy ở đằng kia.' },
+    { id: 55, lesson: 2, kanji: '喫煙所', hiragana: 'きつえんじょ', romaji: 'kitsuenjo', vietnamese: 'chỗ hút thuốc', example_jp: '喫煙所は外にあります。', example_romaji: 'Kitsuenjo wa soto ni arimasu.', example_vi: 'Nơi hút thuốc ở bên ngoài.' },
+    { id: 56, lesson: 2, katakana: 'トイレ', romaji: 'toire', vietnamese: 'toa-lét, nhà vệ sinh', example_jp: 'トイレはどこですか。', example_romaji: 'Toire wa doko desu ka.', example_vi: 'Nhà vệ sinh ở đâu ạ?' },
+    { id: 57, lesson: 2, katakana: 'レジ', romaji: 'reji', vietnamese: 'chỗ tính tiền, quầy thu ngân', example_jp: 'レジでお金を払います。', example_romaji: 'Reji de okane o haraimasu.', example_vi: 'Tôi trả tiền ở quầy thu ngân.' },
+    { id: 58, lesson: 2, kanji: '喫茶店', hiragana: 'きっさてん', romaji: 'kissaten', vietnamese: 'quán trà/cà phê', example_jp: '喫茶店でコーヒーを飲みます。', example_romaji: 'Kissaten de koohii o nomimasu.', example_vi: 'Tôi uống cà phê ở quán cà phê.' },
+    { id: 59, lesson: 2, katakana: 'スーパー', romaji: 'suupaa', vietnamese: 'siêu thị', example_jp: 'スーパーで買い物をします。', example_romaji: 'Suupaa de kaimono o shimasu.', example_vi: 'Tôi mua sắm ở siêu thị.' },
+    { id: 60, lesson: 2, kanji: '百円ショップ', hiragana: 'ひゃくえんショップ', romaji: 'hyaku-en shoppu', vietnamese: 'cửa hàng 100 yên', example_jp: 'これは百円ショップで買いました。', example_romaji: 'Kore wa hyaku-en shoppu de kaimashita.', example_vi: 'Tôi đã mua cái này ở cửa hàng 100 yên.' },
+    { id: 61, lesson: 2, kanji: '地下', hiragana: 'ちか', romaji: 'chika', vietnamese: 'dưới lòng đất, tầng hầm', example_jp: 'レストランは地下1階です。', example_romaji: 'Resutoran wa chika ikkai desu.', example_vi: 'Nhà hàng ở tầng hầm B1.' },
+    { id: 62, lesson: 2, katakana: 'カメラ', romaji: 'kamera', vietnamese: 'máy ảnh', example_jp: '新しいカメラが欲しいです。', example_romaji: 'Atarashii kamera ga hoshii desu.', example_vi: 'Tôi muốn một chiếc máy ảnh mới.' },
+    { id: 63, lesson: 2, kanji: '携帯電話', hiragana: 'けいたいでんわ', romaji: 'keitai denwa', vietnamese: 'điện thoại cầm tay', example_jp: 'これは私の携帯電話です。', example_romaji: 'Kore wa watashi no keitai denwa desu.', example_vi: 'Đây là điện thoại di động của tôi.' },
+    { id: 64, lesson: 2, kanji: '電子辞書', hiragana: 'でんしじしょ', romaji: 'denshi jisho', vietnamese: 'từ điển điện tử', example_jp: '電子辞書は便利です。', example_romaji: 'Denshi jisho wa benri desu.', example_vi: 'Từ điển điện tử thì tiện lợi.' },
+    { id: 65, lesson: 2, katakana: 'パソコン', romaji: 'pasokon', vietnamese: 'máy vi tính', example_jp: '仕事でパソコンを使います。', example_romaji: 'Shigoto de pasokon o tsukaimasu.', example_vi: 'Tôi dùng máy tính cho công việc.' },
+    { id: 66, lesson: 2, kanji: '靴', hiragana: 'くつ', romaji: 'kutsu', vietnamese: 'giày', example_jp: 'この靴はいくらですか。', example_romaji: 'Kono kutsu wa ikura desu ka.', example_vi: 'Đôi giày này giá bao nhiêu?' },
+    { id: 67, lesson: 2, kanji: '消しゴム', hiragana: 'けしゴム', romaji: 'keshigomu', vietnamese: 'tẩy, cục gôm', example_jp: '消しゴムを貸してください。', example_romaji: 'Keshigomu o kashite kudasai.', example_vi: 'Làm ơn cho tôi mượn cục tẩy.' },
+    { id: 68, lesson: 2, katakana: 'ペン', romaji: 'pen', vietnamese: 'bút', example_jp: 'ペンで名前を書きます。', example_romaji: 'Pen de namae o kakimasu.', example_vi: 'Tôi viết tên bằng bút.' },
+    { id: 69, lesson: 2, katakana: 'トイレットペーパー', romaji: 'toiretto peepaa', vietnamese: 'giấy toa-lét', example_jp: 'トイレットペーパーがなくなりました。', example_romaji: 'Toiretto peepaa ga naku narimashita.', example_vi: 'Hết giấy vệ sinh rồi.' },
+    { id: 70, lesson: 2, kanji: '本', hiragana: 'ほん', romaji: 'hon', vietnamese: 'sách', example_jp: '毎日、本を読みます。', example_romaji: 'Mainichi, hon o yomimasu.', example_vi: 'Hàng ngày tôi đọc sách.' },
+    { id: 71, lesson: 2, kanji: '油', hiragana: 'あぶら', romaji: 'abura', vietnamese: 'dầu', example_jp: '料理に油を使います。', example_romaji: 'Ryouri ni abura o tsukaimasu.', example_vi: 'Tôi dùng dầu để nấu ăn.' },
+    { id: 72, lesson: 2, katakana: 'ケーキ', romaji: 'keeki', vietnamese: 'bánh ngọt', example_jp: '誕生日ケーキを食べます。', example_romaji: 'Tanjoubi ni keeki o tabemasu.', example_vi: 'Tôi ăn bánh ngọt vào ngày sinh nhật.' },
+    { id: 73, lesson: 2, kanji: '米', hiragana: 'こめ', romaji: 'kome', vietnamese: 'gạo', example_jp: 'スーパーで米を買います。', example_romaji: 'Suupaa de kome o kaimasu.', example_vi: 'Tôi mua gạo ở siêu thị.' },
+    { id: 74, lesson: 2, kanji: '卵', hiragana: 'たまご', romaji: 'tamago', vietnamese: 'trứng', example_jp: '朝ごはんによく卵を食べます。', example_romaji: 'Asagohan ni yoku tamago o tabemasu.', example_vi: 'Tôi thường ăn trứng vào bữa sáng.' },
+    { id: 75, lesson: 2, katakana: 'パン', romaji: 'pan', vietnamese: 'bánh mì', example_jp: '朝はパンを食べます。', example_romaji: 'Asa wa pan o tabemasu.', example_vi: 'Buổi sáng tôi ăn bánh mì.' },
+    { id: 76, lesson: 2, kanji: '水', hiragana: 'みず', romaji: 'mizu', vietnamese: 'nước', example_jp: '水を一杯ください。', example_romaji: 'Mizu o ippai kudasai.', example_vi: 'Làm ơn cho tôi một cốc nước.' },
+    { id: 77, lesson: 2, kanji: '店員', hiragana: 'てんいん', romaji: 'tenin', vietnamese: 'người bán hàng', example_jp: '店員に質問します。', example_romaji: 'Tenin ni shitsumon shimasu.', example_vi: 'Tôi hỏi nhân viên bán hàng.' },
+    { id: 78, lesson: 2, kanji: '屋', hiragana: 'や', romaji: '-ya', vietnamese: 'cửa hàng (hậu tố)', example_jp: '本屋で本を買います。', example_romaji: 'Hon-ya de hon o kaimasu.', example_vi: 'Tôi mua sách ở hiệu sách.' },
+    { id: 79, lesson: 2, hiragana: 'どこ', romaji: 'doko', vietnamese: 'đâu, ở đâu', example_jp: '駅はどこですか。', example_romaji: 'Eki wa doko desu ka.', example_vi: 'Ga ở đâu vậy?' },
+    { id: 80, lesson: 2, hiragana: 'いらっしゃいませ', romaji: 'irasshaimase', vietnamese: 'xin chào quý khách', example_jp: '店員「いらっしゃいませ！」', example_romaji: 'Tenin "Irasshaimase!"', example_vi: 'Nhân viên: "Xin chào quý khách!"' },
+    { id: 81, lesson: 2, hiragana: 'ありがとうございます', romaji: 'arigatou gozaimasu', vietnamese: '(xin) cảm ơn', example_jp: '親切にありがとうございます。', example_romaji: 'Shinsetsu ni arigatou gozaimasu.', example_vi: 'Cảm ơn sự nhiệt tình của bạn.' },
+    { id: 82, lesson: 2, hiragana: 'これ', romaji: 'kore', vietnamese: 'cái này, đây', example_jp: 'これは私の傘です。', example_romaji: 'Kore wa watashi no kasa desu.', example_vi: 'Đây là cái ô của tôi.' },
+    { id: 83, lesson: 2, hiragana: 'それ', romaji: 'sore', vietnamese: 'cái đó, đó', example_jp: 'それは何ですか。', example_romaji: 'Sore wa nan desu ka.', example_vi: 'Cái đó là cái gì?' },
+    { id: 84, lesson: 2, hiragana: 'あれ', romaji: 'are', vietnamese: 'cái kia, kia', example_jp: 'あれは東京タワーです。', example_romaji: 'Are wa Toukyou tawaa desu.', example_vi: 'Kia là tháp Tokyo.' },
+    { id: 85, lesson: 2, hiragana: 'この', romaji: 'kono', vietnamese: 'này (đi với danh từ)', example_jp: 'この本は面白いです。', example_romaji: 'Kono hon wa omoshiroi desu.', example_vi: 'Quyển sách này thú vị.' },
+    { id: 86, lesson: 2, hiragana: 'その', romaji: 'sono', vietnamese: 'đó (đi với danh từ)', example_jp: 'そのカバンは高いです。', example_romaji: 'Sono kaban wa takai desu.', example_vi: 'Cái cặp đó đắt tiền.' },
+    { id: 87, lesson: 2, hiragana: 'あの', romaji: 'ano', vietnamese: 'kia (đi với danh từ)', example_jp: 'あの人は誰ですか。', example_romaji: 'Ano hito wa dare desu ka.', example_vi: 'Người kia là ai vậy?' },
+    { id: 88, lesson: 2, kanji: '鞄', hiragana: 'かばん', romaji: 'kaban', vietnamese: 'túi, cặp', example_jp: 'これは誰の鞄ですか。', example_romaji: 'Kore wa dare no kaban desu ka.', example_vi: 'Đây là cặp của ai?' },
+    { id: 89, lesson: 2, katakana: 'ズボン', romaji: 'zubon', vietnamese: 'quần', example_jp: '新しいズボンを買いました。', example_romaji: 'Atarashii zubon o kaimashita.', example_vi: 'Tôi đã mua một chiếc quần mới.' },
+    { id: 90, lesson: 2, katakana: 'Tシャツ', romaji: 'T-shatsu', vietnamese: 'áo phông', example_jp: 'このTシャツは千円です。', example_romaji: 'Kono T-shatsu wa sen-en desu.', example_vi: 'Cái áo phông này giá 1000 yên.' },
+    { id: 91, lesson: 2, kanji: '時計', hiragana: 'とけい', romaji: 'tokei', vietnamese: 'đồng hồ', example_jp: '駅の前に大きい時計があります。', example_romaji: 'Eki no mae ni ookii tokei ga arimasu.', example_vi: 'Có một cái đồng hồ lớn ở trước nhà ga.' },
+    { id: 92, lesson: 2, kanji: '円', hiragana: 'えん', romaji: '-en', vietnamese: 'yên', example_jp: 'これは五百円です。', example_romaji: 'Kore wa gohyaku-en desu.', example_vi: 'Cái này giá 500 yên.' },
+    { id: 93, lesson: 2, hiragana: 'いくら', romaji: 'ikura', vietnamese: 'bao nhiêu', example_jp: 'この時計はいくらですか。', example_romaji: 'Kono tokei wa ikura desu ka.', example_vi: 'Cái đồng hồ này giá bao nhiêu?' },
+    { id: 94, lesson: 2, hiragana: 'じゃ', romaji: 'ja', vietnamese: 'thế thì, vậy thì', example_jp: 'じゃ、これをください。', example_romaji: 'Ja, kore o kudasai.', example_vi: 'Vậy thì, cho tôi lấy cái này.' },
+    { id: 95, lesson: 2, kanji: '魚', hiragana: 'さかな', romaji: 'sakana', vietnamese: 'cá', example_jp: '私は魚が好きです。', example_romaji: 'Watashi wa sakana ga suki desu.', example_vi: 'Tôi thích cá.' },
+    { id: 96, lesson: 2, kanji: '肉', hiragana: 'にく', romaji: 'niku', vietnamese: 'thịt', example_jp: 'これは何の肉ですか。', example_romaji: 'Kore wa nan no niku desu ka.', example_vi: 'Đây là thịt gì?' },
+    { id: 97, lesson: 2, kanji: '牛肉', hiragana: 'ぎゅうにく', romaji: 'gyuuniku', vietnamese: 'thịt bò', example_jp: '牛肉の料理を食べたいです。', example_romaji: 'Gyuuniku no ryouri o tabetai desu.', example_vi: 'Tôi muốn ăn món làm từ thịt bò.' },
+    { id: 98, lesson: 2, kanji: '鶏肉', hiragana: 'とりにく', romaji: 'toriniku', vietnamese: 'thịt gà', example_jp: '鶏肉は牛肉より安いです。', example_romaji: 'Toriniku wa gyuuniku yori yasui desu.', example_vi: 'Thịt gà rẻ hơn thịt bò.' },
+    { id: 99, lesson: 2, kanji: '豚肉', hiragana: 'ぶたにく', romaji: 'butaniku', vietnamese: 'thịt lợn', example_jp: '豚肉が好きです。', example_romaji: 'Butaniku ga suki desu.', example_vi: 'Tôi thích thịt lợn.' },
+    { id: 100, lesson: 2, kanji: '野菜', hiragana: 'やさい', romaji: 'yasai', vietnamese: 'rau', example_jp: '毎日、野菜を食べます。', example_romaji: 'Mainichi, yasai o tabemasu.', example_vi: 'Hàng ngày tôi ăn rau.' },
+    { id: 101, lesson: 2, katakana: 'イチゴ', romaji: 'ichigo', vietnamese: 'dâu tây', example_jp: 'イチゴのケーキが好きです。', example_romaji: 'Ichigo no keeki ga suki desu.', example_vi: 'Tôi thích bánh dâu tây.' },
+    { id: 102, lesson: 2, katakana: 'リンゴ', romaji: 'ringo', vietnamese: 'táo', example_jp: '毎日リンゴを一つ食べます。', example_romaji: 'Mainichi ringo o hitotsu tabemasu.', example_vi: 'Mỗi ngày tôi ăn một quả táo.' },
+    { id: 103, lesson: 2, kanji: '料理', hiragana: 'りょうり', romaji: 'ryouri', vietnamese: 'món ăn', example_jp: 'これは魚の料理です。', example_romaji: 'Kore wa sakana no ryouri desu.', example_vi: 'Đây là món cá.' },
+    { id: 104, lesson: 2, katakana: 'スープ', romaji: 'suupu', vietnamese: 'món súp', example_jp: '温かいスープを飲みます。', example_romaji: 'Atatakai suupu o nomimasu.', example_vi: 'Tôi uống súp nóng.' },
+    { id: 105, lesson: 2, katakana: 'とんかつ', romaji: 'tonkatsu', vietnamese: 'món thịt lợn chiên xù', example_jp: '昼ご飯はとんかつを食べます。', example_romaji: 'Hirugohan wa tonkatsu o tabemasu.', example_vi: 'Bữa trưa tôi ăn thịt lợn chiên xù.' },
+    { id: 106, lesson: 2, katakana: 'ハンバーグ', romaji: 'hanbaagu', vietnamese: 'món thịt băm viên', example_jp: 'ハンバーグが好きです。', example_romaji: 'Hanbaagu ga suki desu.', example_vi: 'Tôi thích món thịt băm viên.' },
+    { id: 107, lesson: 2, kanji: 'ご飯', hiragana: 'ごはん', romaji: 'gohan', vietnamese: 'cơm', example_jp: 'ご飯を二つください。', example_romaji: 'Gohan o futatsu kudasai.', example_vi: 'Cho tôi hai bát cơm.' },
+    { id: 108, lesson: 2, katakana: 'ライス', romaji: 'raisu', vietnamese: 'cơm (trong món tây)', example_jp: 'カレーとライスを注文します。', example_romaji: 'Karee to raisu o chuumon shimasu.', example_vi: 'Tôi gọi món cà ri và cơm.' },
+    { id: 109, lesson: 2, katakana: 'ジュース', romaji: 'juusu', vietnamese: 'nước hoa quả', example_jp: 'オレンジジュースを飲みます。', example_romaji: 'Orenji juusu o nomimasu.', example_vi: 'Tôi uống nước cam ép.' },
+    { id: 110, lesson: 2, katakana: 'コーヒー', romaji: 'koohii', vietnamese: 'cà phê', example_jp: '毎朝、コーヒーを飲みます。', example_romaji: 'Maiasa, koohii o nomimasu.', example_vi: 'Mỗi sáng tôi uống cà phê.' },
+    { id: 111, lesson: 2, kanji: '紅茶', hiragana: 'こうちゃ', romaji: 'koucha', vietnamese: 'trà đen', example_jp: '紅茶とコーヒーとどちらがいいですか。', example_romaji: 'Koucha to koohii to dochira ga ii desu ka.', example_vi: 'Bạn muốn dùng trà đen hay cà phê?' },
+    { id: 112, lesson: 2, kanji: 'お茶', hiragana: 'おちゃ', romaji: 'ocha', vietnamese: 'trà (xanh)', example_jp: '食後にお茶を飲みます。', example_romaji: 'Shokugo ni ocha o nomimasu.', example_vi: 'Tôi uống trà sau bữa ăn.' },
+    { id: 113, lesson: 2, katakana: 'ビール', romaji: 'biiru', vietnamese: 'bia', example_jp: '仕事の後、ビールを飲みます。', example_romaji: 'Shigoto no ato, biiru o nomimasu.', example_vi: 'Tôi uống bia sau khi làm việc.' },
+    { id: 114, lesson: 2, katakana: 'ワイン', romaji: 'wain', vietnamese: 'rượu vang', example_jp: 'フランスのワインは有名です。', example_romaji: 'Furansu no wain wa yuumei desu.', example_vi: 'Rượu vang Pháp rất nổi tiếng.' },
+    { id: 115, lesson: 2, kanji: '財布', hiragana: 'さいふ', romaji: 'saifu', vietnamese: 'ví', example_jp: '財布を忘れました。', example_romaji: 'Saifu o wasuremashita.', example_vi: 'Tôi đã quên ví.' },
+    { id: 116, lesson: 2, kanji: '英語', hiragana: 'えいご', romaji: 'eigo', vietnamese: 'tiếng Anh', example_jp: '英語が話せますか。', example_romaji: 'Eigo ga hanasemasu ka.', example_vi: 'Bạn có nói được tiếng Anh không?' },
+    { id: 117, lesson: 2, kanji: '誰', hiragana: 'だれ', romaji: 'dare', vietnamese: 'ai', example_jp: 'あの人は誰ですか。', example_romaji: 'Ano hito wa dare desu ka.', example_vi: 'Người kia là ai?' },
+    { id: 118, lesson: 2, hiragana: 'どうぞ', romaji: 'douzo', vietnamese: 'xin mời', example_jp: 'どうぞ、お入りください。', example_romaji: 'Douzo, o-hairi kudasai.', example_vi: 'Xin mời vào.' },
+    { id: 119, lesson: 2, katakana: 'メニュー', romaji: 'menyuu', vietnamese: 'thực đơn', example_jp: 'メニューをください。', example_romaji: 'Menyuu o kudasai.', example_vi: 'Làm ơn cho tôi xem thực đơn.' },
+    { id: 120, lesson: 2, kanji: '注文', hiragana: 'ちゅうもん', romaji: 'chuumon', vietnamese: 'gọi món', example_jp: '注文をお願いします。', example_romaji: 'Chuumon o onegai shimasu.', example_vi: 'Cho tôi gọi món.' },
+    { id: 121, lesson: 2, kanji: '少々', hiragana: 'しょうしょう', romaji: 'shoushou', vietnamese: 'một chút, một lát', example_jp: '少々お待ちください。', example_romaji: 'Shoushou o-machi kudasai.', example_vi: 'Xin đợi một chút.' },
+
+    // BÀI 3: Thời gian, Lịch trình, Cuộc sống hàng ngày
+    { id: 122, lesson: 3, kanji: '週末', hiragana: 'しゅうまつ', romaji: 'shuumatsu', vietnamese: 'cuối tuần', example_jp: '週末は映画を見ます。', example_romaji: 'Shuumatsu wa eiga o mimasu.', example_vi: 'Cuối tuần tôi xem phim.' },
+    { id: 123, lesson: 3, kanji: '今', hiragana: 'いま', romaji: 'ima', vietnamese: 'bây giờ', example_jp: '今、九時二十分です。', example_romaji: 'Ima, kuji nijuppun desu.', example_vi: 'Bây giờ là 9 giờ 20 phút.' },
+    { id: 124, lesson: 3, kanji: '午前', hiragana: 'ごぜん', romaji: 'gozen', vietnamese: 'buổi sáng (AM)', example_jp: '会議は午前十時からです。', example_romaji: 'Kaigi wa gozen juuji kara desu.', example_vi: 'Cuộc họp bắt đầu từ 10 giờ sáng.' },
+    { id: 125, lesson: 3, kanji: '午後', hiragana: 'ごご', romaji: 'gogo', vietnamese: 'buổi chiều (PM)', example_jp: '午後は図書館へ行きます。', example_romaji: 'Gogo wa toshokan e ikimasu.', example_vi: 'Buổi chiều tôi đi thư viện.' },
+    { id: 126, lesson: 3, kanji: '昼', hiragana: 'ひる', romaji: 'hiru', vietnamese: 'buổi trưa', example_jp: '昼ごはんを食べましょう。', example_romaji: 'Hirugohan o tabemashou.', example_vi: 'Cùng ăn trưa nào.' },
+    { id: 127, lesson: 3, kanji: '銀行', hiragana: 'ぎんこう', romaji: 'ginkou', vietnamese: 'ngân hàng', example_jp: '銀行は三時までです。', example_romaji: 'Ginkou wa sanji made desu.', example_vi: 'Ngân hàng làm việc đến 3 giờ.' },
+    { id: 128, lesson: 3, kanji: '体育館', hiragana: 'たいいくかん', romaji: 'taiikukan', vietnamese: 'nhà thể thao', example_jp: '体育館でバスケットボールをします。', example_romaji: 'Taiikukan de basukettobooru o shimasu.', example_vi: 'Tôi chơi bóng rổ ở nhà thi đấu.' },
+    { id: 129, lesson: 3, kanji: '図書館', hiragana: 'としょかん', romaji: 'toshokan', vietnamese: 'thư viện', example_jp: '図書館で本を借ります。', example_romaji: 'Toshokan de hon o karimasu.', example_vi: 'Tôi mượn sách ở thư viện.' },
+    { id: 130, lesson: 3, kanji: '病院', hiragana: 'びょういん', romaji: 'byouin', vietnamese: 'bệnh viện', example_jp: '病院へ行きます。', example_romaji: 'Byouin e ikimasu.', example_vi: 'Tôi đi đến bệnh viện.' },
+    { id: 131, lesson: 3, kanji: '郵便局', hiragana: 'ゆうびんきょく', romaji: 'yuubinkyoku', vietnamese: 'bưu điện', example_jp: '郵便局で手紙を出します。', example_romaji: 'Yuubinkyoku de tegami o dashimasu.', example_vi: 'Tôi gửi thư ở bưu điện.' },
+    { id: 132, lesson: 3, kanji: '授業', hiragana: 'じゅぎょう', romaji: 'jugyou', vietnamese: 'giờ học', example_jp: '授業は九時に始まります。', example_romaji: 'Jugyou wa kuji ni hajimarimasu.', example_vi: 'Giờ học bắt đầu lúc 9 giờ.' },
+    { id: 133, lesson: 3, katakana: 'テスト', romaji: 'tesuto', vietnamese: 'bài kiểm tra', example_jp: '明日はテストがあります。', example_romaji: 'Ashita wa tesuto ga arimasu.', example_vi: 'Ngày mai có bài kiểm tra.' },
+    { id: 134, lesson: 3, kanji: '休み', hiragana: 'やすみ', romaji: 'yasumi', vietnamese: 'giờ nghỉ, ngày nghỉ', example_jp: 'お昼休みは十二時からです。', example_romaji: 'O-hiruyasumi wa juuniji kara desu.', example_vi: 'Giờ nghỉ trưa bắt đầu từ 12 giờ.' },
+    { id: 135, lesson: 3, kanji: '時間', hiragana: 'じかん', romaji: 'jikan', vietnamese: 'thời gian', example_jp: '時間がありません。', example_romaji: 'Jikan ga arimasen.', example_vi: 'Không có thời gian.' },
+    { id: 136, lesson: 3, kanji: '時', hiragana: 'じ', romaji: '-ji', vietnamese: 'giờ', example_jp: '今、何時ですか。', example_romaji: 'Ima, nanji desu ka.', example_vi: 'Bây giờ là mấy giờ?' },
+    { id: 137, lesson: 3, kanji: '分', hiragana: 'ふん・ぷん', romaji: '-fun / -pun', vietnamese: 'phút', example_jp: '今、九時十分です。', example_romaji: 'Ima, kuji juppun desu.', example_vi: 'Bây giờ là 9 giờ 10 phút.' },
+    { id: 138, lesson: 3, kanji: '時半', hiragana: 'じはん', romaji: '-jihan', vietnamese: 'giờ rưỡi', example_jp: '一時半に会いましょう。', example_romaji: 'Ichiji-han ni aimashou.', example_vi: 'Chúng ta hãy gặp nhau lúc 1 rưỡi.' },
+    { id: 139, lesson: 3, kanji: '曜日', hiragana: 'ようび', romaji: '-youbi', vietnamese: 'thứ', example_jp: '今日は何曜日ですか。', example_romaji: 'Kyou wa nan-youbi desu ka.', example_vi: 'Hôm nay là thứ mấy?' },
+    { id: 140, lesson: 3, katakana: 'スケジュール', romaji: 'sukejuuru', vietnamese: 'lịch làm việc', example_jp: '今週のスケジュールを確認します。', example_romaji: 'Konshuu no sukejuuru o kakunin shimasu.', example_vi: 'Tôi sẽ xác nhận lịch làm việc tuần này.' },
+    { id: 141, lesson: 3, katakana: 'アルバイト', romaji: 'arubaito', vietnamese: 'việc làm thêm', example_jp: '私はレストランでアルバイトをしています。', example_romaji: 'Watashi wa resutoran de arubaito o shiteimasu.', example_vi: 'Tôi đang làm thêm ở một nhà hàng.' },
+    { id: 142, lesson: 3, katakana: 'スキー', romaji: 'sukii', vietnamese: 'trượt tuyết', example_jp: '冬にスキーをします。', example_romaji: 'Fuyu ni sukii o shimasu.', example_vi: 'Tôi trượt tuyết vào mùa đông.' },
+    { id: 143, lesson: 3, katakana: 'パーティー', romaji: 'paathii', vietnamese: 'bữa tiệc', example_jp: '週末、友達とパーティーをします。', example_romaji: 'Shuumatsu, tomodachi to paathii o shimasu.', example_vi: 'Cuối tuần tôi sẽ tổ chức tiệc với bạn bè.' },
+    { id: 144, lesson: 3, katakana: 'バーベキュー', romaji: 'baabekyuu', vietnamese: 'tiệc thịt nướng', example_jp: '公園でバーベキューをします。', example_romaji: 'Kouen de baabekyuu o shimasu.', example_vi: 'Chúng tôi tổ chức tiệc nướng ở công viên.' },
+    { id: 145, lesson: 3, kanji: '花火', hiragana: 'はなび', romaji: 'hanabi', vietnamese: 'pháo hoa', example_jp: '夏に花火を見ます。', example_romaji: 'Natsu ni hanabi o mimasu.', example_vi: 'Tôi xem pháo hoa vào mùa hè.' },
+    { id: 146, lesson: 3, katakana: 'ホームステイ', romaji: 'hoomusutei', vietnamese: 'trọ nhà người bản xứ', example_jp: '日本でホームステイをします。', example_romaji: 'Nihon de hoomusutei o shimasu.', example_vi: 'Tôi ở homestay tại Nhật Bản.' },
+    { id: 147, lesson: 3, kanji: 'お祭り', hiragana: 'おまつり', romaji: 'o-matsuri', vietnamese: 'lễ hội', example_jp: '夏祭りに行きます。', example_romaji: 'Natsu-matsuri ni ikimasu.', example_vi: 'Tôi đi lễ hội mùa hè.' },
+    { id: 148, lesson: 3, kanji: '海', hiragana: 'うみ', romaji: 'umi', vietnamese: 'biển', example_jp: '夏休みに海へ行きます。', example_romaji: 'Natsuyasumi ni umi e ikimasu.', example_vi: 'Tôi đi biển vào kỳ nghỉ hè.' },
+    { id: 149, lesson: 3, kanji: '公園', hiragana: 'こうえん', romaji: 'kouen', vietnamese: 'công viên', example_jp: '毎日、公園を散歩します。', example_romaji: 'Mainichi, kouen o sanpo shimasu.', example_vi: 'Hàng ngày tôi đi dạo ở công viên.' },
+    { id: 150, lesson: 3, kanji: '桜', hiragana: 'さくら', romaji: 'sakura', vietnamese: 'hoa anh đào', example_jp: '桜はきれいです。', example_romaji: 'Sakura wa kirei desu.', example_vi: 'Hoa anh đào thì đẹp.' },
+    { id: 151, lesson: 3, kanji: 'お酒', hiragana: 'おさけ', romaji: 'o-sake', vietnamese: 'rượu', example_jp: 'お酒を飲みますか。', example_romaji: 'O-sake o nomimasu ka.', example_vi: 'Bạn có uống rượu không?' },
+    { id: 152, lesson: 3, kanji: 'お弁当', hiragana: 'おべんとう', romaji: 'o-bentou', vietnamese: 'cơm hộp', example_jp: '毎日、お弁当を作ります。', example_romaji: 'Mainichi, o-bentou o tsukurimasu.', example_vi: 'Hàng ngày tôi làm cơm hộp.' },
+    { id: 153, lesson: 3, kanji: '留学生', hiragana: 'りゅうがくせい', romaji: 'ryuugakusei', vietnamese: 'lưu học sinh', example_jp: '彼は留学生です。', example_romaji: 'Kare wa ryuugakusei desu.', example_vi: 'Anh ấy là du học sinh.' },
+    { id: 154, lesson: 3, kanji: '一年', hiragana: 'いちねん', romaji: 'ichinen', vietnamese: 'một năm', example_jp: '日本に一年います。', example_romaji: 'Nihon ni ichinen imasu.', example_vi: 'Tôi ở Nhật một năm.' },
+    { id: 155, lesson: 3, kanji: '春', hiragana: 'はる', romaji: 'haru', vietnamese: 'mùa xuân', example_jp: '春は花が咲きます。', example_romaji: 'Haru wa hana ga sakimasu.', example_vi: 'Mùa xuân hoa nở.' },
+    { id: 156, lesson: 3, kanji: '夏', hiragana: 'なつ', romaji: 'natsu', vietnamese: 'mùa hè', example_jp: '夏は暑いです。', example_romaji: 'Natsu wa atsui desu.', example_vi: 'Mùa hè thì nóng.' },
+    { id: 157, lesson: 3, kanji: '秋', hiragana: 'あき', romaji: 'aki', vietnamese: 'mùa thu', example_jp: '秋は涼しいです。', example_romaji: 'Aki wa suzushii desu.', example_vi: 'Mùa thu thì mát mẻ.' },
+    { id: 158, lesson: 3, kanji: '冬', hiragana: 'ふゆ', romaji: 'fuyu', vietnamese: 'mùa đông', example_jp: '冬は寒いです。', example_romaji: 'Fuyu wa samui desu.', example_vi: 'Mùa đông thì lạnh.' },
+    { id: 159, lesson: 3, katakana: 'ゴールデンウィーク', romaji: 'gooruden wiiku', vietnamese: 'Tuần lễ vàng', example_jp: 'ゴールデンウィークに旅行します。', example_romaji: 'Gooruden wiiku ni ryokou shimasu.', example_vi: 'Tôi đi du lịch vào Tuần lễ vàng.' },
+    { id: 160, lesson: 3, kanji: '行きます', hiragana: 'いきます', romaji: 'ikimasu', vietnamese: 'đi', example_jp: '明日、京都へ行きます。', example_romaji: 'Ashita, Kyouto e ikimasu.', example_vi: 'Ngày mai tôi sẽ đi Kyoto.' },
+    { id: 161, lesson: 3, kanji: '帰ります', hiragana: 'かえります', romaji: 'kaerimasu', vietnamese: 'về', example_jp: '毎日、七時にうちへ帰ります。', example_romaji: 'Mainichi, shichiji ni uchi e kaerimasu.', example_vi: 'Hàng ngày tôi về nhà lúc 7 giờ.' },
+    { id: 162, lesson: 3, kanji: '飲みます', hiragana: 'のみます', romaji: 'nomimasu', vietnamese: 'uống', example_jp: 'コーヒーを飲みます。', example_romaji: 'Koohii o nomimasu.', example_vi: 'Tôi uống cà phê.' },
+    { id: 163, lesson: 3, kanji: '食べます', hiragana: 'たべます', romaji: 'tabemasu', vietnamese: 'ăn', example_jp: '昼ごはんを食べます。', example_romaji: 'Hirugohan o tabemasu.', example_vi: 'Tôi ăn trưa.' },
+    { id: 164, lesson: 3, kanji: '見ます', hiragana: 'みます', romaji: 'mimasu', vietnamese: 'xem', example_jp: 'テレビを見ます。', example_romaji: 'Terebi o mimasu.', example_vi: 'Tôi xem ti vi.' },
+    { id: 165, lesson: 3, kanji: 'します', hiragana: 'します', romaji: 'shimasu', vietnamese: 'làm, chơi', example_jp: '宿題をします。', example_romaji: 'Shukudai o shimasu.', example_vi: 'Tôi làm bài tập.' },
+    { id: 166, lesson: 3, kanji: '買います', hiragana: 'かいます', romaji: 'kaimasu', vietnamese: 'mua', example_jp: 'スーパーで野菜を買います。', example_romaji: 'Suupaa de yasai o kaimasu.', example_vi: 'Tôi mua rau ở siêu thị.' },
+    { id: 167, lesson: 3, kanji: '聞きます', hiragana: 'ききます', romaji: 'kikimasu', vietnamese: 'nghe', example_jp: '音楽を聞きます。', example_romaji: 'Ongaku o kikimasu.', example_vi: 'Tôi nghe nhạc.' },
+    { id: 168, lesson: 3, kanji: '働きます', hiragana: 'はたらきます', romaji: 'hatarakimasu', vietnamese: 'làm việc', example_jp: '銀行で働いています。', example_romaji: 'Ginkou de hataraiteimasu.', example_vi: 'Tôi đang làm việc ở ngân hàng.' },
+    { id: 169, lesson: 3, kanji: '読みます', hiragana: 'よみます', romaji: 'yomimasu', vietnamese: 'đọc', example_jp: '本を読みます。', example_romaji: 'Hon o yomimasu.', example_vi: 'Tôi đọc sách.' },
+    { id: 170, lesson: 3, kanji: '起きます', hiragana: 'おきます', romaji: 'okimasu', vietnamese: 'dậy, thức dậy', example_jp: '毎朝、六時に起きます。', example_romaji: 'Maiasa, rokuji ni okimasu.', example_vi: 'Mỗi sáng tôi thức dậy lúc 6 giờ.' },
+    { id: 171, lesson: 3, kanji: '寝ます', hiragana: 'ねます', romaji: 'nemasu', vietnamese: 'ngủ', example_jp: '十一時に寝ます。', example_romaji: 'Juuichiji ni nemasu.', example_vi: 'Tôi đi ngủ lúc 11 giờ.' },
+    { id: 172, lesson: 3, kanji: '勉強します', hiragana: 'べんきょうします', romaji: 'benkyou shimasu', vietnamese: 'học', example_jp: '毎日、日本語を勉強します。', example_romaji: 'Mainichi, nihongo o benkyou shimasu.', example_vi: 'Hàng ngày tôi học tiếng Nhật.' },
+    { id: 173, lesson: 3, kanji: '来ます', hiragana: 'きます', romaji: 'kimasu', vietnamese: 'đến', example_jp: '明日、友達がうちへ来ます。', example_romaji: 'Ashita, tomodachi ga uchi e kimasu.', example_vi: 'Ngày mai bạn tôi sẽ đến nhà.' },
+    { id: 174, lesson: 3, kanji: '朝', hiragana: 'あさ', romaji: 'asa', vietnamese: 'buổi sáng', example_jp: '朝、コーヒーを飲みます。', example_romaji: 'Asa, koohii o nomimasu.', example_vi: 'Buổi sáng tôi uống cà phê.' },
+    { id: 175, lesson: 3, kanji: '夜', hiragana: 'よる', romaji: 'yoru', vietnamese: 'buổi đêm', example_jp: '夜、テレビを見ます。', example_romaji: 'Yoru, terebi o mimasu.', example_vi: 'Buổi tối tôi xem ti vi.' },
+    { id: 176, lesson: 3, kanji: '毎日', hiragana: 'まいにち', romaji: 'mainichi', vietnamese: 'hàng ngày', example_jp: '毎日、運動します。', example_romaji: 'Mainichi, undou shimasu.', example_vi: 'Hàng ngày tôi vận động.' },
+    { id: 177, lesson: 3, kanji: '毎朝', hiragana: 'まいあさ', romaji: 'maiasa', vietnamese: 'hàng sáng', example_jp: '毎朝、六時に起きます。', example_romaji: 'Maiasa, rokuji ni okimasu.', example_vi: 'Hàng sáng tôi thức dậy lúc 6 giờ.' },
+    { id: 178, lesson: 3, kanji: '毎晩', hiragana: 'まいばん', romaji: 'maiban', vietnamese: 'hàng tối', example_jp: '毎晩、十一時に寝ます。', example_romaji: 'Maiban, juuichiji ni nemasu.', example_vi: 'Hàng tối tôi đi ngủ lúc 11 giờ.' },
+    { id: 179, lesson: 3, kanji: '朝ご飯', hiragana: 'あさごはん', romaji: 'asagohan', vietnamese: 'cơm sáng', example_jp: '朝ご飯を食べます。', example_romaji: 'Asagohan o tabemasu.', example_vi: 'Tôi ăn sáng.' },
+    { id: 180, lesson: 3, kanji: '昼ご飯', hiragana: 'ひるごはん', romaji: 'hirugohan', vietnamese: 'cơm trưa', example_jp: '十二時に昼ご飯を食べます。', example_romaji: 'Juuniji ni hirugohan o tabemasu.', example_vi: 'Tôi ăn trưa lúc 12 giờ.' },
+    { id: 181, lesson: 3, kanji: '晩ご飯', hiragana: 'ばんごはん', romaji: 'bangohan', vietnamese: 'cơm tối', example_jp: '家族と晩ご飯を食べます。', example_romaji: 'Kazoku to bangohan o tabemasu.', example_vi: 'Tôi ăn tối cùng gia đình.' },
+    { id: 182, lesson: 3, hiragana: 'うち', romaji: 'uchi', vietnamese: 'nhà', example_jp: '七時にうちへ帰ります。', example_romaji: 'Shichiji ni uchi e kaerimasu.', example_vi: 'Tôi về nhà lúc 7 giờ.' },
+    { id: 183, lesson: 3, kanji: '会社', hiragana: 'かいしゃ', romaji: 'kaisha', vietnamese: 'công ty', example_jp: '父は会社へ行きます。', example_romaji: 'Chichi wa kaisha e ikimasu.', example_vi: 'Bố tôi đi đến công ty.' },
+    { id: 184, lesson: 3, kanji: '学校', hiragana: 'がっこう', romaji: 'gakkou', vietnamese: 'trường học', example_jp: '学校は八時に始まります。', example_romaji: 'Gakkou wa hachiji ni hajimarimasu.', example_vi: 'Trường học bắt đầu lúc 8 giờ.' },
+    { id: 185, lesson: 3, katakana: 'コンビニ', romaji: 'konbini', vietnamese: 'cửa hàng tiện lợi', example_jp: 'コンビニでお弁当を買います。', example_romaji: 'Konbini de o-bentou o kaimasu.', example_vi: 'Tôi mua cơm hộp ở cửa hàng tiện lợi.' },
+    { id: 186, lesson: 3, kanji: '牛乳', hiragana: 'ぎゅうにゅう', romaji: 'gyuunyuu', vietnamese: 'sữa bò', example_jp: '毎朝、牛乳を飲みます。', example_romaji: 'Maiasa, gyuunyuu o nomimasu.', example_vi: 'Hàng sáng tôi uống sữa bò.' },
+    { id: 187, lesson: 3, kanji: '果物', hiragana: 'くだもの', romaji: 'kudamono', vietnamese: 'hoa quả', example_jp: '果物が好きです。', example_romaji: 'Kudamono ga suki desu.', example_vi: 'Tôi thích hoa quả.' },
+    { id: 188, lesson: 3, katakana: 'サラダ', romaji: 'sarada', vietnamese: 'món sa-lát', example_jp: '晩ご飯にサラダを食べます。', example_romaji: 'Bangohan ni sarada o tabemasu.', example_vi: 'Tôi ăn salad cho bữa tối.' },
+    { id: 189, lesson: 3, katakana: 'チーズ', romaji: 'chiizu', vietnamese: 'pho-mát', example_jp: 'パンにチーズをのせて食べます。', example_romaji: 'Pan ni chiizu o nosete tabemasu.', example_vi: 'Tôi đặt phô mai lên bánh mì và ăn.' },
+    { id: 190, lesson: 3, katakana: 'インターネット', romaji: 'intaanetto', vietnamese: 'Internet', example_jp: 'インターネットでニュースを見ます。', example_romaji: 'Intaanetto de nyuusu o mimasu.', example_vi: 'Tôi xem tin tức trên internet.' },
+    { id: 191, lesson: 3, kanji: '新聞', hiragana: 'しんぶん', romaji: 'shinbun', vietnamese: 'báo', example_jp: '毎朝、新聞を読みます。', example_romaji: 'Maiasa, shinbun o yomimasu.', example_vi: 'Hàng sáng tôi đọc báo.' },
+    { id: 192, lesson: 3, katakana: 'テレビ', romaji: 'terebi', vietnamese: 'ti-vi', example_jp: '夜、テレビを見ます。', example_romaji: 'Yoru, terebi o mimasu.', example_vi: 'Buổi tối tôi xem ti vi.' },
+    { id: 193, lesson: 3, katakana: 'CD', romaji: 'shii dii', vietnamese: 'đĩa CD', example_jp: 'CDを聞きます。', example_romaji: 'CD o kikimasu.', example_vi: 'Tôi nghe đĩa CD.' },
+    { id: 194, lesson: 3, katakana: 'DVD', romaji: 'dii bui dii', vietnamese: 'đĩa DVD', example_jp: 'DVDで映画を見ます。', example_romaji: 'DVD de eiga o mimasu.', example_vi: 'Tôi xem phim bằng đĩa DVD.' },
+    { id: 195, lesson: 3, kanji: '何も', hiragana: 'なにも', romaji: 'nanimo', vietnamese: 'không có gì cả', example_jp: '今日は何もしません。', example_romaji: 'Kyou wa nanimo shimasen.', example_vi: 'Hôm nay tôi không làm gì cả.' },
+    { id: 196, lesson: 3, kanji: 'どこへも', hiragana: 'どこへも', romaji: 'doko e mo', vietnamese: 'đâu cũng không', example_jp: '週末はどこへも行きませんでした。', example_romaji: 'Shuumatsu wa doko e mo ikimasendeshita.', example_vi: 'Cuối tuần tôi đã không đi đâu cả.' },
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elements
+    const vocabContent = document.getElementById('vocab-content');
+    const showVocabBtn = document.getElementById('show-vocab-btn');
+    const showQuizBtn = document.getElementById('show-quiz-btn');
+    const vocabView = document.getElementById('vocab-view');
+    const quizView = document.getElementById('quiz-view');
+    const startQuizSessionBtn = document.getElementById('start-quiz-session-btn');
+    const resetProgressBtn = document.getElementById('reset-progress');
+    
+    const completedCountEl = document.getElementById('completed-count');
+    const totalCountEl = document.getElementById('total-count');
+    const progressBar = document.getElementById('progress-bar');
+
+    const quizStartScreen = document.getElementById('quiz-start-screen');
+    const quizContainer = document.getElementById('quiz-container');
+    const quizCompleteMessage = document.getElementById('quiz-complete-message');
+
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const explanationEl = document.getElementById('explanation');
+    const nextQuestionBtn = document.getElementById('next-question-btn');
+
+    // Quiz state variables
+    let masterQuestionPool = [];
+    let remainingQuestionIds = [];
+    let currentSessionQuestions = [];
+    let currentQuestionIndex = 0;
+
+    // --- Data & State Management ---
+
+    function generateQuestionPool() {
+        const pool = [];
+        let questionIdCounter = 0;
+        vocabulary.forEach(word => {
+            // Type 1: JP -> VN
+            pool.push({
+                qId: questionIdCounter++,
+                wordId: word.id,
+                lesson: word.lesson,
+                type: 'JP_TO_VN',
+                questionText: `Nghĩa của từ 「${word.kanji || word.katakana || word.hiragana}」 là gì?`,
+                correctAnswer: word.vietnamese,
+                options: [word.vietnamese]
+            });
+            // Type 2: VN -> JP
+            pool.push({
+                qId: questionIdCounter++,
+                wordId: word.id,
+                lesson: word.lesson,
+                type: 'VN_TO_JP',
+                questionText: `Từ nào trong tiếng Nhật có nghĩa là "${word.vietnamese}"?`,
+                correctAnswer: word.kanji || word.katakana || word.hiragana,
+                options: [word.kanji || word.katakana || word.hiragana]
+            });
+             // Type 3: KANJI -> KANA (if applicable)
+            if (word.kanji && word.hiragana) {
+                pool.push({
+                    qId: questionIdCounter++,
+                    wordId: word.id,
+                    lesson: word.lesson,
+                    type: 'KANJI_TO_KANA',
+                    questionText: `Cách đọc Hiragana của 「${word.kanji}」 là gì?`,
+                    correctAnswer: word.hiragana,
+                    options: [word.hiragana]
+                });
+            }
+        });
+        return pool;
+    }
+
+    function loadProgress() {
+        const savedProgress = localStorage.getItem('japaneseQuizProgress');
+        masterQuestionPool = generateQuestionPool();
+        
+        if (savedProgress) {
+            remainingQuestionIds = JSON.parse(savedProgress);
+        } else {
+            remainingQuestionIds = masterQuestionPool.map(q => q.qId);
+        }
+        updateProgressUI();
+    }
+
+    function saveProgress() {
+        localStorage.setItem('japaneseQuizProgress', JSON.stringify(remainingQuestionIds));
+    }
+    
+    function resetProgress() {
+        if (confirm('Bạn có chắc muốn xoá toàn bộ tiến độ và bắt đầu lại?')) {
+            localStorage.removeItem('japaneseQuizProgress');
+            loadProgress();
+            showView('quiz');
+        }
+    }
+
+    // --- UI Update Functions ---
+
+    function displayVocabulary() {
+        // Get selected filters
+        const selectedFilters = Array.from(document.querySelectorAll('input[name="vocab-filter"]:checked')).map(cb => cb.value);
+
+        vocabContent.innerHTML = '';
+        const lessons = {};
+
+        const filteredVocab = vocabulary.filter(word => {
+            if (selectedFilters.length === 0) {
+                return true; // Show all if no filter is selected
+            }
+            // Check if the word matches ANY of the selected filters (OR logic)
+            if (selectedFilters.includes('kanji') && word.kanji) {
+                return true;
+            }
+            if (selectedFilters.includes('hiragana') && word.hiragana) {
+                return true;
+            }
+            if (selectedFilters.includes('katakana') && word.katakana) {
+                return true;
+            }
+            return false;
+        });
+
+        filteredVocab.forEach(word => {
+            if (!lessons[word.lesson]) {
+                lessons[word.lesson] = [];
+            }
+            lessons[word.lesson].push(word);
+        });
+
+        const sortedLessonKeys = Object.keys(lessons).sort((a, b) => a - b);
+
+        for (const lessonNum of sortedLessonKeys) {
+            const group = document.createElement('div');
+            group.className = 'lesson-group';
+            group.innerHTML = `<h3>Bài ${lessonNum}</h3>`;
+            const list = document.createElement('ul');
+            list.className = 'vocab-list';
+            lessons[lessonNum].forEach(word => {
+                const item = document.createElement('li');
+                item.className = 'vocab-item';
+                
+                let jpDisplay;
+                if (word.kanji && word.hiragana && word.kanji !== word.hiragana) {
+                    jpDisplay = `${word.kanji} <span class="furigana-reading">${word.hiragana}</span>`;
+                } else {
+                    jpDisplay = word.kanji || word.katakana || word.hiragana;
+                }
+
+                item.innerHTML = `
+                    <div class="vocab-jp">
+                        ${jpDisplay}
+                        <span class="kana">${word.romaji}</span>
+                    </div>
+                    <div class="vocab-vi">${word.vietnamese}</div>
+                `;
+                list.appendChild(item);
+            });
+            group.appendChild(list);
+            vocabContent.appendChild(group);
+        }
+    }
+
+    function showView(viewName) {
+        vocabView.classList.remove('active');
+        quizView.classList.remove('active');
+        showVocabBtn.classList.remove('active');
+        showQuizBtn.classList.remove('active');
+
+        if (viewName === 'vocab') {
+            vocabView.classList.add('active');
+            showVocabBtn.classList.add('active');
+        } else {
+            quizView.classList.add('active');
+            showQuizBtn.classList.add('active');
+            // Reset quiz view to start screen
+            quizContainer.style.display = 'none';
+            quizStartScreen.style.display = 'block';
+            quizCompleteMessage.style.display = 'none';
+            if (remainingQuestionIds.length === 0) {
+                 quizStartScreen.style.display = 'none';
+                 quizCompleteMessage.style.display = 'block';
+            }
+        }
+    }
+    
+    function updateProgressUI() {
+        const totalQuestions = masterQuestionPool.length;
+        const completedCount = totalQuestions - remainingQuestionIds.length;
+        
+        totalCountEl.textContent = totalQuestions;
+        completedCountEl.textContent = completedCount;
+        
+        const progressPercentage = totalQuestions > 0 ? (completedCount / totalQuestions) * 100 : 0;
+        progressBar.style.width = `${progressPercentage}%`;
+    }
+
+    // --- Quiz Logic ---
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+    
+    function startNewSession() {
+        if (remainingQuestionIds.length === 0) {
+            alert("Chúc mừng! Bạn đã hoàn thành tất cả các câu hỏi.");
+            showView('quiz');
+            return;
+        }
+
+        const remainingQuestions = masterQuestionPool.filter(q => remainingQuestionIds.includes(q.qId));
+        
+        const byLesson = {};
+        const lessonNumbers = [...new Set(vocabulary.map(v => v.lesson))];
+        lessonNumbers.forEach(ln => {
+            byLesson[ln] = shuffleArray(remainingQuestions.filter(q => q.lesson === ln));
+        });
+        
+        currentSessionQuestions = [];
+        const questionsPerSession = 10;
+        let questionsToTake = questionsPerSession;
+
+        // Try to pull evenly from lessons
+        while(questionsToTake > 0 && Object.values(byLesson).some(arr => arr.length > 0)) {
+            for(const ln of lessonNumbers) {
+                if(byLesson[ln].length > 0 && questionsToTake > 0) {
+                     currentSessionQuestions.push(byLesson[ln].shift());
+                     questionsToTake--;
+                }
+            }
+        }
+
+        currentSessionQuestions = shuffleArray(currentSessionQuestions);
+        currentQuestionIndex = 0;
+        
+        quizStartScreen.style.display = 'none';
+        quizContainer.style.display = 'block';
+
+        displayQuestion();
+    }
+    
+    function displayQuestion() {
+        explanationEl.style.display = 'none';
+        nextQuestionBtn.style.display = 'none';
+        
+        const currentQuestion = currentSessionQuestions[currentQuestionIndex];
+        const word = vocabulary.find(w => w.id === currentQuestion.wordId);
+        
+        questionEl.textContent = currentQuestion.questionText;
+        optionsEl.innerHTML = '';
+
+        // Generate distractors
+        let options = [...currentQuestion.options];
+        while (options.length < 4) {
+            const randomWord = vocabulary[Math.floor(Math.random() * vocabulary.length)];
+            let distractor;
+            
+            // Generate distractor of the same type as the correct answer
+            if (currentQuestion.type === 'JP_TO_VN') {
+                distractor = randomWord.vietnamese;
+            } else if (currentQuestion.type === 'VN_TO_JP') {
+                distractor = randomWord.kanji || randomWord.katakana || randomWord.hiragana;
+            } else { // KANJI_TO_KANA
+                 distractor = randomWord.hiragana;
+            }
+
+            if (distractor && !options.includes(distractor)) {
+                options.push(distractor);
+            }
+        }
+        
+        shuffleArray(options).forEach(option => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.addEventListener('click', () => selectAnswer(option, currentQuestion.correctAnswer));
+            optionsEl.appendChild(button);
+        });
+    }
+
+    function selectAnswer(selectedOption, correctAnswer) {
+        const buttons = optionsEl.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.disabled = true;
+            if (button.textContent === correctAnswer) {
+                button.classList.add('correct');
+            } else if (button.textContent === selectedOption) {
+                button.classList.add('incorrect');
+            }
+        });
+
+        if (selectedOption === correctAnswer) {
+            const qIdToRemove = currentSessionQuestions[currentQuestionIndex].qId;
+            const indexToRemove = remainingQuestionIds.indexOf(qIdToRemove);
+            if (indexToRemove > -1) {
+                remainingQuestionIds.splice(indexToRemove, 1);
+            }
+            saveProgress();
+            updateProgressUI();
+        }
+
+        showExplanation();
+        nextQuestionBtn.style.display = 'inline-block';
+    }
+
+    function showExplanation() {
+        const questionData = currentSessionQuestions[currentQuestionIndex];
+        const word = vocabulary.find(w => w.id === questionData.wordId);
+        
+        document.getElementById('exp-kanji').textContent = word.kanji || 'không có';
+        document.getElementById('exp-kana').textContent = word.hiragana || word.katakana || 'không có';
+        document.getElementById('exp-romaji').textContent = word.romaji;
+        document.getElementById('exp-vi').textContent = word.vietnamese;
+        document.getElementById('exp-sentence-jp').textContent = word.example_jp;
+        document.getElementById('exp-sentence-romaji').textContent = word.example_romaji;
+        document.getElementById('exp-sentence-vi').textContent = word.example_vi;
+        
+        explanationEl.style.display = 'block';
+    }
+    
+    function handleNextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < currentSessionQuestions.length) {
+            displayQuestion();
+        } else {
+            alert('Hoàn thành phiên ôn tập!');
+            showView('quiz');
+        }
+    }
+
+
+    // --- Event Listeners ---
+    showVocabBtn.addEventListener('click', () => showView('vocab'));
+    showQuizBtn.addEventListener('click', () => showView('quiz'));
+    startQuizSessionBtn.addEventListener('click', startNewSession);
+    nextQuestionBtn.addEventListener('click', handleNextQuestion);
+    resetProgressBtn.addEventListener('click', resetProgress);
+    document.querySelectorAll('input[name="vocab-filter"]').forEach(checkbox => {
+        checkbox.addEventListener('change', displayVocabulary);
+    });
+
+    // --- Initial Load ---
+    displayVocabulary();
+    loadProgress();
+    showView('vocab'); 
+});
+</script>
+
+</body>
+</html>

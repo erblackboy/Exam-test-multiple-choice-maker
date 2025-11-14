@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 6: Probability and Distribution</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color, #f4f7f6);
+            color: var(--text-color, #333);
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color-secondary, #ffffff);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3 {
+            color: var(--text-color-primary, #2c3e50);
+            border-bottom: 2px solid var(--accent-color, #007bff);
+            padding-bottom: 10px;
+        }
+        h1 { font-size: 2.2rem; }
+        h2 {
+            margin-top: 2.5rem;
+            font-size: 1.8rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            border-bottom: 1px dashed #ccc;
+        }
+        .content-box {
+            margin: 1.5rem 0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .definition {
+            background-color: #e6f7ff;
+            border-left: 5px solid #1890ff;
+        }
+        .theorem {
+            background-color: #f6ffed;
+            border-left: 5px solid #52c41a;
+        }
+        .example {
+            background-color: #fffbe6;
+            border-left: 5px solid #faad14;
+        }
+        .content-box h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 0;
+            color: #333;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: var(--accent-color, #007bff);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">&larr; Quay lại mục lục</a>
+        
+        <h1>Chương 6. Probability and Distribution</h1>
+
+        <h2 id="sec6.2">6.2 Discrete and Continuous Probabilities</h2>
+        
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Joint Probability - Rời rạc)</h4> [cite: 3384]
+            [cite_start]<p>Xác suất đồng thời của hai biến cố rời rạc: [cite: 3385, 3387]</p>
+            [cite_start]<p>\[ P(X=x_{i}, Y=y_{j}) = P(X=x_{i} \cap Y=y_{j}) = \frac{n_{ij}}{N} \] [cite: 3388]</p>
+            [cite_start]<p>trong đó \(n_{ij}\) là số lần \(x_i\) và \(y_j\) cùng xảy ra, và \(N\) là tổng số lần thử. [cite: 3389]</p>
+        </div>
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Probability Density Function - PDF)</h4> [cite: 3419]
+            [cite_start]<p>Một hàm \(f: \mathbb{R}^D \rightarrow \mathbb{R}\) được gọi là hàm mật độ xác suất nếu: [cite: 3420]</p>
+            <ol>
+                [cite_start]<li>\( f(x) \ge 0, \forall x \in \mathbb{R}^{D} \) [cite: 3421]</li>
+                [cite_start]<li>\( \int_{\mathbb{R}^{D}} f(x)dx = 1 \) [cite: 3422]</li>
+            </ol>
+        </div>
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Cumulative Distribution Function - CDF)</h4> [cite: 3423]
+            [cite_start]<p>\[ F_{X}(x) = P(X_{1} \le x_{1}, ..., X_{D} \le x_{D}) \] [cite: 3425]</p>
+            [cite_start]<p>\[ F_{X}(x) = \int_{-\infty}^{x_{1}} \cdot\cdot\cdot \int_{-\infty}^{x_{D}} f(z_{1}, ..., z_{D})dz_{1}\cdot\cdot\cdot dz_{D} \] [cite: 3426]</p>
+        </div>
+
+        [cite_start]<h2 id="sec6.3">6.3 Sum Rule, Product Rule, and Bayes' Theorem</h2> [cite: 3430]
+        
+        <div class="content-box definition">
+            <h4>Các quy tắc xác suất cơ bản</h4>
+            <ul>
+                [cite_start]<li><strong>Sum Rule (Quy tắc tổng):</strong> [cite: 3433]
+                    [cite_start]<p>\[ p(x) = \begin{cases} \sum_{y \in \mathcal{Y}} p(x,y) & \text{nếu Y là rời rạc} \\ \int_{\mathcal{Y}} p(x,y)dy & \text{nếu Y là liên tục} \end{cases} \] [cite: 3434, 3436]</p>
+                </li>
+                [cite_start]<li><strong>Product Rule (Quy tắc tích):</strong> [cite: 3438]
+                    [cite_start]<p>\[ p(x,y) = p(y|x)p(x) \] [cite: 3439]</p>
+                </li>
+                [cite_start]<li><strong>Bayes' Theorem (Định lý Bayes):</strong> [cite: 3438]
+                    [cite_start]<p>\[ p(x|y) = \frac{p(y|x)p(x)}{p(y)} \] [cite: 3440]</p>
+                </li>
+            </ul>
+        </div>
+
+        <h2 id="sec6.4">6.4 Summary Statistics and Independence</h2>
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Expected Value - Giá trị kỳ vọng)</h4> [cite: 3447]
+            [cite_start]<p>\[ E_{X}[g(x)] = \begin{cases} \sum_{x \in \mathcal{X}} g(x)p(x) & \text{(Rời rạc)} \\ \int_{X} g(x)p(x)dx & \text{(Liên tục)} \end{cases} \] [cite: 3449, 3451]</p>
+            [cite_start]<p>Kỳ vọng có tính tuyến tính: \( E[a g(x) + b h(x)] = aE[g(x)] + bE[h(x)] \). [cite: 3467, 3468]</p>
+        </div>
+
+        <div class="content-box definition">
+            <h4>Định nghĩa (Covariance and Variance)</h4>
+            [cite_start]<p><strong>Covariance (Hiệp phương sai)</strong> giữa hai biến ngẫu nhiên đơn biến \(X\) và \(Y\): [cite: 3473]</p>
+            [cite_start]<p>\[ Cov_{X,Y}[x,y] := E_{X,Y}[(x-E_{X}[x])(y-E_{Y}[y])] = E[xy] - E[x]E[y] \] [cite: 3474]</p>
+            [cite_start]<p><strong>Variance (Phương sai):</strong> \( V_{X}[x] = Cov[x,x] \). [cite: 3477]</p>
+            [cite_start]<p><strong>Standard Deviation (Độ lệch chuẩn):</strong> \( \sigma(x) = \sqrt{V_X[x]} \). [cite: 3478]</p>
+        </div>
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Covariance Matrix - Ma trận hiệp phương sai)</h4> [cite: 3482]
+            [cite_start]<p>Với một biến ngẫu nhiên đa biến \(x \in \mathbb{R}^D\) và trung bình \(\mu\): [cite: 3485]</p>
+            [cite_start]<p>\[ V_{X}[x] = Cov_{X}[x,x] = E_{X}[(x-\mu)(x-\mu)^{T}] \] [cite: 3486]</p>
+            [cite_start]<p>\[ V_{X}[x] = E[xx^{T}] - E[x]E[x]^{T} \] [cite: 3486]</p>
+        </div>
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Correlation - Tương quan)</h4> [cite: 3504]
+            [cite_start]<p>\[ corr[x,y] = \frac{Cov[x,y]}{\sqrt{V[x]V[y]}} \in [-1, 1] \] [cite: 3506]</p>
+        </div>
+        
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Empirical Mean and Covariance)</h4> [cite: 3519]
+            [cite_start]<p><strong>Empirical Mean (Trung bình mẫu):</strong> [cite: 3520]</p>
+            [cite_start]<p>\[ \overline{x} = \frac{1}{N}\sum_{n=1}^{N}x_{n} \in \mathbb{R}^{D} \] [cite: 3521]</p>
+            [cite_start]<p><strong>Empirical Covariance Matrix (Ma trận hiệp phương sai mẫu):</strong> [cite: 3522]</p>
+            [cite_start]<p>\[ \Sigma = \frac{1}{N}\sum_{n=1}^{N}(x_n-\overline{x})(x_n-\overline{x})^{T} \] [cite: 3522]</p>
+        </div>
+        
+        <div class="content-box theorem">
+            [cite_start]<h4>Định lý (Affine Transformation)</h4> [cite: 3533]
+            <p>Cho \(X\) là một biến ngẫu nhiên với trung bình \(\mu\) và hiệp phương sai \(\Sigma\). [cite_start]Xét phép biến đổi \(y = Ax + b\). [cite: 3534]</p>
+            [cite_start]<p>Trung bình và hiệp phương sai của \(y\) là: [cite: 3535]</p>
+            [cite_start]<p>\[ E[y] = E_{X}[Ax+b] = A\mu + b \] [cite: 3536]</p>
+            [cite_start]<p>\[ V_{Y}[y] = V_{X}[Ax+b] = A\Sigma A^{T} \] [cite: 3537]</p>
+        </div>
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Statistical Independence - Độc lập thống kê)</h4> [cite: 3543]
+            [cite_start]<p>Hai biến ngẫu nhiên \(X\) và \(Y\) là độc lập thống kê khi và chỉ khi một trong các điều kiện sau đúng: [cite: 3544]</p>
+            <ol>
+                [cite_start]<li>\( p(x,y) = p(x)p(y) \) [cite: 3546]</li>
+                [cite_start]<li>\( p(y|x) = p(y) \) [cite: 3548]</li>
+                [cite_start]<li>\( p(x|y) = p(x) \) [cite: 3550]</li>
+            </ol>
+            [cite_start]<p>Nếu \(X, Y\) độc lập thì \(Cov[x,y] = 0\), nhưng điều ngược lại không phải lúc nào cũng đúng. [cite: 3553]</p>
+        </div>
+
+        [cite_start]<h2 id="sec6.5">6.5 Gaussian Distribution</h2> [cite: 3580]
+        
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Univariate Gaussian PDF)</h4> [cite: 3581]
+            [cite_start]<p>Phân phối Gaussian (hay phân phối Chuẩn) đơn biến: [cite: 3584]</p>
+            [cite_start]<p>\[ p(x|\mu,\sigma^{2}) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{(x-\mu)^{2}}{2\sigma^{2}}\right) \] [cite: 3585]</p>
+        </div>
+
+        <div class="content-box definition">
+            <h4>Định nghĩa (Multivariate Gaussian PDF)</h4>
+            [cite_start]<p>Phân phối Gaussian đa biến (\(x \in \mathbb{R}^D\)): [cite: 3586, 3588]</p>
+            [cite_start]<p>\[ p(x|\mu,\Sigma) = \frac{1}{\sqrt{(2\pi)^{D}\det\Sigma}} \exp\left(-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)\right) \] [cite: 3587]</p>
+        </div>
+        
+        <div class="content-box theorem">
+            [cite_start]<h4>Định lý (Marginals and Conditionals of Gaussians)</h4> [cite: 3650]
+            [cite_start]<p>Cho một phân phối Gaussian đồng thời: [cite: 3646]</p>
+            [cite_start]<p>\[ p(x,y) = \mathcal{N}\left( \begin{bmatrix} \mu_{x} \\ \mu_{y} \end{bmatrix}, \begin{bmatrix} \Sigma_{xx} & \Sigma_{xy} \\ \Sigma_{yx} & \Sigma_{yy} \end{bmatrix} \right) \] [cite: 3647]</p>
+            [cite_start]<p>Phân phối biên (marginal) và phân phối có điều kiện (conditional) cũng là Gaussian: [cite: 3651]</p>
+            <ul>
+                [cite_start]<li><strong>Marginal:</strong> \( p(x) = \mathcal{N}(x|\mu_{x}, \Sigma_{xx}) \) [cite: 3652]</li>
+                [cite_start]<li><strong>Conditional:</strong> \( p(x|y) = \mathcal{N}(x|\mu_{x|y}, \Sigma_{x|y}) \), [cite: 3653] trong đó:
+                    <ul>
+                        [cite_start]<li>\( \mu_{x|y} = \mu_{x} + \Sigma_{xy}\Sigma_{yy}^{-1}(y-\mu_{y}) \) [cite: 3654]</li>
+                        [cite_start]<li>\( \Sigma_{x|y} = \Sigma_{xx} - \Sigma_{xy}\Sigma_{yy}^{-1}\Sigma_{yx} \) [cite: 3654]</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="content-box theorem">
+            [cite_start]<h4>Định lý (Sums and Linear Transformations of Gaussians)</h4> [cite: 3671]
+            <ul>
+                [cite_start]<li>Nếu \(X \sim \mathcal{N}(\mu_x, \Sigma_x)\) và \(Y \sim \mathcal{N}(\mu_y, \Sigma_y)\) là độc lập, thì: [cite: 3674, 3675]
+                    [cite_start]\[ p(ax+by) = \mathcal{N}(a\mu_{x} + b\mu_{y}, a^{2}\Sigma_{x} + b^{2}\Sigma_{y}) \] [cite: 3677]
+                </li>
+                [cite_start]<li>Nếu \(X \sim \mathcal{N}(\mu, \Sigma)\) và \(y = Ax\), thì: [cite: 3678]
+                    [cite_start]\[ Y \sim \mathcal{N}(A\mu, A\Sigma A^{T}) \] [cite: 3680]
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>

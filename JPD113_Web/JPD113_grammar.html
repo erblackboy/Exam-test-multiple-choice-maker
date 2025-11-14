@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPD113 - Tổng hợp Ngữ pháp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007bff; --primary-hover: #0056b3; --background-color: #f8f9fa;
+            --surface-color: #ffffff; --text-color: #212529; --subtle-text-color: #6c757d;
+            --border-color: #dee2e6; --highlight-bg: #e6f2ff; --highlight-text: #0056b3;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05); --jp-text-color: #c92a2a;
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif; line-height: 1.65; margin: 0;
+            background-color: var(--background-color); color: var(--text-color);
+        }
+        .layout-container { display: flex; max-width: 1500px; margin: 0 auto; }
+        .sidebar {
+            flex: 0 0 260px; background-color: var(--surface-color); border-right: 1px solid var(--border-color);
+            position: sticky; top: 0; height: 100vh; padding: 30px 15px; overflow-y: auto;
+        }
+        .sidebar h3 {
+            font-size: 1.1em; text-transform: uppercase; letter-spacing: 0.5px;
+            color: var(--primary-color); margin: 0 0 20px 10px;
+        }
+        .quick-nav-list { list-style: none; padding: 0; margin: 0; }
+        .quick-nav-list a {
+            display: block; padding: 12px 20px; text-decoration: none; color: var(--subtle-text-color);
+            border-radius: 8px; transition: background-color 0.2s, color 0.2s; font-weight: 500;
+        }
+        .quick-nav-list a:hover { background-color: var(--highlight-bg); color: var(--highlight-text); }
+        .main-content { flex-grow: 1; padding: 20px 40px; }
+        header .title { text-align: center; font-size: 2.5em; color: var(--primary-hover); font-weight: 700; margin-bottom: 5px; }
+        header .subtitle { text-align: center; color: var(--subtle-text-color); margin-top: 0; margin-bottom: 40px; font-size: 1.1em; }
+        .tab-nav { display: flex; border-bottom: 2px solid var(--border-color); margin-bottom: 30px; }
+        .tab-button {
+            padding: 14px 25px; cursor: pointer; border: none; background: none; font-size: 1.05em; font-weight: 600;
+            color: var(--subtle-text-color); position: relative; transition: color 0.3s ease; display: flex;
+            align-items: center; gap: 8px; border-bottom: 2px solid transparent; margin-bottom: -2px;
+        }
+        .tab-button .icon { width: 20px; height: 20px; }
+        .tab-button:hover { color: var(--primary-color); }
+        .tab-button.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        h2 { font-size: 2em; color: var(--primary-hover); margin-top: 20px; margin-bottom: 20px; }
+        h3 { font-size: 1.5em; color: var(--text-color); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 40px; }
+        .card { background-color: var(--surface-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 30px; margin-top: 25px; box-shadow: var(--shadow); }
+        .card h3 { margin-top: 0; border: none; font-size: 1.4em; color: var(--primary-hover); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid var(--border-color); padding: 14px 16px; text-align: left; vertical-align: middle; }
+        th { background-color: var(--background-color); font-weight: 600; }
+        tr:nth-child(even) { background-color: #fdfdff; }
+        .jp-text { font-family: 'Noto Sans JP', sans-serif; font-size: 1.25em; color: var(--jp-text-color); font-weight: 500; }
+        .romaji-text { font-style: italic; color: var(--subtle-text-color); }
+        .highlight { background-color: var(--highlight-bg); font-weight: 700; color: var(--highlight-text); padding: 3px 8px; border-radius: 6px; }
+        .formula {
+            background-color: var(--highlight-bg); border: 1px solid #cce4ff; padding: 15px; margin: 15px 0; border-radius: 8px;
+            font-family: "SF Mono", "Consolas", "Courier New", monospace; font-size: 1.1em; color: var(--highlight-text); font-weight: 500;
+        }
+        .example { margin-top: 15px; border-left: 3px solid #ccc; padding-left: 15px; }
+        .explanation { margin-bottom: 15px; }
+        .quiz-controls { margin-top: 20px; padding: 25px; background-color: var(--highlight-bg); border: 1px solid #cce4ff; border-radius: 12px; text-align: center; }
+        .quiz-controls input { padding: 12px; width: 100px; margin-right: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 1em; }
+        .quiz-controls button { padding: 12px 25px; background-color: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1em; font-weight: 500; transition: background-color 0.2s ease; }
+        .quiz-controls button:hover { background-color: var(--primary-hover); }
+        #question-container { margin-top: 30px; }
+        .question-item { background-color: var(--surface-color); border: 1px solid var(--border-color); padding: 20px; margin-bottom: 15px; border-radius: 8px; }
+        .answer { display: none; margin-top: 15px; padding: 15px; background-color: #d1e7dd; border-left: 5px solid #198754; border-radius: 0 6px 6px 0; }
+        .toggle-answer { margin-left: 15px; background: none; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 5px 10px; font-size: 0.85em; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .toggle-answer:hover { background-color: var(--primary-color); color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="layout-container">
+        <aside class="sidebar">
+            <h3>Điều hướng</h3>
+            <ul id="quickNavLinks" class="quick-nav-list"></ul>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1 class="title">JPD113 - Tổng hợp Ngữ pháp</h1>
+                <p class="subtitle">Cấu trúc câu, Trợ từ, Cách đếm & Luyện tập</p>
+            </header>
+
+            <nav class="tab-nav">
+                <button class="tab-button active" onclick="openTab(event, 'Grammar')">Ngữ pháp</button>
+                <button class="tab-button" onclick="openTab(event, 'Counting')">Cách đếm & Thời gian</button>
+                <button class="tab-button" onclick="openTab(event, 'Pronunciation')">Phát âm & Luyện tập</button>
+            </nav>
+
+            <div id="Grammar" class="tab-content active">
+                <div class="card">
+                    <h3 id="g-section1">Cấu trúc câu cơ bản</h3>
+                    <table>
+                        <thead><tr><th>Loại câu</th><th>Cấu trúc</th><th>Ví dụ</th><th>Ý nghĩa</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>Khẳng định</td>
+                                <td class="formula">S は N です。</td>
+                                <td><span class="jp-text">わたしは An です。</span><br><span class="romaji-text">Watashi wa An desu.</span></td>
+                                <td>Tôi là An.</td>
+                            </tr>
+                            <tr>
+                                <td>Phủ định</td>
+                                <td class="formula">S は N じゃありません。</td>
+                                <td><span class="jp-text">かれは いしゃじゃありません。</span><br><span class="romaji-text">Kare wa isha ja arimasen.</span></td>
+                                <td>Anh ấy không phải là bác sĩ.</td>
+                            </tr>
+                            <tr>
+                                <td>Nghi vấn</td>
+                                <td class="formula">S は N ですか。</td>
+                                <td><span class="jp-text">あれは ほんですか。</span><br><span class="romaji-text">Are wa hon desu ka.</span></td>
+                                <td>Kia có phải là sách không?</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <h3 id="g-section2">Các trợ từ quan trọng</h3>
+                     <table>
+                        <thead><tr><th>Trợ từ</th><th>Cách dùng</th><th>Ví dụ</th><th>Ý nghĩa</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td class="jp-text highlight">の</td>
+                                <td>Chỉ sự sở hữu ("của"). Nối 2 danh từ.</td>
+                                <td><span class="jp-text">わたしの かばん</span><br><span class="romaji-text">watashi no kaban</span></td>
+                                <td>Cái cặp của tôi.</td>
+                            </tr>
+                            <tr>
+                                <td class="jp-text highlight">も</td>
+                                <td>Cũng (thay thế cho は).</td>
+                                <td><span class="jp-text">Lanさんも がくせいです。</span><br><span class="romaji-text">Lan-san mo gakusei desu.</span></td>
+                                <td>Chị Lan cũng là sinh viên.</td>
+                            </tr>
+                            <tr>
+                                <td class="jp-text highlight">を</td>
+                                <td>Đứng sau tân ngữ, chỉ đối tượng của hành động.</td>
+                                <td><span class="jp-text">ごはんを たべます。</span><br><span class="romaji-text">gohan o tabemasu</span></td>
+                                <td>(Tôi) ăn cơm.</td>
+                            </tr>
+                            <tr>
+                                <td class="jp-text highlight">へ</td>
+                                <td>Chỉ phương hướng di chuyển.</td>
+                                 <td><span class="jp-text">がっこうへ いきます。</span><br><span class="romaji-text">gakkou e ikimasu</span></td>
+                                <td>(Tôi) đi đến trường.</td>
+                            </tr>
+                            <tr>
+                                <td class="jp-text highlight">で</td>
+                                <td>Chỉ nơi xảy ra hành động.</td>
+                                <td><span class="jp-text">うちで えいがを みます。</span><br><span class="romaji-text">uchi de eiga o mimasu</span></td>
+                                <td>(Tôi) xem phim ở nhà.</td>
+                            </tr>
+                             <tr>
+                                <td class="jp-text highlight">に</td>
+                                <td>Chỉ thời gian cụ thể (lúc mấy giờ).</td>
+                                <td><span class="jp-text">７じに おきます。</span><br><span class="romaji-text">shichiji ni okimasu</span></td>
+                                <td>(Tôi) thức dậy lúc 7 giờ.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h3 id="g-section3">Động từ thể ます (V-masu)</h3>
+                     <table>
+                        <thead><tr><th>Loại câu</th><th>Cấu trúc</th><th>Ví dụ</th><th>Ý nghĩa</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>Khẳng định</td>
+                                <td class="formula">S は N を Vます。</td>
+                                <td><span class="jp-text">わたしは テニスを します。</span><br><span class="romaji-text">Watashi wa tenisu o shimasu.</span></td>
+                                <td>Tôi chơi tennis.</td>
+                            </tr>
+                            <tr>
+                                <td>Phủ định</td>
+                                <td class="formula">S は N を Vません。</td>
+                                <td><span class="jp-text">わたしは ほんを よみません。</span><br><span class="romaji-text">Watashi wa hon o yomimasen.</span></td>
+                                <td>Tôi không đọc sách.</td>
+                            </tr>
+                            <tr>
+                                <td>Câu hỏi</td>
+                                <td class="formula">S は N を Vますか。</td>
+                                <td><span class="jp-text">なにを たべますか。</span><br><span class="romaji-text">Nani o tabemasu ka.</span></td>
+                                <td>Bạn ăn gì vậy?</td>
+                            </tr>
+                             <tr>
+                                <td>Phủ định hoàn toàn</td>
+                                <td class="formula">どこへも いきません。</td>
+                                <td><span class="jp-text">どこへも いきません。</span><br><span class="romaji-text">Doko e mo ikimasen.</span></td>
+                                <td>Tôi không đi đâu cả.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="Counting" class="tab-content">
+                <div class="card">
+                    <h3 id="c-section1">Thời gian (時間)</h3>
+                    <table>
+                        <thead><tr><th>Mục</th><th>Cấu trúc hỏi</th><th>Ví dụ</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>Hỏi giờ</td>
+                                <td class="formula">いま、なんじですか。</td>
+                                <td><span class="jp-text">いま、ごぜん９じはん（九時半）です。</span><br>Bây giờ là 9:30 sáng.</td>
+                            </tr>
+                             <tr>
+                                <td>Hỏi giờ hoạt động</td>
+                                <td class="formula">Place は なんじから なんじまで ですか。</td>
+                                <td><span class="jp-text">ぎんこうは ９じから ３じまでです。</span><br>Ngân hàng mở cửa từ 9h đến 3h.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Lưu ý đếm giờ:</strong> <strong>4h</strong> (よじ), <strong>7h</strong> (しちじ), <strong>9h</strong> (くじ).<br>
+                    <strong>Lưu ý đếm phút:</strong> Các số kết thúc bằng <strong>1, 6, 8, 10</strong> đọc là <strong>-pun</strong> (いっぷん, ろっぷん...). Số <strong>3</strong> đọc là <strong>-pun</strong> (さんぷん). Còn lại đọc là <strong>-fun</strong>.</p>
+                </div>
+                <div class="card">
+                    <h3 id="c-section2">Ngày tháng (日付)</h3>
+                    <table>
+                         <thead><tr><th>Mục</th><th>Cách đếm đặc biệt</th></tr></thead>
+                         <tbody>
+                            <tr>
+                                <td>Đếm ngày</td>
+                                <td>Từ ngày 1 đến 10 có cách đọc riêng: <span class="highlight">ついたち, ふつか, みっか...</span>. Ngày 20 là <span class="highlight">はつか</span>.</td>
+                            </tr>
+                            <tr>
+                                <td>Đếm tháng</td>
+                                <td>Số đếm + がつ. Lưu ý: Tháng 4 (しがつ), Tháng 7 (しちがつ), Tháng 9 (くがつ).</td>
+                            </tr>
+                         </tbody>
+                    </table>
+                </div>
+                 <div class="card">
+                    <h3 id="c-section3">Cách đếm khác</h3>
+                    <table>
+                         <thead><tr><th>Đối tượng</th><th>Cách đếm và các trường hợp đặc biệt</th></tr></thead>
+                         <tbody>
+                             <tr>
+                                <td>Đếm người (人)</td>
+                                <td>1 người: <span class="highlight">ひとり</span>, 2 người: <span class="highlight">ふたり</span>, 4 người: <span class="highlight">よにん</span>. Còn lại dùng Số + にん.</td>
+                            </tr>
+                            <tr>
+                                <td>Đếm tuổi (歳)</td>
+                                <td>1 tuổi: <span class="highlight">いっさい</span>, 8 tuổi: <span class="highlight">はっさい</span>, 10 tuổi: <span class="highlight">じゅっさい</span>, 20 tuổi: <span class="highlight">はたち</span>.</td>
+                            </tr>
+                             <tr>
+                                <td>Đếm tầng (階)</td>
+                                <td>Tầng 1: <span class="highlight">いっかい</span>, Tầng 3: <span class="highlight">さんがい</span>, Tầng 6: <span class="highlight">ろっかい</span>. Hỏi: <span class="highlight">なんがい</span>.</td>
+                            </tr>
+                            <tr>
+                                <td>Đếm đồ vật chung</td>
+                                <td>Từ 1-10 có cách đếm riêng: <span class="highlight">ひとつ, ふたつ, みっつ...</span>.</td>
+                            </tr>
+                         </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="Pronunciation" class="tab-content">
+                <div class="card">
+                    <h3 id="p-section1">Các quy tắc phát âm</h3>
+                    <table>
+                        <thead><tr><th>Loại âm</th><th>Giải thích</th><th>Ví dụ</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>Trọc âm (濁音・半濁音)</td>
+                                <td>Thêm dấu (゛) hoặc (゜) để thay đổi cách đọc. K→G, S→Z, T→D, H→B/P.</td>
+                                <td class="jp-text">か (ka) → が (ga) <br> は (ha) → ぱ (pa)</td>
+                            </tr>
+                             <tr>
+                                <td>Âm ghép (拗音)</td>
+                                <td>Ghép các chữ cột い (き, し, ち...) với <span class="jp-text">ゃ, ゅ, ょ</span> nhỏ.</td>
+                                <td class="jp-text">き + ゃ → きゃ (kya) <br> し + ゅ → しゅ (shu)</td>
+                            </tr>
+                             <tr>
+                                <td>Trường âm (長音)</td>
+                                <td>Kéo dài nguyên âm. Ví dụ: あ+あ, い+い, う+う, え+い, お+う.</td>
+                                <td class="jp-text">おとうさん (o-to-o-san → otōsan)</td>
+                            </tr>
+                            <tr>
+                                <td>Xúc âm (促音)</td>
+                                <td>Chữ <span class="jp-text">っ</span> nhỏ để gấp đôi phụ âm đứng sau nó.</td>
+                                <td class="jp-text">がっこう (ga-k-kou → gakkou)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 <div class="card">
+                    <h3 id="p-section2">Luyện tập (練習)</h3>
+                    <div class="quiz-controls">
+                        <label for="num-questions">Số lượng câu hỏi:</label>
+                        <input type="number" id="num-questions" value="5" min="1" max="50">
+                        <button id="generateBtn">Tạo câu hỏi</button>
+                    </div>
+                    <div id="question-container">
+                        <p style="text-align:center; color: var(--subtle-text-color);">Nhập số lượng và nhấn nút để bắt đầu.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const quickNavLinks = document.getElementById('quickNavLinks');
+        function updateQuickNav(activeTabId) {
+            quickNavLinks.innerHTML = '';
+            const activeTab = document.getElementById(activeTabId);
+            const headers = activeTab.querySelectorAll('h3');
+            headers.forEach(header => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${header.id}`;
+                a.textContent = header.textContent;
+                a.onclick = (e) => {
+                    e.preventDefault();
+                    document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                };
+                li.appendChild(a);
+                quickNavLinks.appendChild(li);
+            });
+        }
+        function openTab(evt, tabName) {
+            let i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) { tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");}
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+            updateQuickNav(tabName);
+        }
+        document.addEventListener("DOMContentLoaded", () => { document.querySelector('.tab-button.active').click(); });
+        const nouns = ['ほん', 'かばん', 'くるま', 'つくえ', 'いす', 'カメラ', 'テレビ', 'パソコン', 'コーヒー', 'じしょ', 'ざっし', 'しんぶん', 'とけい', 'かさ', 'くつ'];
+        const places = ['がっこう', 'としょかん', 'うち', 'かいしゃ', 'スーパー', 'えき', 'ぎんこう', 'ゆうびんきょく', 'デパート', 'レストラン', 'こうえん'];
+        const people = ['せんせい', 'ともだち', 'たなかさん', 'やまださん', 'きむらさん', 'かぞく'];
+        const time = ['きょう', 'あした', 'きのう', 'まいあさ', 'まいばん', '７じ', 'げつようび', 'しゅうまつ'];
+        const verbs = ['たべます', 'のみます', 'かいます', 'みます', 'ききます', 'よみます', 'かきます', 'べんきょうします', 'しごとをします'];
+        const objects = ['ごはん', 'パン', 'みず', 'コーヒー', 'おちゃ', 'えいが', 'おんがく', 'てがみ', 'ほん', 'しゅくだい'];
+        const questionPatterns = [
+            () => { const noun = nouns[Math.floor(Math.random() * nouns.length)]; return { question: `これは なん ですか。`, answer: `これは <span class="jp-text">${noun}</span> です。` }; },
+            () => { const place = places[Math.floor(Math.random() * places.length)]; return { question: `どこへ いきますか。`, answer: `<span class="jp-text">${place}</span>へ いきます。` }; },
+            () => { const place = places[Math.floor(Math.random() * places.length)]; const verb = verbs[Math.floor(Math.random() * verbs.length)]; return { question: `<span class="jp-text">${place}</span>で なにを しますか。`, answer: `<span class="jp-text">${place}</span>で <span class="jp-text">${objects[Math.floor(Math.random() * objects.length)]}</span>を <span class="jp-text">${verb}</span>。` }; },
+            () => { const person = people[Math.floor(Math.random() * people.length)]; const place = places[Math.floor(Math.random() * places.length)]; return { question: `<span class="jp-text">${person}</span>は どこに いますか。`, answer: `<span class="jp-text">${person}</span>は <span class="jp-text">${place}</span>に います。` }; },
+            () => { const noun = nouns[Math.floor(Math.random() * nouns.length)]; const price = Math.floor(Math.random() * 10000) + 500; return { question: `この <span class="jp-text">${noun}</span>は いくらですか。`, answer: `その <span class="jp-text">${noun}</span>は <span class="jp-text">${price}</span>えんです。` }; },
+            () => { const noun = nouns[Math.floor(Math.random() * nouns.length)]; const person = people[Math.floor(Math.random() * people.length)]; return { question: `これは だれの <span class="jp-text">${noun}</span> ですか。`, answer: `それは <span class="jp-text">${person}</span>の <span class="jp-text">${noun}</span> です。` }; },
+            () => { const t = time[Math.floor(Math.random() * time.length)]; const verb = verbs[Math.floor(Math.random() * verbs.length)]; return { question: `<span class="jp-text">${t}</span>に なにを しますか。`, answer: `<span class="jp-text">${t}</span>に <span class="jp-text">${verb}</span>。` }; },
+            () => { const start = Math.floor(Math.random() * 5) + 8; const end = Math.floor(Math.random() * 4) + 14; const place = places[Math.floor(Math.random() * places.length)]; return { question: `<span class="jp-text">${place}</span>は なんじから なんじまで ですか。`, answer: `<span class="jp-text">${place}</span>は <span class="jp-text">${start}</span>じから <span class="jp-text">${end}</span>じまで です。` }; }
+        ];
+        const generateBtn = document.getElementById('generateBtn');
+        const questionContainer = document.getElementById('question-container');
+        const numQuestionsInput = document.getElementById('num-questions');
+        function generateQuestions() {
+            questionContainer.innerHTML = '';
+            const numQuestions = parseInt(numQuestionsInput.value, 10);
+            if (isNaN(numQuestions) || numQuestions < 1) { questionContainer.innerHTML = '<p>Vui lòng nhập một số hợp lệ.</p>'; return; }
+            const ol = document.createElement('ol');
+            ol.style.paddingLeft = '20px';
+            for (let i = 0; i < numQuestions; i++) {
+                const patternIndex = Math.floor(Math.random() * questionPatterns.length);
+                const qa = questionPatterns[patternIndex]();
+                const li = document.createElement('li');
+                li.className = 'question-item';
+                const questionText = document.createElement('span');
+                questionText.innerHTML = `<strong>Hỏi:</strong> <span class="jp-text">${qa.question}</span>`;
+                const toggleBtn = document.createElement('button');
+                toggleBtn.className = 'toggle-answer';
+                toggleBtn.innerText = 'Xem đáp án';
+                const answerDiv = document.createElement('div');
+                answerDiv.className = 'answer';
+                answerDiv.innerHTML = `<strong>Đáp án gợi ý:</strong> ${qa.answer}`;
+                toggleBtn.onclick = () => {
+                    const ans = toggleBtn.nextElementSibling;
+                    const isHidden = ans.style.display === 'none' || ans.style.display === '';
+                    ans.style.display = isHidden ? 'block' : 'none';
+                    toggleBtn.innerText = isHidden ? 'Ẩn đáp án' : 'Xem đáp án';
+                };
+                li.appendChild(questionText);
+                li.appendChild(toggleBtn);
+                li.appendChild(answerDiv);
+                ol.appendChild(li);
+            }
+            questionContainer.appendChild(ol);
+        }
+        generateBtn.addEventListener('click', generateQuestions);
+    </script>
+</body>
+</html>

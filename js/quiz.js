@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const { subjectCode, questions, timeLimit } = JSON.parse(quizSessionData);
+    const { subjectCode, subjectTitle, questions, timeLimit } = JSON.parse(quizSessionData);
     
-    // Khai báo các biến DOM
+    // DOM Elements
     const subjectCodeEl = document.getElementById('quiz-subject-code');
     const timerEl = document.getElementById('timer');
     const questionCounterEl = document.getElementById('question-counter');
@@ -49,12 +49,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const paletteBtn = document.createElement('button');
             paletteBtn.className = 'palette-btn';
             paletteBtn.textContent = index + 1;
-            if (userAnswers[index] !== null && userAnswers[index].length !== 0) {
+
+            const answer = userAnswers[index];
+            if (answer !== null && (!Array.isArray(answer) || answer.length > 0)) {
                 paletteBtn.classList.add('answered');
             }
             if (index === currentQuestionIndex) {
                 paletteBtn.classList.add('current');
             }
+
             paletteBtn.addEventListener('click', () => {
                 currentQuestionIndex = index;
                 loadQuestion(currentQuestionIndex);
@@ -69,48 +72,61 @@ document.addEventListener('DOMContentLoaded', () => {
         questionTextEl.innerHTML = question.question;
 
         if (question.image) {
-            // QUAN TRỌNG: Thêm đường dẫn thư mục 'imgs/'
             questionImageEl.src = `imgs/${question.image}`;
             questionImageEl.style.display = 'block';
         } else {
             questionImageEl.style.display = 'none';
+            questionImageEl.src = '';
         }
-        
+
         optionsContainerEl.innerHTML = '';
-        const isMultiChoice = Array.isArray(question.answer) && question.answer.length > 1;
+        const isMultiChoice = question.answer.length > 1;
 
         question.options.forEach((option, optionIndex) => {
-            const optionId = `q${index}_option${optionIndex}`;
             const wrapper = document.createElement('div');
             wrapper.className = 'option-item';
-
             const input = document.createElement('input');
             input.type = isMultiChoice ? 'checkbox' : 'radio';
             input.name = `question${index}`;
-            input.id = optionId;
+            input.id = `option${optionIndex}_${index}`;
             input.value = optionIndex;
 
             const label = document.createElement('label');
-            label.htmlFor = optionId;
+            label.htmlFor = input.id;
             label.innerHTML = option;
 
             wrapper.appendChild(input);
             wrapper.appendChild(label);
             optionsContainerEl.appendChild(wrapper);
 
-            const savedAnswer = userAnswers[index];
-            if (savedAnswer !== null) {
-                if (Array.isArray(savedAnswer) && savedAnswer.includes(optionIndex)) {
-                    input.checked = true;
-                } else if (!Array.isArray(savedAnswer) && savedAnswer === optionIndex) {
+            wrapper.addEventListener('click', () => {
+                if (isMultiChoice) {
+                    input.checked = !input.checked;
+                } else {
                     input.checked = true;
                 }
+                handleOptionSelect(index, isMultiChoice);
+            });
+
+            const savedAnswer = userAnswers[index];
+            if (savedAnswer !== null) {
+                if (isMultiChoice && Array.isArray(savedAnswer) && savedAnswer.includes(optionIndex)) {
+                    input.checked = true;
+                    wrapper.classList.add('selected');
+                } else if (!isMultiChoice && savedAnswer === optionIndex) {
+                    input.checked = true;
+                    wrapper.classList.add('selected');
+                }
             }
-            input.addEventListener('change', () => handleOptionSelect(index, isMultiChoice));
         });
 
         updateNavButtons();
         renderPalette();
+        
+        // Trigger MathJax to render all formulas (question and options) together
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise([questionTextEl, optionsContainerEl]).then(() => {}).catch((err) => console.log('MathJax typeset error:', err));
+        }
     }
 
     function handleOptionSelect(questionIndex, isMultiChoice) {
@@ -120,30 +136,38 @@ document.addEventListener('DOMContentLoaded', () => {
             inputs.forEach(input => {
                 if (input.checked) {
                     selected.push(parseInt(input.value));
+                    input.parentElement.classList.add('selected');
+                } else {
+                    input.parentElement.classList.remove('selected');
                 }
             });
-            userAnswers[questionIndex] = selected.length > 0 ? selected : null;
+            userAnswers[questionIndex] = selected;
         } else {
+            let selectedValue = null;
             inputs.forEach(input => {
                 if (input.checked) {
-                    userAnswers[questionIndex] = parseInt(input.value);
+                    selectedValue = parseInt(input.value);
+                    input.parentElement.classList.add('selected');
+                } else {
+                    input.parentElement.classList.remove('selected');
                 }
             });
+            userAnswers[questionIndex] = selectedValue;
         }
         renderPalette();
     }
-    
+
     function updateNavButtons() {
         prevBtn.disabled = currentQuestionIndex === 0;
         nextBtn.disabled = currentQuestionIndex === questions.length - 1;
     }
-    
+
     function submitQuiz() {
         clearInterval(timerInterval);
         const results = {
             questions,
             userAnswers,
-            subjectTitle: quizData[subjectCode].title
+            subjectTitle
         };
         localStorage.setItem('quizResults', JSON.stringify(results));
         localStorage.removeItem('quizSession');
@@ -164,17 +188,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    submitBtn.addEventListener('click', () => confirmModal.style.display = 'flex');
-    cancelSubmitBtn.addEventListener('click', () => confirmModal.style.display = 'none');
+    submitBtn.addEventListener('click', () => {
+        confirmModal.style.display = 'flex';
+    });
+
+    cancelSubmitBtn.addEventListener('click', () => {
+        confirmModal.style.display = 'none';
+    });
+
     confirmSubmitBtn.addEventListener('click', submitQuiz);
+
     window.addEventListener('click', (event) => {
-        if (event.target == confirmModal) {
+        if (event.target === confirmModal) {
             confirmModal.style.display = 'none';
         }
     });
 
     // Initial Load
-    subjectCodeEl.textContent = subjectCode;
+    subjectCodeEl.textContent = subjectTitle;
     loadQuestion(currentQuestionIndex);
     startTimer();
 });

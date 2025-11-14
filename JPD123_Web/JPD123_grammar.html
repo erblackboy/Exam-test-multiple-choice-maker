@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPD123 - Ngữ pháp Bài 4 & 5</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --primary-hover: #0056b3;
+            --background-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-color: #212529;
+            --subtle-text-color: #6c757d;
+            --border-color: #dee2e6;
+            --highlight-bg: #e6f2ff;
+            --highlight-text: #0056b3;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --jp-text-color: #c92a2a;
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        .layout-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .sidebar {
+            flex: 0 0 280px;
+            background-color: var(--surface-color);
+            border-right: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            padding: 30px 15px;
+            overflow-y: auto;
+        }
+        .sidebar h3 {
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--primary-color);
+            margin: 0 0 20px 10px;
+        }
+        .quick-nav-list { list-style: none; padding: 0; margin: 0; }
+        .quick-nav-list a {
+            display: block; padding: 12px 20px; text-decoration: none;
+            color: var(--subtle-text-color); border-radius: 8px;
+            transition: background-color 0.2s, color 0.2s; font-weight: 500;
+        }
+        .quick-nav-list a:hover, .quick-nav-list a.active {
+            background-color: var(--highlight-bg);
+            color: var(--highlight-text);
+        }
+        .main-content { flex-grow: 1; padding: 20px 40px; }
+        .breadcrumb { margin-bottom: 25px; font-size: 1em; color: var(--subtle-text-color); }
+        .breadcrumb a { color: var(--primary-color); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .main-header { font-size: 2.5em; color: var(--primary-hover); margin-bottom: 40px; }
+        .card {
+            background-color: var(--surface-color); border: 1px solid var(--border-color);
+            border-left: 5px solid var(--primary-color); border-radius: 8px;
+            padding: 25px; margin-bottom: 30px; box-shadow: var(--shadow);
+        }
+        h2 { font-size: 2em; color: var(--primary-hover); border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-top: 20px; margin-bottom: 20px;}
+        h3 { font-size: 1.5em; color: var(--text-color); margin-top: 30px; margin-bottom: 15px; }
+        .formula {
+            background-color: var(--highlight-bg); border: 1px solid #cce4ff;
+            padding: 15px; margin: 15px 0; border-radius: 8px;
+            font-family: "SF Mono", "Consolas", "Courier New", monospace;
+            font-size: 1.1em; color: var(--highlight-text); font-weight: 500;
+            word-wrap: break-word; /* Ensure long formulas wrap */
+        }
+        .explanation { margin-bottom: 15px; }
+        .example { margin-top: 15px; border-left: 3px solid #ccc; padding-left: 15px; }
+        .jp-text { font-weight: bold; font-size: 1.1em; color: var(--jp-text-color); /* Added color */ }
+        .romaji-text { font-style: italic; color: #555; display: block; }
+        .vi-text { color: #0056b3; display: block; }
+        .note { background-color: #fffbe6; border: 1px solid #ffe58f; padding: 15px; border-radius: 8px; margin-top: 15px; }
+        /* Style for the table */
+        .grammar-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 1em; }
+        .grammar-table th, .grammar-table td { border: 1px solid var(--border-color); padding: 12px 8px; text-align: center; }
+        .grammar-table th { background-color: var(--highlight-bg); color: var(--highlight-text); font-weight: 600; }
+        .grammar-table .category { background-color: #f1f3f5; font-weight: 500; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="layout-container">
+        <aside class="sidebar">
+            <h3>Ngữ pháp Tổng hợp</h3>
+            <ul id="quickNavLinks" class="quick-nav-list">
+                <li><a href="#section1">1. Hỏi & Mô tả Đặc điểm</a></li>
+                <li><a href="#section2">2. Phân loại & Sử dụng Tính từ</a></li>
+                <li><a href="#section3">3. Liên kết các Tính từ</a></li>
+                <li><a href="#section4">4. Diễn tả Sở hữu & Tồn tại</a></li>
+                <li><a href="#section5">5. Hỏi & Trả lời về Thời gian</a></li>
+                <li><a href="#section6">6. Thì Quá khứ</a></li>
+                <li><a href="#section7">7. Trợ từ「で」 (Địa điểm)</a></li>
+                <li><a href="#section8">8. Rủ rê & Mong muốn</a></li>
+                <li><a href="#section9">9. Bày tỏ sự Yêu/Ghét</a></li>
+                <li><a href="#section10">10. Hỏi & Nêu Lý do</a></li>
+                <li><a href="#section11">11. Phó từ thường gặp</a></li>
+                <li><a href="#section12">12. Mẫu câu So sánh</a></li>
+                <li><a href="#section13">13. Diễn tả "Có" (Sự kiện, Số lượng)</a></li>
+                <li><a href="#section14">14. Thể V-て (Yêu cầu & Tiếp diễn)</a></li>
+                <li><a href="#section15">15. Đề nghị & Cách thức</a></li>
+                <li><a href="#section16">16. Trạng từ & Trợ từ cuối câu</a></li>
+                <li><a href="#section17">17. Nghi vấn từ (Ai, Cái nào)</a></li>
+                <li><a href="#section18">18. Trợ từ「で」 (Công cụ)</a></li>
+                <li><a href="#section19">19. Chia động từ Thể V-て</a></li>
+                <li><a href="#section20">20. Làm gì "cho" ai đó (V-て あげます)</a></li>
+                <li><a href="#section21">21. Mô tả Đặc điểm (N1 は N2 が A)</a></li>
+                <li><a href="#section22">22. Hỏi (Từ... đến...) (から...まで)</a></li>
+                <li><a href="#section23">23. Mục đích di chuyển (V に 行く)</a></li>
+                <li><a href="#section24">24. Nghi vấn từ + か / も</a></li>
+                <li><a href="#section25">25. Trợ từ「と」 (cùng với)</a></li>
+                <li><a href="#section26">26. Liên từ nối câu (そして, それから)</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <nav class="breadcrumb">
+                <a href="../index.html">Trang chủ</a> &gt;
+                <a href="index.html">JPD123</a> &gt; Ngữ pháp Tổng hợp
+            </nav>
+            <h1 class="main-header">📖 Ngữ pháp Tiếng Nhật (Tổng hợp)</h1>
+
+            <div id="section1" class="card">
+                <h2>1. Hỏi & Mô tả Đặc điểm</h2>
+
+                <h3>Hỏi "Như thế nào?" với `どんな`</h3>
+                <p class="explanation">Dùng để hỏi về tính chất, đặc điểm của một <strong>danh từ (N)</strong>. Câu trả lời sẽ mô tả cho danh từ đó.</p>
+                <div class="formula">S は どんな N ですか。</div>
+                <div class="example">
+                    <p><span class="jp-text">ベトナム は どんな くに ですか。</span>
+                       <span class="romaji-text">Betonamu wa donna kuni desu ka?</span>
+                       <span class="vi-text">Việt Nam là một đất nước như thế nào?</span></p>
+                    <p><span class="jp-text">→ きれいな くに です。</span>
+                       <span class="romaji-text">→ Kirei na kuni desu.</span>
+                       <span class="vi-text">→ Là một đất nước xinh đẹp.</span></p>
+                </div>
+
+                <h3>Hỏi "Thế nào?" với `どう`</h3>
+                <p class="explanation">Dùng để hỏi ý kiến, cảm nhận chung về một chủ đề (S).</p>
+                <div class="formula">S は どうですか。</div>
+                <div class="example">
+                    <p><span class="jp-text">にほん の せいかつ は どうですか。</span>
+                       <span class="romaji-text">Nihon no seikatsu wa dou desu ka?</span>
+                       <span class="vi-text">Cuộc sống ở Nhật thì thế nào?</span></p>
+                    <p><span class="jp-text">→ たのしい です。</span>
+                       <span class="romaji-text">→ Tanoshii desu.</span>
+                       <span class="vi-text">→ Rất vui.</span></p>
+                </div>
+
+                <h3>Mô tả Vị trí / Phương hướng</h3>
+                <p class="explanation">Dùng để nói một địa điểm (S) nằm ở phía nào (Direction) của một địa điểm lớn hơn (Place).</p>
+                <div class="formula">S は N(Place) の Direction です。</div>
+                <div class="example">
+                    <p><span class="jp-text">とうきょう は ひろしま の ひがし です。</span>
+                       <span class="romaji-text">Toukyou wa Hiroshima no higashi desu.</span>
+                       <span class="vi-text">Tokyo ở phía đông của Hiroshima.</span></p>
+                    <p><span class="jp-text">ベトナム は タイ の ひがし です。</span>
+                       <span class="romaji-text">Betonamu wa Tai no higashi desu.</span>
+                       <span class="vi-text">Việt Nam ở phía đông của Thái Lan.</span></p>
+                </div>
+            </div>
+
+            <div id="section2" class="card">
+                <h2>2. Phân loại & Sử dụng Tính từ</h2>
+
+                <h3>Tính từ đuôi i (い-Adj)</h3>
+                <p class="explanation">Tính từ đuôi i dùng trực tiếp trước danh từ hoặc làm vị ngữ. Phủ định: い-Adj くありません。</p>
+                <div class="formula">Khẳng định: N は い-Adj です。 / い-Adj N</div>
+                <div class="formula">Phủ định: N は い-Adj くありません。</div>
+                <div class="example">
+                    <p><span class="jp-text">この やま は たかい です。</span>
+                       <span class="romaji-text">Kono yama wa takai desu.</span>
+                       <span class="vi-text">Ngọn núi này cao.</span></p>
+                    <p><span class="jp-text">たかい やま です。</span>
+                       <span class="romaji-text">Takai yama desu.</span>
+                       <span class="vi-text">Là một ngọn núi cao.</span></p>
+                    <p><span class="jp-text">この やま は たかく ありません。</span>
+                       <span class="romaji-text">Kono yama wa takaku arimasen.</span>
+                       <span class="vi-text">Ngọn núi này không cao.</span></p>
+                </div>
+
+                <h3>Tính từ na (な-Adj)</h3>
+                <p class="explanation">Tính từ na cần "な" trước danh từ. Phủ định: な-Adj じゃありません。</p>
+                <div class="formula">Khẳng định: N は な-Adj です。 / な-Adj な N</div>
+                <div class="formula">Phủ định: N は な-Adj じゃありません。</div>
+                <div class="example">
+                    <p><span class="jp-text">この まち は しずか です。</span>
+                       <span class="romaji-text">Kono machi wa shizuka desu.</span>
+                       <span class="vi-text">Thành phố này yên tĩnh.</span></p>
+                    <p><span class="jp-text">しずか な まち です。</span>
+                       <span class="romaji-text">Shizuka na machi desu.</span>
+                       <span class="vi-text">Là một thành phố yên tĩnh.</span></p>
+                    <p><span class="jp-text">この まち は しずか じゃありません。</span>
+                       <span class="romaji-text">Kono machi wa shizuka ja arimasen.</span>
+                       <span class="vi-text">Thành phố này không yên tĩnh.</span></p>
+                </div>
+            </div>
+
+            <div id="section3" class="card">
+                <h2>3. Liên kết các Tính từ</h2>
+
+                <h3>Liên kết nối tiếp (và)</h3>
+                <p class="explanation">Dùng `くて` cho い-Adj và `で` cho な-Adj để nối các tính từ mang ý nghĩa liệt kê hoặc bổ sung.</p>
+                <div class="formula">い-Adj(<s>い</s>くて) / な-Adj(で) + [Câu tiếp theo]</div>
+                <div class="example">
+                     <p><span class="jp-text">かれ は ハンサム で しんせつ です。</span>
+                       <span class="romaji-text">Kare wa hansamu de shinsetsu desu.</span>
+                       <span class="vi-text">Anh ấy đẹp trai và tốt bụng. (な-Adj で な-Adj)</span></p>
+                    <p><span class="jp-text">この へや は ひろくて あかるい です。</span>
+                       <span class="romaji-text">Kono heya wa hirokute akarui desu.</span>
+                       <span class="vi-text">Căn phòng này rộng và sáng sủa. (い-Adj くて い-Adj)</span></p>
+                    <p><span class="jp-text">きれい で しずか な まち です。</span>
+                       <span class="romaji-text">Kirei de shizuka na machi desu.</span>
+                       <span class="vi-text">Là một thành phố xinh đẹp và yên tĩnh. (な-Adj で な-Adj な N)</span></p>
+                </div>
+
+                <h3>Liên kết đối lập (nhưng)</h3>
+                 <p class="explanation">Dùng trợ từ `が` sau mệnh đề thứ nhất để nối hai mệnh đề có ý nghĩa tương phản.</p>
+                <div class="formula">[Sentence 1] が、[Sentence 2]。</div>
+                <div class="example">
+                    <p><span class="jp-text">にほん の たべもの は おいしい です が、たかい です。</span>
+                       <span class="romaji-text">Nihon no tabemono wa oishii desu ga, takai desu.</span>
+                       <span class="vi-text">Đồ ăn Nhật ngon nhưng đắt.</span></p>
+                </div>
+                 <div class="note">⚠️ Bạn cũng có thể dùng thể `て/で` của tính từ + `が`: `高くて、おいしいです` (Đắt nhưng ngon).</div>
+
+                <h3>Mục đích: N に Adj です</h3>
+                <p class="explanation">Dùng để diễn tả một tính chất nào đó tốt/xấu cho một mục đích hoặc đối tượng N.</p>
+                <div class="formula">N に Adj です。</div>
+                <div class="example">
+                    <p><span class="jp-text">この ばしょ は べんきょう に いい です。</span>
+                       <span class="romaji-text">Kono basho wa benkyou ni ii desu.</span>
+                       <span class="vi-text">Nơi này tốt cho việc học.</span></p>
+                </div>
+
+                <h3>Tính chất của N: Adj の N</h3>
+                <p class="explanation">Dùng khi danh từ đã được nhắc đến trước đó, thay vì lặp lại `Adj + N`, ta dùng `Adj の`.</p>
+                <div class="formula">Adj の です。</div>
+                 <div class="example">
+                    <p><span class="jp-text">A: どんな かばん が ほしい ですか。</span>
+                       <span class="romaji-text">A: Donna kaban ga hoshii desu ka?</span>
+                       <span class="vi-text">A: Bạn muốn cái cặp như thế nào?</span></p>
+                    <p><span class="jp-text">B: おおきい の が ほしい です。</span> (Thay vì おおきい かばん)
+                       <span class="romaji-text">B: Ookii no ga hoshii desu.</span>
+                       <span class="vi-text">B: Tôi muốn cái lớn.</span></p>
+                 </div>
+            </div>
+
+            <div id="section4" class="card">
+                <h2>4. Diễn tả Sở hữu & Tồn tại</h2>
+
+                <h3>Sở hữu: N1 の N2</h3>
+                <p class="explanation">Dùng để diễn tả mối quan hệ sở hữu giữa hai danh từ (N2 thuộc về N1).</p>
+                <div class="formula">N1 の N2</div>
+                <div class="example">
+                    <p><span class="jp-text">これは わたし の ほん です。</span>
+                       <span class="romaji-text">Kore wa watashi no hon desu.</span>
+                       <span class="vi-text">Đây là sách của tôi.</span></p>
+                    <p><span class="jp-text">すみださん の かさ です。</span>
+                       <span class="romaji-text">Sumida-san no kasa desu.</span>
+                       <span class="vi-text">Là ô của anh Sumida.</span></p>
+                </div>
+
+                <h3>Tồn tại: あります / います</h3>
+                <p class="explanation">Dùng để diễn tả sự tồn tại của vật vô tri (あります) hoặc có sinh khí (います) tại một địa điểm (Place).</p>
+                <div class="formula">N(Thing/Person/Animal) が Place に あります / います。</div>
+                 <div class="formula">Place に N(Thing/Person/Animal) が あります / います。</div>
+                <div class="example">
+                    <p><span class="jp-text">つくえ の うえ に ほん が あります。</span>
+                       <span class="romaji-text">Tsukue no ue ni hon ga arimasu.</span>
+                       <span class="vi-text">Trên bàn có sách.</span></p>
+                    <p><span class="jp-text">へや に ねこ が います。</span>
+                       <span class="romaji-text">Heya ni neko ga imasu.</span>
+                       <span class="vi-text">Trong phòng có mèo.</span></p>
+                </div>
+            </div>
+
+            <div id="section5" class="card">
+                <h2>5. Hỏi & Trả lời về Thời gian</h2>
+
+                <h3>Hỏi giờ: なんじ ですか</h3>
+                <p class="explanation">Dùng để hỏi thời gian cụ thể.</p>
+                <div class="formula">いま 何時 (なんじ) ですか。</div>
+                <div class="example">
+                    <p><span class="jp-text">いま なんじ ですか。</span>
+                       <span class="romaji-text">Ima nanji desu ka?</span>
+                       <span class="vi-text">Bây giờ mấy giờ?</span></p>
+                    <p><span class="jp-text">→ さんじ です。</span>
+                       <span class="romaji-text">→ Sanji desu.</span>
+                       <span class="vi-text">→ Ba giờ.</span></p>
+                </div>
+
+                <h3>Hỏi khi nào: いつ ですか</h3>
+                <p class="explanation">Dùng để hỏi thời điểm xảy ra một sự kiện hoặc hành động.</p>
+                <div class="formula">N(Event) は いつ ですか。</div>
+                 <div class="formula">V-る の は いつ ですか。</div>
+                <div class="example">
+                    <p><span class="jp-text">たんじょうび は いつ ですか。</span>
+                       <span class="romaji-text">Tanjoubi wa itsu desu ka?</span>
+                       <span class="vi-text">Sinh nhật bạn là khi nào?</span></p>
+                    <p><span class="jp-text">→ じゅうがつ よっか です。</span>
+                       <span class="romaji-text">→ Juu-gatsu yokka desu.</span>
+                       <span class="vi-text">→ Ngày 4 tháng 10.</span></p>
+                    <p><span class="jp-text">かいもの に いく の は いつ ですか。</span>
+                       <span class="romaji-text">Kaimono ni iku no wa itsu desu ka?</span>
+                       <span class="vi-text">Việc đi mua sắm là khi nào?</span></p>
+                    <p><span class="jp-text">→ あした です。</span>
+                       <span class="romaji-text">→ Ashita desu.</span>
+                       <span class="vi-text">→ Ngày mai.</span></p>
+                </div>
+            </div>
+
+             <div id="section6" class="card">
+                <h2>6. Thì Quá khứ</h2>
+
+                <h3>Bảng tóm tắt chia thể (Hiện tại/Quá khứ)</h3>
+                <p class="explanation">Dùng để diễn tả hành động hoặc trạng thái đã/đang/sẽ xảy ra.</p>
+                <table class="grammar-table">
+                    <thead>
+                        <tr>
+                            <th class="category">Loại từ/Thể</th>
+                            <th>Hiện tại & Tương lai (Khẳng định)</th>
+                            <th>Hiện tại & Tương lai (Phủ định)</th>
+                            <th>Quá khứ (Khẳng định)</th>
+                            <th>Quá khứ (Phủ định)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="category">Động từ (V)</td>
+                            <td>V-ます</td>
+                            <td>V-ません</td>
+                            <td>V-ました</td>
+                            <td>V-ませんでした</td>
+                        </tr>
+                         <tr>
+                            <td class="category">Danh từ (N) / Tính từ な (な-Adj)</td>
+                            <td>N/な-Adj です</td>
+                            <td>N/な-Adj じゃありません</td>
+                            <td>N/な-Adj でした</td>
+                            <td>N/な-Adj じゃありませんでした</td>
+                        </tr>
+                        <tr>
+                            <td class="category">Tính từ い (い-Adj)</td>
+                            <td>い-Adj です</td>
+                            <td>い-Adj くないです / くありません</td>
+                            <td>い-Adj かったです</td>
+                            <td>い-Adj くなかったです / くありませんでした</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Ví dụ Quá khứ</h3>
+                <p class="explanation">Diễn tả hành động hoặc trạng thái đã xảy ra hoặc không xảy ra trong quá khứ.</p>
+                <div class="example">
+                     <p><span class="jp-text">きのう は あつかったです。</span>
+                       <span class="romaji-text">Kinou wa atsukatta desu.</span>
+                       <span class="vi-text">Hôm qua trời đã nóng. (い-Adj khẳng định)</span></p>
+                     <p><span class="jp-text">きのう は あまり あつくなかったです / あつくありませんでした。</span>
+                       <span class="romaji-text">Kinou wa amari atsukunakatta desu / atsuku arimasen deshita.</span>
+                       <span class="vi-text">Hôm qua trời không nóng lắm. (い-Adj phủ định)</span></p>
+                    <p><span class="jp-text">きのう の パーティー は とても にぎやかでした。</span>
+                       <span class="romaji-text">Kinou no paatii wa totemo nigiyaka deshita.</span>
+                       <span class="vi-text">Bữa tiệc hôm qua đã rất náo nhiệt. (な-Adj khẳng định)</span></p>
+                    <p><span class="jp-text">きのう の パーティー は あまり にぎやかじゃありませんでした。</span>
+                       <span class="romaji-text">Kinou no paatii wa amari nigiyaka ja arimasen deshita.</span>
+                       <span class="vi-text">Bữa tiệc hôm qua đã không náo nhiệt lắm. (な-Adj phủ định)</span></p>
+                    <p><span class="jp-text">きのう ともだち に あいました。</span>
+                       <span class="romaji-text">Kinou tomodachi ni aimashita.</span>
+                       <span class="vi-text">Hôm qua tôi đã gặp bạn. (V khẳng định)</span></p>
+                    <p><span class="jp-text">きのう がっこう を やすみませんでした。</span>
+                       <span class="romaji-text">Kinou gakkou o yasumimasen deshita.</span>
+                       <span class="vi-text">Hôm qua tôi đã không nghỉ học. (V phủ định)</span></p>
+                </div>
+            </div>
+
+
+            <div id="section7" class="card">
+                <h2>7. Trợ từ chỉ Địa điểm「で」</h2>
+                <p class="explanation">Trợ từ `で` (de) được dùng sau danh từ chỉ địa điểm (Place) để diễn tả nơi hành động (V) xảy ra.</p>
+                <div class="formula">N(Place) で V-ます。</div>
+                <div class="example">
+                    <p><span class="jp-text">えき で しんぶん を かいました。</span>
+                       <span class="romaji-text">Eki de shinbun o kaimashita.</span>
+                       <span class="vi-text">Tôi đã mua báo ở nhà ga.</span></p>
+                    <p><span class="jp-text">Fsoft で にほんご を べんきょうします。</span>
+                       <span class="romaji-text">Fsoft de nihongo o benkyoushimasu.</span>
+                       <span class="vi-text">Tôi học tiếng Nhật ở Fsoft.</span></p>
+                </div>
+                <div class="note">⚠️ <strong>Phân biệt「に」và「で」:</strong> Trợ từ `に` (ni) thường chỉ sự tồn tại ở một địa điểm (với `います`, `あります`), hoặc điểm đến (`いきます`, `きます`). Trợ từ `で` (de) chỉ nơi một hành động được thực hiện.</div>
+            </div>
+
+            <div id="section8" class="card">
+                <h2>8. Rủ rê, Đề nghị & Bày tỏ Mong muốn</h2>
+
+                <h3>Rủ rê ai đó cùng làm gì: V-ませんか</h3>
+                <p class="explanation">Mẫu câu này dùng để mời hoặc rủ rê ai đó cùng làm một việc gì đó. Thể hiện sự lịch sự.</p>
+                <div class="formula">いっしょに V-ませんか。</div>
+                <div class="example">
+                    <p><span class="jp-text">いっしょ に えいが を みませんか。</span>
+                       <span class="romaji-text">Issho ni eiga o mimasen ka?</span>
+                       <span class="vi-text">Cùng nhau đi xem phim không?</span></p>
+                </div>
+
+                <h3>Đề nghị cùng làm gì: V-ましょう</h3>
+                <p class="explanation">Dùng để chủ động đề nghị, kêu gọi mọi người cùng làm một việc gì đó.</p>
+                <div class="formula">V-ましょう。</div>
+                <div class="example">
+                    <p><span class="jp-text">ちょっと やすみましょう。</span>
+                       <span class="romaji-text">Chotto yasumimashou.</span>
+                       <span class="vi-text">Chúng ta nghỉ một chút nào!</span></p>
+                </div>
+
+                <h3>Bày tỏ mong muốn làm gì: V-たいです</h3>
+                <p class="explanation">Dùng để diễn tả mong muốn làm một hành động nào đó của người nói.</p>
+                <div class="formula">Khẳng định: V(stem) + たいです。</div>
+                <div class="example">
+                    <p><span class="jp-text">にほん へ いきたいです。</span>
+                       <span class="romaji-text">Nihon e ikitai desu.</span>
+                       <span class="vi-text">Tôi muốn đi Nhật.</span></p>
+                </div>
+                <div class="formula">Phủ định: V(stem) + たくないです。</div>
+                 <div class="example">
+                    <p><span class="jp-text">この りょうり は たかくない です が、たべたくない です。</span>
+                       <span class="romaji-text">Kono ryouri wa takakunai desu ga, tabetakunai desu.</span>
+                       <span class="vi-text">Món ăn này không đắt nhưng tôi không muốn ăn.</span></p>
+                </div>
+                
+                <h3>Bày tỏ mong muốn có gì: N が ほしいです</h3>
+                <p class="explanation">Dùng để diễn tả mong muốn sở hữu, có được một danh từ (N) nào đó.</p>
+                <div class="formula">N が ほしいです。</div>
+                <div class="example">
+                    <p><span class="jp-text">わたし は パソコン が ほしい です。</span>
+                       <span class="romaji-text">Watashi wa pasokon ga hoshii desu.</span>
+                       <span class="vi-text">Tôi muốn có một cái máy tính.</span></p>
+                    <p><span class="jp-text">いま、なに が いちばん ほしい ですか。</span>
+                       <span class="romaji-text">Ima, nani ga ichiban hoshii desu ka?</span>
+                       <span class="vi-text">Bây giờ, bạn muốn có cái gì nhất?</span></p>
+                </div>
+            </div>
+
+            <div id="section9" class="card">
+                <h2>9. Bày tỏ sự Yêu/Ghét (好き/嫌い)</h2>
+                <p class="explanation">Dùng mẫu câu này để nói về việc thích hoặc ghét một thứ gì đó (N). `好き` (suki) và `嫌い` (kirai) là các tính từ đuôi な.</p>
+                <div class="formula">N が 好きです / 嫌い です。</div>
+                <div class="example">
+                    <p><span class="jp-text">わたし は スポーツ が すき です。</span>
+                       <span class="romaji-text">Watashi wa supootsu ga suki desu.</span>
+                       <span class="vi-text">Tôi thích thể thao.</span></p>
+                    <p><span class="jp-text">わたし は さかな が きらい です。</span>
+                       <span class="romaji-text">Watashi wa sakana ga kirai desu.</span>
+                       <span class="vi-text">Tôi ghét cá.</span></p>
+                </div>
+                <div class="note">⚠️ Trợ từ `が` (ga) được sử dụng trước `好き` và `嫌い` để nhấn mạnh đối tượng.</div>
+            </div>
+
+            <div id="section10" class="card">
+                <h2>10. Hỏi và Nêu Lý do</h2>
+
+                <h3>Hỏi lý do: どうして</h3>
+                <p class="explanation">`どうして` (doushite) là nghi vấn từ dùng để hỏi "Tại sao?".</p>
+                <div class="formula">どうして + [Sentence] + か。</div>
+                <div class="example">
+                    <p><span class="jp-text">A: どうして にほんご を べんきょうしますか。</span>
+                       <span class="romaji-text">A: Doushite nihongo o benkyoushimasu ka?</span>
+                       <span class="vi-text">A: Tại sao bạn học tiếng Nhật?</span></p>
+                </div>
+
+                <h3>Nêu lý do: ~から</h3>
+                <p class="explanation">Trợ từ `から` (kara) được đặt ở cuối câu chỉ nguyên nhân, lý do (Reason Sentence), mang nghĩa là "bởi vì".</p>
+                <div class="formula">[Reason Sentence] から、[Result Sentence]。</div>
+                <div class="example">
+                    <p><span class="jp-text">B: にほんご は おもしろい ですから。</span>
+                       <span class="romaji-text">B: Nihongo wa omoshiroi desu kara.</span>
+                       <span class="vi-text">B: Bởi vì tiếng Nhật thú vị.</span></p>
+                    <p><span class="jp-text">きのう ねませんでした から、きょう は ねむい です。</span>
+                       <span class="romaji-text">Kinou nemasen deshita kara, kyou wa nemui desu.</span>
+                       <span class="vi-text">Vì hôm qua đã không ngủ, nên hôm nay tôi buồn ngủ.</span></p>
+                </div>
+            </div>
+
+            <div id="section11" class="card">
+                <h2>11. Phó từ thường gặp</h2>
+
+                <h3>あまり (amari)</h3>
+                <p class="explanation">`あまり` ("không ~ lắm"), luôn đi với thể phủ định.</p>
+                <div class="formula">あまり + V-ません / い-Adj くないです / な-Adj じゃありません</div>
+                <div class="example">
+                    <p><span class="jp-text">この まち は あまり にぎやかじゃありませんでした。</span>
+                       <span class="romaji-text">Kono machi wa amari nigiyaka ja arimasen deshita.</span>
+                       <span class="vi-text">Thành phố này đã không náo nhiệt cho lắm.</span></p>
+                </div>
+
+                <h3>たくさん (takusan)</h3>
+                <p class="explanation">`たくさん` ("nhiều"), dùng để chỉ số lượng.</p>
+                <div class="formula">たくさん + V-ます。</div>
+                <div class="example">
+                    <p><span class="jp-text">きのう、わたし は ほん を たくさん よみました。</span>
+                       <span class="romaji-text">Kinou, watashi wa hon o takusan yomimashita.</span>
+                       <span class="vi-text">Hôm qua, tôi đã đọc rất nhiều sách.</span></p>
+                </div>
+
+                <h3>全部 (ぜんぶ - zenbu)</h3>
+                <p class="explanation">`全部` ("toàn bộ, tất cả").</p>
+                <div class="formula">N を 全部 + V-ます。</div>
+                <div class="example">
+                    <p><span class="jp-text">わたし は けさ の ごはん を ぜんぶ たべました。</span>
+                       <span class="romaji-text">Watashi wa kesa no gohan o zenbu tabemashita.</span>
+                       <span class="vi-text">Tôi đã ăn hết toàn bộ bữa cơm sáng nay.</span></p>
+                </div>
+            </div>
+
+            <div id="section12" class="card">
+                <h2>12. Mẫu câu So sánh</h2>
+
+                <h3>So sánh nhất: N1 で N2 が いちばん Adj です</h3>
+                <p class="explanation">Dùng để nói N2 là Adj nhất trong phạm vi N1 (Range).</p>
+                <div class="formula">N1(Range) で N2 が いちばん Adj です。</div>
+                <div class="example">
+                    <p><span class="jp-text">スポーツ で やきゅう が いちばん おもしろい です。</span>
+                       <span class="romaji-text">Supootsu de yakyuu ga ichiban omoshiroi desu.</span>
+                       <span class="vi-text">Trong các môn thể thao, bóng chày là thú vị nhất.</span></p>
+                </div>
+
+                <h3>So sánh hơn: N1 は N2 より Adj です</h3>
+                <p class="explanation">Dùng để so sánh N1 với N2, N1 có tính chất Adj hơn N2.</p>
+                <div class="formula">N1 は N2 より Adj です。</div>
+                <div class="example">
+                    <p><span class="jp-text">7がつ は 8がつ より あめ が おおい です。</span>
+                       <span class="romaji-text">Shichi-gatsu wa hachi-gatsu yori ame ga ooi desu.</span>
+                       <span class="vi-text">Tháng 7 thì mưa nhiều hơn tháng 8.</span></p>
+                </div>
+
+                <h3>Hỏi so sánh: N1 と N2 と どちらが Adj ですか</h3>
+                <p class="explanation">Dùng để hỏi giữa N1 và N2, cái nào có tính chất Adj hơn.</p>
+                <div class="formula">N1 と N2 と どちらが Adj ですか。</div>
+                <div class="example">
+                    <p><span class="jp-text">ふゆ と なつ と どちらが すき ですか。</span>
+                       <span class="romaji-text">Fuyu to natsu to dochira ga suki desu ka?</span>
+                       <span class="vi-text">Mùa đông và mùa hè, bạn thích mùa nào hơn?</span></p>
+                </div>
+
+                <h3>Trả lời so sánh: N のほうが Adj です</h3>
+                <p class="explanation">Dùng để trả lời cho câu hỏi so sánh, khẳng định N có tính chất Adj hơn.</p>
+                <div class="formula">N のほうが Adj です。</div>
+                <div class="example">
+                    <p><span class="jp-text">→ なつ のほうが すき です。</span>
+                       <span class="romaji-text">→ Natsu no hou ga suki desu.</span>
+                       <span class="vi-text">→ Tôi thích mùa hè hơn.</span></p>
+                </div>
+            </div>
+
+            <div id="section13" class="card">
+                <h2>13. Diễn tả "Có" (Sự kiện, Số lượng)</h2>
+
+                <h3>Có (sự kiện, lịch hẹn): N が あります</h3>
+                <p class="explanation">Dùng để diễn tả việc sở hữu hoặc có một sự kiện (Event), lịch trình nào đó.</p>
+                <div class="formula">N(Event/Thing) が あります。</div>
+                <div class="example">
+                    <p><span class="jp-text">あした、ともだち と やくそく が あります。</span>
+                       <span class="romaji-text">Ashita, tomodachi to yakusoku ga arimasu.</span>
+                       <span class="vi-text">Ngày mai, tôi có hẹn với bạn.</span></p>
+                </div>
+
+                <h3>Sự kiện diễn ra tại: N1 で N2 が あります</h3>
+                <p class="explanation">Dùng trợ từ `で` để chỉ địa điểm (Place) nơi một sự kiện (Event) diễn ra.</p>
+                <div class="formula">N1(Place) で N2(Event) が あります。</div>
+                <div class="example">
+                    <p><span class="jp-text">こんばん、よこはま で サッカー の しあい が あります。</span>
+                       <span class="romaji-text">Konban, Yokohama de sakkaa no shiai ga arimasu.</span>
+                       <span class="vi-text">Tối nay, ở Yokohama có trận đấu bóng đá.</span></p>
+                </div>
+
+                <h3>Có (số lượng): N が [Số lượng] あります</h3>
+                <p class="explanation">Dùng để diễn tả số lượng cụ thể của một vật (N).</p>
+                <div class="formula">N が [Số lượng + Counter] あります。</div>
+                <div class="example">
+                    <p><span class="jp-text">えいが の チケット が 2枚 (まい) あります。</span>
+                       <span class="romaji-text">Eiga no chiketto ga ni-mai arimasu.</span>
+                       <span class="vi-text">Có 2 vé xem phim.</span></p>
+                </div>
+            </div>
+
+            <div id="section14" class="card">
+                <h2>14. Thể V-て (Yêu cầu & Tiếp diễn)</h2>
+
+                <h3>Yêu cầu: V-て ください</h3>
+                <p class="explanation">Dùng để yêu cầu, nhờ vả ai đó làm gì một cách lịch sự.</p>
+                <div class="formula">V-て ください。</div>
+                <div class="example">
+                    <p><span class="jp-text">わたし の かばん を とって ください。</span>
+                       <span class="romaji-text">Watashi no kaban o totte kudasai.</span>
+                       <span class="vi-text">Hãy lấy cái cặp cho tôi.</span></p>
+                </div>
+
+                <h3>Hiện tại tiếp diễn: V-て います</h3>
+                <p class="explanation">Dùng để diễn tả một hành động đang diễn ra tại thời điểm nói.</p>
+                <div class="formula">V-て います。</div>
+                <div class="example">
+                    <p><span class="jp-text">バクさん は あそこ で でんわ を かけて います。</span>
+                       <span class="romaji-text">Baku-san wa asoko de denwa o kakete imasu.</span>
+                       <span class="vi-text">Anh Baku đang gọi điện thoại ở đằng kia.</span></p>
+                </div>
+                
+                <h3>Hỏi "Đang làm gì?": なに を していますか</h3>
+                <p class="explanation">Dùng để hỏi ai đó đang làm hành động gì.</p>
+                <div class="formula">S は なに を していますか。</div>
+                <div class="example">
+                    <p><span class="jp-text">あなた は なに を していますか。</span>
+                       <span class="romaji-text">Anata wa nani o shite imasu ka?</span>
+                       <span class="vi-text">Bạn đang làm gì thế?</span></p>
+                    <p><span class="jp-text">→ バス を まっています。</span>
+                       <span class="romaji-text">→ Basu o matte imasu.</span>
+                       <span class="vi-text">→ Tôi đang đợi xe buýt.</span></p>
+                </div>
+            </div>
+
+            <div id="section15" class="card">
+                <h2>15. Đề nghị & Cách thức</h2>
+
+                <h3>Gợi ý, đề nghị: N は どうですか</h3>
+                <p class="explanation">Dùng để gợi ý, đề nghị ai đó thử N.</p>
+                <div class="formula">N は どうですか。</div>
+                <div class="example">
+                    <p><span class="jp-text">A: なに を たべますか。</span>
+                       <span class="romaji-text">A: Nani o tabemasu ka?</span>
+                       <span class="vi-text">A: Bạn ăn gì?</span></p>
+                    <p><span class="jp-text">B: おすし は どうですか。</span>
+                       <span class="romaji-text">B: O-sushi wa dou desu ka?</span>
+                       <span class="vi-text">B: Thử sushi xem sao?</span></p>
+                </div>
+
+                <h3>Đề nghị giúp đỡ: V-ましょうか</h3>
+                <p class="explanation">Dùng để đề nghị làm gì đó giúp người nghe (Tôi... cho bạn nhé?).</p>
+                <div class="formula">V-ましょうか。</div>
+                <div class="example">
+                    <p><span class="jp-text">てつだい ましょうか。</span>
+                       <span class="romaji-text">Tetsudaimashou ka?</span>
+                       <span class="vi-text">Để tôi giúp bạn nhé?</span></p>
+                </div>
+
+                <h3>Cách làm: (N の) V(stem) + 方 (かた)</h3>
+                <p class="explanation">Biến động từ (dạng bỏ ます - V(stem)) thành danh từ chỉ "cách làm".</p>
+                <div class="formula">(N の) V(stem) + 方 (かた)</div>
+                <div class="example">
+                    <p><span class="jp-text">この りょうり の つくりかた を おしえて ください。</span>
+                       <span class="romaji-text">Kono ryouri no tsukurikata o oshiete kudasai.</span>
+                       <span class="vi-text">Hãy chỉ cho tôi cách làm (nấu) món ăn này.</span></p>
+                </div>
+            </div>
+
+            <div id="section16" class="card">
+                <h2>16. Trạng từ & Trợ từ cuối câu</h2>
+
+                <h3>Đã...chưa? / Vẫn chưa / Đã rồi: もう / まだ</h3>
+                <p class="explanation">`もう` (mou) dùng trong câu hỏi ("đã...chưa?") và câu khẳng định ("đã...rồi"). `まだ` (mada) dùng trong câu phủ định ("vẫn chưa").</p>
+                <div class="formula">もう V-ましたか。</div>
+                <div class="formula">はい、もう V-ました。</div>
+                <div class="formula">いいえ、まだ V-ません。 / いいえ、まだです。</div>
+                <div class="example">
+                    <p><span class="jp-text">もう ふじさん へ いきましたか。</span>
+                       <span class="romaji-text">Mou Fujisan e ikimashita ka?</span>
+                       <span class="vi-text">Bạn đã đi núi Phú Sĩ chưa?</span></p>
+                    <p><span class="jp-text">→ はい、(もう) いきました。</span>
+                       <span class="romaji-text">→ Hai, (mou) ikimashita.</span>
+                       <span class="vi-text">→ Vâng, tôi đi rồi.</span></p>
+                    <p><span class="jp-text">→ いいえ、まだです。 / いいえ、まだ いっていません。</span>
+                       <span class="romaji-text">→ Iie, mada desu. / Iie, mada itte imasen.</span>
+                       <span class="vi-text">→ Chưa, tôi vẫn chưa đi.</span></p>
+                </div>
+                <div class="formula">まだ ありますか。</div>
+                <div class="formula">はい、まだ あります。</div>
+                <div class="formula">いいえ、もう ありません。</div>
+                 <div class="example">
+                     <p><span class="jp-text">サラダ は まだ ありますか。</span>
+                       <span class="romaji-text">Sarada wa mada arimasu ka?</span>
+                       <span class="vi-text">Salad vẫn còn chứ?</span></p>
+                    <p><span class="jp-text">→ いいえ、もう ありません。</span>
+                       <span class="romaji-text">→ Iie, mou arimasen.</span>
+                       <span class="vi-text">→ Không, đã hết rồi.</span></p>
+                 </div>
+
+                <h3>Xác nhận: ...ね</h3>
+                <p class="explanation">Đặt cuối câu (Sentence) để xác nhận lại thông tin ("nhỉ", "phải không").</p>
+                <div class="formula">[Sentence] + ね。</div>
+                <div class="example">
+                    <p><span class="jp-text">A: 5じ に あいましょう。 B: 5じ ですね。</span>
+                       <span class="romaji-text">A: Go-ji ni aimashou. B: Go-ji desu ne.</span>
+                       <span class="vi-text">A: Gặp nhau lúc 5 giờ nhé. B: 5 giờ phải không.</span></p>
+                </div>
+
+                <h3>Nhấn mạnh: ...よ</h3>
+                <p class="explanation">Đặt cuối câu (Sentence) để nhấn mạnh, cung cấp thông tin mới ("đấy", "nhé").</p>
+                <div class="formula">[Sentence] + よ。</div>
+                <div class="example">
+                    <p><span class="jp-text">この えいが は とても おもしろい ですよ。</span>
+                       <span class="romaji-text">Kono eiga wa totemo omoshiroi desu yo.</span>
+                       <span class="vi-text">Bộ phim này rất thú vị đấy.</span></p>
+                </div>
+            </div>
+
+            <div id="section17" class="card">
+                <h2>17. Nghi vấn từ (Ai, Cái nào)</h2>
+
+                <h3>Hỏi chủ thể: 誰 (だれ) が</h3>
+                <p class="explanation">Dùng `誰` (dare) + trợ từ `が` (ga) để hỏi ai là người thực hiện hành động V.</p>
+                <div class="formula">誰 (だれ) が V-ましたか。</div>
+                <div class="example">
+                    <p><span class="jp-text">だれ が この ケーキ を つくりましたか。</span>
+                       <span class="romaji-text">Dare ga kono keeki o tsukurimashita ka?</span>
+                       <span class="vi-text">Ai đã làm cái bánh này vậy?</span></p>
+                    <p><span class="jp-text">→ ワンさん が つくりました。</span>
+                       <span class="romaji-text">→ Wan-san ga tsukurimashita.</span>
+                       <span class="vi-text">→ Anh Wan đã làm.</span></p>
+                </div>
+
+                <h3>Hỏi "N nào": どの N</h3>
+                <p class="explanation">`どの` (dono) phải đi kèm với một danh từ (N) để hỏi "N nào" trong một nhóm.</p>
+                <div class="formula">どの N ですか。</div>
+                <div class="example">
+                    <p><span class="jp-text">B: どの おさら ですか。</span>
+                       <span class="romaji-text">B: Dono o-sara desu ka?</span>
+                       <span class="vi-text">B: Cái đĩa nào vậy?</span></p>
+                    <p><span class="jp-text">A: その おさら です。</span>
+                       <span class="romaji-text">A: Sono o-sara desu.</span>
+                       <span class="vi-text">A: Cái đĩa đó.</span></p>
+                </div>
+
+                <h3>Hỏi "cái nào": どれ</h3>
+                <p class="explanation">`どれ` (dore) là đại từ, dùng để hỏi "cái nào" thay cho danh từ.</p>
+                <div class="formula">N は どれ ですか。</div>
+                <div class="example">
+                    <p><span class="jp-text">しお は どれ ですか。</span>
+                       <span class="romaji-text">Shio wa dore desu ka?</span>
+                       <span class="vi-text">Muối là cái nào?</span></p>
+                    <p><span class="jp-text">→ それ です。</span>
+                       <span class="romaji-text">→ Sore desu.</span>
+                       <span class="vi-text">→ Là cái đó.</span></p>
+                </div>
+            </div>
+
+            <div id="section18" class="card">
+                <h2>18. Trợ từ「で」(Công cụ/Phương tiện)</h2>
+                <p class="explanation">Trợ từ `で` (de) được dùng sau danh từ chỉ công cụ hoặc phương tiện (Tool/Means) để diễn tả "làm V bằng N".</p>
+                <div class="formula">N(Tool/Means) で V-ます。</div>
+                <div class="example">
+                    <p><span class="jp-text">はし で ごはん を たべます。</span>
+                       <span class="romaji-text">Hashi de gohan o tabemasu.</span>
+                       <span class="vi-text">Ăn cơm bằng đũa.</span></p>
+                    <p><span class="jp-text">ペン で なまえ を かいて ください。</span>
+                       <span class="romaji-text">Pen de namae o kaite kudasai.</span>
+                       <span class="vi-text">Hãy viết tên bằng bút.</span></p>
+                </div>
+                <div class="note">⚠️ <strong>Phân biệt「で」:</strong><br>
+                    1. <strong>Địa điểm:</strong> えき で しんぶん を かいます。(Mua báo <strong>ở</strong> nhà ga) (Mục 7)<br>
+                    2. <strong>Phương tiện/Công cụ:</strong> はし で たべます。(Ăn <strong>bằng</strong> đũa) (Mục 18)
+                </div>
+            </div>
+
+            <div id="section19" class="card">
+                <h2>19. Chia động từ Thể V-て (V-te Form)</h2>
+                <p class="explanation">Thể V-て là một thể quan trọng dùng để tạo nhiều mẫu ngữ pháp (như V-て ください, V-て います). Dưới đây là quy tắc chia từ thể V-ます sang V-て dựa trên 3 nhóm động từ.</p>
+
+                <h3>Nhóm 1 (V1)</h3>
+                <p class="explanation">Động từ Nhóm 1 có âm cuối trước `ます` thuộc cột `い`. Cách chia phức tạp, tùy thuộc vào âm cuối đó:</p>
+                <table class="grammar-table">
+                    <thead>
+                        <tr>
+                            <th>Âm cuối (trước ます)</th>
+                            <th>Quy tắc</th>
+                            <th>Ví dụ (V-ます → V-て)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="category">い, ち, り</td>
+                            <td>→ <strong>って</strong></td>
+                            <td>
+                                <span class="jp-text">かいます → かって</span> (mua)<br>
+                                <span class="jp-text">たちます → たって</span> (đứng)<br>
+                                <span class="jp-text">きります → きって</span> (cắt)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="category">み, び, に</td>
+                            <td>→ <strong>んで</strong></td>
+                            <td><span class="jp-text">よみます → よんで</span> (đọc)</td>
+                        </tr>
+                        <tr>
+                            <td class="category">き</td>
+                            <td>→ <strong>いて</strong></td>
+                            <td><span class="jp-text">かきます → かいて</span> (viết)</td>
+                        </tr>
+                        <tr>
+                            <td class="category">ぎ</td>
+                            <td>→ <strong>いで</strong></td>
+                            <td><span class="jp-text">いそぎます → いそいで</span> (vội)</td>
+                        </tr>
+                        <tr>
+                            <td class="category">し</td>
+                            <td>→ <strong>して</strong></td>
+                            <td><span class="jp-text">はなします → はなして</span> (nói)</td>
+                        </tr>
+                        <tr>
+                            <td class="category">いきます (Bất quy tắc)</td>
+                            <td>→ <strong>いって</strong></td>
+                            <td><span class="jp-text">いきます → いって</span> (đi)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Nhóm 2 (V2)</h3>
+                <p class="explanation">Động từ Nhóm 2 có âm cuối trước `ます` thuộc cột `え` (hoặc một số từ đặc biệt cột `い`).</p>
+                <div class="formula">Bỏ `ます` → Thêm <strong>て</strong></div>
+                <div class="example">
+                    <p><span class="jp-text">たべます → たべて</span> (ăn)</p>
+                    <p><span class="jp-text">みます → みて</span> (xem)</p>
+                    <p><span class="jp-text">おしえます → おしえて</span> (dạy)</p>
+                    <p><span class="jp-text">かります → かりて</span> (mượn)</p>
+                </div>
+
+                <h3>Nhóm 3 (V3)</h3>
+                <p class="explanation">Chỉ có 2 động từ bất quy tắc.</p>
+                <div class="example">
+                    <p><span class="jp-text">します → して</span> (làm)</p>
+                    <p><span class="jp-text">きます → きて</span> (đến)</p>
+                </div>
+            </div>
+
+            <div id="section20" class="card">
+                <h2>20. Làm gì "cho" ai đó (V-て あげます)</h2>
+                <p class="explanation">Dùng để diễn tả hành động làm một việc gì đó cho người khác (với ý tốt, hàm ý "ban ơn" nhẹ). Người nói là chủ thể hành động.</p>
+                <div class="formula">(わたし は) N(người) に V-て あげます。</div>
+                <div class="example">
+                     <p><span class="jp-text">（わたし は あなた に） てつだいます。</span>
+                       <span class="vi-text">Tôi giúp bạn.</span></p>
+                     <p><span class="jp-text">→ （わたし は あなた に） てつだって あげます。</span>
+                       <span class="romaji-text">→ (Watashi wa anata ni) tetsudatte agemasu.</span>
+                       <span class="vi-text">→ Tôi sẽ giúp (cho) bạn.</span></p>
+                </div>
+                <div class="note">⚠️ Mẫu câu này thường không dùng để nói với người lớn tuổi hơn hoặc cấp trên.</div>
+            </div>
+            
+            <div id="section21" class="card">
+                <h2>21. Mô tả Đặc điểm (N1 は N2 が A です)</h2>
+                <p class="explanation">Dùng để mô tả một thuộc tính (N2) của một chủ đề (N1) có đặc điểm (A). Thường dùng để miêu tả một phần, một đặc tính của một tổng thể.</p>
+                <div class="formula">N1(Chủ đề) は N2(Thuộc tính) が Adj です。</div>
+                <div class="example">
+                    <p><span class="jp-text">とうきょう は 6がつ、あめ が おおい です。</span>
+                       <span class="romaji-text">Toukyou wa roku-gatsu, ame ga ooi desu.</span>
+                       <span class="vi-text">Tokyo thì tháng 6 mưa nhiều.</span></p>
+                    <p><span class="jp-text">わたしの まち は ひと が すくない です。</span>
+                       <span class="romaji-text">Watashi no machi wa hito ga sukunai desu.</span>
+                       <span class="vi-text">Thành phố của tôi thì ít người.</span></p>
+                </div>
+            </div>
+
+            <div id="section22" class="card">
+                <h2>22. Hỏi (Từ... đến...) (から...まで)</h2>
+                <h3>Hỏi "Từ... đến... bao lâu?": N1 から N2 まで どのくらい ですか</h3>
+                <p class="explanation">Dùng `どのくらい` (donokurai) để hỏi về khoảng thời gian hoặc khoảng cách "từ N1 đến N2".</p>
+                <div class="formula">N1(Place) から N2(Place) まで どのくらい ですか。</div>
+                <div class="example">
+                    <p><span class="jp-text">A: とうきょう から しんおおさか まで どのくらい ですか。</span>
+                       <span class="romaji-text">A: Toukyou kara Shin-Oosaka made donokurai desu ka?</span>
+                       <span class="vi-text">A: Từ Tokyo đến Shin-Osaka mất bao lâu?</span></p>
+                    <p><span class="jp-text">B: 1じかん はん ぐらい です。</span>
+                       <span class="romaji-text">B: Ichi-jikan han gurai desu.</span>
+                       <span class="vi-text">B: Khoảng 1 tiếng rưỡi.</span></p>
+                </div>
+                <h3>Trả lời về thời gian: [Khoảng thời gian] です</h3>
+                <p class="explanation">Trả lời bằng cách nêu rõ số giờ, phút.</p>
+                <div class="formula">N(Place) で [Thời gian] です。</div>
+                <div class="example">
+                    <p><span class="jp-text">おおさか から きょうと まで でんしゃ で 30ぷん ぐらい です。</span>
+                       <span class="romaji-text">Oosaka kara Kyouto made densha de san-juu-ppun gurai desu.</span>
+                       <span class="vi-text">Từ Osaka đến Kyoto bằng tàu điện mất khoảng 30 phút.</span></p>
+                </div>
+            </div>
+
+            <div id="section23" class="card">
+                <h2>23. Mục đích di chuyển (V に 行く)</h2>
+                <p class="explanation">Diễn tả mục đích của việc di chuyển (đi, đến, về). Danh từ (N) hoặc Động từ (bỏ ます) được dùng để chỉ mục đích đó.</p>
+                <div class="formula">N(Place) へ N(Mục đích) / V(stem) に 行きます / 来ます / 帰ります。</div>
+                <div class="example">
+                    <p><span class="jp-text">わたし は しんじゅく へ かいもの に いきます。</span>
+                       <span class="romaji-text">Watashi wa Shinjuku e kaimono ni ikimasu.</span>
+                       <span class="vi-text">Tôi đi Shinjuku để mua sắm. (N(Mục đích) = かいもの)</span></p>
+                    <p><span class="jp-text">しぶや へ ともだち と ごはん を たべ に いきます。</span>
+                       <span class="romaji-text">Shibuya e tomodachi to gohan o tabe ni ikimasu.</span>
+                       <span class="vi-text">Tôi đi Shibuya để ăn cơm với bạn. (V(stem) = たべ)</span></p>
+                </div>
+                <div class="note">⚠️ Danh từ (N) chỉ mục đích ở đây phải là danh động từ (ví dụ: 買い物 - kaimono, 勉強 - benkyou).</div>
+            </div>
+
+            <div id="section24" class="card">
+                <h2>24. Nghi vấn từ + か / も</h2>
+                <h3>Nghi vấn từ + か (một ... nào đó)</h3>
+                <p class="explanation">Khi thêm `か` (ka) vào sau các nghi vấn từ (như どこ, だれ, なに), nó tạo ra một đại từ bất định.</p>
+                <div class="formula">どこか (một nơi nào đó) / だれか (một ai đó) / なにか (một cái gì đó)</div>
+                <div class="example">
+                    <p><span class="jp-text">A: きのう、どこか へ いきましたか。</span>
+                       <span class="romaji-text">A: Kinou, dokoka e ikimashita ka?</span>
+                       <span class="vi-text">A: Hôm qua, bạn có đi đâu đó không?</span></p>
+                    <p><span class="jp-text">B: はい、しんじゅく へ いきました。</span>
+                       <span class="romaji-text">B: Hai, Shinjuku e ikimashita.</span>
+                       <span class="vi-text">B: Vâng, tôi đã đi Shinjuku.</span></p>
+                </div>
+
+                <h3>Nghi vấn từ + も + Phủ định (không ... nào cả)</h3>
+                <p class="explanation">Khi thêm `も` (mo) vào sau các nghi vấn từ và đi với động từ/tính từ phủ định, nó mang ý nghĩa phủ định hoàn toàn.</p>
+                <div class="formula">どこ(へ)も V-ません / だれも V-ません / なにも V-ません</div>
+                <div class="example">
+                    <p><span class="jp-text">A: きのう、どこか へ いきましたか。</span>
+                       <span class="romaji-text">A: Kinou, dokoka e ikimashita ka?</span>
+                       <span "vi-text">A: Hôm qua, bạn có đi đâu đó không?</span></p>
+                    <p><span class="jp-text">B: いいえ、どこ(へ)も いきませんでした。</span>
+                       <span class="romaji-text">B: Iie, doko(e)mo ikimasen deshita.</span>
+                       <span class="vi-text">B: Không, tôi đã không đi đâu cả.</span></p>
+                    <p><span class="jp-text">きのう、だれ も きませんでした。</span>
+                       <span class="romaji-text">Kinou, dare mo kimasen deshita.</span>
+                       <span class="vi-text">Hôm qua, đã không có ai đến cả.</span></p>
+                </div>
+            </div>
+
+            <div id="section25" class="card">
+                <h2>25. Trợ từ「と」(cùng với)</h2>
+                <p class="explanation">Trợ từ `と` (to) được dùng sau danh từ chỉ người (N) để diễn tả hành động (V) được làm "cùng với" người đó.</p>
+                <div class="formula">N(Người) と V-ます。</div>
+                <div class="example">
+                    <p><span class="jp-text">しゅうまつ、ともだち と サッカー を しました。</span>
+                       <span class="romaji-text">Shuumatsu, tomodachi to sakkaa o shimashita.</span>
+                       <span class="vi-text">Cuối tuần, tôi đã chơi bóng đá cùng với bạn.</span></p>
+                    <p><span class="jp-text">こいびと と えいが を みました。</span>
+                       <span class="romaji-text">Koibito to eiga o mimashita.</span>
+                       <span class="vi-text">Tôi đã xem phim cùng với người yêu.</span></p>
+                </div>
+            </div>
+
+            <div id="section26" class="card">
+                <h2>26. Liên từ nối câu (そして, それから)</h2>
+                <h3>そして (và, rồi thì)</h3>
+                <p class="explanation">Dùng để nối hai câu, hai vế có nội dung nối tiếp nhau một cách logic, tương đồng (tương tự "và").</p>
+                <div class="formula">[Sentence 1]。そして、[Sentence 2]。</div>
+                <div class="example">
+                    <p><span class="jp-text">この まち は にぎやか です。そして、きれい です。</span>
+                       <span class="romaji-text">Kono machi wa nigiyaka desu. Soshite, kirei desu.</span>
+                       <span class="vi-text">Thành phố này náo nhiệt. Và, nó (còn) đẹp nữa.</span></p>
+                </div>
+                <h3>それから (sau đó)</h3>
+                <p class="explanation">Dùng để nối hai câu, hai vế có thứ tự về thời gian (làm S1, "sau đó" làm S2).</p>
+                <div class="formula">[Sentence 1]。それから、[Sentence 2]。</div>
+                <div class="example">
+                    <p><span class="jp-text">きのう、こいびと と えいが を みました。それから、しょくじ を しました。</span>
+                       <span class="romaji-text">Kinou, koibito to eiga o mimashita. Sorekara, shokuji o shimashita.</span>
+                       <span class="vi-text">Hôm qua, tôi đã xem phim với người yêu. Sau đó, chúng tôi đã dùng bữa.</span></p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script>
+        // Smooth scrolling for sidebar navigation and active link highlighting
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.quick-nav-list a');
+            const sections = document.querySelectorAll('.main-content .card'); // Target cards as sections
+
+            // Smooth scrolling
+            links.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start' // Align top of the section with the top of the viewport
+                        });
+                        // Manually set active class on click for immediate feedback
+                        links.forEach(link => link.classList.remove('active'));
+                        this.classList.add('active');
+                    }
+                });
+            });
+
+            // Active link highlighting on scroll
+            const observerOptions = {
+                root: null, // relative to document viewport
+                rootMargin: '0px 0px -50% 0px', // Trigger when section is in the top half of the viewport
+                threshold: 0 // Trigger as soon as the element enters the margin
+            };
+
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const targetId = '#' + entry.target.id;
+                        links.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === targetId) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Initial active link check in case the page loads scrolled down
+             setTimeout(() => { // Use timeout to ensure layout is stable
+                 let firstVisibleSection = null;
+                 sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    // Check if the section is at least partially visible within the top 60% of the viewport
+                    if (!firstVisibleSection && rect.top >= 0 && rect.top <= window.innerHeight * 0.6) {
+                         firstVisibleSection = section;
+                    }
+                 });
+
+                 if (firstVisibleSection) {
+                    const targetId = '#' + firstVisibleSection.id;
+                    links.forEach(link => {
+                        link.classList.remove('active');
+                         if (link.getAttribute('href') === targetId) {
+                            link.classList.add('active');
+                        }
+                    });
+                 } else if (links.length > 0) {
+                     // Default to the first link if no section is prominently visible initially
+                     links[0].classList.add('active');
+                 }
+             }, 100); // Small delay
+        });
+    </script>
+</body>
+</html>

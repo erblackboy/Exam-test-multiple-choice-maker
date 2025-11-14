@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 12: Classification with SVM</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color, #f4f7f6);
+            color: var(--text-color, #333);
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color-secondary, #ffffff);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3 {
+            color: var(--text-color-primary, #2c3e50);
+            border-bottom: 2px solid var(--accent-color, #007bff);
+            padding-bottom: 10px;
+        }
+        h1 { font-size: 2.2rem; }
+        h2 {
+            margin-top: 2.5rem;
+            font-size: 1.8rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            border-bottom: 1px dashed #ccc;
+        }
+        .content-box {
+            margin: 1.5rem 0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .definition {
+            background-color: #e6f7ff;
+            border-left: 5px solid #1890ff;
+        }
+        .theorem {
+            background-color: #f6ffed;
+            border-left: 5px solid #52c41a;
+        }
+        .example {
+            background-color: #fffbe6;
+            border-left: 5px solid #faad14;
+        }
+        .content-box h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 0;
+            color: #333;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: var(--accent-color, #007bff);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">&larr; Quay lại mục lục</a>
+        
+        [cite_start]<h1>Chương 12. Classification with Support Vector Machines</h1> [cite: 1986]
+
+        [cite_start]<h2 id="sec12.1">12.1 Separating Hyperplanes</h2> [cite: 1996, 2005]
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Hyperplane)</h4>
+            [cite_start]<p>Siêu phẳng phân tách hai lớp trong bài toán phân loại nhị phân được định nghĩa là: [cite: 2009]</p>
+            [cite_start]<p>\[ \{x \in \mathbb{R}^{D} : \langle w,x\rangle + b = 0\} \] [cite: 2010]</p>
+            [cite_start]<p>với \(w\) là vector trọng số và \(b\) là bias. [cite: 2011]</p>
+        </div>
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Linearly Separable Condition)</h4>
+            [cite_start]<p>Một tập dữ liệu \((x_n, y_n)\) với \(y_n \in \{+1, -1\}\) là có thể phân tách tuyến tính nếu: [cite: 2008]</p>
+            [cite_start]<p>\[ y_{n}(\langle w,x_{n}\rangle + b) \ge 0 \] [cite: 2019]</p>
+        </div>
+
+        [cite_start]<h2 id="sec12.2">12.2 Primal Support Vector Machine</h2> [cite: 1997, 2025]
+        
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Margin)</h4> [cite: 2037]
+            [cite_start]<p>SVM hoạt động bằng cách tìm siêu phẳng sao cho <strong>khoảng cách lề (margin)</strong> giữa các điểm dữ liệu gần nhất của hai lớp là lớn nhất. [cite: 2029, 2040]</p>
+            [cite_start]<p>Khoảng cách lề hình học (geometric margin) \(r\) liên hệ với vector trọng số \(w\) qua: [cite: 2079]</p>
+            [cite_start]<p>\[ r = \frac{1}{\|w\|} \] [cite: 2079]</p>
+            [cite_start]<p>Do đó, "tối đa hóa lề" (\( \max r \)) tương đương với "tối thiểu hóa norm của w" (\( \min \|w\|^2 \)). [cite: 2090, 2094]</p>
+        </div>
+
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Hard Margin SVM - Primal)</h4> [cite: 2100]
+            <p>Đối với dữ liệu phân tách tuyến tính, bài toán SVM lề cứng là:</p>
+            [cite_start]<p>\[ \min_{w,b} \frac{1}{2}\|w\|^{2} \] [cite: 2096]</p>
+            [cite_start]<p>subject to (với điều kiện) \( y_{n}(\langle w,x_{n}\rangle + b) \ge 1 \quad \forall n=1, \dots, N \) [cite: 2098]</p>
+        </div>
+        
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Soft Margin SVM - Primal)</h4> [cite: 2122]
+            [cite_start]<p>Khi dữ liệu không thể phân tách tuyến tính, chúng ta cho phép một số điểm vi phạm lề bằng cách sử dụng các biến bù (slack variables) \(\xi_n \ge 0\). [cite: 2121, 2123]</p>
+            [cite_start]<p>Bài toán SVM lề mềm là: [cite: 2136]</p>
+            [cite_start]<p>\[ \min_{w,b,\xi} \frac{1}{2}\|w\|^{2} + C\sum_{n=1}^{N}\xi_{n} \] [cite: 2137]</p>
+            [cite_start]<p>subject to \( y_{n}(\langle w,x_{n}\rangle + b) \ge 1 - \xi_{n} \quad \text{và} \quad \xi_{n} \ge 0 \) [cite: 2138]</p>
+            [cite_start]<p>trong đó \(C > 0\) là tham số điều chuẩn (regularization parameter). [cite: 2142]</p>
+        </div>
+        
+        <div class="content-box definition">
+            [cite_start]<h4>Định nghĩa (Loss Function View - Hinge Loss)</h4> [cite: 2146]
+            [cite_start]<p>Bài toán SVM lề mềm tương đương với bài toán tối ưu hóa không ràng buộc sau: [cite: 2158]</p>
+            [cite_start]<p>\[ \min_{w,b} \underbrace{\frac{1}{2}\|w\|^{2}}_{\text{Regularizer}} + C \underbrace{\sum_{n=1}^{N}\max\{0, 1-y_{n}(\langle w,x_{n}\rangle + b)\}}_{\text{Error Term (Hinge Loss)}} \] [cite: 2152, 2155, 2156]</p>
+            [cite_start]<p>Hàm <strong>Hinge Loss</strong> được định nghĩa là: [cite: 2149]</p>
+            [cite_start]<p>\[ l(t) = \max\{0, 1-t\}, \quad \text{với } t = y(\langle w,x\rangle + b) \] [cite: 2150]</p>
+        </div>
+
+        [cite_start]<h2 id="sec12.3">12.3 Dual Support Vector Machine</h2> [cite: 1998, 2163]
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Lagrangian)</h4>
+            [cite_start]<p>Để giải bài toán SVM lề mềm, chúng ta xây dựng hàm Lagrangian (sử dụng nhân tử Lagrange \(\alpha_n \ge 0\) và \(\gamma_n \ge 0\)): [cite: 2166]</p>
+            [cite_start]<p>\[ \mathcal{L}(w,b,\xi,\alpha,\gamma) = \frac{1}{2}\|w\|^{2} + C\sum_{n=1}^{N}\xi_{n} - \sum_{n=1}^{N}\alpha_{n}(y_{n}(\langle w,x_{n}\rangle + b) - 1 + \xi_{n}) - \sum_{n=1}^{N}\gamma_{n}\xi_{n} \] [cite: 2168, 2170]</p>
+        </div>
+        
+        <div class="content-box theorem">
+            <h4>Định lý (KKT Conditions)</h4>
+            [cite_start]<p>Bằng cách lấy đạo hàm của \(\mathcal{L}\) theo \(w\), \(b\), \(\xi_n\) và đặt bằng 0, ta thu được các điều kiện KKT: [cite: 2173]</p>
+            <ol>
+                [cite_start]<li>\(\frac{\partial\mathcal{L}}{\partial w} = 0 \implies w = \sum_{n=1}^{N} \alpha_{n}y_{n}x_{n} \) [cite: 2171, 2175]</li>
+                [cite_start]<li>\(\frac{\partial\mathcal{L}}{\partial b} = 0 \implies \sum_{n=1}^{N} \alpha_{n}y_{n} = 0 \) [cite: 2171, 2175]</li>
+                [cite_start]<li>\(\frac{\partial\mathcal{L}}{\partial \xi_n} = 0 \implies C - \alpha_{n} - \gamma_{n} = 0 \) [cite: 2171, 2175]</li>
+            </ol>
+            <p>Từ điều kiện (3) và \(\gamma_n \ge 0\), chúng ta suy ra \(\alpha_n \le C\). [cite_start]Kết hợp với \(\alpha_n \ge 0\), ta có \(0 \le \alpha_n \le C\). [cite: 2183]</p>
+        </div>
+        
+        <div class="content-box theorem">
+            <h4>Định lý (Dual SVM Problem - Bài toán đối ngẫu)</h4>
+            [cite_start]<p>Thay thế các điều kiện KKT vào \(\mathcal{L}\), chúng ta thu được bài toán đối ngẫu, là một bài toán quy hoạch toàn phương (QP) chỉ phụ thuộc vào \(\alpha\): [cite: 2180, 2182]</p>
+            [cite_start]<p>\[ \min_{\alpha} \frac{1}{2}\sum_{i=1}^{N}\sum_{j=1}^{N} y_{i}y_{j}\alpha_{i}\alpha_{j}\langle x_{i}, x_{j} \rangle - \sum_{i=1}^{N}\alpha_{i} \] [cite: 2184]</p>
+            <p>subject to (với điều kiện):</p>
+            [cite_start]<p>\[ \sum_{i=1}^{N} y_{i}\alpha_{i} = 0 \quad \text{và} \quad 0 \le \alpha_{i} \le C \quad \forall i=1, \dots, N \] [cite: 2186]</p>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPD123 - Luyện tập Ngữ pháp (Trắc nghiệm)</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .exercise-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .exercise-item {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+        }
+        .question-text {
+            font-size: 1.25em;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        .question-text .blank {
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .option-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.05em;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .option-btn:hover:not(:disabled) {
+            border-color: #007bff;
+            color: #007bff;
+            background-color: #e9f7ff;
+        }
+        .option-btn.correct {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+        .option-btn.incorrect {
+            background-color: #dc3545;
+            color: white;
+            border-color: #dc3545;
+        }
+        .option-btn:disabled {
+            cursor: default;
+            opacity: 0.8;
+        }
+        .controls {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .controls button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.2s;
+        }
+        .controls button.show-btn { background-color: #17a2b8; }
+        .controls button.show-btn:hover { background-color: #138496; }
+        .controls button.reset-btn { background-color: #6c757d; }
+        .controls button.reset-btn:hover { background-color: #5a6268; }
+        #score-container {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 20px 0 30px 0;
+            padding: 15px;
+            background-color: #e9f7ff;
+            border-radius: 8px;
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Trang chủ</a> &gt; 
+            <a href="index.html">JPD123</a> &gt; Luyện tập
+        </nav>
+        <h1 class="main-header">✍️ Luyện tập (Trắc nghiệm)</h1>
+        <p class="page-description" style="text-align: center; font-size: 1.1em; margin-top: -20px; margin-bottom: 30px;">Chọn đáp án đúng cho mỗi câu sau.</p>
+        
+        <div id="score-container">Điểm: <span id="score-correct">0</span> / <span id="score-total">0</span></div>
+
+        <div class="exercise-container" id="exercise-list">
+            
+            <div class="exercise-item" data-answer="どう">
+                <p class="question-text">1. にほん の せいかつ は <span class="blank">____</span> ですか。</p>
+                <div class="options-container">
+                    <button class="option-btn">どう</button>
+                    <button class="option-btn">どんな</button>
+                    <button class="option-btn">なに</button>
+                    <button class="option-btn">どこ</button>
+                </div>
+            </div>
+            
+            <div class="exercise-item" data-answer="な">
+                <p class="question-text">2. あれは ゆうめい <span class="blank">____</span> てら です。</p>
+                <div class="options-container">
+                    <button class="option-btn">な</button>
+                    <button class="option-btn">の</button>
+                    <button class="option-btn">い</button>
+                    <button class="option-btn">を</button>
+                </div>
+            </div>
+            
+            <div class="exercise-item" data-answer="ありませんでした">
+                <p class="question-text">3. きのう は あまり あつく<span class="blank">____</span>。</p>
+                <div class="options-container">
+                    <button class="option-btn">じゃありません</button>
+                    <button class="option-btn">かったです</button>
+                    <button class="option-btn">ありませんでした</button>
+                    <button class="option-btn">でした</button>
+                </div>
+            </div>
+
+            <div class="exercise-item" data-answer="で">
+                <p class="question-text">4. Fsoft <span class="blank">____</span> にほんご を べんきょうします。</p>
+                <div class="options-container">
+                    <button class="option-btn">に</button>
+                    <button class="option-btn">で</button>
+                    <button class="option-btn">を</button>
+                    <button class="option-btn">へ</button>
+                </div>
+            </div>
+            
+            <div class="exercise-item" data-answer="に">
+                <p class="question-text">5. つくえ の うえ <span class="blank">____</span> ほん が あります。</p>
+                <div class="options-container">
+                    <button class="option-btn">に</button>
+                    <button class="option-btn">で</button>
+                    <button class="option-btn">を</button>
+                    <button class="option-btn">が</button>
+                </div>
+            </div>
+            
+            <div class="exercise-item" data-answer="ませんか">
+                <p class="question-text">6. いっしょに えいが を み<span class="blank">____</span>。</p>
+                <div class="options-container">
+                    <button class="option-btn">たいです</button>
+                    <button class="option-btn">ましょう</button>
+                    <button class="option-btn">ますか</button>
+                    <button class="option-btn">ませんか</button>
+                </div>
+            </div>
+
+            <div class="exercise-item" data-answer="たいです">
+                <p class="question-text">7. わたし は にほん へ いき<span class="blank">____</span>。</p>
+                <div class="options-container">
+                    <button class="option-btn">ましょう</button>
+                    <button class="option-btn">ませんか</button>
+                    <button class="option-btn">たいです</button>
+                    <button class="option-btn">たくないです</button>
+                </div>
+            </div>
+
+            <div class="exercise-item" data-answer="どうして">
+                <p class="question-text">8. <span class="blank">____</span> きのう がっこう を やすみましたか。</p>
+                <div class="options-container">
+                    <button class="option-btn">どうして</button>
+                    <button class="option-btn">どう</button>
+                    <button class="option-btn">なに</button>
+                    <button class="option-btn">いつ</button>
+                </div>
+            </div>
+            
+            <div class="exercise-item" data-answer="から">
+                <p class="question-text">9. あたま が いたい です<span class="blank">____</span>。</p>
+                <div class="options-container">
+                    <button class="option-btn">ので</button>
+                    <button class="option-btn">を</button>
+                    <button class="option-btn">から</button>
+                    <button class="option-btn">が</button>
+                </div>
+            </div>
+            
+            <div class="exercise-item" data-answer="かったです">
+                <p class="question-text">10. きのう の パーティー は とても たのし<span class="blank">____</span>。</p>
+                <div class="options-container">
+                    <button class="option-btn">かったです</button>
+                    <button class="option-btn">でした</button>
+                    <button class="option-btn">かった</button>
+                    <button class="option-btn">くありませんでした</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="controls">
+            <button id="show-btn" class="show-btn">Hiển thị Đáp án</button>
+            <button id="reset-btn" class="reset-btn">Làm lại</button>
+        </div>
+        
+        <button class="back-btn" style="margin-top: 30px;" onclick="location.href='index.html'">← Quay về JPD123</button>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const exerciseItems = document.querySelectorAll('.exercise-item');
+    const showBtn = document.getElementById('show-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const scoreCorrectEl = document.getElementById('score-correct');
+    const scoreTotalEl = document.getElementById('score-total');
+
+    let correctCount = 0;
+    const totalQuestions = exerciseItems.length;
+    scoreTotalEl.textContent = totalQuestions;
+
+    const updateScore = () => {
+        scoreCorrectEl.textContent = correctCount;
+    };
+
+    exerciseItems.forEach(item => {
+        const options = item.querySelectorAll('.option-btn');
+        const correctAnswer = item.dataset.answer;
+
+        options.forEach(button => {
+            button.addEventListener('click', () => {
+                // Disable all buttons in this item
+                options.forEach(btn => btn.disabled = true);
+
+                if (button.textContent === correctAnswer) {
+                    button.classList.add('correct');
+                    correctCount++;
+                    updateScore();
+                } else {
+                    button.classList.add('incorrect');
+                    // Highlight the correct answer
+                    options.forEach(btn => {
+                        if (btn.textContent === correctAnswer) {
+                            btn.classList.add('correct');
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    const resetAll = () => {
+        exerciseItems.forEach(item => {
+            const options = item.querySelectorAll('.option-btn');
+            options.forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('correct', 'incorrect');
+            });
+        });
+        correctCount = 0;
+        updateScore();
+    };
+
+    resetBtn.addEventListener('click', resetAll);
+
+    showBtn.addEventListener('click', () => {
+        resetAll();
+        exerciseItems.forEach(item => {
+            const options = item.querySelectorAll('.option-btn');
+            const correctAnswer = item.dataset.answer;
+            options.forEach(btn => {
+                if (btn.textContent === correctAnswer) {
+                    btn.classList.add('correct');
+                }
+                btn.disabled = true;
+            });
+        });
+    });
+});
+</script>
+</body>
+</html>

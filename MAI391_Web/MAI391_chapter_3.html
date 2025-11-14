@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 3: Analytic Geometry</title>
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* Style riêng cho trang nội dung */
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color-secondary);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3 {
+            color: var(--text-color-primary);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 2.5rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            border-bottom: 1px dashed #ccc;
+        }
+        
+        /* Định dạng các khối nội dung */
+        .content-box {
+            margin: 1.5rem 0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .definition {
+            background-color: #e6f7ff; /* Màu xanh nhạt */
+            border-left: 5px solid #1890ff;
+        }
+        .theorem {
+            background-color: #f6ffed; /* Màu xanh lá nhạt */
+            border-left: 5px solid #52c41a;
+        }
+        .example {
+            background-color: #fffbe6; /* Màu vàng nhạt */
+            border-left: 5px solid #faad14;
+        }
+        .solution {
+            background-color: #f9f0ff; /* Màu tím nhạt */
+            border: 1px solid #d3adf7;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        
+        .content-box h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 0;
+            color: #333;
+        }
+        
+        /* Nút quay lại */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Hình ảnh */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 1rem auto;
+            border-radius: 4px;
+        }
+
+        /* Định dạng toán học */
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="MAI391_index.html" class="back-link">&larr; Quay lại mục lục chương</a>
+        
+        <h1>Chương 3. Analytic Geometry</h1>
+
+        <h2 id="sec3.1">3.1 Norm</h2>
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Norm)</h4>
+            <p>Cho \( V \) là một không gian vector. Một <strong>norm</strong> trên \( V \) là một hàm số không âm</p>
+            <p>\[ \| \cdot \| : V \to \R \]</p>
+            <p>gán cho mỗi vector \( \mathbf{x} \) một "độ dài" \( \| \mathbf{x} \| \in \R \), sao cho với mọi \( k \in \R \) và \( \mathbf{x}, \mathbf{y} \in V \) các điều kiện sau được thỏa mãn:</p>
+            <ul>
+                <li><strong>Absolute homogeneous (Thuần nhất tuyệt đối):</strong> \( \| k\mathbf{x} \| = |k| \, \| \mathbf{x} \| \)</li>
+                <li><strong>Triangle inequality (Bất đẳng thức tam giác):</strong> \( \| \mathbf{x} + \mathbf{y} \| \le \| \mathbf{x} \| + \| \mathbf{y} \| \)</li>
+                <li><strong>Positive definite (Xác định dương):</strong> \( \| \mathbf{x} \| \ge 0 \) và \( \| \mathbf{x} \| = 0 \) khi và chỉ khi \( \mathbf{x} = \vec{0} \).</li>
+            </ul>
+        </div>
+        
+        <div class="content-box example">
+            <h4>Ví dụ (l_p-norm)</h4>
+            <p>Cho \( p \) là một số dương. <strong>\( l_p \)-norm</strong> \( \| \cdot \|_p \) trong \( \R^n \):</p>
+            <p>\[ \| \mathbf{x} \|_p = \left( \sum_{i=1}^n |x_i|^p \right)^{1/p} \quad \text{cho mọi } \mathbf{x} = [x_1 \dots x_n]^T \in \R^n \]
+            </p>
+            <ul>
+                <li>Với \( p = 1 \): <strong>Manhattan norm</strong> \( l_1 \): \( \| \mathbf{x} \|_1 = \sum_{i=1}^n |x_i| \)</li>
+                <li>Với \( p = 2 \): <strong>Euclidean norm</strong> \( l_2 \): \( \| \mathbf{x} \|_2 = \sqrt{\sum_{i=1}^n x_i^2} \)</li>
+            </ul>
+        </div>
+
+        <div class="content-box example">
+            <h4>Ví dụ (l_infinity-norm)</h4>
+            <p><strong>\( l_\infty \)-norm</strong> hay <strong>maximum norm</strong> trong \( \R^n \) là giới hạn của \( l_p \)-norm khi \( p \to \infty \):</p>
+            <p>\[ \| \mathbf{x} \|_\infty = \lim_{p \to \infty} \| \mathbf{x} \|_p = \max \{ |x_1|, \dots, |x_n| \} \]</p>
+        </div>
+
+        <div class="content-box example">
+            <h4>Ví dụ (Maximum norm trên C[a, b])</h4>
+            <p>Ký hiệu \( C[a, b] \) là không gian vector của tất cả các hàm liên tục được xác định trên đoạn \( [a, b] \). <strong>Maximum norm</strong> trên \( C[a, b] \):</p>
+            <p>\[ \| f \| = \max_{a \le x \le b} |f(x)| \]</p>
+        </div>
+
+        <div class="content-box example">
+            <h4>Ví dụ (Norm trên không gian ma trận)</h4>
+            <p>Ký hiệu \( \R^{m \times n} \) là không gian vector của tất cả các ma trận với phép cộng ma trận và phép nhân vô hướng.
+            </p>
+            <ul>
+                <li><strong>Euclidean norm</strong> trên \( \R^{m \times n} \):
+                    <p>\[ \| A \| = \left( \sum_{i=1}^m \sum_{j=1}^n a_{ij}^2 \right)^{1/2}, \quad \text{cho mọi } A = [a_{ij}] \in \R^{m \times n} \]</p>
+                </li>
+                <li><strong>Spectral norm</strong> trên \( \R^{m \times n} \) (xem Định nghĩa 4.23):
+                    <p>\[ \| A \|_2 = \max_{\R^n \ni \mathbf{x} \ne 0} \frac{\| A\mathbf{x} \|_2}{\| \mathbf{x} \|_2} = \max_{\R^n \ni \mathbf{x}, \| \mathbf{x} \|_2=1} \| A\mathbf{x} \|_2 \]</p>
+                </li>
+            </ul>
+        </div>
+
+        <h2 id="sec3.2">3.2 Inner Products</h2>
+
+        <div class="content-box definition">
+            <h4>Định nghĩa (Dot product)</h4>
+            <p><strong>Dot product</strong> (tích vô hướng) hay <strong>scalar product</strong> trên \( \R^n \) được cho bởi:</p>
+            <p>\[ \mathbf{x}^T \mathbf{y} = \sum_{i=1}^n x_i y_i \]</p>
+        </div>
+
+        <div class="content-box definition">
+            <h4>Định nghĩa (Bilinear mapping)</h4>
+            <p>Cho \( V \) là một không gian vector. Một <strong>bilinear mapping</strong> (ánh xạ song tuyến tính) hay <strong>bilinear form</strong> (dạng song tuyến tính) \( \mathcal{B} \) trên \( V \) là một hàm số \( \mathcal{B} : V \times V \to \R \) tuyến tính trong từng đối số một cách riêng biệt:</p>
+            <ul>
+                <li>\( \mathcal{B}(k\mathbf{x} + h\mathbf{y}, \mathbf{z}) = k\mathcal{B}(\mathbf{x}, \mathbf{z}) + h\mathcal{B}(\mathbf{y}, \mathbf{z}) \)</li>
+                <li>\( \mathcal{B}(\mathbf{x}, k\mathbf{y} + h\mathbf{z}) = k\mathcal{B}(\mathbf{x}, \mathbf{y}) + h\mathcal{B}(\mathbf{x}, \mathbf{z}) \)</li>
+            </ul>
+            <p>với mọi \( \mathbf{x}, \mathbf{y}, \mathbf{z} \in V \) và mọi \( k, h \in \R \).</p>
+        </div>
+
+        <div class="content-box example">
+            <h4>Ví dụ (Ánh xạ song tuyến tính)</h4>
+            <ul>
+                <li><p>Dot product là một ánh xạ song tuyến tính trên \( \R^n \).</p></li>
+                <li><p>Cho ánh xạ \( \mathcal{B} : \R^2 \times \R^2 \to \R \) định nghĩa bởi:
+                    \[ \mathcal{B}(\mathbf{x}, \mathbf{y}) = x_1 y_1 - 2x_1 y_2 + 3x_2 y_2 \]
+                    Chứng minh rằng đây là một ánh xạ song tuyến tính trên \( \R^2 \).
+                </p></li>
+                <li><p>Cho ánh xạ \( \mathcal{B} : C[a, b] \times C[a, b] \to \R \) định nghĩa bởi:
+                    \[ \mathcal{B}(f, g) = \int_a^b f(x)g(x) dx \]
+                    Đây là một ánh xạ song tuyến tính trên \( C[a, b] \).
+                </p></li>
+            </ul>
+        </div>
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Symmetric & Positive definite)</h4>
+            <p>Một ánh xạ song tuyến tính \( \mathcal{B} : V \times V \to \R \) được gọi là:</p>
+            <ul>
+                <li><strong>Symmetric (Đối xứng)</strong> nếu \( \mathcal{B}(\mathbf{x}, \mathbf{y}) = \mathcal{B}(\mathbf{y}, \mathbf{x}) \) với mọi \( \mathbf{x}, \mathbf{y} \in V \).</li>
+                <li><strong>Positive definite (Xác định dương)</strong> nếu \( \mathcal{B}(\mathbf{x}, \mathbf{x}) > 0 \) với mọi \( \mathbf{x} \ne \vec{0} \).</li>
+            </ul>
+        </div>
+
+        <div class="content-box example">
+            <h4>Ví dụ</h4>
+            <ul>
+                <li><p>Dot product trên \( \R^n \) là đối xứng và xác định dương.</p></li>
+                <li><p>Ánh xạ song tuyến tính \( \mathcal{B} : \R^2 \times \R^2 \to \R \) định nghĩa bởi:
+                    \[ \mathcal{B}(\mathbf{x}, \mathbf{y}) = x_1 y_1 - 2x_2 y_2 \]
+                    là đối xứng nhưng không xác định dương (vì \( \mathcal{B}(\mathbf{x}, \mathbf{x}) = x_1^2 - 2x_2^2 \), có thể âm, ví dụ \( \mathbf{x} = [0, 1]^T \)).
+                </p></li>
+            </ul>
+        </div>
+
+        <div class="content-box definition">
+            <h4>Định nghĩa (Inner Product)</h4>
+            <ul>
+                <li>Một ánh xạ song tuyến tính đối xứng, xác định dương \( \mathcal{B} : V \times V \to \R \) được gọi là một <strong>inner product</strong> (tích trong) trên \( V \). Chúng ta thường viết là \( \langle \mathbf{x}, \mathbf{y} \rangle \) thay vì \( \mathcal{B}(\mathbf{x}, \mathbf{y}) \).</li>
+                <li>Cặp \( (V, \langle \cdot, \cdot \rangle) \) được gọi là một <strong>inner product space</strong> (không gian tích trong) hay <strong>(real) vector space with inner product</strong>.</li>
+                <li>Nếu chúng ta sử dụng dot product, chúng ta gọi \( (\R^n, \langle \cdot, \cdot \rangle) \) là một <strong>Euclidean vector space</strong> (không gian vector Euclid).</li>
+            </ul>
+        </div>
+
+        <div class="content-box example">
+            <h4>Ví dụ (Tích trong trên R^2)</h4>
+            <p>Xét \( V = \R^2 \). Định nghĩa
+                \[ \langle \mathbf{x}, \mathbf{y} \rangle = x_1 y_1 - x_1 y_2 + x_2 y_1 + x_2 y_2 \]
+                Chứng minh \( \langle \cdot, \cdot \rangle \) là một tích trong trên \( \R^2 \).
+            </p>
+        </div>
+
+        <div class="content-box example">
+            <h4>Ví dụ (Tích trong trên không gian ma trận)</h4>
+            <p>Nếu \( A, B \) là các ma trận trong \( \R^{m \times n} \). Định nghĩa
+                \[ \langle A, B \rangle = \text{tr}(AB^T) \]
+                trong đó \( \text{tr} \) là toán tử trace (vết ma trận).
+                Chứng minh \( \langle \cdot, \cdot \rangle \) là một tích trong trên \( \R^{m \times n} \).
+            </p>
+        </div>
+
+        <div class="content-box definition">
+            <h4>Định nghĩa (Ma trận xác định dương)</h4>
+            <p>Một ma trận đối xứng \( A \in \R^{n \times n} \) được gọi là:</p>
+            <ul>
+                <li><strong>Positive definite (Xác định dương)</strong> nếu \( \mathbf{x}^T A \mathbf{x} > 0 \), với mọi vector khác không \( \mathbf{x} \in \R^n \).</li>
+                <li><strong>Positive semidefinite (Xác định bán dương)</strong> nếu \( \mathbf{x}^T A \mathbf{x} \ge 0 \), với mọi vector \( \mathbf{x} \in \R^n \).</li>
+            </ul>
+        </div>
+
+        <div class="content-box example">
+            <h4>Ví dụ</h4>
+            <p>Xét các ma trận:
+                \[ A = \begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}, \quad B = \begin{bmatrix} 1 & 2 \\ 2 & 3 \end{bmatrix} \]
+            </p>
+            <p>Chứng minh \( A \) là xác định dương nhưng \( B \) thì không.</p>
+        </div>
+
+        <div class="content-box theorem">
+            <h4>Định lý (Tích trong và Ma trận)</h4>
+            <p>Cho một không gian vector \( n \)-chiều \( V \) và một cơ sở có thứ tự \( B \) của \( V \). Một ánh xạ \( \langle \cdot, \cdot \rangle : V \times V \to \R \) là một tích trong khi và chỉ khi tồn tại một ma trận đối xứng, xác định dương \( A \in \R^{n \times n} \) với
+                \[ \langle \mathbf{x}, \mathbf{y} \rangle = \hat{\mathbf{x}}^T A \hat{\mathbf{y}} \]
+            trong đó \( \hat{\mathbf{x}}, \hat{\mathbf{y}} \) là tọa độ của \( \mathbf{x} \) và \( \mathbf{y} \) đối với cơ sở \( B \).
+            </p>
+            <p>Ma trận \( A = [A_{ij}] = [\langle \mathbf{b}_i, \mathbf{b}_j \rangle] \) với \( B = \{ \mathbf{b}_1, \dots, \mathbf{b}_n \} \).</p>
+        </div>
+
+
+        <h2 id="sec3.3">3.3 Lengths and Distances</h2>
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Độ dài và Khoảng cách)</h4>
+            <p>Xét một không gian tích trong \( (V, \langle \cdot, \cdot \rangle) \). Khi đó:</p>
+            <ul>
+                <li><strong>Norm</strong> (chuẩn) được sinh bởi tích trong là \( \| \mathbf{x} \| := \sqrt{\langle \mathbf{x}, \mathbf{x} \rangle} \).</li>
+                <li><strong>Distance</strong> (khoảng cách) giữa \( \mathbf{x} \) và \( \mathbf{y} \) trong \( V \) được gọi là:
+                    \[ d(\mathbf{x}, \mathbf{y}) := \| \mathbf{x} - \mathbf{y} \| = \sqrt{\langle \mathbf{x} - \mathbf{y}, \mathbf{x} - \mathbf{y} \rangle} \]
+                </li>
+            </ul>
+        </div>
+        
+        <div class="content-box theorem">
+            <h4>Định lý (Bất đẳng thức Cauchy-Schwarz)</h4>
+            <p>Đối với một không gian tích trong \( (V, \langle \cdot, \cdot \rangle) \), norm được sinh ra \( \| \cdot \| \) thỏa mãn <strong>bất đẳng thức Cauchy-Schwarz</strong>:</p>
+            <p>\[ |\langle \mathbf{x}, \mathbf{y} \rangle| \le \| \mathbf{x} \| \, \| \mathbf{y} \| \]
+            </p>
+        </div>
+
+        <div class="content-box example">
+            <h4>Ví dụ (Tính khoảng cách)</h4>
+            <p>Cho tích trong \( \langle \cdot, \cdot \rangle \) được định nghĩa trên \( \R^2 \) bởi:
+                \[ \langle \mathbf{x}, \mathbf{y} \rangle = x_1 y_1 - x_1 y_2 - x_2 y_1 + 3x_2 y_2 \]
+            </p>
+            <p>Tìm khoảng cách giữa hai vector \( \mathbf{u} = [1 \quad 1]^T \) và \( \mathbf{v} = [-1 \quad 2]^T \).</p>
+            
+            <div class="solution">
+                <h4>Lời giải</h4>
+                <p>Theo định nghĩa, khoảng cách \( d(\mathbf{u}, \mathbf{v}) = \| \mathbf{u} - \mathbf{v} \| \).</p>
+                <p>1. Tính \( \mathbf{w} = \mathbf{u} - \mathbf{v} \):
+                    \[ \mathbf{w} = \begin{bmatrix} 1 \\ 1 \end{bmatrix} - \begin{bmatrix} -1 \\ 2 \end{bmatrix} = \begin{bmatrix} 1 - (-1) \\ 1 - 2 \end{bmatrix} = \begin{bmatrix} 2 \\ -1 \end{bmatrix} \]
+                </p>
+                <p>2. Tính \( \| \mathbf{w} \|^2 = \langle \mathbf{w}, \mathbf{w} \rangle \).
+                    Với \( \mathbf{w} = [w_1 \quad w_2]^T = [2 \quad -1]^T \), ta có:
+                    \begin{align*}
+                    \langle \mathbf{w}, \mathbf{w} \rangle &= w_1 w_1 - w_1 w_2 - w_2 w_1 + 3w_2 w_2 \\
+                                 &= w_1^2 - 2w_1 w_2 + 3w_2^2 \\
+                                 &= (2)^2 - 2(2)(-1) + 3(-1)^2 \\
+                                 &= 4 + 4 + 3 \\
+                                 &= 11
+                    \end{align*}
+                </p>
+                <p>3. Tính khoảng cách \( d(\mathbf{u}, \mathbf{v}) \):
+                    \[ d(\mathbf{u}, \mathbf{v}) = \| \mathbf{w} \| = \sqrt{\langle \mathbf{w}, \mathbf{w} \rangle} = \sqrt{11} \]
+                </p>
+            </div>
+        </div>
+
+        <h2 id="sec3.4">3.4 Angles and Orthogonality</h2>
+
+        <div class="content-box definition">
+            <h4>Định nghĩa (Góc)</h4>
+            <p><strong>Góc</strong> (angle) giữa các vector \( \mathbf{x} \) và \( \mathbf{y} \) là số \( \omega \in [0, \pi] \) được xác định bởi:</p>
+            <p>\[ \cos \omega = \frac{\langle \mathbf{x}, \mathbf{y} \rangle}{\| \mathbf{x} \| \, \| \mathbf{y} \|} \]
+            </p>
+        </div>
+
+        <div class="content-box definition">
+            <h4>Định nghĩa (Trực giao)</h4>
+            <p>Hai vector \( \mathbf{x} \) và \( \mathbf{y} \) là <strong>orthogonal</strong> (trực giao) nếu và chỉ nếu \( \langle \mathbf{x}, \mathbf{y} \rangle = 0 \), và chúng ta viết \( \mathbf{x} \perp \mathbf{y} \).</p>
+            <p>Ngoài ra, nếu \( \| \mathbf{x} \| = \| \mathbf{y} \| = 1 \), tức là, các vector là <strong>unit vectors</strong> (vector đơn vị), thì \( \mathbf{x} \) và \( \mathbf{y} \) được gọi là <strong>orthonormal</strong> (trực chuẩn).</p>
+        </div>
+
+        <div class="content-box definition">
+            <h4>Định nghĩa (Ma trận trực giao)</h4>
+            <p>Một ma trận vuông \( A \in \R^{n \times n} \) là một <strong>orthogonal matrix</strong> (ma trận trực giao) nếu và chỉ nếu các cột của nó là trực chuẩn (orthonormal).</p>
+            <p>\[ AA^T = A^T A = I_n \]
+            </p>
+        </div>
+        
+        <div class="content-box example">
+            <h4>Ví dụ</h4>
+            <p>Chứng minh rằng \( A = \begin{bmatrix} 1/\sqrt{2} & -1/\sqrt{2} \\ 1/\sqrt{2} & 1/\sqrt{2} \end{bmatrix} \) là ma trận trực giao.</p>
+        </div>
+
+        <div class="content-box theorem">
+            <h4>Định lý (Tính chất ma trận trực giao)</h4>
+            <p>Nếu \( A \in \R^{n \times n} \) là ma trận trực giao thì:</p>
+            <ul>
+                <li>\( A^{-1} = A^T \)</li>
+                <li>\( A \) bảo toàn độ dài của bất kỳ vector \( \mathbf{x} \in \R^n \). (Tức là \( \| A\mathbf{x} \| = \| \mathbf{x} \| \))</li>
+                <li>\( A \) bảo toàn góc giữa hai vector bất kỳ \( \mathbf{x} \) và \( \mathbf{y} \) trong \( \R^n \).</li>
+            </ul>
+        </div>
+
+        <h2 id="sec3.5">3.5 Orthonormal Basis</h2>
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Cơ sở trực chuẩn)</h4>
+            <p>Xét một không gian vector tích trong \( n \)-chiều \( (V, \langle \cdot, \cdot \rangle) \) và một cơ sở \( B = \{ \mathbf{b}_1, \dots, \mathbf{b}_n \} \) của \( V \).</p>
+            <p>\( B \) được gọi là một <strong>orthonormal basis (ONB)</strong> (cơ sở trực chuẩn) nếu:</p>
+            <p>\[ \langle \mathbf{b}_i, \mathbf{b}_j \rangle = \delta_{ij} = \begin{cases} 1 & \text{if } i = j \\ 0 & \text{otherwise} \end{cases} \]
+            </p>
+        </div>
+        
+        <div class="content-box example">
+            <h4>Ví dụ</h4>
+            <p>Cơ sở chính tắc (canonical basis) cho một không gian vector Euclid \( \R^n \) là một cơ sở trực chuẩn.</p>
+        </div>
+
+        <div class="content-box example">
+            <h4>Ví dụ (Kiểm tra ONB)</h4>
+            <p>Chứng minh rằng \( \{ \mathbf{b}_1 = [1 \quad -1]^T, \mathbf{b}_2 = [1 \quad 0]^T \} \) là một cơ sở trực chuẩn của \( \R^2 \) với tích trong</p>
+            <p>\[ \langle \mathbf{x}, \mathbf{y} \rangle = \mathbf{x}^T A \mathbf{y}, \quad \text{với } A = \begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix} \]
+            </p>
+            <div class="solution">
+                <h4>Lời giải</h4>
+                <p>Chúng ta cần kiểm tra 3 điều kiện: \( \langle \mathbf{b}_1, \mathbf{b}_1 \rangle = 1 \), \( \langle \mathbf{b}_2, \mathbf{b}_2 \rangle = 1 \), và \( \langle \mathbf{b}_1, \mathbf{b}_2 \rangle = 0 \).</p>
+                <p>1. Tính \( \langle \mathbf{b}_1, \mathbf{b}_1 \rangle \):
+                    \begin{align*}
+                    \langle \mathbf{b}_1, \mathbf{b}_1 \rangle &= \mathbf{b}_1^T A \mathbf{b}_1 = \begin{bmatrix} 1 & -1 \end{bmatrix} \begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix} \begin{bmatrix} 1 \\ -1 \end{bmatrix} \\
+                                     &= \begin{bmatrix} (1 \cdot 1 + (-1) \cdot 1) & (1 \cdot 1 + (-1) \cdot 2) \end{bmatrix} \begin{bmatrix} 1 \\ -1 \end{bmatrix} \\
+                                     &= \begin{bmatrix} 0 & -1 \end{bmatrix} \begin{bmatrix} 1 \\ -1 \end{bmatrix} \\
+                                     &= (0 \cdot 1) + ((-1) \cdot (-1)) = 1
+                    \end{align*}
+                </p>
+                <p>2. Tính \( \langle \mathbf{b}_2, \mathbf{b}_2 \rangle \):
+                    \begin{align*}
+                    \langle \mathbf{b}_2, \mathbf{b}_2 \rangle &= \mathbf{b}_2^T A \mathbf{b}_2 = \begin{bmatrix} 1 & 0 \end{bmatrix} \begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} \\
+                                     &= \begin{bmatrix} (1 \cdot 1 + 0 \cdot 1) & (1 \cdot 1 + 0 \cdot 2) \end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} \\
+                                     &= \begin{bmatrix} 1 & 1 \end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} \\
+                                     &= (1 \cdot 1) + (1 \cdot 0) = 1
+                    \end{align*}
+                </p>
+                <p>3. Tính \( \langle \mathbf{b}_1, \mathbf{b}_2 \rangle \):
+                    \begin{align*}
+                    \langle \mathbf{b}_1, \mathbf{b}_2 \rangle &= \mathbf{b}_1^T A \mathbf{b}_2 = \begin{bmatrix} 1 & -1 \end{bmatrix} \begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} \\
+                                     &= \begin{bmatrix} 0 & -1 \end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} \\
+                                     &= (0 \cdot 1) + ((-1) \cdot 0) = 0
+                    \end{align*}
+                </p>
+                <p>Vì \( \langle \mathbf{b}_1, \mathbf{b}_1 \rangle = 1 \), \( \langle \mathbf{b}_2, \mathbf{b}_2 \rangle = 1 \), và \( \langle \mathbf{b}_1, \mathbf{b}_2 \rangle = 0 \), nên đây là một cơ sở trực chuẩn.</p>
+            </div>
+        </div>
+
+        <div class="content-box theorem">
+            <h4>Định lý (Biểu diễn vector qua ONB)</h4>
+            <p>Cho \( \{ \mathbf{b}_1, \dots, \mathbf{b}_n \} \) là một cơ sở trực chuẩn (ONB) của một không gian tích trong \( V \). Nếu \( \mathbf{x} \) là một vector bất kỳ trong \( V \), thì</p>
+            <p>\[ \mathbf{x} = \langle \mathbf{x}, \mathbf{b}_1 \rangle \mathbf{b}_1 + \dots + \langle \mathbf{x}, \mathbf{b}_n \rangle \mathbf{b}_n \]
+            </p>
+        </div>
+        
+        <div class="content-box theorem">
+            <h4>Định lý (Quá trình Gram-Schmidt)</h4>
+            <p>Cho \( V \) là một không gian tích trong và \( \{ \mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n \} \) là một cơ sở bất kỳ của \( V \). Định nghĩa các vector \( \mathbf{b}_1, \mathbf{b}_2, \dots, \mathbf{b}_n \) trong \( V \) liên tiếp như sau:</p>
+            <p>\[ \mathbf{b}_1 = \mathbf{v}_1 \]
+            \[ \mathbf{b}_2 = \mathbf{v}_2 - \frac{\langle \mathbf{v}_2, \mathbf{b}_1 \rangle}{\| \mathbf{b}_1 \|^2} \mathbf{b}_1 \]
+            \[ \dots \]
+            \[ \mathbf{b}_k = \mathbf{v}_k - \frac{\langle \mathbf{v}_k, \mathbf{b}_1 \rangle}{\| \mathbf{b}_1 \|^2} \mathbf{b}_1 - \frac{\langle \mathbf{v}_k, \mathbf{b}_2 \rangle}{\| \mathbf{b}_2 \|^2} \mathbf{b}_2 - \dots - \frac{\langle \mathbf{v}_k, \mathbf{b}_{k-1} \rangle}{\| \mathbf{b}_{k-1} \|^2} \mathbf{b}_{k-1} \]
+            </p>
+            <p>cho mỗi \( k = 2, \dots, n \). Khi đó:</p>
+            <ol>
+                <li>\( \{ \mathbf{b}_1, \mathbf{b}_2, \dots, \mathbf{b}_n \} \) là một <strong>cơ sở trực giao</strong> (orthogonal basis) của \( V \).</li>
+                <li>\( \text{span}\{ \mathbf{b}_1, \dots, \mathbf{b}_k \} = \text{span}\{ \mathbf{v}_1, \dots, \mathbf{v}_k \} \) đúng với mỗi \( k = 1, \dots, n \).</li>
+                <li>\( \{ \mathbf{b}_1 / \| \mathbf{b}_1 \|, \mathbf{b}_2 / \| \mathbf{b}_2 \|, \dots, \mathbf{b}_n / \| \mathbf{b}_n \| \} \) là một <strong>cơ sở trực chuẩn</strong> (orthonormal basis) của \( V \).</li>
+            </ol>
+        </div>
+
+        <h2 id="sec3.6">3.6 Orthogonal Complement</h2>
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Phần bù trực giao)</h4>
+            <p>Cho \( U \) là một không gian con (subspace) của một không gian tích trong \( V \).</p>
+            <p><strong>Phần bù trực giao</strong> (orthogonal complement) \( U^\perp \) (đọc là "U perp") của \( U \) trong \( V \) được định nghĩa là:</p>
+            <p>\[ U^\perp = \{ \mathbf{v} \in V \mid \langle \mathbf{v}, \mathbf{u} \rangle = 0 \text{ cho mọi } \mathbf{u} \in U \} \]
+            </p>
+        </div>
+        
+        <div class="content-box theorem">
+            <h4>Định lý (Tính chất của Phần bù trực giao)</h4>
+            <p>Cho \( U \) là một không gian con hữu hạn chiều của một không gian tích trong \( V \).</p>
+            <ol type="i">
+                <li>\( U \cap U^\perp = \{ \vec{0} \} \).</li>
+                <li>\( U^\perp \) là một không gian con của \( V \) và \( V = U \oplus U^\perp \) (tổng trực tiếp). (Mỗi vector \( \mathbf{v} \in V \) có thể được viết <strong>duy nhất</strong> dưới dạng tổng của hai vector \( \mathbf{u} \in U \) và \( \mathbf{w} \in U^\perp \)).</li>
+                <li>\( \dim(U^\perp) = \dim(V) - \dim(U) \). (Slide ghi \( \dim(U^\perp) = \dim(V) - \dim(U^\perp) \) có thể là lỗi in, công thức đúng phải là \( \dim(U) + \dim(U^\perp) = \dim(V) \)).</li>
+                <li>\( (U^\perp)^\perp = U \).</li>
+            </ol>
+        </div>
+
+        <h2 id="sec3.8">3.8 Orthogonal Projections</h2>
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Phép chiếu)</h4>
+            <p>Một ánh xạ tuyến tính \( P : V \to U \) được gọi là một <strong>projection</strong> (phép chiếu) nếu \( P^2 = P \circ P = P \).</p>
+        </div>
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Phép chiếu trực giao)</h4>
+            <p>Phép chiếu \( P \) lên \( U \) với \( \text{ker}(P) = U^\perp \) được gọi là <strong>orthogonal projection</strong> (phép chiếu trực giao) lên \( U \) và được ký hiệu là \( \text{proj}_U : V \to U \).</p>
+        </div>
+
+        <div class="content-box theorem">
+            <h4>Định lý (Projection Theorem)</h4>
+            <p>Cho \( U \) là một không gian con hữu hạn chiều của một không gian tích trong \( V \) và cho \( \mathbf{v} \) là một vector trong \( V \).</p>
+            <ol type="i">
+                <li>\( \text{proj}_U(\mathbf{v}) \in U \) và \( \mathbf{v} - \text{proj}_U(\mathbf{v}) \in U^\perp \).</li>
+                <li>Nếu \( \{ \mathbf{b}_1, \dots, \mathbf{b}_m \} \) là một cơ sở trực chuẩn (ONB) của \( U \) thì
+                    \[ \text{proj}_U(\mathbf{v}) = \langle \mathbf{v}, \mathbf{b}_1 \rangle \mathbf{b}_1 + \dots + \langle \mathbf{v}, \mathbf{b}_m \rangle \mathbf{b}_m \]
+                </li>
+            </ol>
+        </div>
+        
+        <div class="content-box theorem">
+            <h4>Định lý (Approximation Theorem)</h4>
+            <p>Cho \( U \) là một không gian con hữu hạn chiều của một không gian tích trong \( V \). Nếu \( \mathbf{v} \) là một vector bất kỳ trong \( V \), thì \( \text{proj}_U(\mathbf{v}) \) là vector trong \( U \) <strong>gần nhất</strong> (closest) với \( \mathbf{v} \). "Gần nhất" có nghĩa là:</p>
+            <p>\[ \| \mathbf{v} - \text{proj}_U(\mathbf{v}) \| < \| \mathbf{v} - \mathbf{u} \| \]
+            </p>
+            <p>cho mọi \( \mathbf{u} \in U, \mathbf{u} \ne \text{proj}_U(\mathbf{v}) \).</p>
+            <p><i>(Hình ảnh minh họa cho thấy vector \( \mathbf{v} \), không gian con \( U \), hình chiếu \( \text{proj}_U \mathbf{v} \) nằm trên \( U \), và vector lỗi \( \mathbf{v} - \text{proj}_U \mathbf{v} \) trực giao với không gian con \( U \).)</i></p>
+        </div>
+
+        <div class="content-box definition">
+            <h4>Một cách tiếp cận khác cho Phép chiếu trực giao</h4>
+            <p>Bây giờ chúng ta xét các phép chiếu trực giao của các vector \( \mathbf{x} \in \R^n \) lên các không gian con chiều thấp hơn \( U \subseteq \R^n \) với một cơ sở \( B = \{ \mathbf{b}_1, \dots, \mathbf{b}_m \} \). Rất dễ dàng tìm thấy \( \text{proj}_U(\mathbf{x}) \) sau khi đưa \( B \) về một cơ sở trực chuẩn bằng quá trình Gram-Schmidt, sau đó áp dụng Định lý Phép chiếu.</p>
+            <p>Sau đây chúng ta sử dụng một cách tiếp cận khác (sử dụng một cơ sở bất kỳ, không nhất thiết phải trực chuẩn):</p>
+            <p>\[ \text{proj}_U(\mathbf{x}) = \sum_{i=1}^m \lambda_i \mathbf{b}_i = B \mathbf{\lambda} \]
+            </p>
+            <p>trong đó \( B = [\mathbf{b}_1 \dots \mathbf{b}_m] \), \( \mathbf{\lambda} = [\lambda_1 \dots \lambda_m]^T \).</p>
+            <p>Từ \( (\mathbf{x} - \text{proj}_U(\mathbf{x})) \in U^\perp \), chúng ta có:</p>
+            <p>\[ \mathbf{b}_1^T (\mathbf{x} - \text{proj}_U(\mathbf{x})) = \dots = \mathbf{b}_m^T (\mathbf{x} - \text{proj}_U(\mathbf{x})) = 0 \]
+            \[ \Rightarrow \mathbf{b}_1^T (\mathbf{x} - B\mathbf{\lambda}) = \dots = \mathbf{b}_m^T (\mathbf{x} - B\mathbf{\lambda}) = 0 \]
+            \[ \Rightarrow B^T (\mathbf{x} - B\mathbf{\lambda}) = 0 \]
+            \[ \Rightarrow B^T B\mathbf{\lambda} = B^T \mathbf{x} \]
+            \[ \Rightarrow \mathbf{\lambda} = (B^T B)^{-1} B^T \mathbf{x} \]
+            \[ \Rightarrow \text{proj}_U(\mathbf{x}) = B(B^T B)^{-1} B^T \mathbf{x} \]
+            </p>
+        </div>
+        
+    </div>
+</style>
+</head>
+<body>
+    <div class="container">
+        <a href="MAI391_index.html" class="back-link">&larr; Quay lại mục lục chương</a>
+        
+        <h1>Chương 3. Analytic Geometry</h1>
+        </div>
+</body>
+</html>

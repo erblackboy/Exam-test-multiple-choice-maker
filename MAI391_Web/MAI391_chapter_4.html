@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 4: Phân rã Ma trận</title>
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color-secondary);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3 {
+            color: var(--text-color-primary);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 2.5rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            border-bottom: 1px dashed #ccc;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .content-box {
+            margin: 1.5rem 0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .definition {
+            background-color: #e6f7ff; /* Màu xanh nhạt */
+            border-left: 5px solid #1890ff;
+        }
+        .theorem {
+            background-color: #f6ffed; /* Màu xanh lá nhạt */
+            border-left: 5px solid #52c41a;
+        }
+        .example {
+            background-color: #fffbe6; /* Màu vàng nhạt */
+            border-left: 5px solid #faad14;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="MAI391_index.html" class="back-link">&larr; Quay lại mục lục</a>
+        
+        <h1>Chương 4. Phân rã Ma trận</h1> 
+
+        <div class="toc-container" style="background: var(--light-bg, #f8f9fa); padding: 20px; border-radius: 8px; margin-bottom: 2.5rem; border: 1px solid var(--border-color, #dee2e6);">
+            <h3 style="margin-top: 0; border-bottom: 1px solid var(--border-color, #dee2e6);">Mục lục chương</h3> 
+            <ol style="padding-left: 20px; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <li style="margin: 0;"><a href="#sec4.1" style="text-decoration: none; color: var(--primary-color, #007bff); font-weight: 500;">4.1 Định thức và Vết ma trận</a></li> [cite: 2]
+                <li style="margin: 0;"><a href="#sec4.2" style="text-decoration: none; color: var(--primary-color, #007bff); font-weight: 500;">4.2 Giá trị riêng và Vector riêng</a></li> [cite: 3]
+                <li style="margin: 0;"><a href="#sec4.4" style="text-decoration: none; color: var(--primary-color, #007bff); font-weight: 500;">4.4 Phân rã riêng và Chéo hóa</a></li> [cite: 4]
+                <li style="margin: 0;"><a href="#sec4.5" style="text-decoration: none; color: var(--primary-color, #007bff); font-weight: 500;">4.5 Phân tích Giá trị suy biến (SVD)</a></li> [cite: 5]
+                <li style="margin: 0;"><a href="#sec4.6" style="text-decoration: none; color: var(--primary-color, #007bff); font-weight: 500;">4.6 Xấp xỉ Ma trận</a></li> [cite: 6]
+            </ol>
+        </div>
+        <h2 id="sec4.1">4.1 Định thức và Vết ma trận</h2> [cite: 7]
+        
+        <h3>Định nghĩa và Tính toán Định thức</h3> [cite: 8]
+
+        <div class="content-box theorem">
+            <h4>Định lý (Khai triển Laplace)</h4> [cite: 9]
+            <p>Cho một ma trận $A \in \R^{n \times n}$. Với mọi $i = 1, \dots, n$:</p>
+            <ol>
+                <li>
+                    <strong>Khai triển dọc theo hàng i:</strong> [cite: 10]
+                    $$ \det(A) = |A| = \sum_{k=1}^n a_{ik}(-1)^{i+k}\det(A_{ik}) = \sum_{k=1}^n a_{ik}c_{ik}(A) $$
+                </li>
+                <li>
+                    <strong>Khai triển dọc theo cột i:</strong> [cite: 11]
+                    $$ \det(A) = |A| = \sum_{k=1}^n a_{ki}(-1)^{k+i}\det(A_{ki}) = \sum_{k=1}^n a_{ki}c_{ki}(A) $$
+                </li>
+            </ol>
+            <p>Trong đó, $A_{ik} \in \R^{(n-1) \times (n-1)}$ là ma trận con của A thu được khi xóa hàng i và cột k, và $c_{ik}(A) = (-1)^{i+k}\det(A_{ik})$ là phần bù đại số (cofactor). [cite: 11]</p>
+        </div>
+
+        <div class="content-box example">
+            <h4>Ví dụ</h4> [cite: 12]
+            <ol>
+                <li>Với $A = [a] \in \R^{1 \times 1}$ thì $\det(A) = a$. [cite: 13]</li>
+                <li>Với $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix} \in \R^{2 \times 2}$, $\det(A) = ad - bc$. [cite: 14]</li>
+                <li>Với $A = \begin{bmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{bmatrix} \in \R^{3 \times 3}$, chúng ta có thể tính định thức của A bằng <strong>quy tắc Sarrus</strong>: [cite: 15, 16]
+                $$ \det(A) = a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32} - a_{31}a_{22}a_{13} - a_{32}a_{23}a_{11} - a_{33}a_{21}a_{12} $$
+                </li>
+            </ol>
+        </div>
+
+        <h3>Các tính chất của Định thức</h3> [cite: 17]
+        <div class="content-box definition">
+            <ul>
+                <li>$\det(AB) = \det(A)\det(B)$. [cite: 18]</li>
+                <li>$\det(A^T) = \det(A)$. [cite: 19]</li>
+                <li>Nếu A là khả nghịch (regular) thì $\det(A^{-1}) = 1/\det(A)$. [cite: 20]</li>
+                <li>Nếu A và B là ma trận đồng dạng (tồn tại ma trận khả nghịch C sao cho $B = C^{-1}AC$) thì $\det(A) = \det(B)$. [cite: 21]</li>
+                <li>Thêm một bội số của một cột/hàng vào cột/hàng khác không làm thay đổi $\det(A)$. [cite: 22]</li>
+                <li>Đổi chỗ hai hàng/cột sẽ thay đổi dấu của $\det(A)$. [cite: 23]</li>
+                <li>$\det(kA) = k^n \det(A)$. [cite: 24]</li>
+            </ul>
+        </div>
+
+        <div class="content-box theorem">
+            <h4>Định lý</h4> [cite: 25]
+            <p>Cho $A \in \R^{n \times n}$. Các mệnh đề sau là tương đương:</p>
+            <ol>
+                <li>$\det(A) \ne 0$. [cite: 26]</li>
+                <li>A có hạng đầy đủ, tức là $rk(A) = n$. [cite: 27]</li>
+                <li>A là khả nghịch. [cite: 28]</li>
+                <li>Hệ phương trình thuần nhất $AX = 0$ với $X \in \R^n$ chỉ có nghiệm tầm thường. [cite: 29]</li>
+            </ol>
+        </div>
+
+        <h2 id="sec4.2" style="color: #999;">4.2 Giá trị riêng và Vector riêng (Chưa có nội dung)</h2> [cite: 3]
+        <h2 id="sec4.4" style="color: #999;">4.4 Phân rã riêng và Chéo hóa (Chưa có nội dung)</h2> [cite: 4]
+        <h2 id="sec4.5" style="color: #999;">4.5 Phân tích Giá trị suy biến (SVD) (Chưa có nội dung)</h2> [cite: 5]
+        <h2 id="sec4.6" style="color: #999;">4.6 Xấp xỉ Ma trận (Chưa có nội dung)</h2> [cite: 6]
+        
+    </div>
+</body>
+</html>

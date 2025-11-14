@@ -1,38 +1,72 @@
+// File: js/main.js
+
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('subject-selection-container');
-    if (!container) return;
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
 
-    // Lấy danh sách các môn học từ database
-    const subjects = Object.keys(quizData);
-
-    subjects.forEach(subjectCode => {
-        const subject = quizData[subjectCode];
-        const card = document.createElement('div');
-        card.className = 'subject-card';
-        card.innerHTML = `<h3>${subject.title}</h3>`;
-        card.addEventListener('click', () => {
-            // Lưu môn học đã chọn vào localStorage để các trang sau sử dụng
-            localStorage.setItem('selectedSubject', subjectCode);
-            localStorage.setItem('selectedSubjectTitle', subject.title);
-            window.location.href = 'subject.html';
-        });
-        container.appendChild(card);
+    // --- Dark Mode ---
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+    darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
     });
 
-    // Hiển thị lịch sử thi
-    const historyContainer = document.getElementById('history-container');
-    if (historyContainer) {
-        const history = JSON.parse(localStorage.getItem('quizHistory')) || [];
-        const historyBody = document.getElementById('history-body');
-        historyBody.innerHTML = history.map(h => 
-            `<tr><td>${h.subject}</td><td>${h.score.toFixed(2)}/10</td><td>${h.date}</td></tr>`
-        ).join('');
-    }
+    // --- Render Subjects by Semester ---
+    if (container && typeof semesterLayout !== 'undefined' && typeof subjectDetails !== 'undefined') {
+        container.innerHTML = ''; // Xóa nội dung cũ
 
-    // Thêm toggle dark mode
-    const toggle = document.createElement('input');
-    toggle.type = 'checkbox';
-    toggle.className = 'toggle-dark';
-    toggle.addEventListener('change', () => document.body.classList.toggle('dark-mode'));
-    document.body.appendChild(toggle);
+        // Lặp qua từng kỳ trong semesterLayout
+        for (const semesterName in semesterLayout) {
+            const subjectIds = semesterLayout[semesterName];
+
+            const semesterHeader = document.createElement('h2');
+            semesterHeader.className = 'semester-header';
+            semesterHeader.textContent = semesterName;
+            container.appendChild(semesterHeader);
+
+            const subjectGrid = document.createElement('div');
+            subjectGrid.className = 'subject-grid';
+
+            // Lặp qua ID các môn trong kỳ
+            subjectIds.forEach(subjectId => {
+                const subject = subjectDetails[subjectId]; // Tra cứu thông tin chi tiết
+                if (!subject) return; // Bỏ qua nếu không tìm thấy thông tin
+
+                const card = document.createElement('div');
+                card.className = 'subject-card';
+                if (subject.disabled) {
+                    card.classList.add('disabled');
+                }
+
+                const subjectName = document.createElement('h3');
+                subjectName.textContent = subject.title;
+
+                const subjectDescription = document.createElement('p');
+                subjectDescription.textContent = subject.description;
+
+                card.appendChild(subjectName);
+                card.appendChild(subjectDescription);
+                
+                card.addEventListener('click', () => {
+                    if (!subject.disabled) {
+                        if (subject.customLink) {
+                            window.location.href = subject.customLink;
+                        } else {
+                            window.location.href = `subject.html?subject=${subjectId}`;
+                        }
+                    }
+                });
+
+                subjectGrid.appendChild(card);
+            });
+            
+            container.appendChild(subjectGrid);
+        }
+    } else {
+        // Thông báo lỗi này sẽ hiển thị nếu file database.js sai hoặc không được tải
+        container.innerHTML = '<p>Không tải được dữ liệu môn học. Vui lòng kiểm tra lại file `data/database.js`.</p>';
+    }
 });

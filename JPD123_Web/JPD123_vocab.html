@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPD123 - Từ vựng Bài 4-7 (Theo List PDF)</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --primary-hover: #0056b3;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --light-bg: #f8f9fa;
+            --white-bg: #ffffff;
+            --text-color: #333;
+            --border-color: #dee2e6;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: var(--white-bg);
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+        .main-menu {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .main-menu button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+        }
+        .main-menu button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+        .main-menu button.active {
+            background-color: var(--primary-hover);
+        }
+        .view { display: none; }
+        .view.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        h1, h2, h3 { color: var(--primary-hover); text-align: center; }
+
+        /* Vocab View */
+        #filter-container {
+            text-align: center;
+            margin: -10px 0 20px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        #filter-container label {
+            margin: 0 15px;
+            font-size: 1.05em;
+            cursor: pointer;
+        }
+         #filter-container input {
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .lesson-group {
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fdfdfd;
+            overflow: hidden;
+        }
+        .lesson-group h3 {
+            margin: 0;
+            padding: 15px 20px;
+            color: white;
+            background-color: #6c757d;
+        }
+        .vocab-list { list-style: none; padding: 0; margin: 0; }
+        .vocab-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-bottom: 1px solid var(--border-color); }
+        .vocab-item:last-child { border-bottom: none; }
+        .vocab-jp { font-size: 1.15em; font-weight: 500; }
+        .vocab-jp .kana { font-size: 0.85em; color: #555; font-weight: normal; display: block; }
+        /* Style for ruby/rt (furigana) */
+        ruby {
+            font-size: 1em; /* Adjust base text size if needed */
+            ruby-position: over;
+        }
+        rt {
+            font-size: 0.65em; /* Make furigana smaller */
+            color: #666;
+            user-select: none; /* Prevent selecting furigana */
+            line-height: 1.1;
+        }
+        .vocab-vi { font-size: 1.05em; color: #444; text-align: right; }
+
+        /* Quiz View */
+        #quiz-status { text-align: center; margin-bottom: 20px; font-size: 1.1em; }
+        #progress-bar-container { background-color: #e9ecef; border-radius: 0.25rem; }
+        #progress-bar { height: 10px; background-color: var(--success-color); border-radius: 0.25rem; transition: width 0.4s ease; }
+        #quiz-container { padding: 20px; background: #fdfdfd; border-radius: 8px; border: 1px solid var(--border-color); }
+        #question { font-size: 1.6em; font-weight: bold; margin-bottom: 25px; text-align: center; }
+        #options { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        #options button { width: 100%; padding: 18px; font-size: 1.1em; cursor: pointer; background-color: var(--white-bg); border: 1px solid var(--border-color); border-radius: 8px; transition: all 0.2s; text-align: left; }
+        #options button:hover:not(:disabled) { border-color: var(--primary-color); color: var(--primary-color); background-color: #e9f7ff; }
+        #options button.correct { background-color: var(--success-color); color: white; border-color: var(--success-color); }
+        #options button.incorrect { background-color: var(--danger-color); color: white; border-color: var(--danger-color); }
+        #options button:disabled { cursor: default; }
+        #explanation { display: none; margin-top: 20px; padding: 20px; background-color: #e9f7ff; border: 1px solid #bce8f1; border-radius: 8px; }
+        #explanation h4 { margin-top: 0; color: #31708f; border-bottom: 1px solid #bce8f1; padding-bottom: 10px; }
+        #explanation p { margin: 8px 0; font-size: 1.1em; }
+        #explanation .jp-sentence { font-weight: bold; font-size: 1.2em; }
+        #explanation .romaji-sentence { font-style: italic; color: #555; }
+        #quiz-controls { text-align: center; margin-top: 20px; }
+        #quiz-controls button {
+            background-color: var(--warning-color); color: #333; border: none; padding: 12px 30px;
+            border-radius: 8px; cursor: pointer; font-size: 1.1em; font-weight: 500;
+        }
+        #quiz-complete-message { text-align: center; font-size: 1.3em; color: var(--success-color); }
+        #reset-progress { background-color: #6c757d; color: white; margin-left: 10px;}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🇯🇵 Luyện thi Tiếng Nhật 🇻🇳</h1>
+        <div class="main-menu">
+            <button id="show-vocab-btn" class="active">📚 Tra cứu Từ vựng</button>
+            <button id="show-quiz-btn">✍️ Ôn tập Trắc nghiệm</button>
+        </div>
+
+        <div id="vocab-view" class="view active">
+            <h2>Danh sách Từ vựng (Bài 4-7)</h2>
+            <div id="filter-container">
+                <label><input type="checkbox" name="vocab-filter" value="kanji"> Kanji</label>
+                <label><input type="checkbox" name="vocab-filter" value="hiragana"> Hiragana</label>
+                <label><input type="checkbox" name="vocab-filter" value="katakana"> Katakana</label>
+            </div>
+            <div id="vocab-content"></div>
+        </div>
+
+        <div id="quiz-view" class="view">
+            <h2>Ôn tập Trắc nghiệm</h2>
+            <div id="quiz-status">
+                <p>Tiến độ: <span id="completed-count">0</span> / <span id="total-count">0</span></p>
+                <div id="progress-bar-container">
+                    <div id="progress-bar" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div id="quiz-start-screen">
+                 <div id="quiz-controls">
+                    <button id="start-quiz-session-btn">Bắt đầu phiên ôn tập (10 câu)</button>
+                    <button id="reset-progress">Reset tiến độ</button>
+                </div>
+            </div>
+
+            <div id="quiz-container" style="display: none;">
+                <div id="question"></div>
+                <div id="options"></div>
+                <div id="explanation">
+                    <h4>📖 Giải thích chi tiết</h4>
+                    <p><strong>Kanji:</strong> <span id="exp-kanji"></span></p>
+                    <p><strong>Hiragana/Katakana:</strong> <span id="exp-kana"></span></p>
+                    <p><strong>Romaji:</strong> <span id="exp-romaji"></span></p>
+                    <p><strong>Nghĩa:</strong> <span id="exp-vi"></span></p>
+                    <hr>
+                    <p><strong>Câu ví dụ:</strong></p>
+                    <p class="jp-sentence" id="exp-sentence-jp"></p>
+                    <p class="romaji-sentence" id="exp-sentence-romaji"></p>
+                    <p class="vi-sentence" id="exp-sentence-vi"></p>
+                </div>
+                <div id="quiz-session-controls" style="text-align:center; margin-top:20px;">
+                    <button id="next-question-btn" style="display:none;">Câu tiếp theo</button>
+                </div>
+            </div>
+
+             <div id="quiz-complete-message" style="display:none;">
+                <h3>🎉 Chúc mừng! Bạn đã hoàn thành tất cả câu hỏi!</h3>
+                <p>Hãy nhấn nút Reset để bắt đầu lại từ đầu.</p>
+            </div>
+
+        </div>
+    </div>
+
+<script>
+// DỮ LIỆU TỪ VỰNG TỪ PDF LIST (CHƯƠN 4-7) - CORRECTED
+const vocabulary = [
+    // BÀI 4 (Từ List PDF)
+    { id: 401, lesson: 4, kanji: "北", hiragana: "きた", romaji: "kita", vietnamese: "bắc" },
+    { id: 402, lesson: 4, kanji: "南", hiragana: "みなみ", romaji: "minami", vietnamese: "nam" },
+    { id: 403, lesson: 4, kanji: "東", hiragana: "ひがし", romaji: "higashi", vietnamese: "đông" },
+    { id: 404, lesson: 4, kanji: "西", hiragana: "にし", romaji: "nishi", vietnamese: "tây" },
+    { id: 405, lesson: 4, kanji: "真ん中", hiragana: "まんなか", romaji: "mannaka", vietnamese: "giữa" },
+    { id: 406, lesson: 4, kanji: "車", hiragana: "くるま", romaji: "kuruma", vietnamese: "xe ô-tô" },
+    { id: 407, lesson: 4, kanji: "新幹線", hiragana: "しんかんせん", romaji: "shinkansen", vietnamese: "tàu siêu tốc" },
+    { id: 408, lesson: 4, kanji: "電車", hiragana: "でんしゃ", romaji: "densha", vietnamese: "tàu điện" },
+    { id: 409, lesson: 4, kanji: "飛行機", hiragana: "ひこうき", romaji: "hikouki", vietnamese: "máy bay" },
+    { id: 410, lesson: 4, kanji: "駅", hiragana: "えき", romaji: "eki", vietnamese: "nhà ga" },
+    { id: 411, lesson: 4, kanji: "町", hiragana: "まち", romaji: "machi", vietnamese: "khu phố, thành phố" },
+    { id: 412, lesson: 4, kanji: "時間", hiragana: "じかん", romaji: "jikan", vietnamese: "-tiếng" },
+    { id: 413, lesson: 4, kanji: "時間半", hiragana: "じかんはん", romaji: "jikanhan", vietnamese: "tiếng rưỡi" },
+    { id: 414, lesson: 4, kanji: "分", hiragana: "ふん／ぷん", romaji: "fun/pun", vietnamese: "-phút" },
+    { id: 415, lesson: 4, kanji: "歩いて", hiragana: "あるいて", romaji: "aruite", vietnamese: "đi bộ" },
+    { id: 416, lesson: 4, hiragana: "くらい", romaji: "kurai", vietnamese: "khoảng-" },
+    { id: 417, lesson: 4, hiragana: "どのくらい", romaji: "donokurai", vietnamese: "khoảng bao nhiêu" },
+    { id: 418, lesson: 4, kanji: "温泉", hiragana: "おんせん", romaji: "onsen", vietnamese: "suối nước nóng" },
+    { id: 419, lesson: 4, kanji: "川", hiragana: "かわ", romaji: "kawa", vietnamese: "sông" },
+    { id: 420, lesson: 4, kanji: "山", hiragana: "やま", romaji: "yama", vietnamese: "núi" },
+    { id: 421, lesson: 4, kanji: "教会", hiragana: "きょうかい", romaji: "kyoukai", vietnamese: "nhà thờ" },
+    { id: 422, lesson: 4, kanji: "城", hiragana: "しろ", romaji: "(o)shiro", vietnamese: "lâu đài, thành" },
+    { id: 423, lesson: 4, kanji: "神社", hiragana: "じんじゃ", romaji: "jinja", vietnamese: "đền thờ đạo Thần" },
+    { id: 424, lesson: 4, kanji: "寺", hiragana: "てら", romaji: "(o)tera", vietnamese: "chùa" },
+    { id: 425, lesson: 4, katakana: "ビル", romaji: "biru", vietnamese: "tòa nhà nhiều tầng" },
+    { id: 426, lesson: 4, hiragana: "ところ", romaji: "tokoro", vietnamese: "chỗ" },
+    { id: 427, lesson: 4, kanji: "人", hiragana: "ひと", romaji: "hito", vietnamese: "người" },
+    { id: 428, lesson: 4, kanji: "緑", hiragana: "みどり", romaji: "midori", vietnamese: "màu xanh lá cây" },
+    { id: 429, lesson: 4, hiragana: "あります", romaji: "arimasu", vietnamese: "có" },
+    { id: 430, lesson: 4, kanji: "新しい", hiragana: "あたらしい", romaji: "atarashii", vietnamese: "mới" },
+    { id: 431, lesson: 4, kanji: "古い", hiragana: "ふるい", romaji: "furui", vietnamese: "cũ" },
+    { id: 432, lesson: 4, hiragana: "いい", romaji: "ii", vietnamese: "tốt, được" },
+    { id: 433, lesson: 4, kanji: "悪い", hiragana: "わるい", romaji: "warui", vietnamese: "xấu" },
+    { id: 434, lesson: 4, kanji: "多い", hiragana: "おおい", romaji: "ooi", vietnamese: "nhiều (～が)" },
+    { id: 435, lesson: 4, kanji: "少ない", hiragana: "すくない", romaji: "sukunai", vietnamese: "ít (～が)" },
+    { id: 436, lesson: 4, kanji: "大きい", hiragana: "おおきい", romaji: "ookii", vietnamese: "to" },
+    { id: 437, lesson: 4, kanji: "小さい", hiragana: "ちいさい", romaji: "chiisai", vietnamese: "nhỏ" },
+    { id: 438, lesson: 4, kanji: "高い", hiragana: "たかい", romaji: "takai", vietnamese: "cao, đắt" },
+    { id: 439, lesson: 4, kanji: "低い", hiragana: "ひくい", romaji: "hikui", vietnamese: "thấp" },
+    { id: 440, lesson: 4, hiragana: "きれい", romaji: "kirei(na)", vietnamese: "đẹp, sạch" },
+    { id: 441, lesson: 4, kanji: "静か", hiragana: "しずか", romaji: "shizuka(na)", vietnamese: "yên tĩnh" },
+    { id: 442, lesson: 4, hiragana: "にぎやか", romaji: "nigiyaka(na)", vietnamese: "náo nhiệt" },
+    { id: 443, lesson: 4, kanji: "有名", hiragana: "ゆうめい", romaji: "yuumei(na)", vietnamese: "nổi tiếng" },
+    { id: 444, lesson: 4, hiragana: "どんな", romaji: "donna", vietnamese: "thế nào" },
+    { id: 445, lesson: 4, hiragana: "そして", romaji: "soshite", vietnamese: "và" },
+    { id: 446, lesson: 4, kanji: "雨", hiragana: "あめ", romaji: "ame", vietnamese: "mưa" },
+    { id: 447, lesson: 4, kanji: "雪", hiragana: "ゆき", romaji: "yuki", vietnamese: "tuyết" },
+    { id: 448, lesson: 4, kanji: "日", hiragana: "ひ", romaji: "hi", vietnamese: "ngày" },
+    { id: 449, lesson: 4, katakana: "メロン", romaji: "meron", vietnamese: "dưa lê" },
+    { id: 450, lesson: 4, kanji: "暖かい", hiragana: "あたたかい", romaji: "atatakai", vietnamese: "ấm (thời tiết)" },
+    { id: 451, lesson: 4, kanji: "涼しい", hiragana: "すずしい", romaji: "suzushii", vietnamese: "mát" },
+    { id: 452, lesson: 4, kanji: "暑い", hiragana: "あつい", romaji: "atsui", vietnamese: "nóng (thời tiết)" },
+    { id: 453, lesson: 4, kanji: "寒い", hiragana: "さむい", romaji: "samui", vietnamese: "lạnh (thời tiết)" },
+    { id: 454, lesson: 4, kanji: "天気がいい", hiragana: "てんきがいい", romaji: "tenki ga ii", vietnamese: "trời đẹp" },
+    { id: 455, lesson: 4, kanji: "天気が悪い", hiragana: "てんきがわるい", romaji: "tenki ga warui", vietnamese: "trời xấu" },
+    { id: 456, lesson: 4, kanji: "温かい", hiragana: "あたたかい", romaji: "atatakai", vietnamese: "ấm (đồ vật)" },
+    { id: 457, lesson: 4, kanji: "熱い", hiragana: "あつい", romaji: "atsui", vietnamese: "nóng (đồ vật)" },
+    { id: 458, lesson: 4, kanji: "冷たい", hiragana: "つめたい", romaji: "tsumetai", vietnamese: "lạnh (đồ vật)" },
+    { id: 459, lesson: 4, hiragana: "おいしい", romaji: "oishii", vietnamese: "ngon" },
+    { id: 460, lesson: 4, hiragana: "まずい", romaji: "mazui", vietnamese: "dở" },
+    { id: 461, lesson: 4, kanji: "甘い", hiragana: "あまい", romaji: "amai", vietnamese: "ngọt" },
+    { id: 462, lesson: 4, kanji: "辛い", hiragana: "からい", romaji: "karai", vietnamese: "cay" },
+    { id: 463, lesson: 4, kanji: "苦い", hiragana: "にがい", romaji: "nigai", vietnamese: "đắng" },
+    { id: 464, lesson: 4, hiragana: "すっぱい", romaji: "suppai", vietnamese: "chua" },
+    { id: 465, lesson: 4, kanji: "一年中", hiragana: "いちねんじゅう", romaji: "ichinenjuu", vietnamese: "cả năm" },
+    { id: 466, lesson: 4, hiragana: "あまり", romaji: "amari", vietnamese: "(không) lắm" },
+    { id: 467, lesson: 4, kanji: "少し", hiragana: "すこし", romaji: "sukoshi", vietnamese: "ít" },
+    { id: 468, lesson: 4, hiragana: "とても", romaji: "totemo", vietnamese: "rất" },
+    { id: 469, lesson: 4, hiragana: "どう", romaji: "dou", vietnamese: "thế nào" },
+    { id: 470, lesson: 4, hiragana: "そうですね", romaji: "sou desu ne", vietnamese: "vâng, đúng thế" },
+    { id: 471, lesson: 4, hiragana: "たくさん", romaji: "takusan", vietnamese: "nhiều" },
+
+    // BÀI 5 (Từ List PDF)
+    { id: 501, lesson: 5, kanji: "今日", hiragana: "きょう", romaji: "kyou", vietnamese: "hôm nay" },
+    { id: 502, lesson: 5, kanji: "明日", hiragana: "あした", romaji: "ashita", vietnamese: "ngày mai" },
+    { id: 503, lesson: 5, hiragana: "あさって", romaji: "asatte", vietnamese: "ngày kia" },
+    { id: 504, lesson: 5, kanji: "昨日", hiragana: "きのう", romaji: "kinou", vietnamese: "hôm qua" },
+    { id: 505, lesson: 5, hiragana: "おととい", romaji: "ototoi", vietnamese: "hôm kia" },
+    { id: 506, lesson: 5, kanji: "先週", hiragana: "せんしゅう", romaji: "senshuu", vietnamese: "tuần trước" },
+    { id: 507, lesson: 5, kanji: "週末", hiragana: "しゅうまつ", romaji: "shuumatsu", vietnamese: "cuối tuần" },
+    { id: 508, lesson: 5, kanji: "家", hiragana: "いえ", romaji: "ie / uchi", vietnamese: "nhà" },
+    { id: 509, lesson: 5, kanji: "部屋", hiragana: "へや", romaji: "heya", vietnamese: "phòng" },
+    { id: 510, lesson: 5, katakana: "デパート", romaji: "depaato", vietnamese: "bách hóa" },
+    { id: 511, lesson: 5, kanji: "美術館", hiragana: "びじゅつかん", romaji: "bijutsukan", vietnamese: "bảo tàng mỹ thuật" },
+    { id: 512, lesson: 5, katakana: "ゲーム", romaji: "geemu", vietnamese: "trò chơi" },
+    { id: 513, lesson: 5, kanji: "家族", hiragana: "かぞく", romaji: "kazoku", vietnamese: "gia đình" },
+    { id: 514, lesson: 5, kanji: "恋人", hiragana: "こいびと", romaji: "koibito", vietnamese: "người yêu" },
+    { id: 515, lesson: 5, kanji: "友達", hiragana: "ともだち", romaji: "tomodachi", vietnamese: "bạn" },
+    { id: 516, lesson: 5, katakana: "ルームメイト", romaji: "ruumumeito", vietnamese: "bạn cùng phòng" },
+    { id: 517, lesson: 5, hiragana: "どこか(へ)", romaji: "dokoka(e)", vietnamese: "(đi) đâu đó" },
+    { id: 518, lesson: 5, kanji: "会います", hiragana: "あいます", romaji: "aimasu", vietnamese: "gặp" },
+    { id: 519, lesson: 5, kanji: "作ります", hiragana: "つくります", romaji: "tsukurimasu", vietnamese: "làm, tạo ra" },
+    { id: 520, lesson: 5, kanji: "買い物・します", hiragana: "かいもの・します", romaji: "kaimono shimasu", vietnamese: "mua hàng" },
+    { id: 521, lesson: 5, kanji: "食事・します", hiragana: "しょくじ・します", romaji: "shokuji shimasu", vietnamese: "ăn" },
+    { id: 522, lesson: 5, kanji: "洗濯・します", hiragana: "せんたく・します", romaji: "sentaku shimasu", vietnamese: "giặt" },
+    { id: 523, lesson: 5, kanji: "掃除・します", hiragana: "そうじ・します", romaji: "souji shimasu", vietnamese: "dọn vệ sinh" },
+    { id: 524, lesson: 5, hiragana: "それから", romaji: "sorekara", vietnamese: "sau đó" },
+    { id: 525, lesson: 5, kanji: "一人で", hiragana: "ひとりで", romaji: "hitoride", vietnamese: "một mình" },
+    { id: 526, lesson: 5, kanji: "今朝", hiragana: "けさ", romaji: "kesa", vietnamese: "sáng nay" },
+    { id: 527, lesson: 5, kanji: "先月", hiragana: "せんげつ", romaji: "sengetsu", vietnamese: "tháng trước" },
+    { id: 528, lesson: 5, kanji: "去年", hiragana: "きょねん", romaji: "kyonen", vietnamese: "năm ngoái" },
+    { id: 529, lesson: 5, kanji: "風邪", hiragana: "かぜ", romaji: "kaze", vietnamese: "bệnh cúm" },
+    { id: 530, lesson: 5, kanji: "天気", hiragana: "てんき", romaji: "tenki", vietnamese: "thời tiết" },
+    { id: 531, lesson: 5, kanji: "晩ご飯", hiragana: "ばんごはん", romaji: "bangohan", vietnamese: "cơm tối" },
+    { id: 532, lesson: 5, kanji: "服", hiragana: "ふく", romaji: "fuku", vietnamese: "quần áo" },
+    { id: 533, lesson: 5, kanji: "登ります", hiragana: "のぼります", romaji: "noborimasu", vietnamese: "leo" },
+    { id: 534, lesson: 5, kanji: "入ります", hiragana: "はいります", romaji: "hairimasu", vietnamese: "vào" },
+    { id: 535, lesson: 5, kanji: "忙しい", hiragana: "いそがしい", romaji: "isogashii", vietnamese: "bận" },
+    { id: 536, lesson: 5, kanji: "面白い", hiragana: "おもしろい", romaji: "omoshiroi", vietnamese: "thú vị" },
+    { id: 537, lesson: 5, kanji: "気持ちがいい", hiragana: "きもちがいい", romaji: "kimochi ga ii", vietnamese: "dễ chịu" },
+    { id: 538, lesson: 5, kanji: "高い", hiragana: "たかい", romaji: "takai", vietnamese: "đắt" },
+    { id: 539, lesson: 5, kanji: "安い", hiragana: "やすい", romaji: "yasui", vietnamese: "rẻ" },
+    { id: 540, lesson: 5, kanji: "楽しい", hiragana: "たのしい", romaji: "tanoshii", vietnamese: "vui" },
+    { id: 541, lesson: 5, kanji: "難しい", hiragana: "むずかしい", romaji: "muzukashii", vietnamese: "khó" },
+    { id: 542, lesson: 5, kanji: "簡単", hiragana: "かんたん", romaji: "kantan(na)", vietnamese: "đơn giản" },
+    { id: 543, lesson: 5, kanji: "大変", hiragana: "たいへん", romaji: "taihen(na)", vietnamese: "vất vả" },
+    { id: 544, lesson: 5, kanji: "暇", hiragana: "ひま", romaji: "hima(na)", vietnamese: "nhàn rỗi" },
+    { id: 545, lesson: 5, hiragana: "どうして", romaji: "doushite", vietnamese: "tại sao" },
+    { id: 546, lesson: 5, kanji: "今度", hiragana: "こんど", romaji: "kondo", vietnamese: "lần tới" },
+    { id: 547, lesson: 5, kanji: "今晩", hiragana: "こんばん", romaji: "konban", vietnamese: "tối nay" },
+    { id: 548, lesson: 5, kanji: "今年", hiragana: "ことし", romaji: "kotoshi", vietnamese: "năm nay" },
+    { id: 549, lesson: 5, kanji: "来年", hiragana: "らいねん", romaji: "rainen", vietnamese: "sang năm" },
+    { id: 550, lesson: 5, katakana: "アニメ", romaji: "anime", vietnamese: "phim hoạt hình" },
+    { id: 551, lesson: 5, kanji: "絵", hiragana: "え", romaji: "e", vietnamese: "bức tranh" },
+    { id: 552, lesson: 5, kanji: "景色", hiragana: "けしき", romaji: "keshiki", vietnamese: "phong cảnh" },
+    { id: 553, lesson: 5, kanji: "自転車", hiragana: "じてんしゃ", romaji: "jitensha", vietnamese: "xe đạp" },
+    { id: 554, lesson: 5, kanji: "写真", hiragana: "しゃしん", romaji: "shashin", vietnamese: "bức ảnh" },
+    { id: 555, lesson: 5, kanji: "撮ります", hiragana: "とります", romaji: "torimasu", vietnamese: "chụp" },
+    { id: 556, lesson: 5, kanji: "借ります", hiragana: "かります", romaji: "karimasu", vietnamese: "mượn" },
+    { id: 557, lesson: 5, hiragana: "ほしい", romaji: "hoshii", vietnamese: "muốn" },
+    { id: 558, lesson: 5, kanji: "好き", hiragana: "すき", romaji: "suki(na)", vietnamese: "thích" },
+    { id: 559, lesson: 5, kanji: "嫌い", hiragana: "きらい", romaji: "kirai(na)", vietnamese: "ghét" },
+    { id: 560, lesson: 5, kanji: "寮", hiragana: "りょう", romaji: "ryou", vietnamese: "ký túc xá" },
+    { id: 561, lesson: 5, hiragana: "いろいろ", romaji: "iroiro(na)", vietnamese: "nhiều" },
+    { id: 562, lesson: 5, hiragana: "また", romaji: "mata", vietnamese: "lại" },
+    { id: 563, lesson: 5, hiragana: "それはよかったですね", romaji: "sore wa yokatta desu ne", vietnamese: "Thế thì tốt nhỉ." },
+    { id: 564, lesson: 5, kanji: "近く", hiragana: "ちかく", romaji: "chikaku", vietnamese: "gần" },
+    { id: 565, lesson: 5, kanji: "一日", hiragana: "いちにち", romaji: "ichinichi", vietnamese: "một ngày" },
+
+    // BÀI 6 (Từ List PDF)
+    { id: 601, lesson: 6, kanji: "今週", hiragana: "こんしゅう", romaji: "konshuu", vietnamese: "tuần này" },
+    { id: 602, lesson: 6, kanji: "来週", hiragana: "らいしゅう", romaji: "raishuu", vietnamese: "tuần sau" },
+    { id: 603, lesson: 6, kanji: "今月", hiragana: "こんげつ", romaji: "kongetsu", vietnamese: "tháng này" },
+    { id: 604, lesson: 6, kanji: "来月", hiragana: "らいげつ", romaji: "raigetsu", vietnamese: "tháng sau" },
+    { id: 605, lesson: 6, katakana: "カラオケ", romaji: "karaoke", vietnamese: "karaoke" },
+    { id: 606, lesson: 6, katakana: "コンサート", romaji: "konsaato", vietnamese: "buổi hòa nhạc" },
+    { id: 607, lesson: 6, kanji: "試合", hiragana: "しあい", romaji: "shiai", vietnamese: "trận đấu" },
+    { id: 608, lesson: 6, katakana: "セール", romaji: "seeru", vietnamese: "bán hạ giá" },
+    { id: 609, lesson: 6, katakana: "チケット", romaji: "chiketto", vietnamese: "vé" },
+    { id: 610, lesson: 6, kanji: "地図", hiragana: "ちず", romaji: "chizu", vietnamese: "bản đồ" },
+    { id: 611, lesson: 6, katakana: "ドライブ", romaji: "doraibu", vietnamese: "lái ô-tô đi chơi" },
+    { id: 612, lesson: 6, kanji: "水着", hiragana: "みずぎ", romaji: "mizugi", vietnamese: "quần áo tắm" },
+    { id: 613, lesson: 6, kanji: "野球", hiragana: "やきゅう", romaji: "yakyuu", vietnamese: "bóng chày" },
+    { id: 614, lesson: 6, kanji: "約束", hiragana: "やくそく", romaji: "yakusoku", vietnamese: "hẹn" },
+    { id: 615, lesson: 6, kanji: "用事", hiragana: "ようじ", romaji: "youji", vietnamese: "công chuyện" },
+    { id: 616, lesson: 6, kanji: "枚", hiragana: "まい", romaji: "mai", vietnamese: "-cái (đếm vật mỏng)" },
+    { id: 617, lesson: 6, kanji: "残念", hiragana: "ざんねん", romaji: "zannen(na)", vietnamese: "tiếc" },
+    { id: 618, lesson: 6, kanji: "一緒", hiragana: "いっしょ", romaji: "issho ni", vietnamese: "cùng" },
+    { id: 619, lesson: 6, hiragana: "いいですね", romaji: "ii desu ne", vietnamese: "thích nhỉ, được rồi" },
+    { id: 620, lesson: 6, hiragana: "ああ", romaji: "aa", vietnamese: "Ôi" },
+    { id: 621, lesson: 6, hiragana: "すみません", romaji: "sumimasen", vietnamese: "xin lỗi" },
+    { id: 622, lesson: 6, kanji: "今度", hiragana: "こんど", romaji: "mata kondo", vietnamese: "hẹn lần tới" },
+    { id: 623, lesson: 6, kanji: "食べ物", hiragana: "たべもの", romaji: "tabemono", vietnamese: "đồ ăn" },
+    { id: 624, lesson: 6, kanji: "飲み物", hiragana: "のみもの", romaji: "nomimono", vietnamese: "đồ uống" },
+    { id: 625, lesson: 6, kanji: "焼き肉", hiragana: "やきにく", romaji: "yakiniku", vietnamese: "thịt nướng" },
+    { id: 626, lesson: 6, katakana: "ラーメン", romaji: "raamen", vietnamese: "mì" },
+    { id: 627, lesson: 6, kanji: "食べ放題", hiragana: "たべほうだい", romaji: "tabehoudai", vietnamese: "ăn thỏa thích" },
+    { id: 628, lesson: 6, katakana: "コース", romaji: "koosu", vietnamese: "loạt/bộ món ăn" },
+    { id: 629, lesson: 6, kanji: "居酒屋", hiragana: "いざかや", romaji: "izakaya", vietnamese: "quán rượu" },
+    { id: 630, lesson: 6, kanji: "映画館", hiragana: "えいがかん", romaji: "eigakan", vietnamese: "rạp chiếu phim" },
+    { id: 631, lesson: 6, kanji: "地下鉄", hiragana: "ちかてつ", romaji: "chikatetsu", vietnamese: "tàu điện ngầm" },
+    { id: 632, lesson: 6, kanji: "歌手", hiragana: "かしゅ", romaji: "kashu", vietnamese: "ca sĩ" },
+    { id: 633, lesson: 6, kanji: "季節", hiragana: "きせつ", romaji: "kisetsu", vietnamese: "mùa" },
+    { id: 634, lesson: 6, katakana: "コメディー", romaji: "komedii", vietnamese: "phim hài, diễn viên hài" },
+    { id: 635, lesson: 6, katakana: "ジャズ", romaji: "jazu", vietnamese: "nhạc jazz" },
+    { id: 636, lesson: 6, katakana: "ツアー", romaji: "tsuaa", vietnamese: "tua" },
+    { id: 637, lesson: 6, hiragana: "どちら", romaji: "dochira", vietnamese: "cái nào (trong hai)" },
+    { id: 638, lesson: 6, hiragana: "どちらも", romaji: "dochira mo", vietnamese: "cái nào cũng được" },
+    { id: 639, lesson: 6, kanji: "近い", hiragana: "ちかい", romaji: "chikai", vietnamese: "gần" },
+    { id: 640, lesson: 6, kanji: "遠い", hiragana: "とおい", romaji: "tooi", vietnamese: "xa" },
+    { id: 641, lesson: 6, kanji: "早い", hiragana: "はやい", romaji: "hayai", vietnamese: "sớm" },
+    { id: 642, lesson: 6, kanji: "広い", hiragana: "ひろい", romaji: "hiroi", vietnamese: "rộng" },
+    { id: 643, lesson: 6, hiragana: "いちばん", romaji: "ichiban", vietnamese: "nhất, số một" },
+    { id: 644, lesson: 6, kanji: "全部", hiragana: "ぜんぶ", romaji: "zenbu", vietnamese: "toàn bộ" },
+    { id: 645, lesson: 6, hiragana: "そうですねえ", romaji: "sou desu nee", vietnamese: "à, vâng... (khi đang suy nghĩ)" },
+    { id: 646, lesson: 6, kanji: "お好み焼き", hiragana: "おこのみやき", romaji: "okonomiyaki", vietnamese: "bánh xèo Nhật" },
+    { id: 647, lesson: 6, hiragana: "すきやき", romaji: "sukiyaki", vietnamese: "lẩu Sukiyaki" },
+    { id: 648, lesson: 6, kanji: "遊びます", hiragana: "あそびます", romaji: "asobimasu", vietnamese: "chơi" },
+    { id: 649, lesson: 6, hiragana: "ぜひ", romaji: "zehi", vietnamese: "nhất định" },
+    { id: 650, lesson: 6, hiragana: "まだ", romaji: "mada", vietnamese: "chưa" },
+    { id: 651, lesson: 6, hiragana: "もう", romaji: "mou", vietnamese: "rồi" },
+    { id: 652, lesson: 6, hiragana: "わあ", romaji: "waa", vietnamese: "Ôi (ngạc nhiên)" },
+    { id: 653, lesson: 6, hiragana: "そうしましょう", romaji: "sou shimashou", vietnamese: "chúng ta làm thế nhé" },
+    { id: 654, lesson: 6, kanji: "分かりました", hiragana: "わかりました", romaji: "wakarimashita", vietnamese: "hiểu rồi" },
+    { id: 655, lesson: 6, kanji: "店", hiragana: "みせ", romaji: "(o)mise", vietnamese: "cửa hàng" },
+    { id: 656, lesson: 6, kanji: "楽しみです", hiragana: "たのしみです", romaji: "tanoshimi desu", vietnamese: "tôi mong đợi điều đó" },
+    { id: 657, lesson: 6, hiragana: "よかった", romaji: "yokatta", vietnamese: "tốt" },
+
+    // BÀI 7 (Từ List PDF)
+    { id: 701, lesson: 7, kanji: "改札", hiragana: "かいさつ", romaji: "kaisatsu", vietnamese: "soát vé" },
+    { id: 702, lesson: 7, kanji: "木", hiragana: "き", romaji: "ki", vietnamese: "cây" },
+    { id: 703, lesson: 7, kanji: "交番", hiragana: "こうばん", romaji: "kouban", vietnamese: "đồn cảnh sát" },
+    { id: 704, lesson: 7, kanji: "自動販売機", hiragana: "じどうはんばいき", romaji: "jidouhanbaiki", vietnamese: "máy bán tự động" },
+    { id: 705, lesson: 7, kanji: "バス停", hiragana: "バスてい", romaji: "basutei", vietnamese: "điểm đỗ xe buýt" },
+    { id: 706, lesson: 7, katakana: "ポスト", romaji: "posuto", vietnamese: "hòm thư bưu điện" },
+    { id: 707, lesson: 7, kanji: "花", hiragana: "はな", romaji: "hana", vietnamese: "hoa" },
+    { id: 708, lesson: 7, kanji: "犬", hiragana: "いぬ", romaji: "inu", vietnamese: "chó" },
+    { id: 709, lesson: 7, kanji: "間", hiragana: "あいだ", romaji: "aida", vietnamese: "giữa" },
+    { id: 710, lesson: 7, kanji: "上", hiragana: "うえ", romaji: "ue", vietnamese: "trên" },
+    { id: 711, lesson: 7, kanji: "下", hiragana: "した", romaji: "shita", vietnamese: "dưới" },
+    { id: 712, lesson: 7, kanji: "近く", hiragana: "ちかく", romaji: "chikaku", vietnamese: "gần" },
+    { id: 713, lesson: 7, kanji: "隣", hiragana: "となり", romaji: "tonari", vietnamese: "bên cạnh" },
+    { id: 714, lesson: 7, kanji: "中", hiragana: "なか", romaji: "naka", vietnamese: "trong" },
+    { id: 715, lesson: 7, kanji: "外", hiragana: "そと", romaji: "soto", vietnamese: "ngoài" },
+    { id: 716, lesson: 7, kanji: "前", hiragana: "まえ", romaji: "mae", vietnamese: "trước" },
+    { id: 717, lesson: 7, kanji: "後ろ", hiragana: "うしろ", romaji: "ushiro", vietnamese: "sau" },
+    { id: 718, lesson: 7, kanji: "横", hiragana: "よこ", romaji: "yoko", vietnamese: "cạnh" },
+    { id: 719, lesson: 7, kanji: "迎えに行きます", hiragana: "むかえにいきます", romaji: "mukae ni ikimasu", vietnamese: "đi đón" },
+    { id: 720, lesson: 7, hiragana: "います", romaji: "imasu", vietnamese: "có, ở (người, động vật)" },
+    { id: 721, lesson: 7, hiragana: "もしもし", romaji: "moshi moshi", vietnamese: "alô" },
+    { id: 722, lesson: 7, hiragana: "いす", romaji: "isu", vietnamese: "ghế" },
+    { id: 723, lesson: 7, katakana: "テーブル", romaji: "teeburu", vietnamese: "bàn" },
+    { id: 724, lesson: 7, kanji: "電子レンジ", hiragana: "でんしレンジ", romaji: "denshi renji", vietnamese: "lò vi sóng" },
+    { id: 725, lesson: 7, kanji: "冷蔵庫", hiragana: "れいぞうこ", romaji: "reizouko", vietnamese: "tủ lạnh" },
+    { id: 726, lesson: 7, kanji: "砂糖", hiragana: "さとう", romaji: "satou", vietnamese: "đường" },
+    { id: 727, lesson: 7, kanji: "塩", hiragana: "しお", romaji: "shio", vietnamese: "muối" },
+    { id: 728, lesson: 7, kanji: "醬油", hiragana: "しょうゆ", romaji: "shouyu", vietnamese: "tương (xì dầu)" },
+    { id: 729, lesson: 7, katakana: "コップ", romaji: "koppu", vietnamese: "cốc" },
+    { id: 730, lesson: 7, kanji: "皿", hiragana: "さら", romaji: "(o)sara", vietnamese: "đĩa" },
+    { id: 731, lesson: 7, katakana: "スプーン", romaji: "supuun", vietnamese: "thìa" },
+    { id: 732, lesson: 7, katakana: "ナイフ", romaji: "naifu", vietnamese: "dao" },
+    { id: 733, lesson: 7, katakana: "フォーク", romaji: "fooku", vietnamese: "nĩa" },
+    { id: 734, lesson: 7, kanji: "箸", hiragana: "はし", romaji: "hashi", vietnamese: "đũa" },
+    { id: 735, lesson: 7, kanji: "漢字", hiragana: "かんじ", romaji: "kanji", vietnamese: "chữ Hán" },
+    { id: 736, lesson: 7, hiragana: "どれ", romaji: "dore", vietnamese: "cái nào (trong ba hoặc nhiều hơn)" },
+    { id: 737, lesson: 7, hiragana: "どの", romaji: "dono", vietnamese: "nào (+ danh từ)" },
+    { id: 738, lesson: 7, kanji: "洗います", hiragana: "あらいます", romaji: "araimasu", vietnamese: "rửa" },
+    { id: 739, lesson: 7, kanji: "置きます", hiragana: "おきます", romaji: "okimasu", vietnamese: "để, đặt" },
+    { id: 740, lesson: 7, kanji: "書きます", hiragana: "かきます", romaji: "kakimasu", vietnamese: "viết" },
+    { id: 741, lesson: 7, kanji: "貸します", hiragana: "かします", romaji: "kashimasu", vietnamese: "cho mượn" },
+    { id: 742, lesson: 7, kanji: "聞きます", hiragana: "ききます", romaji: "kikimasu", vietnamese: "nghe, hỏi" },
+    { id: 743, lesson: 7, kanji: "切ります", hiragana: "きります", romaji: "kirimasu", vietnamese: "cắt" },
+    { id: 744, lesson: 7, kanji: "使います", hiragana: "つかいます", romaji: "tsukaimasu", vietnamese: "dùng, sử dụng" },
+    { id: 745, lesson: 7, kanji: "手伝います", hiragana: "てつだいます", romaji: "tetsudaimasu", vietnamese: "giúp" },
+    { id: 746, lesson: 7, kanji: "取ります", hiragana: "とります", romaji: "torimasu", vietnamese: "lấy" },
+    { id: 747, lesson: 7, kanji: "持って行きます", hiragana: "もっていきます", romaji: "motte ikimasu", vietnamese: "mang đi" },
+    { id: 748, lesson: 7, hiragana: "わかります", romaji: "wakarimasu", vietnamese: "hiểu" },
+    { id: 749, lesson: 7, kanji: "出します", hiragana: "だします", romaji: "dashimasu", vietnamese: "lấy ra, đưa ra, nộp" },
+    { id: 750, lesson: 7, kanji: "入れます", hiragana: "いれます", romaji: "iremasu", vietnamese: "cho vào" },
+    { id: 751, lesson: 7, kanji: "教えます", hiragana: "おしえます", romaji: "oshiemasu", vietnamese: "dạy, chỉ" },
+    { id: 752, lesson: 7, hiragana: "たくさん", romaji: "takusan", vietnamese: "nhiều" },
+    { id: 753, lesson: 7, hiragana: "すみませんが", romaji: "sumimasen ga", vietnamese: "xin lỗi,... (dùng khi bắt đầu câu chuyện)" },
+    { id: 754, lesson: 7, hiragana: "ああ、これですね", romaji: "aa, kore desu ne", vietnamese: "A, cái này có phải không." },
+    { id: 755, lesson: 7, hiragana: "いいですよ", romaji: "ii desu yo", vietnamese: "được chứ" },
+    { id: 756, lesson: 7, kanji: "歌", hiragana: "うた", romaji: "uta", vietnamese: "bài hát" },
+    { id: 757, lesson: 7, katakana: "ギター", romaji: "gitaa", vietnamese: "đàn ghi ta" },
+    { id: 758, lesson: 7, kanji: "台所", hiragana: "だいどころ", romaji: "daidokoro", vietnamese: "bếp" },
+    { id: 759, lesson: 7, katakana: "たばこ", romaji: "tabako", vietnamese: "thuốc lá" },
+    { id: 760, lesson: 7, kanji: "電話", hiragana: "でんわ", romaji: "denwa", vietnamese: "điện thoại" },
+    { id: 761, lesson: 7, katakana: "ピザ", romaji: "piza", vietnamese: "bánh pizza" },
+    { id: 762, lesson: 7, kanji: "窓", hiragana: "まど", romaji: "mado", vietnamese: "cửa sổ" },
+    { id: 763, lesson: 7, kanji: "歌います", hiragana: "うたいます", romaji: "utaimasu", vietnamese: "hát" },
+    { id: 764, lesson: 7, kanji: "吸います", hiragana: "すいます", romaji: "suimasu", vietnamese: "hút" },
+    { id: 765, lesson: 7, kanji: "話します", hiragana: "はなします", romaji: "hanashimasu", vietnamese: "nói chuyện" },
+    { id: 766, lesson: 7, kanji: "弾きます", hiragana: "ひきます", romaji: "hikimasu", vietnamese: "chơi (nhạc cụ có dây)" },
+    { id: 767, lesson: 7, kanji: "持ちます", hiragana: "もちます", romaji: "mochimasu", vietnamese: "cầm, mang" },
+    { id: 768, lesson: 7, kanji: "開けます", hiragana: "あけます", romaji: "akemasu", vietnamese: "mở" },
+    { id: 769, lesson: 7, kanji: "閉めます", hiragana: "しめます", romaji: "shimemasu", vietnamese: "đóng" },
+    { id: 770, lesson: 7, hiragana: "かけます", romaji: "kakemasu", vietnamese: "gọi (điện thoại)" },
+    { id: 771, lesson: 7, kanji: "持って来ます", hiragana: "もってきます", romaji: "motte kimasu", vietnamese: "mang đến" },
+    { id: 772, lesson: 7, kanji: "お願いします", hiragana: "おねがいします", romaji: "onegaishimasu", vietnamese: "nhờ anh/chị" },
+
+    // *** TỪ VỰNG MỚI TỪ ẢNH CHỤP VỞ GHI ***
+    { id: 773, lesson: 7, kanji: "左", hiragana: "ひだり", romaji: "hidari", vietnamese: "bên trái" },
+    { id: 774, lesson: 7, kanji: "右", hiragana: "みぎ", romaji: "migi", vietnamese: "bên phải" },
+    { id: 775, lesson: 7, hiragana: "はさみ", romaji: "hasami", vietnamese: "cái kéo" },
+    { id: 776, lesson: 7, katakana: "パン", romaji: "pan", vietnamese: "bánh mì" },
+    { id: 777, lesson: 7, kanji: "待ちます", hiragana: "まちます", romaji: "machimasu", vietnamese: "đợi" },
+    { id: 778, lesson: 7, kanji: "立ちます", hiragana: "たちます", romaji: "tachimasu", vietnamese: "đứng" },
+    { id: 779, lesson: 7, kanji: "買います", hiragana: "かいます", romaji: "kaimasu", vietnamese: "mua" },
+    { id: 780, lesson: 7, kanji: "読みます", hiragana: "よみます", romaji: "yomimasu", vietnamese: "đọc" },
+    { id: 781, lesson: 7, kanji: "急ぎます", hiragana: "いそぎます", romaji: "isogimasu", vietnamese: "vội" }
+];
+
+// --- PHẦN LOGIC CỦA TRANG (GIỮ NGUYÊN) ---
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elements
+    const vocabContent = document.getElementById('vocab-content');
+    const showVocabBtn = document.getElementById('show-vocab-btn');
+    const showQuizBtn = document.getElementById('show-quiz-btn');
+    const vocabView = document.getElementById('vocab-view');
+    const quizView = document.getElementById('quiz-view');
+    const startQuizSessionBtn = document.getElementById('start-quiz-session-btn');
+    const resetProgressBtn = document.getElementById('reset-progress');
+
+    const completedCountEl = document.getElementById('completed-count');
+    const totalCountEl = document.getElementById('total-count');
+    const progressBar = document.getElementById('progress-bar');
+
+    const quizStartScreen = document.getElementById('quiz-start-screen');
+    const quizContainer = document.getElementById('quiz-container');
+    const quizCompleteMessage = document.getElementById('quiz-complete-message');
+
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const explanationEl = document.getElementById('explanation');
+    const nextQuestionBtn = document.getElementById('next-question-btn');
+
+    // Quiz state variables
+    let masterQuestionPool = [];
+    let remainingQuestionIds = [];
+    let currentSessionQuestions = [];
+    let currentQuestionIndex = 0;
+
+    // Key để lưu tiến độ vào localStorage
+    const progressKey = 'japaneseQuizProgress_L4_L7_PDFList'; // Updated Key
+
+    // --- Data & State Management ---
+
+    function generateQuestionPool() {
+        const pool = [];
+        let questionIdCounter = 0;
+        vocabulary.forEach(word => {
+            // Type 1: JP -> VN
+            pool.push({
+                qId: questionIdCounter++,
+                wordId: word.id,
+                lesson: word.lesson,
+                type: 'JP_TO_VN',
+                questionText: `Nghĩa của từ 「${word.kanji || word.katakana || word.hiragana}」 là gì?`,
+                correctAnswer: word.vietnamese,
+                options: [word.vietnamese]
+            });
+            // Type 2: VN -> JP
+            pool.push({
+                qId: questionIdCounter++,
+                wordId: word.id,
+                lesson: word.lesson,
+                type: 'VN_TO_JP',
+                questionText: `Từ nào trong tiếng Nhật có nghĩa là "${word.vietnamese}"?`,
+                correctAnswer: word.kanji || word.katakana || word.hiragana,
+                options: [word.kanji || word.katakana || word.hiragana]
+            });
+             // Type 3: KANJI -> KANA (if applicable and different)
+            if (word.kanji && word.hiragana && word.kanji !== word.hiragana) {
+                pool.push({
+                    qId: questionIdCounter++,
+                    wordId: word.id,
+                    lesson: word.lesson,
+                    type: 'KANJI_TO_KANA',
+                    questionText: `Cách đọc Hiragana của 「${word.kanji}」 là gì?`,
+                    correctAnswer: word.hiragana,
+                    options: [word.hiragana]
+                });
+            }
+        });
+        return pool;
+    }
+
+    function loadProgress() {
+        const savedProgress = localStorage.getItem(progressKey);
+        masterQuestionPool = generateQuestionPool();
+
+        if (savedProgress) {
+            remainingQuestionIds = JSON.parse(savedProgress);
+             // Ensure remaining IDs are valid based on the current pool
+            remainingQuestionIds = remainingQuestionIds.filter(id => masterQuestionPool.some(q => q.qId === id));
+            saveProgress(); // Save cleaned progress
+        } else {
+            remainingQuestionIds = masterQuestionPool.map(q => q.qId);
+        }
+        updateProgressUI();
+    }
+
+    function saveProgress() {
+        localStorage.setItem(progressKey, JSON.stringify(remainingQuestionIds));
+    }
+
+    function resetProgress() {
+        if (confirm('Bạn có chắc muốn xoá toàn bộ tiến độ và bắt đầu lại?')) {
+            localStorage.removeItem(progressKey);
+            loadProgress();
+            showView('quiz');
+        }
+    }
+
+    // --- UI Update Functions ---
+
+    function displayVocabulary() {
+        const selectedFilters = Array.from(document.querySelectorAll('input[name="vocab-filter"]:checked')).map(cb => cb.value);
+
+        vocabContent.innerHTML = '';
+        const lessons = {};
+
+        const filteredVocab = vocabulary.filter(word => {
+            if (selectedFilters.length === 0) return true;
+            let matchesFilter = false;
+            if (selectedFilters.includes('kanji') && word.kanji) matchesFilter = true;
+            // Check for Hiragana ONLY if no Kanji/Katakana present OR if Hiragana is explicitly defined and different from Kanji
+            if (!matchesFilter && selectedFilters.includes('hiragana') && word.hiragana && (!word.kanji || word.kanji === word.hiragana) && !word.katakana) matchesFilter = true;
+            if (!matchesFilter && selectedFilters.includes('katakana') && word.katakana) matchesFilter = true;
+            // Special case: Kanji exists, but filter includes Hiragana (show Kanji with Furigana)
+             if (!matchesFilter && selectedFilters.includes('hiragana') && word.kanji && word.hiragana && word.kanji !== word.hiragana) matchesFilter = true;
+            return matchesFilter;
+        });
+
+
+        filteredVocab.forEach(word => {
+            if (!lessons[word.lesson]) {
+                lessons[word.lesson] = [];
+            }
+            lessons[word.lesson].push(word);
+        });
+
+        const sortedLessonKeys = Object.keys(lessons).sort((a, b) => parseInt(a) - parseInt(b));
+
+        for (const lessonNum of sortedLessonKeys) {
+            const group = document.createElement('div');
+            group.className = 'lesson-group';
+            group.innerHTML = `<h3>Bài ${lessonNum}</h3>`;
+            const list = document.createElement('ul');
+            list.className = 'vocab-list';
+            lessons[lessonNum].forEach(word => {
+                const item = document.createElement('li');
+                item.className = 'vocab-item';
+
+                let jpDisplay;
+                 // Use ruby for furigana if kanji and hiragana exist and differ
+                if (word.kanji && word.hiragana && word.kanji !== word.hiragana) {
+                     jpDisplay = `<ruby>${word.kanji}<rt>${word.hiragana}</rt></ruby>`;
+                }
+                // Display Katakana if available (usually no Kanji)
+                else if (word.katakana) {
+                     jpDisplay = word.katakana;
+                 }
+                 // Display Hiragana if available (could be standalone or same as Kanji)
+                 else if (word.hiragana) {
+                     jpDisplay = word.hiragana;
+                 }
+                 // Fallback to Kanji if only Kanji exists
+                 else {
+                     jpDisplay = word.kanji || ''; // Fallback to empty string if nothing
+                 }
+
+
+                item.innerHTML = `
+                    <div class="vocab-jp">
+                        ${jpDisplay}
+                        <span class="kana">${word.romaji || ''}</span>
+                    </div>
+                    <div class="vocab-vi">${word.vietnamese}</div>
+                `;
+                list.appendChild(item);
+            });
+            group.appendChild(list);
+            vocabContent.appendChild(group);
+        }
+    }
+
+    function showView(viewName) {
+        vocabView.classList.remove('active');
+        quizView.classList.remove('active');
+        showVocabBtn.classList.remove('active');
+        showQuizBtn.classList.remove('active');
+
+        if (viewName === 'vocab') {
+            vocabView.classList.add('active');
+            showVocabBtn.classList.add('active');
+            displayVocabulary(); // Refresh vocab list when switching to this view
+        } else {
+            quizView.classList.add('active');
+            showQuizBtn.classList.add('active');
+            quizContainer.style.display = 'none';
+            quizStartScreen.style.display = 'block';
+            quizCompleteMessage.style.display = 'none';
+            if (masterQuestionPool.length > 0 && remainingQuestionIds.length === 0) { // Check if pool is generated
+                 quizStartScreen.style.display = 'none';
+                 quizCompleteMessage.style.display = 'block';
+            } else if (masterQuestionPool.length === 0) { // Initial load state
+                quizStartScreen.style.display = 'block';
+                quizCompleteMessage.style.display = 'none';
+            }
+        }
+    }
+
+    function updateProgressUI() {
+        const totalQuestions = masterQuestionPool.length;
+        // Ensure completedCount doesn't go negative if remaining IDs somehow exceed total
+        const completedCount = Math.max(0, totalQuestions - remainingQuestionIds.length);
+
+        totalCountEl.textContent = totalQuestions;
+        completedCountEl.textContent = completedCount;
+
+        const progressPercentage = totalQuestions > 0 ? (completedCount / totalQuestions) * 100 : 0;
+        progressBar.style.width = `${progressPercentage}%`;
+    }
+
+    // --- Quiz Logic ---
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function startNewSession() {
+        if (remainingQuestionIds.length === 0) {
+            // Check if master pool has questions to avoid alert on empty initial load
+            if(masterQuestionPool.length > 0) {
+              alert("Chúc mừng! Bạn đã hoàn thành tất cả các câu hỏi.");
+            }
+            showView('quiz'); // Go back to quiz start/complete screen
+            return;
+        }
+
+        const remainingQuestions = masterQuestionPool.filter(q => remainingQuestionIds.includes(q.qId));
+        // Take up to 10 questions, or fewer if less than 10 remain
+        currentSessionQuestions = shuffleArray([...remainingQuestions]).slice(0, 10);
+        currentQuestionIndex = 0;
+
+        quizStartScreen.style.display = 'none';
+        quizCompleteMessage.style.display = 'none'; // Hide completion message
+        quizContainer.style.display = 'block';
+
+        displayQuestion();
+    }
+
+    function getDistractor(correctWordId, questionType) {
+        let randomWord;
+        let distractorText;
+        let attempts = 0;
+        const maxAttempts = vocabulary.length * 2; // Limit attempts to prevent infinite loop
+
+        do {
+            randomWord = vocabulary[Math.floor(Math.random() * vocabulary.length)];
+            if (questionType === 'JP_TO_VN') {
+                distractorText = randomWord.vietnamese;
+            } else if (questionType === 'VN_TO_JP') {
+                distractorText = randomWord.kanji || randomWord.katakana || randomWord.hiragana;
+            } else { // KANJI_TO_KANA
+                distractorText = randomWord.hiragana;
+            }
+            attempts++;
+        // Ensure distractor is valid, not the correct answer's word, and not null/undefined
+        } while ((!distractorText || randomWord.id === correctWordId) && attempts < maxAttempts);
+
+        // If after max attempts we still don't have a *unique* distractor, return null
+        if (attempts >= maxAttempts && (!distractorText || randomWord.id === correctWordId)) {
+            return null;
+        }
+
+        return distractorText; // Return the valid distractor text
+    }
+
+
+    function displayQuestion() {
+        explanationEl.style.display = 'none';
+        nextQuestionBtn.style.display = 'none';
+
+        if (currentQuestionIndex >= currentSessionQuestions.length) {
+             alert('Hoàn thành phiên ôn tập!');
+             showView('quiz');
+             return;
+        }
+
+        const currentQuestion = currentSessionQuestions[currentQuestionIndex];
+        questionEl.textContent = currentQuestion.questionText;
+        optionsEl.innerHTML = '';
+
+        // Start with the correct answer
+        let options = [currentQuestion.correctAnswer];
+        const addedDistractors = new Set([currentQuestion.correctAnswer]); // Keep track of added options
+
+        // Generate distractors
+        let attempts = 0;
+        const maxOptionAttempts = vocabulary.length * 3; // Limit attempts to find unique options
+        while (options.length < 4 && attempts < maxOptionAttempts) {
+            const distractor = getDistractor(currentQuestion.wordId, currentQuestion.type);
+            // Add distractor only if it's valid and not already in the options set
+            if (distractor && !addedDistractors.has(distractor)) {
+                options.push(distractor);
+                addedDistractors.add(distractor);
+            }
+            attempts++;
+        }
+
+        // If still not enough options (e.g., very small vocab list), fill with placeholders
+         while (options.length < 4) {
+            options.push("---"); // Placeholder, ensure it's not the correct answer
+            if (options.length === 4 && options.includes("---") && options.indexOf("---") !== options.lastIndexOf("---") && currentQuestion.correctAnswer === "---") {
+                 // Extremely unlikely edge case: correct answer is "---" and we added duplicate placeholders
+                 // Replace one placeholder to ensure uniqueness if possible
+                 const replacement = getDistractor(currentQuestion.wordId, currentQuestion.type) || "???"; // Find another or use ???
+                 const firstPlaceholderIndex = options.indexOf("---");
+                 if (!options.includes(replacement)) {
+                      options[firstPlaceholderIndex] = replacement;
+                 }
+            }
+         }
+
+
+        shuffleArray(options).forEach(option => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.addEventListener('click', () => selectAnswer(option, currentQuestion.correctAnswer));
+            optionsEl.appendChild(button);
+        });
+    }
+
+    function selectAnswer(selectedOption, correctAnswer) {
+        const buttons = optionsEl.querySelectorAll('button');
+        let isCorrect = selectedOption === correctAnswer;
+
+        buttons.forEach(button => {
+            button.disabled = true; // Disable all buttons
+            if (button.textContent === correctAnswer) {
+                button.classList.add('correct');
+            } else if (button.textContent === selectedOption) {
+                 // Only add 'incorrect' class if the selected one wasn't the correct one
+                 if (!isCorrect) {
+                    button.classList.add('incorrect');
+                 }
+            }
+        });
+
+        if (isCorrect) {
+            const qIdToRemove = currentSessionQuestions[currentQuestionIndex].qId;
+            const indexToRemove = remainingQuestionIds.indexOf(qIdToRemove);
+            if (indexToRemove > -1) {
+                remainingQuestionIds.splice(indexToRemove, 1);
+                saveProgress(); // Save progress only on correct answer
+                updateProgressUI(); // Update UI immediately
+            }
+        }
+
+        showExplanation();
+        nextQuestionBtn.style.display = 'inline-block'; // Show next button
+    }
+
+
+    function showExplanation() {
+        const questionData = currentSessionQuestions[currentQuestionIndex];
+        const word = vocabulary.find(w => w.id === questionData.wordId);
+
+        if (word) { // Check if word exists
+            document.getElementById('exp-kanji').textContent = word.kanji || '–';
+            document.getElementById('exp-kana').textContent = word.hiragana || word.katakana || '–';
+            document.getElementById('exp-romaji').textContent = word.romaji || '–';
+            document.getElementById('exp-vi').textContent = word.vietnamese || '–';
+            // Placeholder for examples - you'd need to add example data to your `vocabulary` array
+            document.getElementById('exp-sentence-jp').textContent = word.example_jp || "Chưa có ví dụ";
+            document.getElementById('exp-sentence-romaji').textContent = word.example_romaji || "";
+            document.getElementById('exp-sentence-vi').textContent = word.example_vi || "";
+
+            explanationEl.style.display = 'block';
+        } else {
+             explanationEl.style.display = 'none'; // Hide if word data not found
+        }
+    }
+
+    function handleNextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < currentSessionQuestions.length) {
+            displayQuestion();
+        } else {
+            alert('Hoàn thành phiên ôn tập!');
+            showView('quiz'); // Go back to quiz view start/complete screen
+        }
+    }
+
+    // --- Event Listeners ---
+    showVocabBtn.addEventListener('click', () => showView('vocab'));
+    showQuizBtn.addEventListener('click', () => showView('quiz'));
+    startQuizSessionBtn.addEventListener('click', startNewSession);
+    nextQuestionBtn.addEventListener('click', handleNextQuestion);
+    resetProgressBtn.addEventListener('click', resetProgress);
+    document.querySelectorAll('input[name="vocab-filter"]').forEach(checkbox => {
+        checkbox.addEventListener('change', displayVocabulary);
+    });
+
+    // --- Initial Load ---
+    loadProgress(); // Load progress and generate pool first
+    showView('vocab'); // Then show the initial view
+});
+</script>
+
+</body>
+</html>

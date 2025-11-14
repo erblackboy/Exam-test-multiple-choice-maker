@@ -1,47 +1,65 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kết Quả Bài Thi</title>
+    <title>Kết quả bài thi</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
 </head>
 <body>
     <div class="results-container">
-        <nav class="breadcrumb">
-            <a href="index.html">Trang chủ</a> &gt; <a href="subject.html">Môn học</a> &gt; <a href="quiz-setup.html">Thiết lập</a> &gt; Kết quả
-        </nav>
         <h1 class="results-header">Kết Quả Bài Thi</h1>
+
         <div class="summary-grid">
             <div class="summary-card score">
                 <h2>Điểm số</h2>
-                <p id="score-text">N/A</p>
+                <p id="score-text">0/10</p>
             </div>
             <div class="summary-card correct-answers">
-                <h2>Câu đúng</h2>
-                <p id="correct-count">N/A</p>
+                <h2>Số câu đúng</h2>
+                <p id="correct-count">0</p>
             </div>
             <div class="summary-card incorrect-answers">
-                <h2>Câu sai</h2>
-                <p id="incorrect-count">N/A</p>
+                <h2>Số câu sai</h2>
+                <p id="incorrect-count">0</p>
             </div>
         </div>
-        <canvas id="results-chart" width="200" height="200"></canvas>
+
+        <div style="max-width: 300px; margin: 40px auto;">
+            <canvas id="results-chart"></canvas>
+        </div>
+
         <div class="review-section">
-            <h2>Xem lại câu trả lời</h2>
+            <h2>Xem lại bài làm</h2>
             <div class="filter-controls">
-                <button class="filter-btn active" id="filter-all">Tất Cả</button>
+                <button class="filter-btn active" id="filter-all">Tất cả</button>
                 <button class="filter-btn" id="filter-correct">Đúng</button>
                 <button class="filter-btn" id="filter-incorrect">Sai</button>
             </div>
-            <div id="review-questions-container"></div>
+            <div id="review-questions-container">
+                <!-- Nội dung xem lại sẽ được chèn vào đây bằng JavaScript -->
+            </div>
         </div>
-        <button class="back-btn" id="back-to-home-btn">← Quay về trang chủ</button>
+
+        <button id="back-to-home-btn" style="display: block; margin: 40px auto 0;">Quay về Trang chủ</button>
     </div>
-    <script src="data/ssl101c.js"></script>
-    <script src="data/aig202c.js"></script>
-    <script src="data/database.js"></script>
-    <script src="js/results.js"></script>
+
+    <script src="js/results.js" defer></script>
 </body>
 </html>

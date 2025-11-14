@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 10: Dimensionality Reduction with PCA</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color, #f4f7f6);
+            color: var(--text-color, #333);
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-color-secondary, #ffffff);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3 {
+            color: var(--text-color-primary, #2c3e50);
+            border-bottom: 2px solid var(--accent-color, #007bff);
+            padding-bottom: 10px;
+        }
+        h1 { font-size: 2.2rem; }
+        h2 {
+            margin-top: 2.5rem;
+            font-size: 1.8rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            border-bottom: 1px dashed #ccc;
+        }
+        .content-box {
+            margin: 1.5rem 0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .definition {
+            background-color: #e6f7ff;
+            border-left: 5px solid #1890ff;
+        }
+        .theorem {
+            background-color: #f6ffed;
+            border-left: 5px solid #52c41a;
+        }
+        .example {
+            background-color: #fffbe6;
+            border-left: 5px solid #faad14;
+        }
+        .content-box h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 0;
+            color: #333;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: var(--accent-color, #007bff);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">&larr; Quay lại mục lục</a>
+        
+        [cite_start]<h1>Chương 10. Dimensionality Reduction with PCA</h1> [cite: 2276]
+
+        [cite_start]<h2 id="sec10.1">10.1 Problem Setting</h2> [cite: 2285]
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Data Covariance Matrix)</h4>
+            [cite_start]<p>Giả sử tập dữ liệu \(\mathcal{X} = \{x_1, ..., x_N\}\), \(x_n \in \mathbb{R}^D\) có trung bình bằng 0. [cite: 2297] Ma trận hiệp phương sai dữ liệu là:</p>
+            [cite_start]<p>\[ S = \frac{1}{N}\sum_{n=1}^{N}x_{n}x_{n}^{T} \] [cite: 2298]</p>
+        </div>
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Code Representation)</h4>
+            [cite_start]<p>Biểu diễn nén (code) chiều thấp \(M\) của \(x_n\) là: [cite: 2300, 2301]</p>
+            [cite_start]<p>\[ z_{n} = B^{T}x_{n} \in \mathbb{R}^{M} \] [cite: 2303]</p>
+            [cite_start]<p>trong đó \(B = [b_1 \dots b_M] \in \mathbb{R}^{D \times M}\) là ma trận chiếu trực chuẩn. [cite: 2304]</p>
+        </div>
+
+        [cite_start]<h2 id="sec10.2">10.2 Maximum Variance Perspective</h2> [cite: 2286, 2316]
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Variance of First Component)</h4>
+            [cite_start]<p>PCA tìm một vector \(b_1 \in \mathbb{R}^D\) để tối đa hóa phương sai của dữ liệu được chiếu: [cite: 2320]</p>
+            [cite_start]<p>\[ V_{1} := V[z_{1}] = \frac{1}{N}\sum_{n=1}^{N}(b_{1}^{T}x_{n})^{2} = b_{1}^{T} \left( \frac{1}{N}\sum_{n=1}^{N}x_{n}x_{n}^{T} \right) b_{1} = b_{1}^{T}Sb_{1} \] [cite: 2322]</p>
+        </div>
+
+        <div class="content-box theorem">
+            <h4>Định lý (Optimization Problem)</h4>
+            [cite_start]<p>Bài toán tối ưu hóa cho thành phần chính đầu tiên: [cite: 2323]</p>
+            [cite_start]<p>\[ \max_{b_{1}} b_{1}^{T}Sb_{1} \quad \text{subject to } \|b_{1}\|^{2} = 1 \] [cite: 2326, 2327]</p>
+            [cite_start]<p>Nghiệm \(b_1\) là <strong>vector riêng (eigenvector)</strong> của \(S\) ứng với <strong>giá trị riêng (eigenvalue)</strong> \(\lambda_1\) lớn nhất: [cite: 2341, 2343]</p>
+            [cite_start]<p>\[ Sb_{1} = \lambda_{1}b_{1} \] [cite: 2338]</p>
+        </div>
+
+        <div class="content-box theorem">
+            <h4>Định lý (Total Captured Variance)</h4>
+            [cite_start]<p>Tổng phương sai được nắm bắt bởi \(M\) thành phần chính đầu tiên (các vector riêng ứng với \(M\) giá trị riêng lớn nhất) là: [cite: 2404, 2405]</p>
+            [cite_start]<p>\[ V_{M} = \sum_{m=1}^{M} \lambda_{m} \] [cite: 2406]</p>
+        </div>
+
+        [cite_start]<h2 id="sec10.3">10.3 Projection Perspective</h2> [cite: 2287, 2416]
+        
+        <div class="content-box definition">
+            <h4>Định nghĩa (Reconstruction Error)</h4>
+            [cite_start]<p>PCA cũng có thể được xem là phương pháp cực tiểu hóa lỗi tái thiết trung bình. [cite: 2419]</p>
+            [cite_start]<p>Tái thiết (Reconstruction): \[ \tilde{x}_{n} := \sum_{m=1}^{M}z_{mn}b_{m} = Bz_{n} \] [cite: 2431]</p>
+            [cite_start]<p>Lỗi (Error): \[ J_{M} := \frac{1}{N}\sum_{n=1}^{N}\|x_{n} - \tilde{x}_{n}\|^{2} \] [cite: 2432]</p>
+        </div>
+
+        <div class="content-box theorem">
+            <h4>Định lý (Optimal Coordinates and Error)</h4>
+            [cite_start]<p>Với một cơ sở \(B\) cho trước, tọa độ tối ưu là phép chiếu: [cite: 2434, 2435]</p>
+            [cite_start]<p>\[ z_{in} = b_{i}^{T}x_{n} \] [cite: 2451]</p>
+            [cite_start]<p>Vector lỗi (hiệu giữa điểm gốc và điểm tái thiết) là: [cite: 2466]</p>
+            [cite_start]<p>\[ x_{n} - \tilde{x}_{n} = \sum_{j=M+1}^{D}(x_{n}^{T}b_{j})b_{j} \] [cite: 2467]</p>
+            [cite_start]<p>Hàm lỗi trở thành tổng phương sai của các chiều bị loại bỏ: [cite: 2476]</p>
+            [cite_start]<p>\[ J_{M} = \sum_{j=M+1}^{D} b_{j}^{T}Sb_{j} \] [cite: 2476]</p>
+            <p>Để cực tiểu hóa \(J_M\), chúng ta chọn \(b_1, \dots, b_M\) là các vector riêng ứng với \(M\) giá trị riêng lớn nhất. [cite_start]Khi đó, lỗi sẽ là tổng của các giá trị riêng còn lại (nhỏ nhất): [cite: 2489, 2490]</p>
+            [cite_start]<p>\[ J_{M} = \sum_{j=M+1}^{D} \lambda_{j} \] [cite: 2486]</p>
+        </div>
+
+        [cite_start]<h2 id="sec10.4">10.4 Eigenvector Computation and SVD</h2> [cite: 2494]
+        
+        <div class="content-box theorem">
+            <h4>Định lý (SVD and Covariance)</h4>
+            [cite_start]<p>Cho ma trận dữ liệu \(X = [x_1 \dots x_N] \in \mathbb{R}^{D \times N}\), SVD của \(X\) là: [cite: 2495]</p>
+            [cite_start]<p>\[ X = U\Sigma V^{T} \] [cite: 2496]</p>
+            [cite_start]<p>Ma trận hiệp phương sai \(S\) có thể được biểu diễn qua SVD: [cite: 2500]</p>
+            [cite_start]<p>\[ S = \frac{1}{N}XX^{T} = \frac{1}{N}(U\Sigma V^{T})(U\Sigma V^{T})^{T} = \frac{1}{N}U\Sigma\Sigma^{T}U^{T} \] [cite: 2500]</p>
+            [cite_start]<p>Các cột của \(U\) chính là các vector riêng của \(S\). [cite: 2503] [cite_start]Mối quan hệ giữa giá trị riêng \(\lambda_d\) của \(S\) và giá trị suy biến \(\sigma_d\) của \(X\) là: [cite: 2504]</p>
+            [cite_start]<p>\[ \lambda_{d} = \frac{\sigma_{d}^{2}}{N} \] [cite: 2505]</p>
+        </div>
+
+        [cite_start]<h2 id="sec10.5">10.5 PCA in High Dimensions (N &lt;&lt; D)</h2> [cite: 2535]
+        
+        <div class="content-box theorem">
+            <h4>Định lý (PCA in High Dimensions)</h4>
+            [cite_start]<p>Khi \(N \ll D\), ma trận \(S \in \mathbb{R}^{D \times D}\) là quá lớn. [cite: 2538] [cite_start]Ta giải bài toán eigenvector gốc: [cite: 2541]</p>
+            [cite_start]<p>\[ Sb_{m} = \left(\frac{1}{N}XX^{T}\right) b_{m} = \lambda_{m}b_{m} \] [cite: 2542]</p>
+            [cite_start]<p>Thay vào đó, ta giải bài toán "đối ngẫu" (dual) \(N \times N\): [cite: 2544]</p>
+            [cite_start]<p>\[ \left(\frac{1}{N}X^{T}X\right) c_{m} = \lambda_{m}c_{m} \] [cite: 2544]</p>
+            [cite_start]<p>Hai bài toán này có cùng các giá trị riêng khác 0. [cite: 2548] [cite_start]Ta có thể khôi phục các vector riêng \(b_m\) của \(S\) (các thành phần chính) từ các vector riêng \(c_m\) của ma trận nhỏ: [cite: 2549]</p>
+            [cite_start]<p>\[ Xc_{m} \text{ (là một eigenvector của S)} \implies b_m \propto Xc_m \] [cite: 2550]</p>
+        </div>
+
+    </div>
+</body>
+</html>

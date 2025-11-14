@@ -9,25 +9,32 @@
 <body>
     <div class="main-container">
         <nav class="breadcrumb">
-            <a href="index.html">Trang chủ</a> &gt; <a href="subject.html">Môn học</a> &gt; Thiết lập
+            <a href="index.html">Trang chủ</a> &gt; <a id="subject-breadcrumb-link" href="#">...</a> &gt; Thiết lập
         </nav>
         <h1 id="setup-title" class="main-header">Thiết Lập Bài Thi</h1>
         <div class="setup-form">
             <div class="form-group">
                 <label for="num-questions">Số câu hỏi (tối đa <span id="max-questions"></span>):</label>
-                <input type="number" id="num-questions" min="1">
+                <input type="number" id="num-questions" min="1" class="form-control">
             </div>
             <div class="form-group">
                 <label for="time-limit">Thời gian (phút):</label>
-                <input type="number" id="time-limit" min="1" value="60">
+                <input type="number" id="time-limit" min="1" value="60" class="form-control">
             </div>
-            <button class="back-btn" id="back-to-subject-btn">← Quay Về</button>
-            <button class="start-btn" id="start-quiz-btn">Bắt Đầu →</button>
+            <!-- Sắp xếp lại các nút bấm cho gọn gàng -->
+            <div class="button-group-setup">
+                <button class="back-btn" id="back-to-subject-btn">← Quay Về</button>
+                <button class="start-btn" id="start-quiz-btn">Bắt Đầu →</button>
+            </div>
         </div>
     </div>
-    <script src="data/ssl101c.js"></script>
-    <script src="data/aig202c.js"></script>
-    <script src="data/database.js"></script>
-    <script src="js/quiz-setup.js"></script>
-</body>
+
+    <script src="data/ssl101c.js" defer></script>
+    <script src="data/aig202c.js" defer></script>
+    <script src="data/mai391.js" defer></script>
+    <script src="data/database.js" defer></script>
+
+    <script src="js/quiz-setup.js" defer></script>
+    
+    </body>
 </html>

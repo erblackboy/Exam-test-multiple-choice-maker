@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPD123 - Luyện tập Tập đọc</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Sao chép style từ exercise.html để đảm bảo nhất quán */
+        .exercise-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .exercise-item {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+        }
+        .dialogue-title { /* Đã đổi tên từ .question-text */
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: #0056b3;
+            font-weight: 600;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+        .dialogue-body p {
+            font-size: 1.15em;
+            margin: 5px 0 15px 0; /* Adjusted margin */
+            line-height: 1.7; /* Adjusted line-height */
+        }
+        .speaker {
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .speaker-A { color: #007bff; }
+        .speaker-B { color: #28a745; }
+        .speaker-Teacher { color: #ff9800;} /* Added style for Teacher */
+        .speaker-Info { color: #607d8b;} /* Added style for Info/Staff */
+
+        .jp-text { display: block; margin-bottom: 2px; }
+        .romaji-text { font-style: italic; color: #6c757d; font-size: 0.9em; display: block; margin-bottom: 2px; }
+        .vi-text { color: #555; font-size: 0.95em; display: block;}
+
+        .note {
+            font-style: italic;
+            color: #999;
+            font-size: 0.9em;
+            margin-left: 2em;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .dialogue-body .furigana {
+            font-size: 0.8em;
+            color: #555;
+        }
+        ruby { font-size: 1.15em; }
+        rt { font-size: 0.7rem; color: #555; user-select: none; }
+        hr.separator {
+            border: 0;
+            height: 1px;
+            background: #eee;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <nav class="breadcrumb">
+            <a href="../index.html">Trang chủ</a> &gt;
+            <a href="index.html">JPD123</a> &gt; Tập đọc
+        </nav>
+        <h1 class="main-header">🗣️ Tập đọc (読解)</h1>
+        <p class="page-description" style="text-align: center; font-size: 1.1em; margin-top: -20px; margin-bottom: 30px;">Luyện đọc hội thoại theo các tình huống mẫu.</p>
+
+        <div class="exercise-container" id="reading-list">
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 4 - Bài 1: Hỏi vị trí & Thời gian di chuyển</h3>
+                <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>国<rt>くに</rt></ruby>はどちらですか。</span>
+                        <span class="romaji-text">Okuni wa dochira desu ka?</span>
+                        <span class="vi-text">Nước bạn ở đâu?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">タイです。</span>
+                        <span class="romaji-text">Tai desu.</span>
+                        <span class="vi-text">Là Thái Lan.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">タイですか。<ruby>日本<rt>にほん</rt></ruby>からどのくらいですか。</span>
+                        <span class="romaji-text">Tai desu ka? Nihon kara donokurai desu ka?</span>
+                        <span class="vi-text">Thái Lan à? Từ Nhật Bản đi mất bao lâu?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">6<ruby>時間<rt>じかん</rt></ruby>くらいです。</span>
+                        <span class="romaji-text">Roku-jikan kurai desu.</span>
+                        <span class="vi-text">Khoảng 6 tiếng.</span>
+                    </p>
+                     <hr class="separator">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>東京<rt>とうきょう</rt></ruby>からアユタヤまでどのくらいですか。</span>
+                        <span class="romaji-text">Tōkyō kara Ayutaya made donokurai desu ka?</span>
+                        <span class="vi-text">Từ Tokyo đến Ayutthaya mất bao lâu?</span>
+                    </p>
+                     <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text"><ruby>東京<rt>とうきょう</rt></ruby>からバンコクまで<ruby>飛行機<rt>ひこうき</rt></ruby>で6<ruby>時間<rt>じかん</rt></ruby>くらいです。</span>
+                        <span class="romaji-text">Tōkyō kara Bankoku made hikouki de roku-jikan kurai desu.</span>
+                        <span class="vi-text">Từ Tokyo đến Bangkok bằng máy bay mất khoảng 6 tiếng.</span>
+                    </p>
+                     <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">バンコクからアユタヤまでバスで1<ruby>時間半<rt>じかんはん</rt></ruby>くらいです。</span>
+                        <span class="romaji-text">Bankoku kara Ayutaya made basu de ichi-jikan han kurai desu.</span>
+                        <span class="vi-text">Từ Bangkok đến Ayutthaya bằng xe buýt mất khoảng 1 tiếng rưỡi.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">へえ。</span>
+                        <span class="romaji-text">Hee.</span>
+                        <span class="vi-text">Ồ.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 4 - Bài 2: Hỏi về đặc điểm nơi chốn</h3>
+                <div class="dialogue-body">
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさんの<ruby>町<rt>まち</rt></ruby>はどんなところですか。</span>
+                        <span class="romaji-text">B-san no machi wa donna tokoro desu ka?</span>
+                        <span class="vi-text">Thành phố của bạn B là nơi như thế nào?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">にぎやかなところです。</span>
+                        <span class="romaji-text">Nigiyaka na tokoro desu.</span>
+                        <span class="vi-text">Là một nơi náo nhiệt.</span>
+                    </p>
+                     <hr class="separator">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさんの<ruby>町<rt>まち</rt></ruby>に<ruby>何<rt>なに</rt></ruby>がありますか。</span>
+                        <span class="romaji-text">B-san no machi ni nani ga arimasu ka?</span>
+                        <span class="vi-text">Ở thành phố của bạn B có gì?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">お<ruby>城<rt>しろ</rt></ruby>があります。</span>
+                        <span class="romaji-text">Oshiro ga arimasu.</span>
+                        <span class="vi-text">Có lâu đài.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">どんなお<ruby>城<rt>しろ</rt></ruby>ですか。</span>
+                        <span class="romaji-text">Donna oshiro desu ka?</span>
+                        <span class="vi-text">Lâu đài như thế nào?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text"><ruby>大<rt>おお</rt></ruby>きいお<ruby>城<rt>しろ</rt></ruby>です。</span>
+                        <span class="romaji-text">Ookii oshiro desu.</span>
+                        <span class="vi-text">Là một lâu đài lớn.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 4 - Bài 3: Hỏi về thời tiết & Món ăn</h3>
+                <div class="dialogue-body">
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>暑<rt>あつ</rt></ruby>いですね。</span>
+                        <span class="romaji-text">Atsui desu ne.</span>
+                        <span class="vi-text">Nóng nhỉ.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">そうですね。</span>
+                        <span class="romaji-text">Sou desu ne.</span>
+                        <span class="vi-text">Ừ nhỉ.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさんの<ruby>国<rt>くに</rt></ruby>も8<ruby>月<rt>がつ</rt></ruby>、<ruby>暑<rt>あつ</rt></ruby>いですか。</span>
+                        <span class="romaji-text">B-san no kuni mo hachi-gatsu, atsui desu ka?</span>
+                        <span class="vi-text">Nước của bạn B tháng 8 cũng nóng à?</span>
+                    </p>
+                    <p class="note">(Nếu có)</p>
+                     <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">はい、とても<ruby>暑<rt>あつ</rt></ruby>いです。</span>
+                        <span class="romaji-text">Hai, totemo atsui desu.</span>
+                        <span class="vi-text">Vâng, rất nóng.</span>
+                    </p>
+                     <p class="note">(Nếu không)</p>
+                     <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいえ、あまり<ruby>暑<rt>あつ</rt></ruby>くないです。</span>
+                        <span class="romaji-text">Iie, amari atsukunai desu.</span>
+                        <span class="vi-text">Không, không nóng lắm.</span>
+                    </p>
+                    <hr class="separator">
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさんの<ruby>国<rt>くに</rt></ruby>で<ruby>夏<rt>なつ</rt></ruby>に<ruby>何<rt>なに</rt></ruby>を<ruby>食<rt>た</rt></ruby>べますか。</span>
+                        <span class="romaji-text">B-san no kuni de natsu ni nani o tabemasu ka?</span>
+                        <span class="vi-text">Ở nước của bạn B, mùa hè ăn gì?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text"><ruby>私<rt>わたし</rt></ruby>の<ruby>国<rt>くに</rt></ruby>でサムゲタンを<ruby>食<rt>た</rt></ruby>べます。</span>
+                        <span class="romaji-text">Watashi no kuni de samgyetang o tabemasu.</span>
+                        <span class="vi-text">Ở nước tôi ăn món Samgyetang (gà tần sâm).</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">さむげたん？「サムゲタン」は<ruby>何<rt>なん</rt></ruby>ですか。</span>
+                        <span class="romaji-text">Samgyetang? "Samgyetang" wa nan desu ka?</span>
+                        <span class="vi-text">Samgyetang? "Samgyetang" là gì vậy?</span>
+                    </p>
+                     <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">サムゲタンは<ruby>鶏肉<rt>とりにく</rt></ruby>のスープです。おいしいです。</span>
+                        <span class="romaji-text">Samgyetang wa toriniku no suupu desu. Oishii desu.</span>
+                        <span class="vi-text">Samgyetang là súp thịt gà. Ngon lắm.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">へえ。</span>
+                        <span class="romaji-text">Hee.</span>
+                        <span class="vi-text">Ồ.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 4 - Đoạn văn: 「<ruby>私<rt>わたし</rt></ruby>の<ruby>国<rt>くに</rt></ruby>・<ruby>町<rt>まち</rt></ruby>」</h3>
+                <div class="dialogue-body">
+                    <p>
+                        <span class="jp-text"><ruby>私<rt>わたし</rt></ruby>はイタリアのフィレンツェから<ruby>来<rt>き</rt></ruby>ました。</span>
+                        <span class="romaji-text">Watashi wa Itaria no Firentse kara kimashita.</span>
+                        <span class="vi-text">Tôi đến từ Florence, Ý.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text">フィレンツェはイタリアの<ruby>少<rt>すこ</rt></ruby>し<ruby>北<rt>きた</rt></ruby>です。</span>
+                        <span class="romaji-text">Firentse wa Itaria no sukoshi kita desu.</span>
+                        <span class="vi-text">Florence ở hơi phía Bắc của nước Ý.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text">フィレンツェはとてもにぎやかなところです。</span>
+                        <span class="romaji-text">Firentse wa totemo nigiyaka na tokoro desu.</span>
+                        <span class="vi-text">Florence là một nơi rất náo nhiệt.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text"><ruby>古<rt>ふる</rt></ruby>い<ruby>教会<rt>きょうかい</rt></ruby>や<ruby>美術館<rt>びじゅつかん</rt></ruby>などがあります。</span>
+                        <span class="romaji-text">Furui kyoukai ya bijutsukan nado ga arimasu.</span>
+                        <span class="vi-text">Có những thứ như nhà thờ cổ và bảo tàng mỹ thuật.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text"><ruby>教会<rt>きょうかい</rt></ruby>はとてもきれいです。</span>
+                        <span class="romaji-text">Kyoukai wa totemo kirei desu.</span>
+                        <span class="vi-text">Nhà thờ rất đẹp.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text">2<ruby>月<rt>がつ</rt></ruby>にチョコレートの<ruby>祭<rt>まつ</rt></ruby>りがあります。</span>
+                        <span class="romaji-text">Ni-gatsu ni chokoreeto no matsuri ga arimasu.</span>
+                        <span class="vi-text">Vào tháng 2 có lễ hội sô-cô-la.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text">いろいろなチョコレートがあります。</span>
+                        <span class="romaji-text">Iroiro na chokoreeto ga arimasu.</span>
+                        <span class="vi-text">Có rất nhiều loại sô-cô-la.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text">とてもおいしいです。</span>
+                        <span class="romaji-text">Totemo oishii desu.</span>
+                        <span class="vi-text">Rất ngon.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text">フィレンツェは<ruby>春<rt>はる</rt></ruby>、<ruby>暖<rt>あたた</rt></ruby>かいです。</span>
+                        <span class="romaji-text">Firentse wa haru, atatakai desu.</span>
+                        <span class="vi-text">Florence vào mùa xuân trời ấm áp.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text">そして、<ruby>雨<rt>あめ</rt></ruby>が<ruby>少<rt>すく</rt></ruby>ないです。</span>
+                        <span class="romaji-text">Soshite, ame ga sukunai desu.</span>
+                        <span class="vi-text">Và, trời ít mưa.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text">フィレンツェはいいところです。</span>
+                        <span class="romaji-text">Firentse wa ii tokoro desu.</span>
+                        <span class="vi-text">Florence là một nơi tuyệt vời.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text"><ruby>皆<rt>みな</rt></ruby>さん、ぜひ<ruby>来<rt>き</rt></ruby>てください。</span>
+                        <span class="romaji-text">Minasan, zehi kite kudasai.</span>
+                        <span class="vi-text">Mọi người, nhất định hãy đến chơi nhé.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 5 - Bài 1: Hỏi về cuối tuần (Đã làm gì?)</h3>
+                <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>日曜日<rt>にちようび</rt></ruby>（に）、<ruby>何<rt>なに</rt></ruby>をしましたか。</span>
+                        <span class="romaji-text">Nichiyoubi (ni), nani o shimashita ka?</span>
+                        <span class="vi-text">Chủ nhật (thì) bạn đã làm gì?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text"><ruby>友達<rt>ともだち</rt></ruby>の<ruby>家<rt>うち</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きました。</span>
+                        <span class="romaji-text">Tomodachi no uchi e ikimashita.</span>
+                        <span class="vi-text">Tôi đã đến nhà bạn.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">そうですか。</span>
+                        <span class="romaji-text">Sou desu ka.</span>
+                        <span class="vi-text">Thế à.</span>
+                    </p>
+                    <hr class="separator">
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>週末<rt>しゅうまつ</rt></ruby>（に）、どこか（へ）<ruby>行<rt>い</rt></ruby>きましたか。</span>
+                        <span class="romaji-text">Shuumatsu (ni), dokoka (e) ikimashita ka?</span>
+                        <span class="vi-text">Cuối tuần (thì) bạn có đi đâu đó không?</span>
+                    </p>
+                    <p class="note">(Nếu có đi)</p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">はい、<ruby>新宿<rt>しんじゅく</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きました。<ruby>新宿<rt>しんじゅく</rt></ruby>のデパートで<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>しました。</span>
+                        <span class="romaji-text">Hai, Shinjuku e ikimashita. Shinjuku no depaato de kaimono shimashita.</span>
+                        <span class="vi-text">Có, tôi đã đi Shinjuku. Tôi đã mua sắm ở bách hóa Shinjuku.</span>
+                    </p>
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">そうですか。</span>
+                        <span class="romaji-text">Sou desu ka.</span>
+                        <span class="vi-text">Thế à.</span>
+                    </p>
+                     <p class="note">(Nếu không đi)</p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいえ、どこ（へ）も<ruby>行<rt>い</rt></ruby>きませんでした。うちでテレビを<ruby>見<rt>み</rt></ruby>ました。</span>
+                        <span class="romaji-text">Iie, doko (e) mo ikimasen deshita. Uchi de terebi o mimashita.</span>
+                        <span class="vi-text">Không, tôi không đi đâu cả. Tôi đã xem TV ở nhà.</span>
+                    </p>
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">そうですか。</span>
+                        <span class="romaji-text">Sou desu ka.</span>
+                        <span class="vi-text">Thế à.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 5 - Bài 2: Hỏi về cảm tưởng ngày nghỉ</h3>
+                <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>週末<rt>しゅうまつ</rt></ruby>、<ruby>何<rt>なに</rt></ruby>をしましたか。</span>
+                        <span class="romaji-text">Shuumatsu, nani o shimashita ka?</span>
+                        <span class="vi-text">Cuối tuần bạn đã làm gì?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text"><ruby>旅行<rt>りょこう</rt></ruby>をしました。</span>
+                        <span class="romaji-text">Ryokou o shimashita.</span>
+                        <span class="vi-text">Tôi đã đi du lịch.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>旅行<rt>りょこう</rt></ruby>は<ruby>楽<rt>たの</rt></ruby>しかったですか。</span>
+                        <span class="romaji-text">Ryokou wa tanoshikatta desu ka?</span>
+                        <span class="vi-text">Chuyến du lịch có vui không?</span>
+                    </p>
+                    <p class="note">(Nếu vui)</p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">はい、<ruby>楽<rt>たの</rt></ruby>しかったです。</span>
+                        <span class="romaji-text">Hai, tanoshikatta desu.</span>
+                        <span class="vi-text">Có, đã rất vui.</span>
+                    </p>
+                    <p class="note">(Nếu không vui)</p>
+                     <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいえ、<ruby>楽<rt>たの</rt></ruby>しくなかったです。</span>
+                        <span class="romaji-text">Iie, tanoshikunakatta desu.</span>
+                        <span class="vi-text">Không, đã không vui.</span>
+                    </p>
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">そうですか。</span>
+                        <span class="romaji-text">Sou desu ka.</span>
+                        <span class="vi-text">Thế à.</span>
+                    </p>
+                    <hr class="separator">
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>日曜日<rt>にちようび</rt></ruby>、<ruby>何<rt>なに</rt></ruby>をしましたか。</span>
+                        <span class="romaji-text">Nichiyoubi, nani o shimashita ka?</span>
+                        <span class="vi-text">Chủ nhật bạn đã làm gì?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text"><ruby>友達<rt>ともだち</rt></ruby>と<ruby>映画<rt>えいが</rt></ruby>を<ruby>見<rt>み</rt></ruby>ました。</span>
+                        <span class="romaji-text">Tomodachi to eiga o mimashita.</span>
+                        <span class="vi-text">Tôi đã xem phim với bạn.</span>
+                    </p>
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">へえ。（<ruby>映画<rt>えいが</rt></ruby>は）どうでしたか。</span>
+                        <span class="romaji-text">Hee. (Eiga wa) dou deshita ka?</span>
+                        <span class="vi-text">Ồ. (Bộ phim thì) thế nào?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">とてもおもしろかったです。</span>
+                        <span class="romaji-text">Totemo omoshirokatta desu.</span>
+                        <span class="vi-text">Rất thú vị.</span>
+                    </p>
+                    <hr class="separator">
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさん、パソコンを<ruby>買<rt>か</rt></ruby>いましたか。</span>
+                        <span class="romaji-text">B-san, pasokon o kaimashita ka?</span>
+                        <span class="vi-text">Bạn B đã mua máy tính chưa?</span>
+                    </p>
+                     <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいえ、<ruby>買<rt>か</rt></ruby>いませんでした。</span>
+                        <span class="romaji-text">Iie, kaimasen deshita.</span>
+                        <span class="vi-text">Chưa, tôi đã không mua.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">どうして<ruby>買<rt>か</rt></ruby>いませんでしたか。</span>
+                        <span class="romaji-text">Doushite kaimasen deshita ka?</span>
+                        <span class="vi-text">Tại sao lại không mua?</span>
+                    </p>
+                     <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text"><ruby>高<rt>たか</rt></ruby>かったですから（、<ruby>買<rt>か</rt></ruby>いませんでした）。</span>
+                        <span class="romaji-text">Takakatta desu kara (, kaimasen deshita).</span>
+                        <span class="vi-text">Vì nó đắt (nên tôi đã không mua).</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 5 - Bài 3: Hỏi về kế hoạch ngày nghỉ</h3>
+                 <div class="dialogue-body">
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>今度<rt>こんど</rt></ruby>の<ruby>休<rt>やす</rt></ruby>みに<ruby>何<rt>なに</rt></ruby>をしますか。</span>
+                        <span class="romaji-text">Kondo no yasumi ni nani o shimasu ka?</span>
+                        <span class="vi-text">Kỳ nghỉ tới bạn sẽ làm gì?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">パソコンがほしいですから、サカイ<ruby>電気<rt>でんき</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。</span>
+                        <span class="romaji-text">Pasokon ga hoshii desu kara, Sakai Denki e ikimasu.</span>
+                        <span class="vi-text">Vì tôi muốn có máy tính nên tôi sẽ đi đến cửa hàng điện máy Sakai.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">そうですか。</span>
+                        <span class="romaji-text">Sou desu ka.</span>
+                        <span class="vi-text">Thế à.</span>
+                    </p>
+                    <hr class="separator">
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさんは<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>が<ruby>好<rt>す</rt></ruby>きですか。</span>
+                        <span class="romaji-text">B-san wa kaimono ga suki desu ka?</span>
+                        <span class="vi-text">Bạn B có thích mua sắm không?</span>
+                    </p>
+                     <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">はい、<ruby>好<rt>す</rt></ruby>きです。<ruby>日曜日<rt>にちようび</rt></ruby>、<ruby>新宿<rt>しんじゅく</rt></ruby>で<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>をします。</span>
+                        <span class="romaji-text">Hai, suki desu. Nichiyoubi, Shinjuku de kaimono o shimasu.</span>
+                        <span class="vi-text">Có, tôi thích. Chủ nhật tôi sẽ mua sắm ở Shinjuku.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">へえ、いいですね。<ruby>私<rt>わたし</rt></ruby>も<ruby>買<rt>か</rt></ruby>い<ruby>物<rt>もの</rt></ruby>をしたいです。</span>
+                        <span class="romaji-text">Hee, ii desu ne. Watashi mo kaimono o shitai desu.</span>
+                        <span class="vi-text">Ồ, hay nhỉ. Tôi cũng muốn đi mua sắm.</span>
+                    </p>
+                    <hr class="separator">
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさん、<ruby>今度<rt>こんど</rt></ruby>の<ruby>休<rt>やす</rt></ruby>みにどこかへ<ruby>行<rt>い</rt></ruby>きますか。</span>
+                        <span class="romaji-text">B-san, kondo no yasumi ni dokoka e ikimasu ka?</span>
+                        <span class="vi-text">Bạn B, kỳ nghỉ tới có đi đâu đó không?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">はい、<ruby>山<rt>やま</rt></ruby>へ<ruby>写真<rt>しゃしん</rt></ruby>を<ruby>撮<rt>と</rt></ruby>りに<ruby>行<rt>い</rt></ruby>きます。</span>
+                        <span class="romaji-text">Hai, yama e shashin o tori ni ikimasu.</span>
+                        <span class="vi-text">Có, tôi sẽ đi núi để chụp ảnh.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 5 - Đoạn văn: 「<ruby>楽<rt>たの</rt></ruby>しい1<ruby>日<rt>にち</rt></ruby>」</h3>
+                <div class="dialogue-body">
+                    <p>
+                        <span class="jp-text"><ruby>日曜日<rt>にちようび</rt></ruby>、<ruby>友達<rt>ともだち</rt></ruby>と<ruby>近<rt>ちか</rt></ruby>くの<ruby>山<rt>やま</rt></ruby>に<ruby>登<rt>のぼ</rt></ruby>りました。</span>
+                        <span class="romaji-text">Nichiyoubi, tomodachi to chikaku no yama ni noborimashita.</span>
+                        <span class="vi-text">Chủ nhật, tôi đã leo núi ở gần đây với bạn.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text"><ruby>天気<rt>てんき</rt></ruby>がよかったですから、とても<ruby>気持<rt>きも</rt></ruby>ちがよかったです。</span>
+                        <span class="romaji-text">Tenki ga yokatta desu kara, totemo kimochi ga yokatta desu.</span>
+                        <span class="vi-text">Vì thời tiết đẹp nên cảm giác rất tuyệt.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text"><ruby>山<rt>やま</rt></ruby>でお<ruby>弁当<rt>べんとう</rt></ruby>を<ruby>食<rt>た</rt></ruby>べました。</span>
+                        <span class="romaji-text">Yama de obentou o tabemashita.</span>
+                        <span class="vi-text">Chúng tôi đã ăn cơm hộp trên núi.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text"><ruby>山<rt>やま</rt></ruby>からの<ruby>景色<rt>けしき</rt></ruby>はとてもきれいでした。</span>
+                        <span class="romaji-text">Yama kara no keshiki wa totemo kirei deshita.</span>
+                        <span class="vi-text">Phong cảnh từ trên núi rất đẹp.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text">それから、<ruby>言<rt>い</rt></ruby>いお<ruby>寺<rt>てら</rt></ruby>を<ruby>見<rt>み</rt></ruby>に<ruby>行<rt>い</rt></ruby>きました。</span>
+                        <span class="romaji-text">Sorekara, ii otera o mi ni ikimashita.</span>
+                        <span class="vi-text">Sau đó, chúng tôi đã đi xem một ngôi chùa đẹp.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text">とてもおもしろかったです。</span>
+                        <span class="romaji-text">Totemo omoshirokatta desu.</span>
+                        <span class="vi-text">Rất thú vị.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text">とても<ruby>楽<rt>たの</rt></ruby>しい1<ruby>日<rt>にち</rt></ruby>でした。</span>
+                        <span class="romaji-text">Totemo tanoshii ichinichi deshita.</span>
+                        <span class="vi-text">Đó là một ngày rất vui.</span>
+                    </p>
+                    <p>
+                        <span class="jp-text">また<ruby>行<rt>い</rt></ruby>きたいです。</span>
+                        <span class="romaji-text">Mata ikitai desu.</span>
+                        <span class="vi-text">Tôi muốn đi lần nữa.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 6 - Bài 1: Rủ rê & Trả lời (V-ませんか)</h3>
+                <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>今晩<rt>こんばん</rt></ruby>、<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>ご飯<rt>ごはん</rt></ruby>を<ruby>食<rt>た</rt></ruby>べませんか。</span>
+                        <span class="romaji-text">Konban, issho ni gohan o tabemasen ka?</span>
+                        <span class="vi-text">Tối nay, cùng đi ăn cơm không?</span>
+                    </p>
+                    <p class="note">(Nếu đồng ý)</p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいですね。<ruby>食<rt>た</rt></ruby>べましょう。</span>
+                        <span class="romaji-text">Ii desu ne. Tabemashou.</span>
+                        <span class="vi-text">Hay đấy. Chúng ta cùng ăn nào.</span>
+                    </p>
+                    <p class="note">(Nếu từ chối)</p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">ああ、<ruby>今晩<rt>こんばん</rt></ruby>ですか。すみません。<ruby>今晩<rt>こんばん</rt></ruby>はちょっと……。</span>
+                        <span class="romaji-text">Aa, konban desu ka? Sumimasen. Konban wa chotto...</span>
+                        <span class="vi-text">À, tối nay à? Xin lỗi. Tối nay thì tôi hơi...</span>
+                    </p>
+                </div>
+            </div>
+
+             <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 6 - Bài 2: Từ chối vì có việc bận (～から)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>今晩<rt>こんばん</rt></ruby>、カラオケに<ruby>行<rt>い</rt></ruby>きませんか。</span>
+                        <span class="romaji-text">Konban, karaoke ni ikimasen ka?</span>
+                        <span class="vi-text">Tối nay, đi hát karaoke không?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">ああ、<ruby>今晩<rt>こんばん</rt></ruby>ですか。すみません。<ruby>今晩<rt>こんばん</rt></ruby>はちょっと……。<ruby>用事<rt>ようじ</rt></ruby>がありますから。</span>
+                        <span class="romaji-text">Aa, konban desu ka? Sumimasen. Konban wa chotto... Youji ga arimasu kara.</span>
+                        <span class="vi-text">À, tối nay à? Xin lỗi. Tối nay thì tôi hơi... Vì tôi có việc bận rồi.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">ああ、そうですか。<ruby>残念<rt>ざんねん</rt></ruby>です。じゃ、また<ruby>今度<rt>こんど</rt></ruby>。</span>
+                        <span class="romaji-text">Aa, sou desu ka. Zannen desu. Ja, mata kondo.</span>
+                        <span class="vi-text">À, thế à. Tiếc nhỉ. Vậy thì, hẹn lần sau nhé.</span>
+                    </p>
+                </div>
+            </div>
+
+             <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 6 - Bài 3: Rủ đi xem sự kiện (～があります)</h3>
+                <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">あ、<ruby>横浜<rt>よこはま</rt></ruby>で<ruby>野球<rt>やきゅう</rt></ruby>の<ruby>試合<rt>しあい</rt></ruby>があります。</span>
+                        <span class="romaji-text">A, Yokohama de yakyuu no shiai ga arimasu.</span>
+                        <span class="vi-text">A, ở Yokohama có trận đấu bóng chày.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">へえ。</span>
+                        <span class="romaji-text">Hee.</span>
+                        <span class="vi-text">Ồ.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさん、<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>見<rt>み</rt></ruby>に<ruby>行<rt>い</rt></ruby>きませんか。</span>
+                        <span class="romaji-text">B-san, issho ni mi ni ikimasen ka?</span>
+                        <span class="vi-text">Bạn B, cùng đi xem không?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいですね。</span>
+                        <span class="romaji-text">Ii desu ne.</span>
+                        <span class="vi-text">Hay đấy.</span>
+                    </p>
+                </div>
+            </div>
+
+             <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 6 - Bài 4: Rủ đi xem (vì có vé) (～が あります)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさんはサッカーが<ruby>好<rt>す</rt></ruby>きですか。</span>
+                        <span class="romaji-text">B-san wa sakkaa ga suki desu ka?</span>
+                        <span class="vi-text">Bạn B có thích bóng đá không?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">はい。</span>
+                        <span class="romaji-text">Hai.</span>
+                        <span class="vi-text">Có.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">そうですか。サッカーのチケットが2<ruby>枚<rt>まい</rt></ruby>あります。<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>見<rt>み</rt></ruby>に<ruby>行<rt>い</rt></ruby>きませんか。</span>
+                        <span class="romaji-text">Sou desu ka. Sakkaa no chiketto ga ni-mai arimasu. Issho ni mi ni ikimasen ka?</span>
+                        <span class="vi-text">Thế à. Tôi có 2 vé xem bóng đá này. Cùng đi xem không?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">わあ、いいですね。<ruby>行<rt>い</rt></ruby>きましょう。</span>
+                        <span class="romaji-text">Waa, ii desu ne. Ikimashou.</span>
+                        <span class="vi-text">Ồ, hay đấy. Chúng ta đi nào.</span>
+                    </p>
+                </div>
+            </div>
+
+             <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 6 - Bài 5: Hỏi sở thích (So sánh nhất)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさん、<ruby>映画<rt>えいが</rt></ruby>で<ruby>何<rt>なに</rt></ruby>がいちばん<ruby>好<rt>す</rt></ruby>きですか。</span>
+                        <span class="romaji-text">B-san, eiga de nani ga ichiban suki desu ka?</span>
+                        <span class="vi-text">Bạn B, trong các loại phim thì bạn thích nhất loại nào?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">コメディーがいちばん<ruby>好<rt>す</rt></ruby>きです。</span>
+                        <span class="romaji-text">Komedii ga ichiban suki desu.</span>
+                        <span class="vi-text">Tôi thích nhất là phim hài.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">そうですか。</span>
+                        <span class="romaji-text">Sou desu ka.</span>
+                        <span class="vi-text">Thế à.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 6 - Bài 6: Hỏi và chọn lựa (So sánh hơn)</h3>
+                <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさん、<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>映画<rt>えいが</rt></ruby>を<ruby>見<rt>み</rt></ruby>に<ruby>行<rt>い</rt></ruby>きませんか。</span>
+                        <span class="romaji-text">B-san, issho ni eiga o mi ni ikimasen ka?</span>
+                        <span class="vi-text">Bạn B, cùng đi xem phim không?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいですね。どこで<ruby>見<rt>み</rt></ruby>ますか。</span>
+                        <span class="romaji-text">Ii desu ne. Doko de mimasu ka?</span>
+                        <span class="vi-text">Hay đấy. Xem ở đâu?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">あっ、ニコニコ<ruby>映画館<rt>えいがかん</rt></ruby>とふじ<ruby>映画館<rt>えいがかん</rt></ruby>があります。</span>
+                        <span class="romaji-text">A', NikoNiko Eigakan to Fuji Eigakan ga arimasu.</span>
+                        <span class="vi-text">À, có rạp chiếu phim NikoNiko và rạp Fuji.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">そうですか。ニコニコ<ruby>映画館<rt>えいがかん</rt></ruby>とふじ<ruby>映画館<rt>えいがかん</rt></ruby>とどちらが<ruby>近<rt>ちか</rt></ruby>いですか。</span>
+                        <span class="romaji-text">Sou desu ka. NikoNiko Eigakan to Fuji Eigakan to dochira ga chikai desu ka?</span>
+                        <span class="vi-text">Thế à. Rạp NikoNiko và rạp Fuji thì cái nào gần hơn?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">ニコニコ<ruby>映画館<rt>えいがかん</rt></ruby>のほうが<ruby>近<rt>ちか</rt></ruby>いです。</span>
+                        <span class="romaji-text">NikoNiko Eigakan no hou ga chikai desu.</span>
+                        <span class="vi-text">Rạp NikoNiko gần hơn.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">そうですか。じゃ、ニコニコ<ruby>映画館<rt>えいがかん</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きましょう。</span>
+                        <span class="romaji-text">Sou desu ka. Ja, NikoNiko Eigakan e ikimashou.</span>
+                        <span class="vi-text">Thế à. Vậy thì, chúng ta đến rạp NikoNiko đi.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 6 - Bài 7: Hỏi và chọn lựa (Lý do)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>新宿<rt>しんじゅく</rt></ruby>と<ruby>渋谷<rt>しぶや</rt></ruby>とどちらがいいですか。</span>
+                        <span class="romaji-text">Shinjuku to Shibuya to dochira ga ii desu ka?</span>
+                        <span class="vi-text">Shinjuku và Shibuya thì chỗ nào được hơn?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">そうですねえ。<ruby>新宿<rt>しんじゅく</rt></ruby>のほうがいいです。<ruby>新宿<rt>しんじゅく</rt></ruby>は<ruby>渋谷<rt>しぶや</rt></ruby>より<ruby>近<rt>ちか</rt></ruby>いですから。</span>
+                        <span class="romaji-text">Sou desu nee. Shinjuku no hou ga ii desu. Shinjuku wa Shibuya yori chikai desu kara.</span>
+                        <span class="vi-text">Để xem nào... Shinjuku được hơn. Vì Shinjuku gần hơn Shibuya.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">そうですか。じゃ、<ruby>新宿<rt>しんじゅく</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きましょう。</span>
+                        <span class="romaji-text">Sou desu ka. Ja, Shinjuku e ikimashou.</span>
+                        <span class="vi-text">Thế à. Vậy thì, chúng ta đến Shinjuku đi.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 6 - Bài 8: Hỏi "Đã... chưa?" (もう V-ましたか)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>今度<rt>こんど</rt></ruby>、<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>遊<rt>あそ</rt></ruby>びに<ruby>行<rt>い</rt></ruby>きませんか。</span>
+                        <span class="romaji-text">Kondo, issho ni asobi ni ikimasen ka?</span>
+                        <span class="vi-text">Lần tới, cùng đi chơi không?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいですね。<ruby>何<rt>なに</rt></ruby>をしますか。</span>
+                        <span class="romaji-text">Ii desu ne. Nani o shimasu ka?</span>
+                        <span class="vi-text">Hay đấy. Sẽ làm gì?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさんはもう<ruby>東京<rt>とうきょう</rt></ruby>タワーへ<ruby>行<rt>い</rt></ruby>きましたか。</span>
+                        <span class="romaji-text">B-san wa mou Tōkyō Tawā e ikimashita ka?</span>
+                        <span class="vi-text">Bạn B đã đi Tháp Tokyo chưa?</span>
+                    </p>
+                    <p class="note">(Nếu chưa)</p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいえ、まだです。</span>
+                        <span class="romaji-text">Iie, mada desu.</span>
+                        <span class="vi-text">Chưa, tôi vẫn chưa đi.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">じゃ、<ruby>東京<rt>とうきょう</rt></ruby>タワーへ<ruby>行<rt>い</rt></ruby>きませんか。</span>
+                        <span class="romaji-text">Ja, Tōkyō Tawā e ikimasen ka?</span>
+                        <span class="vi-text">Vậy, đi Tháp Tokyo không?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいですね。そうしましょう。</span>
+                        <span class="romaji-text">Ii desu ne. Sou shimashou.</span>
+                        <span class="vi-text">Hay đấy. Cứ làm vậy đi.</span>
+                    </p>
+                    <p class="note">(Nếu rồi)</p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">はい、<ruby>行<rt>い</rt></ruby>きました。</span>
+                        <span class="romaji-text">Hai, ikimashita.</span>
+                        <span class="vi-text">Rồi, tôi đi rồi.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">そうですか。じゃ、お<ruby>台場<rt>だいば</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きませんか。</span>
+                        <span class="romaji-text">Sou desu ka. Ja, Odaiba e ikimasen ka?</span>
+                        <span class="vi-text">Thế à. Vậy, đi Odaiba không?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいですね。そうしましょう。</span>
+                        <span class="romaji-text">Ii desu ne. Sou shimashou.</span>
+                        <span class="vi-text">Hay đấy. Cứ làm vậy đi.</span>
+                    </p>
+                </div>
+            </div>
+
+             <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 6 - Bài 9: Rủ rê và mô tả (～ですよ)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>一緒<rt>いっしょ</rt></ruby>にお<ruby>好<rt>この</rt></ruby>み<ruby>焼<rt>や</rt></ruby>きを<ruby>食<rt>た</rt></ruby>べに<ruby>行<rt>い</rt></ruby>きませんか。このお<ruby>好<rt>この</rt></ruby>み<ruby>焼<rt>や</rt></ruby>きはおいしいですよ。</span>
+                        <span class="romaji-text">Issho ni okonomiyaki o tabe ni ikimasen ka? Kono okonomiyaki wa oishii desu yo.</span>
+                        <span class="vi-text">Cùng đi ăn Okonomiyaki không? Món Okonomiyaki này ngon lắm đấy.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">へえ。ぜひ、<ruby>行<rt>い</rt></ruby>きたいです。</span>
+                        <span class="romaji-text">Hee. Zehi, ikitai desu.</span>
+                        <span class="vi-text">Ồ. Nhất định tôi muốn đi.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 6 - Bài 10: Đề nghị địa điểm (～はどうですか)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさん、<ruby>週末<rt>しゅうまつ</rt></ruby>、<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>飲<rt>の</rt></ruby>みに<ruby>行<rt>い</rt></ruby>きませんか。</span>
+                        <span class="romaji-text">B-san, shuumatsu, issho ni nomi ni ikimasen ka?</span>
+                        <span class="vi-text">Bạn B, cuối tuần, cùng đi uống không?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいですね。どこへ<ruby>行<rt>い</rt></ruby>きますか。</span>
+                        <span class="romaji-text">Ii desu ne. Doko e ikimasu ka?</span>
+                        <span class="vi-text">Hay đấy. Đi đâu?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>新宿<rt>しんじゅく</rt></ruby>の<ruby>居酒屋<rt>いざかや</rt></ruby>はどうですか。</span>
+                        <span class="romaji-text">Shinjuku no izakaya wa dou desu ka?</span>
+                        <span class="vi-text">Quán rượu ở Shinjuku thì sao?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいですね。そうしましょう。</span>
+                        <span class="romaji-text">Ii desu ne. Sou shimashou.</span>
+                        <span class="vi-text">Hay đấy. Cứ làm vậy đi.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 6 - Bài 11: Hỏi giờ hẹn (何時に会いますか)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>何時<rt>なんじ</rt></ruby>に<ruby>会<rt>あ</rt></ruby>いますか。</span>
+                        <span class="romaji-text">Nanji ni aimasu ka?</span>
+                        <span class="vi-text">Mấy giờ gặp nhau?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">5<ruby>時<rt>じ</rt></ruby>はどうですか。</span>
+                        <span class="romaji-text">Go-ji wa dou desu ka?</span>
+                        <span class="vi-text">5 giờ thì sao?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">5<ruby>時<rt>じ</rt></ruby>ですね。わかりました。</span>
+                        <span class="romaji-text">Go-ji desu ne. Wakarimashita.</span>
+                        <span class="vi-text">5 giờ nhỉ. Tôi hiểu rồi.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 7 - Bài 1: Hỏi đường (～は どこに ありますか)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">あのう、すみません。<ruby>交番<rt>こうばん</rt></ruby>はどこにありますか。</span>
+                        <span class="romaji-text">Anou, sumimasen. Kouban wa doko ni arimasu ka?</span>
+                        <span class="vi-text">Ừm, xin lỗi. Đồn cảnh sát ở đâu vậy?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">あ、<ruby>交番<rt>こうばん</rt></ruby>ですか。あのビルの<ruby>後<rt>うし</rt></ruby>ろにありますよ。</span>
+                        <span class="romaji-text">A, kouban desu ka? Ano biru no ushiro ni arimasu yo.</span>
+                        <span class="vi-text">A, đồn cảnh sát à? Nó ở đằng sau tòa nhà kia đấy.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">ありがとうございます。</span>
+                        <span class="romaji-text">Arigatou gozaimasu.</span>
+                        <span class="vi-text">Cảm ơn bạn.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 7 - Bài 2: Hỏi vị trí (～に います)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">もしもし、Bさん、<ruby>今<rt>いま</rt></ruby>、どこにいますか。</span>
+                        <span class="romaji-text">Moshi moshi, B-san, ima, doko ni imasu ka?</span>
+                        <span class="vi-text">Alô, bạn B, bây giờ đang ở đâu vậy?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text"><ruby>交番<rt>こうばん</rt></ruby>の<ruby>前<rt>まえ</rt></ruby>にいます。</span>
+                        <span class="romaji-text">Kouban no mae ni imasu.</span>
+                        <span class="vi-text">Tôi đang ở trước đồn cảnh sát.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">じゃ、そこへ<ruby>行<rt>い</rt></ruby>きます。</span>
+                        <span class="romaji-text">Ja, soko e ikimasu.</span>
+                        <span class="vi-text">Vậy, tôi sẽ đến đó.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 7 - Bài 3: Hỏi thăm vị trí (近くに 何が ありますか)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">もしもし、Bさん、<ruby>今<rt>いま</rt></ruby>、どこにいますか。</span>
+                        <span class="romaji-text">Moshi moshi, B-san, ima, doko ni imasu ka?</span>
+                        <span class="vi-text">Alô, bạn B, bây giờ đang ở đâu vậy?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text"><ruby>駅<rt>えき</rt></ruby>の<ruby>前<rt>まえ</rt></ruby>にいます。</span>
+                        <span class="romaji-text">Eki no mae ni imasu.</span>
+                        <span class="vi-text">Tôi đang ở trước nhà ga.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">えっ？<ruby>近<rt>ちか</rt></ruby>くに<ruby>何<rt>なに</rt></ruby>がありますか。</span>
+                        <span class="romaji-text">E'? Chikaku ni nani ga arimasu ka?</span>
+                        <span class="vi-text">Ế? Gần đó có gì?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text"><ruby>大<rt>おお</rt></ruby>きいスーパーがあります。</span>
+                        <span class="romaji-text">Ookii suupaa ga arimasu.</span>
+                        <span class="vi-text">Có một siêu thị lớn.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">わかりました。<ruby>今<rt>いま</rt></ruby>、<ruby>迎<rt>むか</rt></ruby>えに<ruby>行<rt>い</rt></ruby>きます。</span>
+                        <span class="romaji-text">Wakarimashita. Ima, mukae ni ikimasu.</span>
+                        <span class="vi-text">Hiểu rồi. Bây giờ tôi sẽ đến đón.</span>
+                    </p>
+                </div>
+            </div>
+
+             <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 7 - Bài 4: Yêu cầu (V-て ください)</h3>
+                <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさん、<ruby>果物<rt>くだもの</rt></ruby>を<ruby>洗<rt>あら</rt></ruby>ってください。</span>
+                        <span class="romaji-text">B-san, kudamono o aratte kudasai.</span>
+                        <span class="vi-text">Bạn B, hãy rửa hoa quả đi.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">はい。</span>
+                        <span class="romaji-text">Hai.</span>
+                        <span class="vi-text">Vâng.</span>
+                    </p>
+                    <hr class="separator">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさん、ペンで<ruby>名前<rt>なまえ</rt></ruby>を<ruby>書<rt>か</rt></ruby>いてください。</span>
+                        <span class="romaji-text">B-san, pen de namae o kaite kudasai.</span>
+                        <span class="vi-text">Bạn B, hãy viết tên bằng bút.</span>
+                    </p>
+                     <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">はい。</span>
+                        <span class="romaji-text">Hai.</span>
+                        <span class="vi-text">Vâng.</span>
+                    </p>
+                </div>
+            </div>
+
+             <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 7 - Bài 5: Hỏi hành động (V-て います)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">パクさんはどこにいますか。</span>
+                        <span class="romaji-text">Paku-san wa doko ni imasu ka?</span>
+                        <span class="vi-text">Anh Park đang ở đâu vậy?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">パクさんは<ruby>台所<rt>だいどころ</rt></ruby>でお<ruby>皿<rt>さら</rt></ruby>を<ruby>洗<rt>あら</rt></ruby>っていますよ。</span>
+                        <span class="romaji-text">Paku-san wa daidokoro de osara o aratte imasu yo.</span>
+                        <span class="vi-text">Anh Park đang rửa bát ở bếp đấy.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 7 - Bài 6: Đề nghị giúp đỡ (V-ましょうか)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text"><ruby>料理<rt>りょうり</rt></ruby>を<ruby>取<rt>と</rt></ruby>りましょうか。</span>
+                        <span class="romaji-text">Ryouri o torimashou ka?</span>
+                        <span class="vi-text">Tôi lấy thức ăn giúp bạn nhé?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">あ、ありがとうございます。</span>
+                        <span class="romaji-text">A, arigatou gozaimasu.</span>
+                        <span class="vi-text">A, cảm ơn bạn.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 7 - Bài 7: Hỏi "Ai...?" (だれが V-ましたか)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">わあ、だれが<ruby>作<rt>つく</rt></ruby>りましたか。</span>
+                        <span class="romaji-text">Waa, dare ga tsukurimashita ka?</span>
+                        <span class="vi-text">Ồ, ai đã làm vậy?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">ワンさんが<ruby>作<rt>つく</rt></ruby>りました。</span>
+                        <span class="romaji-text">Wan-san ga tsukurimashita.</span>
+                        <span class="vi-text">Anh Wang đã làm.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">へえ。</span>
+                        <span class="romaji-text">Hee.</span>
+                        <span class="vi-text">Ồ.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 7 - Bài 8: Hỏi "Vẫn còn...?" (まだ ありますか)</h3>
+                 <div class="dialogue-body">
+                    <p class="note">(Ví dụ 1)</p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">サラダはまだありますか。</span>
+                        <span class="romaji-text">Sarada wa mada arimasu ka?</span>
+                        <span class="vi-text">Salad vẫn còn chứ?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">はい、まだあります。どうぞ。</span>
+                        <span class="romaji-text">Hai, mada arimasu. Douzo.</span>
+                        <span class="vi-text">Vâng, vẫn còn. Xin mời.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">ありがとうございます。</span>
+                        <span class="romaji-text">Arigatou gozaimasu.</span>
+                        <span class="vi-text">Cảm ơn bạn.</span>
+                    </p>
+                    <hr class="separator">
+                    <p class="note">(Ví dụ 2)</p>
+                     <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">ビールはまだありますか。</span>
+                        <span class="romaji-text">Biiru wa mada arimasu ka?</span>
+                        <span class="vi-text">Bia vẫn còn chứ?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">すみません。もうありません。ワインはどうですか。</span>
+                        <span class="romaji-text">Sumimasen. Mou arimasen. Wain wa dou desu ka?</span>
+                        <span class="vi-text">Xin lỗi. Hết rồi. Rượu vang thì sao?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">いいですね。</span>
+                        <span class="romaji-text">Ii desu ne.</span>
+                        <span class="vi-text">Hay đấy.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 7 - Bài 9: Hỏi "Cách làm" (V-かた)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">カレーの<ruby>作<rt>つく</rt></ruby>り<ruby>方<rt>かた</rt></ruby>がわかりません。すみません、<ruby>作<rt>つく</rt></ruby>り<ruby>方<rt>かた</rt></ruby>を<ruby>教<rt>おし</rt></ruby>えてください。</span>
+                        <span class="romaji-text">Karee no tsukurikata ga wakarimasen. Sumimasen, tsukurikata o oshiete kudasai.</span>
+                        <span class="vi-text">Tôi không biết cách làm món cà ri. Xin lỗi, hãy chỉ cho tôi cách làm.</span>
+                    </p>
+                    <p class="note">(Nếu biết)</p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">いいですよ。</span>
+                        <span class="romaji-text">Ii desu yo.</span>
+                        <span class="vi-text">Được chứ.</span>
+                    </p>
+                    <p class="note">(Nếu không biết)</p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">すみません。<ruby>私<rt>わたし</rt></ruby>もわかりませんから、Cさんに<ruby>聞<rt>き</rt></ruby>いてください。</span>
+                        <span class="romaji-text">Sumimasen. Watashi mo wakarimasen kara, C-san ni kiite kudasai.</span>
+                        <span class="vi-text">Xin lỗi. Vì tôi cũng không biết nên hãy hỏi bạn C.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 7 - Bài 10: Hỏi "Cái nào?" (どのN)</h3>
+                 <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさん、お<ruby>皿<rt>さら</rt></ruby>を<ruby>取<rt>と</rt></ruby>ってください。</span>
+                        <span class="romaji-text">B-san, osara o totte kudasai.</span>
+                        <span class="vi-text">Bạn B, lấy giúp tôi cái đĩa.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">どのお<ruby>皿<rt>さら</rt></ruby>ですか。</span>
+                        <span class="romaji-text">Dono osara desu ka?</span>
+                        <span class="vi-text">Cái đĩa nào vậy?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">そのお<ruby>皿<rt>さら</rt></ruby>です。</span>
+                        <span class="romaji-text">Sono osara desu.</span>
+                        <span class="vi-text">Cái đĩa đó.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">ああ、これですか。はい。</span>
+                        <span class="romaji-text">Aa, kore desu ka? Hai.</span>
+                        <span class="vi-text">À, cái này à? Vâng.</span>
+                    </p>
+                </div>
+            </div>
+
+             <div class="exercise-item">
+                <h3 class="dialogue-title">Chương 7 - Bài 11: Hỏi "Cái nào?" (どれ)</h3>
+                <div class="dialogue-body">
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">Bさん、<ruby>塩<rt>しお</rt></ruby>を<ruby>取<rt>と</rt></ruby>ってください。</span>
+                        <span class="romaji-text">B-san, shio o totte kudasai.</span>
+                        <span class="vi-text">Bạn B, lấy giúp tôi muối.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text"><ruby>塩<rt>しお</rt></ruby>はどれですか。</span>
+                        <span class="romaji-text">Shio wa dore desu ka?</span>
+                        <span class="vi-text">Muối là cái nào?</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">それです。</span>
+                        <span class="romaji-text">Sore desu.</span>
+                        <span class="vi-text">Là cái đó.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-B">B:</span>
+                        <span class="jp-text">ああ、これですか。はい、どうぞ。</span>
+                        <span class="romaji-text">Aa, kore desu ka? Hai, douzo.</span>
+                        <span class="vi-text">À, cái này à? Vâng, xin mời.</span>
+                    </p>
+                    <p>
+                        <span class="speaker speaker-A">A:</span>
+                        <span class="jp-text">どうも。</span>
+                        <span class="romaji-text">Doumo.</span>
+                        <span class="vi-text">Cảm ơn.</span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="back-btn" style="margin-top: 30px;" onclick="location.href='index.html'">← Quay về JPD123</button>
+    </div>
+
+<script>
+// Bạn có thể thêm JS nếu cần, nhưng trang này chủ yếu để đọc
+// nên không cần script phức tạp.
+</script>
+</body>
+</html>

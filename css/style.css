@@ -10,6 +10,17 @@
     --white-color: #ffffff;
     --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --secondary-color: #6c757d;
+    --accent-color: #ffc107;
+}
+
+/* --- Dark Mode --- */
+body.dark-mode {
+    --light-bg: #121212;
+    --dark-text: #e0e0e0;
+    --border-color: #333;
+    --white-color: #1e1e1e;
+    --secondary-color: #a0a0a0;
 }
 
 body {
@@ -17,330 +28,837 @@ body {
     background-color: var(--light-bg);
     color: var(--dark-text);
     margin: 0;
-    padding: 15px;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
     box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
 }
-.main-container {
+
+.main-container, .results-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px; /* Tăng max-width để layout rộng rãi hơn */
     background: var(--white-color);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-hover); /* Tăng shadow cho đẹp hơn */
+    transition: background-color 0.3s;
 }
-.main-header {
+
+.main-header, .results-header {
     text-align: center;
     color: var(--primary-color);
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 15px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 20px;
+    font-size: 1.8em;
 }
+
 .breadcrumb {
-    margin-bottom: 20px;
-    font-size: 0.9em;
+    margin-bottom: 25px;
+    font-size: 1em;
+    color: var(--secondary-color);
 }
+
 .breadcrumb a {
     color: var(--primary-color);
     text-decoration: none;
+    transition: color 0.3s;
 }
+
 .breadcrumb a:hover {
+    color: var(--primary-hover);
     text-decoration: underline;
 }
 
-/* --- Subject & Mode Selection (IMPROVED HOVER) --- */
+/* --- Dark Mode Toggle --- */
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+/* --- Subject & Mode Selection --- */
 .subject-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 40px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
 }
 
 .subject-card {
-    background: var(--white-color);
-    padding: 25px;
-    border-radius: 10px;
-    border: 2px solid var(--border-color);
+    background: linear-gradient(135deg, var(--white-color), var(--light-bg));
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
     text-align: center;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
+
 .subject-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
     box-shadow: var(--shadow-hover);
     border-color: var(--primary-color);
 }
+
 .subject-card h3 {
     margin: 0;
-    font-size: 1.2em;
+    font-size: 1.4em;
     color: var(--dark-text);
 }
 
 .mode-selection-container {
     display: flex;
+    flex-direction: column;
     gap: 20px;
-    margin: 30px 0;
 }
+
+@media (min-width: 768px) {
+    .mode-selection-container {
+        flex-direction: row;
+        gap: 25px;
+    }
+}
+
 .mode-card {
     flex: 1;
-    padding: 30px;
+    padding: 35px;
     text-align: center;
-    border-radius: 10px;
-    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background-color 0.3s, color 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
-.mode-card h2 { margin-top: 0; }
-.mode-card p { font-size: 0.9em; color: #6c757d; }
+
 .mode-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
     box-shadow: var(--shadow-hover);
-    border-color: var(--primary-color);
-}
-
-
-/* --- Buttons --- */
-.back-btn, .start-btn, .submit-btn {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 500;
-    transition: background-color 0.3s, transform 0.2s;
-}
-.back-btn {
-    background-color: #6c757d;
-    color: var(--white-color);
-}
-.back-btn:hover { background-color: #5a6268; transform: scale(1.02); }
-.start-btn, .submit-btn {
     background-color: var(--primary-color);
     color: var(--white-color);
 }
-.start-btn:hover, .submit-btn:hover { background-color: var(--primary-hover); transform: scale(1.02); }
-.start-btn:disabled, .back-btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    transform: none;
+
+/* --- Quiz Setup Form --- */
+.setup-form {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--light-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
 }
 
-/* --- Flashcards Tương tác --- */
-.flashcard-container-interactive {
-    text-align: center;
+.form-group {
+    margin-bottom: 25px;
 }
-#flashcard-question-text {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    min-height: 50px;
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--dark-text);
 }
-#options-area {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 20px auto;
-    max-width: 500px;
-}
-.option-btn {
+
+.form-control {
     width: 100%;
-    padding: 15px;
+    padding: 12px 15px;
+    font-size: 1em;
+    border-radius: 8px;
     border: 1px solid var(--border-color);
     background-color: var(--white-color);
     color: var(--dark-text);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: left;
+    box-sizing: border-box; /* Important for width: 100% */
 }
-.option-btn:hover:not(:disabled) {
-    background-color: #f0f0f0;
-    border-color: var(--primary-color);
-}
-.option-btn:disabled { cursor: not-allowed; }
-.option-btn.correct {
-    background-color: #d4edda;
-    border-color: var(--correct-color);
-    color: #155724;
-    font-weight: bold;
-}
-.option-btn.incorrect {
-    background-color: #f8d7da;
-    border-color: var(--incorrect-color);
-    color: #721c24;
-    font-weight: bold;
-}
-#feedback-area {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: var(--light-bg);
-}
-.feedback-correct { color: var(--correct-color); font-weight: bold; }
-.feedback-incorrect { color: var(--incorrect-color); font-weight: bold; }
-#explanation-box {
-    margin-top: 10px;
-    text-align: left;
-}
-.flashcard-nav {
+
+.button-group-setup {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
     margin-top: 30px;
+}
+
+/* --- Quiz & Flashcards Common Styles --- */
+.quiz-body, .flashcard-body {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.quiz-main, .flashcard-main {
+    flex: 1.3;
+    padding: 35px;
+    background: var(--white-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.quiz-sidebar, .flashcard-sidebar {
+    width: 400px;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-hover);
+    order: 2;
+}
+
+.quiz-info, .flashcard-info {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 30px;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--primary-color);
 }
 
+#question-text, #flashcard-question-text {
+    font-size: 1.5em;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
 
-/* --- Giao diện trang thi --- */
-.quiz-body {
-    display: flex;
-    flex-direction: column; /* Mobile-first: xếp chồng lên nhau */
+#question-image {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
-.question-main {
-    flex-grow: 1; /* Chiếm hết không gian còn lại */
-    padding-right: 0;
-}
-.question-container { margin: 20px 0; }
-#question-text { font-size: 1.2em; line-height: 1.6; }
-#question-image { max-width: 100%; border-radius: 8px; margin: 15px 0; }
+
 .option-item {
-    margin: 12px 0;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    transition: background-color 0.2s;
     display: flex;
     align-items: center;
+    gap: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
-.option-item:hover { background-color: #f3f4f6; }
-.option-item input { margin-right: 12px; transform: scale(1.2); }
-.option-item label { flex-grow: 1; }
 
-/* --- Thanh bên của trang thi --- */
-.quiz-sidebar {
-    width: 100%;
-    margin-top: 20px;
-}
-.sidebar-block {
+.option-item:hover {
     background-color: var(--light-bg);
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-.info-block {
+
+.option-item input {
+    display: none;
+}
+
+.option-item label {
+    flex: 1;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.option-item.selected {
+    border-color: var(--primary-color);
+    background-color: #e7f3ff;
+}
+
+/* Styles for correct/incorrect feedback */
+.option-item.option-correct {
+    border-color: var(--correct-color);
+    background-color: #e9f7ef;
+}
+.option-item.option-incorrect {
+    border-color: var(--incorrect-color);
+    background-color: #fbe9eb;
+}
+.flashcard-main .option-item.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+}
+body.dark-mode .option-item.selected { background-color: #003a75; }
+body.dark-mode .option-item.option-correct { background-color: #0c3d1c; }
+body.dark-mode .option-item.option-incorrect { background-color: #5a1a22; }
+
+
+.nav-block {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    gap: 25px;
+    margin-top: 25px;
 }
-.subject-tag {
+
+button {
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.nav-block button, #submit-btn, .start-btn {
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 10px;
     background-color: var(--primary-color);
     color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-weight: bold;
 }
-#timer { font-size: 1.4em; font-weight: bold; }
+.nav-block button:hover, #submit-btn:hover, .start-btn:hover {
+    transform: scale(1.05);
+    background-color: var(--primary-hover);
+}
+.nav-block button:disabled {
+    background-color: var(--secondary-color);
+    cursor: not-allowed;
+    transform: none;
+}
+#submit-btn {
+    width: 100%;
+    margin-top: 15px;
+    background-color: var(--correct-color);
+}
+#submit-btn:hover {
+    background-color: #218838;
+}
+
 .palette-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
-    gap: 8px;
-    margin-top: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+    gap: 10px;
 }
+
 .palette-btn {
-    width: 100%;
-    aspect-ratio: 1 / 1; /* Giữ hình vuông */
+    padding: 10px;
+    font-size: 1.1em;
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    background-color: var(--light-bg);
     border: 1px solid var(--border-color);
-    border-radius: 5px;
-    background-color: #e9ecef;
-    cursor: pointer;
-    transition: all 0.2s;
+    color: var(--dark-text);
+    transition: background-color 0.3s, transform 0.3s;
 }
-.palette-btn:hover { transform: translateY(-2px); }
 .palette-btn.current {
-    background-color: var(--primary-color);
-    color: var(--white-color);
     border-color: var(--primary-color);
+    transform: scale(1.1);
     font-weight: bold;
 }
 .palette-btn.answered {
-    background-color: var(--correct-color);
-    color: var(--white-color);
-    border-color: #208338;
+    background-color: var(--primary-color);
+    color: white;
 }
-.nav-block .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-.nav-block .submit-btn {
-    width: 100%;
+.palette-btn:hover {
+    transform: scale(1.1);
 }
 
-/* --- Modal --- */
+
+/* --- Results Page --- */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    margin: 40px 0;
+}
+
+.summary-card {
+    background: linear-gradient(135deg, var(--light-bg), var(--white-color));
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+.summary-card.score p { color: var(--primary-color); }
+.summary-card.correct-answers p { color: var(--correct-color); }
+.summary-card.incorrect-answers p { color: var(--incorrect-color); }
+
+.summary-card h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}
+
+.summary-card p {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 0;
+}
+
+.review-section h2, #history-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.filter-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: var(--light-bg);
+    color: var(--dark-text);
+    border: 1px solid var(--border-color);
+}
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.review-item {
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-left-width: 6px;
+}
+
+.review-item.correct { border-left-color: var(--correct-color); }
+.review-item.incorrect { border-left-color: var(--incorrect-color); }
+
+.explanation {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: var(--light-bg);
+    border-radius: 10px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    border-top: 2px solid var(--border-color);
+}
+
+#back-to-home-btn {
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 10px;
+    background-color: var(--secondary-color);
+    color: white;
+    margin-top: 20px;
+}
+#back-to-home-btn:hover {
+    background-color: #5a6268;
+}
+
+/* Review Options Styling */
+.review-options {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.review-options .option {
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+.review-options .option-correct {
+    background-color: #e9f7ef;
+    border-color: var(--correct-color);
+}
+.review-options .option-user-incorrect {
+    background-color: #fbe9eb;
+    border-color: var(--incorrect-color);
+}
+body.dark-mode .review-options .option-correct { background-color: #0c3d1c; }
+body.dark-mode .review-options .option-user-incorrect { background-color: #5a1a22; }
+
+/* --- Responsive --- */
+@media (min-width: 992px) {
+    .quiz-body, .flashcard-body {
+        flex-direction: row;
+        gap: 40px;
+    }
+    .quiz-sidebar, .flashcard-sidebar {
+        position: -webkit-sticky; /* For Safari */
+        position: sticky;
+        top: 30px;
+        align-self: flex-start;
+    }
+}
+
+/* Modal */
 .modal {
-    display: none; /* Mặc định ẩn */
+    display: none;
     position: fixed;
     z-index: 1000;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0,0,0,0.5);
     justify-content: center;
     align-items: center;
 }
-.modal-content {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    max-width: 400px;
-    margin: 15px;
-}
-.modal-buttons { margin-top: 20px; display: flex; gap: 15px; justify-content: center; }
-.modal-buttons button { padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;}
-#confirm-submit-btn { background-color: var(--primary-color); color: #fff; }
-#cancel-submit-btn { background-color: #6c757d; color: #fff; }
 
-/* --- History Table --- */
-#history-container h2 {
+.modal-content {
+    background-color: var(--white-color);
+    padding: 40px;
+    border-radius: 16px;
     text-align: center;
-    margin-bottom: 15px;
+    box-shadow: var(--shadow-hover);
+    max-width: 500px;
 }
-#history-table {
-    width: 100%;
-    border-collapse: collapse;
+
+.modal-content p {
+    font-size: 1.2em;
     margin-bottom: 20px;
 }
-#history-table th, #history-table td {
-    border: 1px solid var(--border-color);
-    padding: 12px;
-    text-align: left;
+
+.modal-content button {
+    padding: 15px 30px;
+    margin: 10px;
+    border-radius: 10px;
+    font-size: 1em;
 }
-#history-table thead {
-    background-color: var(--light-bg);
+#confirm-submit-btn {
+    background-color: var(--correct-color);
+    color: white;
+}
+#cancel-submit-btn {
+    background-color: var(--secondary-color);
+    color: white;
 }
 
-/* --- Responsive cho màn hình lớn (Desktop) --- */
-@media (min-width: 992px) {
-    .main-container {
-        padding: 30px;
+/* Feedback for Flashcards */
+.feedback-area {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--light-bg);
+}
+.feedback-text {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.feedback-correct {
+    color: var(--correct-color);
+}
+.feedback-incorrect {
+    color: var(--incorrect-color);
+}
+/* General Styles (if not already present) */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6; /* Light grey background */
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.page-description {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+}
+
+.breadcrumb {
+    padding: 10px 0;
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.breadcrumb a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* Back Button */
+.back-button {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 30px;
+    transition: background-color 0.3s ease;
+    display: inline-block; /* Để nó không chiếm toàn bộ chiều rộng */
+}
+
+.back-button:hover {
+    background-color: #5a6268;
+}
+
+/* Card Grid for Alphabet Selection */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.alphabet-card {
+    background-color: #fdfdfd;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.alphabet-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.alphabet-card .card-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+/* Specific card colors (optional) */
+.hiragana-card .card-title { color: #e74c3c; } /* Reddish */
+.katakana-card .card-title { color: #2980b9; } /* Blueish */
+.kanji-card .card-title { color: #f39c12; }    /* Orangeish */
+
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-decoration: none; /* In case it's an <a> tag disguised as button */
+    display: block; /* Make buttons take full width of their container */
+    width: 100%;
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.primary-btn {
+    background-color: #007bff; /* Blue */
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: #0056b3;
+}
+
+.secondary-btn {
+    background-color: #6c757d; /* Grey */
+    color: white;
+}
+
+.secondary-btn:hover {
+    background-color: #5a6268;
+}
+
+.disabled-btn {
+    background-color: #e0e0e0;
+    color: #a0a0a0;
+    cursor: not-allowed;
+    transform: none; /* No hover effect for disabled */
+    box-shadow: none;
+}
+
+.disabled-btn:hover {
+    opacity: 1;
+}
+
+/* Game Area (initially hidden) */
+.game-area {
+    margin-top: 40px;
+    padding: 25px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2em;
     }
-    .quiz-body {
-        flex-direction: row; /* Chuyển sang layout 2 cột */
-        gap: 30px;
-        align-items: flex-start;
+    .page-description {
+        font-size: 1em;
     }
-    .question-main {
-        padding-right: 0;
+    .card-grid {
+        grid-template-columns: 1fr; /* Stack cards on smaller screens */
     }
-    .quiz-sidebar {
-        width: 320px;
-        flex-shrink: 0; /* Không co lại */
-        margin-top: 0;
-        position: sticky; /* Dính lại khi cuộn */
-        top: 20px;
-    }
-    .palette-container {
-        /* Yêu cầu 10 câu 1 hàng, nhưng 8 sẽ hợp lý hơn với chiều rộng 320px */
-        grid-template-columns: repeat(8, 1fr);
-    }
+}
+/* =============================================== */
+/* == CSS CHO TRANG BẢNG CHỮ CÁI (ALPHABET PAGE) == */
+/* =============================================== */
+
+.page-description {
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--secondary-color);
+    margin-top: -20px;
+    margin-bottom: 40px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.alphabet-card {
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    background: linear-gradient(145deg, var(--white-color), var(--light-bg));
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.alphabet-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+.alphabet-card .card-title {
+    font-size: 3.5em; /* Tăng kích thước chữ Nhật */
+    margin: 0;
+    font-weight: 700;
+}
+
+.alphabet-card .card-subtitle {
+    font-size: 1.2em;
+    color: var(--secondary-color);
+    margin-top: 5px;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+/* Thêm màu sắc đặc trưng cho từng loại */
+.hiragana-card { border-bottom: 5px solid #e74c3c; }
+.hiragana-card .card-title { color: #e74c3c; } /* Màu đỏ cam */
+
+.katakana-card { border-bottom: 5px solid #3498db; }
+.katakana-card .card-title { color: #3498db; } /* Màu xanh dương */
+
+.kanji-card { border-bottom: 5px solid #f39c12; }
+.kanji-card .card-title { color: #f39c12; } /* Màu vàng */
+
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.button-group .btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    background-color: var(--light-bg);
+    color: var(--dark-text);
+}
+
+.button-group .btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-hover);
+}
+
+.button-group .disabled-btn {
+    background-color: #e9ecef;
+    color: #adb5bd;
+    cursor: not-allowed;
+}
+
+.button-group .disabled-btn:hover {
+    background-color: #e9ecef;
+    color: #adb5bd;
+    border-color: transparent;
+}
+
+.game-area {
+    margin-top: 40px;
+    padding: 30px;
+    border-radius: 16px;
+    background-color: var(--light-bg);
+}
+/* ======================================= */
+/* == BỔ SUNG CHO MENU DẠNG THẺ (CARD) == */
+/* ======================================= */
+
+.module-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.menu-card {
+    display: block;
+    background: var(--white-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 25px;
+    text-decoration: none;
+    color: inherit; /* Kế thừa màu chữ từ thẻ cha */
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary-color);
+}
+
+.menu-card h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: var(--primary-hover, #357ABD); /* Dùng màu có sẵn hoặc màu dự phòng */
+}
+
+.menu-card p {
+    font-size: 1em;
+    color: var(--secondary-color, #6c757d);
+    line-height: 1.6;
 }
