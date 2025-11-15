@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Chào bạn, tôi đã phân tích cấu trúc file mới từ các ảnh chụp màn hình bạn cung cấp.
 
 Bạn đã thêm rất nhiều tính năng mới\! Trang web giờ đây có thêm các module nội dung riêng cho `JPD123_Web` và `MAI391_Web`, một trang `flashcards.html` chuyên dụng, và thư mục `js/` của bạn đã được module hóa rất rõ ràng.
@@ -48,21 +47,21 @@ Dự án được tổ chức theo cấu trúc module hóa để dễ dàng qu�
 │   └── SSL101c_...webp
 │
 ├── JPD113_Web/                 # Module học Tiếng Nhật 1 (JPD113)
-│   ├── index.html
+│   ├── JPD113_index.html
 │   └── ...
 │
 ├── JPD123_Web/                 # Module học Tiếng Nhật 2 (JPD123)
-│   ├── index.html
+│   ├── JPD123_index.html
 │   └── ...
 │
 ├── MAI391_Web/                 # Module Sổ tay Toán (MAI391)
-│   ├── index.html
-│   ├── chapter_3.html
+│   ├── MAI391_index.html
+│   ├── MAI391_chapter_...html
 │   └── ...
 │
 └── MAS291_Web/                 # Module Sổ tay Xác suất Thống kê (MAS291)
-    ├── index.html
-    ├── chapter_1.html
+    ├── MAS291_index.html
+    ├── MAS291_chapter_...html
     └── ...
 ```
 

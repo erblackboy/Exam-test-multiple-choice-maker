@@ -1364,7 +1364,7 @@ const mai391_questions = [
         status: "verified",
         question: "Let $A = \\begin{bmatrix} -2 & 1 \\\\ 2 & 1 \\end{bmatrix}$, $\\lambda = \\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix}$, $c = \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ and $x \\in \\mathbb{R}^2$. Consider the function $f(x) = (c + A\\lambda)^T x + \\lambda^T c$. Find the gradient of f with respect to x.",
         options: ["a. [0 5]", "b. [2 5]", "c. [1 5]", "d. [3 2]", "e. [1 4]"],
-        answer: 4, // e. [0 5] (Lưu ý: Đáp án đúng là [0 5], tương ứng với lựa chọn 'e' trong file PDF gốc nhưng được liệt kê là 'a' ở đây. Tôi chọn 'e' (chỉ số 4) để khớp với giá trị [0 5])
+        answer: 0, // a. [0 5]
         explanation: "Công thức: Hàm $f(x)$ có dạng $f(x) = b^T x + d$, trong đó $b$ là vector hằng và $d$ là hằng số vô hướng. Gradient của hàm này theo $x$ là $\\nabla_x f(x) = b$.\n\n1.  **Xác định $b$ và $d$:**\n    * $b = c + A\\lambda$\n    * $d = \\lambda^T c$ (đây là một hằng số vô hướng, đạo hàm của nó bằng 0)\n    * Do đó, $\\nabla_x f(x) = b = c + A\\lambda$.\n\n2.  **Tính $A\\lambda$:**\n    * $A\\lambda = \\begin{bmatrix} -2 & 1 \\\\ 2 & 1 \\end{bmatrix} \\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} (-2)(1) + (1)(1) \\\\ (2)(1) + (1)(1) \\end{bmatrix} = \\begin{bmatrix} -1 \\\\ 3 \\end{bmatrix}$.\n\n3.  **Tính $b = c + A\\lambda$:**\n    * $b = \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix} + \\begin{bmatrix} -1 \\\\ 3 \\end{bmatrix} = \\begin{bmatrix} 1 + (-1) \\\\ 2 + 3 \\end{bmatrix} = \\begin{bmatrix} 0 \\\\ 5 \\end{bmatrix}$.\n\n4.  **Kết luận:**\n    * Gradient $\\nabla_x f(x) = \\begin{bmatrix} 0 \\\\ 5 \\end{bmatrix}$. Các đáp án được viết ở dạng hàng là $[0, 5]$."
     },
     {
@@ -1395,8 +1395,8 @@ const mai391_questions = [
         id: "mai391_pdf_066",
         status: "verified",
         question: "Let $f(x) = x \\sin x$. Find the coefficient of the term $(x - \\pi/6)^2$ in the Taylor series.",
-        options: ["A. $\\frac{\\pi\\sqrt{3}}{12} + \\frac{1}{2}$", "B. $-\\frac{\\pi\\sqrt{3}}{12} - \\frac{1}{2}$", "C. $\\frac{\\pi\\sqrt{3}}{12} + \\frac{1}{2}$", "D. $-\\frac{\\pi}{24} + \\frac{\\sqrt{3}}{2}$", "E. $-\\frac{\pi}{24} - \\frac{\\sqrt{3}}{2}$"],
-        answer: 1, // (a. C, b. D, c. B, d. E, e. A) -> chọn 'b' vì nó trỏ tới D
+        options: ["a. $\\frac{\\pi\\sqrt{3}}{12} + \\frac{1}{2}$", "b. $-\\frac{\\pi\\sqrt{3}}{12} - \\frac{1}{2}$", "c. $\\frac{\\pi\\sqrt{3}}{12} - \\frac{1}{2}$", "d. $\\frac{\\sqrt{3}}{2} - \\frac{\\pi}{24}$", "e. $-\\frac{\\pi}{24} - \\frac{\\sqrt{3}}{2}$"],
+        answer: 3, // d. $\frac{\sqrt{3}}{2} - \frac{\pi}{24}$
         explanation: "Công thức: Hệ số $C_n$ của số hạng $(x-a)^n$ trong chuỗi Taylor là $C_n = \\frac{f^{(n)}(a)}{n!}$.\n\n1.  **Xác định tham số:**\n    * Ta cần hệ số của $n=2$ (số hạng bậc 2).\n    * Điểm khai triển là $a = \\pi/6$.\n    * Ta cần tìm $C_2 = \\frac{f''(a)}{2!} = \\frac{f''(\\pi/6)}{2}$.\n\n2.  **Tính đạo hàm:**\n    * $f(x) = x \\sin x$\n    * $f'(x) = (1)\\sin x + x(\\cos x) = \\sin x + x \\cos x$\n    * $f''(x) = \\cos x + ( (1)\\cos x + x(-\\sin x) ) = 2\\cos x - x \\sin x$\n\n3.  **Tính giá trị đạo hàm $f''(a)$:**\n    * $f''(\\pi/6) = 2\\cos(\\pi/6) - (\\pi/6)\\sin(\\pi/6)$\n    * $f''(\\pi/6) = 2(\\frac{\\sqrt{3}}{2}) - (\\frac{\\pi}{6})(\\frac{1}{2}) = \\sqrt{3} - \\frac{\\pi}{12}$\n\n4.  **Tính hệ số $C_2$:**\n    * $C_2 = \\frac{f''(\\pi/6)}{2} = \\frac{\\sqrt{3} - \\pi/12}{2} = \\frac{\\sqrt{3}}{2} - \\frac{\\pi}{24}$.\n\n5.  **So khớp:**\n    * Kết quả $\\frac{\\sqrt{3}}{2} - \\frac{\pi}{24}$ khớp với lựa chọn D."
     },
     {
@@ -1460,8 +1460,8 @@ const mai391_questions = [
         status: "verified",
         question: "Consider the bivariate Gaussian distribution: \n$p(x_1, x_2) = N(\\mu, \\Sigma)$, where $\\mu^T = [1, 2]$, $\\Sigma = \\begin{bmatrix} 4 & -2 \\\\ -2 & 9 \\end{bmatrix}$. \nWhat is the mean of $X_1$ given $X_2 = -1$?",
         options: ["a. 1/3", "b. 2", "c. 5/3", "d. 1"],
-        answer: 0, // a. 1/3
-        explanation: "Công thức: Trung bình có điều kiện $E[X_1 | X_2=x_2]$ cho phân phối Gaussian đa biến được tính bởi:\n$E[X_1 | X_2=x_2] = \\mu_1 + \\Sigma_{12} \\Sigma_{22}^{-1} (x_2 - \\mu_2)$.\n\n1.  **Xác định các thành phần từ $\\mu$ và $\\Sigma$:**\n    * $\\mu^T = [1, 2] \implies \\mu = \\begin{bmatrix} \\mu_1 \\\\ \\mu_2 \\end{bmatrix} = \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$. (Vậy $\\mu_1 = 1$, $\\mu_2 = 2$).\n    * $\\Sigma = \\begin{bmatrix} \\Sigma_{11} & \\Sigma_{12} \\\\ \\Sigma_{21} & \\Sigma_{22} \\end{bmatrix} = \\begin{bmatrix} 4 & -2 \\\\ -2 & 9 \\end{bmatrix}$. (Vậy $\\Sigma_{12} = -2$, $\\Sigma_{22} = 9$).\n    * Giá trị điều kiện: $x_2 = -1$.\n\n2.  **Tính $\\Sigma_{22}^{-1}$:**\n    * Vì $\\Sigma_{22}$ là vô hướng [9], nghịch đảo của nó là $\\Sigma_{22}^{-1} = 1/9$.\n\n3.  **Thay vào công thức:**\n    * $E[X_1 | X_2=-1] = 1 + (-2) (1/9) (-1 - 2)$.\n\n4.  **Tính toán:**\n    * $E = 1 + (-2/9)(-3) = 1 + (6/9) = 1 + 2/3 = 5/3$.\n    *(Xin lỗi, tôi đã tính nhầm, hãy làm lại)*\n    * $E = 1 + (-2/9)(-3) = 1 + (6/9) = 1 + \\frac{2}{3} = \\frac{3}{3} + \\frac{2}{3} = \\frac{5}{3}$.\n    * *Kiểm tra lại đề bài và các đáp án.* Câu trả lời là 5/3 (c), nhưng tôi đã chọn (a) 1/3. Hãy kiểm tra lại. \n    * $\mu_1 = 1$. $\Sigma_{12} = -2$. $\Sigma_{22}^{-1} = 1/9$. $x_2 = -1$. $\mu_2 = 2$.\n    * $E = 1 + (-2)(1/9)(-1 - 2) = 1 + (-2/9)(-3) = 1 + (6/9) = 1 + 2/3 = 5/3$.\n    * Có vẻ như đáp án tôi chọn ban đầu (a) 1/3 là sai, và đáp án đúng là (c) 5/3. \n\n    * *Hãy giả sử $\mu^T = [1, 2]$ bị đọc nhầm và $\mu = [1, 2]^T$ mới là đúng. Điều này không thay đổi gì.* \n    * *Hãy giả sử $\mu^T = [1, 2]$ nghĩa là $\mu_1 = 1, \mu_2 = 2$. Tính toán là $5/3$.* \n    * *Hãy giả sử $\mu^T = [2, 1]$ nghĩa là $\mu_1 = 2, \mu_2 = 1$. $E = 2 + (-2)(1/9)(-1 - 1) = 2 + (-2/9)(-2) = 2 + 4/9 = 22/9$.* \n    * *Hãy giả sử $\mu^T = [1, 2]$ là đúng và tôi đã tính sai $5/3$. $5/3 \approx 1.66$.* \n    * *Tính toán lại:* $1 + (-2)(1/9)(-3) = 1 + (6/9) = 1 + 2/3 = 5/3$. \n    * Đáp án (c) là $5/3$. Đáp án (a) là $1/3$. Rõ ràng tôi nên chọn (c). \n    * **Sửa lại:** Chọn (c) 5/3."
+        answer: 2, // c. 5/3
+        explanation: "Công thức: Trung bình có điều kiện $E[X_1 | X_2=x_2]$ cho phân phối Gaussian đa biến được tính bởi:\n$E[X_1 | X_2=x_2] = \\mu_1 + \\Sigma_{12} \\Sigma_{22}^{-1} (x_2 - \\mu_2)$.\n\n1.  **Xác định các thành phần từ $\\mu$ và $\\Sigma$:**\n    * $\\mu^T = [1, 2] \implies \\mu = \\begin{bmatrix} \\mu_1 \\\\ \\mu_2 \\end{bmatrix} = \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$. (Vậy $\\mu_1 = 1$, $\\mu_2 = 2$).\n    * $\\Sigma = \\begin{bmatrix} \\Sigma_{11} & \\Sigma_{12} \\\\ \\Sigma_{21} & \\Sigma_{22} \\end{bmatrix} = \\begin{bmatrix} 4 & -2 \\\\ -2 & 9 \\end{bmatrix}$. (Vậy $\\Sigma_{12} = -2$, $\\Sigma_{22} = 9$).\n    * Giá trị điều kiện: $x_2 = -1$.\n\n2.  **Tính $\\Sigma_{22}^{-1}$:**\n    * Vì $\\Sigma_{22}$ là vô hướng [9], nghịch đảo của nó là $\\Sigma_{22}^{-1} = 1/9$.\n\n3.  **Thay vào công thức:**\n    * $E[X_1 | X_2=-1] = 1 + (-2) (1/9) (-1 - 2)$.\n\n4.  **Tính toán:**\n    * $E = 1 + (-2/9)(-3) = 1 + (6/9) = 1 + 2/3 = 5/3$."
     },
     {
         id: "mai391_pdf_076",
@@ -1492,8 +1492,8 @@ const mai391_questions = [
         status: "verified",
         question: "Suppose that the characteristic polynomial of a matrix is given $p_A(x) = (1-x)(x+3)^2$. Find $\\det(A) + \\text{Tr}(A)$.",
         options: ["a. 9", "b. 3", "c. None of the others", "d. 4", "e. -5"],
-        answer: 4, // e. -5
-        explanation: "Lý thuyết:\n1.  **Trace (Vết):** $\\text{Tr}(A)$ bằng tổng các giá trị riêng (eigenvalues).\n2.  **Determinant (Định thức):** $\\det(A)$ bằng tích các giá trị riêng.\n\n1.  **Tìm các giá trị riêng:**\n    * Các giá trị riêng $\\lambda$ là nghiệm của đa thức đặc trưng $p_A(x) = 0$.\n    * $(1-x)(x+3)^2 = 0$.\n    * Các nghiệm là: $\\lambda_1 = 1, \\lambda_2 = -3, \\lambda_3 = -3$.\n\n2.  **Tính $\\text{Tr}(A)$:**\n    * $\\text{Tr}(A) = \\sum \\lambda_i = 1 + (-3) + (-3) = 1 - 6 = -5$.\n\n3.  **Tính $\\det(A)$:**\n    * $\\det(A) = \\prod \\lambda_i = 1 \\times (-3) \\times (-3) = 9$.\n\n4.  **Tính tổng:**\n    * $\\det(A) + \\text{Tr}(A) = 9 + (-5) = 4$.\n    * *Lỗi: Kết quả tính toán là 4. Hãy kiểm tra lại.* \n    * $\\det(A) = 9$, $\\text{Tr}(A) = -5$. Tổng là 4. Đáp án 4 tương ứng với (d). \n    * *Hãy kiểm tra lại $p_A(x) = \det(A - xI)$.* \n    * $p_A(0) = \det(A - 0I) = \det(A)$. \n    * $p_A(0) = (1-0)(0+3)^2 = 1 \cdot 3^2 = 9$. Vậy $\det(A) = 9$. (Đúng)\n    * $p_A(x) = (-1)^n x^n + (-1)^{n-1} \\text{Tr}(A) x^{n-1} + \dots + \det(A)$.\n    * $p_A(x) = (1-x)(x^2 + 6x + 9) = x^2 + 6x + 9 - x^3 - 6x^2 - 9x = -x^3 - 5x^2 - 3x + 9$.\n    * $n=3$, $p_A(x) = -x^3 + \\text{Tr}(A) x^2 + \dots$\n    * So sánh: $\\text{Tr}(A) = -5$. (Đúng)\n    * Tổng $\det(A) + \text{Tr}(A) = 9 + (-5) = 4$. \n    * Đáp án (d) là 4, đáp án (e) là -5.\n    * Có vẻ như tôi đã chọn nhầm đáp án (e) trong khi tính ra (d). Sửa lại: chọn (d).\n\n    * **Sửa lại:** Chọn (d) 4."
+        answer: 3, // d. 4
+        explanation: "Lý thuyết:\n1.  **Trace (Vết):** $\\text{Tr}(A)$ bằng tổng các giá trị riêng (eigenvalues).\n2.  **Determinant (Định thức):** $\\det(A)$ bằng tích các giá trị riêng.\n\n1.  **Tìm các giá trị riêng:**\n    * Các giá trị riêng $\\lambda$ là nghiệm của đa thức đặc trưng $p_A(x) = 0$.\n    * $(1-x)(x+3)^2 = 0$.\n    * Các nghiệm là: $\\lambda_1 = 1, \\lambda_2 = -3, \\lambda_3 = -3$.\n\n2.  **Tính $\\text{Tr}(A)$:**\n    * $\\text{Tr}(A) = \\sum \\lambda_i = 1 + (-3) + (-3) = 1 - 6 = -5$.\n\n3.  **Tính $\\det(A)$:**\n    * $\\det(A) = \\prod \\lambda_i = 1 \\times (-3) \\times (-3) = 9$.\n\n4.  **Tính tổng:**\n    * $\\det(A) + \\text{Tr}(A) = 9 + (-5) = 4$."
     },
     {
         id: "mai391_pdf_080",
@@ -1605,6 +1605,411 @@ const mai391_questions = [
         question: "Let $f(x,y) = vw - u^2 + v$ where $u = x+2y, v = 1-xy, w = x-y$. Evaluate $\\frac{\\partial f}{\\partial y}(0,1)$.",
         options: ["a. 0", "b. -9", "c. -4", "d. -3"],
         answer: 1, // b. -9
-        explanation: `Công thức: Sử dụng Quy tắc Chuỗi (Chain Rule) cho nhiều biến trung gian.\n$\\frac{\\partial f}{\\partial y} = \\frac{\\partial f}{\\partial u} \\frac{\partial u}{\\partial y} + \\frac{\\partial f}{\\partial v} \\frac{\\partial v}{\\partial y} + \\frac{\\partial f}{\\partial w} \\frac{\\partial w}{\\partial y}$.\n\n1.  **Tính các đạo hàm của $f$ (theo $u, v, w$):**\n    * $\\frac{\\partial f}{\\partial u} = -2u$.\n    * $\\frac{\\partial f}{\\partial v} = w + 1$.\n    * $\\frac{\\partial f}{\\partial w} = v$.\n\n2.  **Tính các đạo hàm của $u, v, w$ (theo $y$):**\n    * $\\frac{\\partial u}{\\partial y} = 2$.\n    * $\\frac{\\partial v}{\\partial y} = -x$.\n    * $\\frac{\\partial w}{\\partial y} = -1$.\n\n3.  **Tính giá trị $u, v, w$ tại điểm $(x,y) = (0,1)$:**\n    * $u = 0 + 2(1) = 2$.\n    * $v = 1 - (0)(1) = 1$.\n    * $w = 0 - 1 = -1$.\n\n4.  **Thế các giá trị tại (0,1) vào các đạo hàm (Bước 1 & 2):**\n    * $\\frac{\\partial f}{\\partial u} = -2(2) = -4$.\n    * $\\frac{\\partial f}{\\partial v} = (-1) + 1 = 0$.\n    * $\\frac{\\partial f}{\\partial w} = 1$.\n    * $\\frac{\\partial u}{\\partial y} = 2$.\n    * $\\frac{\\partial v}{\\partial y} = -0 = 0$.\n    * $\\frac{\\partial w}{\\partial y} = -1$.\n\n5.  **Lắp ráp công thức $\\frac{\\partial f}{\\partial y}$:**\n    * $\\frac{\\partial f}{\\partial y} = (-4)(2) + (0)(0) + (1)(-1) = -8 + 0 - 1 = -9$.`
+        explanation: "Công thức: Sử dụng Quy tắc Chuỗi (Chain Rule) cho nhiều biến trung gian.\n$\\frac{\\partial f}{\\partial y} = \\frac{\\partial f}{\\partial u} \\frac{\partial u}{\\partial y} + \\frac{\\partial f}{\\partial v} \\frac{\\partial v}{\\partial y} + \\frac{\\partial f}{\\partial w} \\frac{\\partial w}{\\partial y}$.\n\n1.  **Tính các đạo hàm của $f$ (theo $u, v, w$):**\n    * $\\frac{\\partial f}{\\partial u} = -2u$.\n    * $\\frac{\\partial f}{\\partial v} = w + 1$.\n    * $\\frac{\\partial f}{\\partial w} = v$.\n\n2.  **Tính các đạo hàm của $u, v, w$ (theo $y$):**\n    * $\\frac{\\partial u}{\\partial y} = 2$.\n    * $\\frac{\\partial v}{\\partial y} = -x$.\n    * $\\frac{\\partial w}{\\partial y} = -1$.\n\n3.  **Tính giá trị $u, v, w$ tại điểm $(x,y) = (0,1)$:**\n    * $u = 0 + 2(1) = 2$.\n    * $v = 1 - (0)(1) = 1$.\n    * $w = 0 - 1 = -1$.\n\n4.  **Thế các giá trị tại (0,1) vào các đạo hàm (Bước 1 & 2):**\n    * $\\frac{\\partial f}{\\partial u} = -2(2) = -4$.\n    * $\\frac{\\partial f}{\\partial v} = (-1) + 1 = 0$.\n    * $\\frac{\\partial f}{\\partial w} = 1$.\n    * $\\frac{\\partial u}{\\partial y} = 2$.\n    * $\\frac{\\partial v}{\\partial y} = -0 = 0$.\n    * $\\frac{\\partial w}{\\partial y} = -1$.\n\n5.  **Lắp ráp công thức $\\frac{\\partial f}{\\partial y}$:**\n    * $\\frac{\\partial f}{\\partial y} = (-4)(2) + (0)(0) + (1)(-1) = -8 + 0 - 1 = -9$."
+    },
+    {
+        "id": "mai391_pdf_094",
+        "status": "verified",
+        "question": "Let $X$ and $Y$ be independent random variables taking values in the positive integers and having the same mass function $f(x) = 2^{-x}$, for $x = 1, 2, ...$ Find the probability $P(X = Y)$.",
+        "options": [
+        "a. 1/3",
+        "b. 0.25",
+        "c. 0.2",
+        "d. 0.5",
+        "e. None of the other choices is correct"
+        ],
+        "answer": 0, // a. 1/3
+        "explanation": "Vì $X$ và $Y$ độc lập, $P(X=k, Y=k) = P(X=k)P(Y=k) = (2^{-k})(2^{-k}) = 4^{-k}$.\n$P(X=Y) = \sum_{k=1}^{\infty} P(X=k, Y=k) = \sum_{k=1}^{\infty} (1/4)^k$.\nĐây là tổng của một chuỗi hình học (geometric series) với số hạng đầu $a = 1/4$ và công bội $r = 1/4$.\nTổng là $S = \frac{a}{1-r} = \frac{1/4}{1 - 1/4} = \frac{1/4}{3/4} = 1/3$."
+    },
+    {
+        id: "mai391_pdf_095",
+        status: "verified",
+        question: "Let A be an invertible square matrix of size 2x2. Let 1 and 2 be the two singular values of A. Choose the correct answer : (i) 1 and 1/2 are two singular values of matrix $A^{-1}$ (ii) 1 and 1/2 are two singular values of matrix $A^T$ (iii) -1 and -2 are two singular values of matrix $A^{-1}$ (iv) 1 and $\sqrt{2}$ are two singular values of matrix $A^T$",
+        options: ["a. (ii)", "b. (iii)", "c. (iv)", "d. (i)"],
+        answer: 3, // d. (i)
+        explanation: "Các giá trị suy biến (singular values) của A là $\sigma_1=1, \sigma_2=2$.\n1. Giá trị suy biến của $A^T$ giống hệt $A$, tức là 1 và 2. Do đó (ii) và (iv) sai.\n2. Giá trị suy biến của $A^{-1}$ là $1/\sigma_i$. Tức là $1/1 = 1$ và $1/2$. Do đó (i) đúng.\n3. Giá trị suy biến luôn không âm, do đó (iii) sai."
+    },
+    {
+        id: "mai391_pdf_096",
+        status: "verified",
+        question: "Let $\mathbf{x} = [x_1 \ x_2]^T$, $\mathbf{y} = [y_1 \ y_2]^T$ in $\mathbb{R}^2$. The cosine of the angle between the vectors $[2 \ 1]^T$ and $[-1 \ 1]^T$ using the inner product $\langle \mathbf{x}, \mathbf{y} \rangle = x_1y_1 + x_1y_2 + x_2y_1 + 3x_2y_2$ is: (i) $-2/\sqrt{11}$ (ii) $2/\sqrt{11}$ (iii) $-\sqrt{2/11}$ (iv) $\sqrt{2/11}$",
+        options: ["a. (i)", "b. (iv)", "c. (iii)", "d. (ii)"],
+        answer: 1, // b. (iv)
+        explanation: "Sử dụng công thức $\cos(\theta) = \frac{\langle \mathbf{x}, \mathbf{y} \rangle}{\|\mathbf{x}\| \|\mathbf{y}\|}$, trong đó $\|\mathbf{v}\| = \sqrt{\langle \mathbf{v}, \mathbf{v} \rangle}$.\nĐặt $\mathbf{x} = [2, 1]^T$ và $\mathbf{y} = [-1, 1]^T$.\n1. $\langle \mathbf{x}, \mathbf{y} \rangle = (2)(-1) + (2)(1) + (1)(-1) + 3(1)(1) = -2 + 2 - 1 + 3 = 2$.\n2. $\|\mathbf{x}\|^2 = \langle \mathbf{x}, \mathbf{x} \rangle = (2)(2) + (2)(1) + (1)(2) + 3(1)(1) = 4 + 2 + 2 + 3 = 11 \implies \|\mathbf{x}\| = \sqrt{11}$.\n3. $\|\mathbf{y}\|^2 = \langle \mathbf{y}, \mathbf{y} \rangle = (-1)(-1) + (-1)(1) + (1)(-1) + 3(1)(1) = 1 - 1 - 1 + 3 = 2 \implies \|\mathbf{y}\| = \sqrt{2}$.\n4. $\cos(\theta) = \frac{2}{\sqrt{11} \sqrt{2}} = \frac{2}{\sqrt{22}} = \sqrt{\frac{4}{22}} = \sqrt{\frac{2}{11}}$."
+    },
+    {
+        id: "mai391_pdf_097",
+        status: "verified",
+        question: "In $\mathbb{R}^2$, consider an inner product given by $\langle x, y \rangle = x_1y_1 - (x_1y_2 + x_2y_1) + 2x_2y_2$, where $x = [x_1 \ x_2]^T$ and $y = [y_1 \ y_2]^T$. Compute $\langle x, y \rangle$ if $x = [0 \ 1]^T$ and $y = [1 \ 0]^T$.",
+        options: ["a. 2", "b. 0", "c. -1", "d. 3", "e. 1"],
+        answer: 2, // c. -1
+        explanation: "Thay $x_1=0, x_2=1$ và $y_1=1, y_2=0$ vào công thức tích vô hướng:\n$\langle x, y \rangle = (0)(1) - ((0)(0) + (1)(1)) + 2(1)(0) = 0 - (0 + 1) + 0 = -1$."
+    },
+    {
+        id: "mai391_pdf_098",
+        status: "verified",
+        question: "Let $X = [1 \ 2 \ 3]^T$ and $U = \text{span}\{[1 \ 1 \ 1]^T, [-1 \ 1 \ 0]^T\}$. Let $[a \ b \ c]^T$ be the projection of $X$ on $U$. Find $c$.",
+        options: [
+        "a. 2",
+        "b. 3/2",
+        "c. 5/2",
+        "d. None of the other choices is correct"
+        ],
+        answer: 0, // a. 2
+        explanation: "Đặt $\mathbf{u}_1 = [1, 1, 1]^T$ và $\mathbf{u}_2 = [-1, 1, 0]^T$. Kiểm tra tích vô hướng: $\mathbf{u}_1 \cdot \mathbf{u}_2 = (1)(-1) + (1)(1) + (1)(0) = 0$. Vì tích vô hướng bằng 0, hai vector này trực giao.\nHình chiếu $\mathbf{p} = [a, b, c]^T$ của $X$ lên $U$ được tính bằng công thức hình chiếu trực giao:\n$\mathbf{p} = \frac{X \cdot \mathbf{u}_1}{\|\mathbf{u}_1\|^2} \mathbf{u}_1 + \frac{X \cdot \mathbf{u}_2}{\|\mathbf{u}_2\|^2} \mathbf{u}_2$\n1. $X \cdot \mathbf{u}_1 = (1)(1) + (2)(1) + (3)(1) = 6$. $\|\mathbf{u}_1\|^2 = 1^2 + 1^2 + 1^2 = 3$.\n2. $X \cdot \mathbf{u}_2 = (1)(-1) + (2)(1) + (3)(0) = 1$. $\|\mathbf{u}_2\|^2 = (-1)^2 + 1^2 + 0^2 = 2$.\n3. $\mathbf{p} = \frac{6}{3} \mathbf{u}_1 + \frac{1}{2} \mathbf{u}_2 = 2[1, 1, 1]^T + \frac{1}{2}[-1, 1, 0]^T$\n$\mathbf{p} = [2, 2, 2]^T + [-1/2, 1/2, 0]^T = [2 - 1/2, 2 + 1/2, 2 + 0]^T = [3/2, 5/2, 2]^T$.\nVì $\mathbf{p} = [a, b, c]^T$, ta có $c = 2$."
+    },
+    {
+        id: "mai391_pdf_099",
+        status: "verified",
+        question: "Find the determinant of the Hessian of $f(x, y) = 3x^2y + xy^2 + 4xy + 5x - 3y + 7$ at $(x, y) = (1, -1)$.",
+        options: ["a. -78", "b. -75", "c. -79", "d. -77", "e. -76"],
+        answer: 4, // e. -76
+        explanation: "Ma trận Hessian là $H = \begin{bmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{bmatrix}$.\n1. Tính các đạo hàm riêng cấp 1:\n$f_x = 6xy + y^2 + 4y + 5$\n$f_y = 3x^2 + 2xy + 4x - 3$\n2. Tính các đạo hàm riêng cấp 2:\n$f_{xx} = 6y$\n$f_{xy} = 6x + 2y + 4$\n$f_{yy} = 2x$\n3. Thế điểm $(1, -1)$ vào các đạo hàm cấp 2:\n$f_{xx}(1, -1) = 6(-1) = -6$\n$f_{xy}(1, -1) = 6(1) + 2(-1) + 4 = 6 - 2 + 4 = 8$\n$f_{yy}(1, -1) = 2(1) = 2$\n4. Ma trận Hessian tại $(1, -1)$ là $H = \begin{bmatrix} -6 & 8 \\ 8 & 2 \end{bmatrix}$.\n5. Tính định thức: $\det(H) = (-6)(2) - (8)(8) = -12 - 64 = -76$."
+    },
+    {
+        id: "mai391_pdf_100",
+        status: "verified",
+        question: "Consider the bivariate Gaussian distribution $p(x, y) = \mathcal{N}\left(\begin{bmatrix} 1 \\ 2 \end{bmatrix}, \begin{bmatrix} 0.8 & 0.3 \\ 0.3 & 1 \end{bmatrix}\right)$. The variance of $X + Y$ is (i) 2.4 (ii) 1.8 (iii) 0.6 (iv) 1.2",
+        options: [
+        "a. (i)",
+        "b. (iv)",
+        "c. (iii)",
+        "d. None of the other choices is correct",
+        "e. (ii)"
+        ],
+        answer: 0, // a. (i)
+        explanation: "Từ phân phối Gaussian, ta có ma trận hiệp phương sai (covariance matrix) là:\n$\Sigma = \begin{bmatrix} \text{Var}(X) & \text{Cov}(X, Y) \\ \text{Cov}(Y, X) & \text{Var}(Y) \end{bmatrix} = \begin{bmatrix} 0.8 & 0.3 \\ 0.3 & 1 \end{bmatrix}$.\nDo đó, $\text{Var}(X) = 0.8$, $\text{Var}(Y) = 1$, và $\text{Cov}(X, Y) = 0.3$.\nSử dụng công thức tính phương sai của tổng:\n$\text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y) + 2 \text{Cov}(X, Y)$\n$\text{Var}(X + Y) = 0.8 + 1 + 2(0.3) = 1.8 + 0.6 = 2.4$."
+    },
+    {
+        id: "mai391_pdf_101",
+        status: "verified",
+        question: "Which of the following statement is INCORRECT ? 1. $Trace(A + B) = Trace(A) + Trace(B)$ for all square matrices A, B. 2. $Trace(CAC^{-1}) = Trace(A)$ for all invertible square matrices A, C. 3. $Trace(A^{-1}) = 1 / Trace(A)$ for all invertible square matrices A.",
+        options: ["a. 3", "b. 1", "c. 2", "d. 1 and 2"],
+        answer: 0, // a. 3
+        explanation: "1. $Trace(A + B) = Trace(A) + Trace(B)$: Đây là tính chất tuyến tính của Trace. (Đúng)\n2. $Trace(CAC^{-1}) = Trace(A)$: Đây là tính chất bất biến cyclic của Trace: $Trace(XY) = Trace(YX)$. Đặt $X=CA$ và $Y=C^{-1}$, ta có $Trace((CA)C^{-1}) = Trace(C^{-1}(CA)) = Trace((C^{-1}C)A) = Trace(IA) = Trace(A)$. (Đúng)\n3. $Trace(A^{-1}) = 1 / Trace(A)$: (Sai). Lấy một phản ví dụ đơn giản: $A = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}$. Ta có $Trace(A) = 2 + 2 = 4$. Ma trận nghịch đảo $A^{-1} = \begin{bmatrix} 1/2 & 0 \\ 0 & 1/2 \end{bmatrix}$. Ta có $Trace(A^{-1}) = 1/2 + 1/2 = 1$. Rõ ràng $1 \neq 1/4$."
+    },
+    {
+        id: "mai391_pdf_102",
+        status: "verified",
+        question: "Which of the following statements is true? (i) Every diagonalizable matrix is invertible. (ii) Every invertible matrix is diagonalizable.",
+        options: [
+        "a. Both (i) and (ii)",
+        "b. Only (i)",
+        "c. Neither (i) or (ii)",
+        "d. Only (ii)"
+        ],
+        answer: 2, // c. Neither (i) or (ii)
+        explanation: "(i) Sai. Phản ví dụ: Ma trận không $A = \begin{bmatrix} 0 & 0 \\ 0 & 0 \end{bmatrix}$ là ma trận chéo (do đó chéo hóa được) nhưng không khả nghịch vì $\det(A) = 0$.\n(ii) Sai. Phản ví dụ: Ma trận $A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$ khả nghịch (vì $\det(A) = 1 \neq 0$). Tuy nhiên, nó không chéo hóa được. Nó có giá trị riêng duy nhất $\lambda=1$ với bội đại số là 2, nhưng không gian riêng tương ứng (nghiệm của $(A-I)\mathbf{v} = 0$) chỉ có chiều là 1 (bội hình học là 1)."
+    },
+    {
+        id: "mai391_pdf_103",
+        status: "verified",
+        question: "Which of the following functions on $\mathbb{R}^2$ are convex? $f(x, y) = x^2 + 2y$ $g(x, y) = x^2 - 2y$",
+        options: ["a. Only f", "b. None of f or g", "c. Only g", "d. Both f and g"],
+        answer: 3, // d. Both f and g
+        explanation: "Một hàm $f(x, y)$ là lồi (convex) nếu ma trận Hessian của nó là nửa xác định dương (positive semidefinite), tức là tất cả các giá trị riêng của nó $\ge 0$.\n1. Với $f(x, y) = x^2 + 2y$:\n$f_x = 2x, f_y = 2$\n$f_{xx} = 2, f_{xy} = 0, f_{yy} = 0$\nMa trận Hessian $H_f = \begin{bmatrix} 2 & 0 \\ 0 & 0 \end{bmatrix}$. Các giá trị riêng là 2 và 0. Vì $2 \ge 0$ và $0 \ge 0$, $f$ là lồi.\n2. Với $g(x, y) = x^2 - 2y$:\n$g_x = 2x, g_y = -2$\n$g_{xx} = 2, g_{xy} = 0, g_{yy} = 0$\nMa trận Hessian $H_g = \begin{bmatrix} 2 & 0 \\ 0 & 0 \end{bmatrix}$. Các giá trị riêng là 2 và 0. Vì $2 \ge 0$ và $0 \ge 0$, $g$ cũng là lồi.\nDo đó, cả $f$ và $g$ đều lồi."
+    },
+    {
+        id: "mai391_pdf_104",
+        status: "verified",
+        question: "Let $f(x, y) = x^2y + 3y$. Applying the gradient descent algorithm with the step-size $\gamma = 0.1$, the **momentum** $\alpha = 0.02$ and the initial point $(x_0, y_0) = (1, -1)$, find $x_2$ of the point after $2^{\text{nd}}$ iteration.",
+        options: ["a. -1.852", "b. 0.823", "c. 0.795", "d. 1.54"],
+        answer: 3, // d. 1.54
+        explanation: "Gradient: $\nabla f = [2xy, x^2 + 3]$.\nUpdate rule with momentum: $v_t = \alpha v_{t-1} + \gamma \nabla f(\mathbf{x}_{t-1})$ and $\mathbf{x}_t = \mathbf{x}_{t-1} - v_t$.\nInitial: $\mathbf{x}_0 = (1, -1)$, $v_0 = (0, 0)$.\nIter 1: $\nabla f(1, -1) = [2(1)(-1), 1^2 + 3] = [-2, 4]$. $v_1 = 0.02(0, 0) + 0.1[-2, 4] = [-0.2, 0.4]$. $\mathbf{x}_1 = (1, -1) - [-0.2, 0.4] = (1.2, -1.4)$.\nIter 2: $\nabla f(1.2, -1.4) = [2(1.2)(-1.4), 1.2^2 + 3] = [-3.36, 4.44]$. $v_2 = 0.02[-0.2, 0.4] + 0.1[-3.36, 4.44] = [-0.004, 0.008] + [-0.336, 0.444] = [-0.34, 0.452]$.\n$\mathbf{x}_2 = (1.2, -1.4) - [-0.34, 0.452] = (1.54, -1.852)$.\nVậy $x_2 = 1.54$."
+    },
+    {
+        id: "mai391_pdf_105",
+        status: "verified",
+        question: "Consider a computation graph with inputs $x_1, x_2, x_3$, function value $f$ and intermediate variables $a, b, c, d$. Find the formula of $f$. (i) $\sin(x_2 + x_3) \exp(x_1 x_2)$ (ii) $\sin(x_2 x_3) + \exp(x_1 + x_2)$ (iii) $\sin(x_2 + x_3) + \exp(x_1 x_2)$ (iv) $\sin(x_2 x_3) \exp(x_1 + x_2)$",
+        options: ["a. (i)", "b. (iii)", "c. (iv)", "d. (ii)"],
+        answer: 1, // b. (iii)
+        explanation: "Truy ngược từ $f$:\n$f = b + d$\n$b = \exp(a) = \exp(x_1 \times x_2)$\n$d = \sin(c) = \sin(x_2 + x_3)$\nDo đó, $f = \exp(x_1 x_2) + \sin(x_2 + x_3)$, tương ứng với (iii)."
+    },
+    {
+        id: "mai391_pdf_106",
+        status: "verified",
+        question: "Let s be an eigenvalue of the matrix A. Choose the incorrect answer(s): (i) $1/s$ is an eigenvalue of the matrix $A^{-1}$ if A is invertible (ii) $s^2$ is an eigenvalue of the matrix $A^2$ (iii) $1/s$ is an eigenvalue of the matrix $A^T$ (iv) $1/s$ is an eigenvalue of the matrix $(A^T)^{-1}$ if A is invertible",
+        options: ["a. (iv)", "b. (iii)", "c. (ii)", "d. (i)"],
+        answer: 1, // b. (iii)
+        explanation: "(i) Đúng. $A\mathbf{v} = s\mathbf{v} \implies A^{-1}A\mathbf{v} = sA^{-1}\mathbf{v} \implies \mathbf{v} = sA^{-1}\mathbf{v} \implies A^{-1}\mathbf{v} = (1/s)\mathbf{v}$.\n(ii) Đúng. $A^2\mathbf{v} = A(A\mathbf{v}) = A(s\mathbf{v}) = s(A\mathbf{v}) = s(s\mathbf{v}) = s^2\mathbf{v}$.\n(iii) Sai. $A^T$ có cùng giá trị riêng với $A$ vì $\det(A - \lambda I) = \det((A - \lambda I)^T) = \det(A^T - \lambda I)$. Vậy giá trị riêng của $A^T$ phải là $s$, không phải $1/s$.\n(iv) Đúng. $A^T$ có giá trị riêng là $s$. Theo (i), nghịch đảo của nó, $(A^T)^{-1}$, có giá trị riêng là $1/s$."
+    },
+    {
+        id: "mai391_pdf_107",
+        status: "verified",
+        question: "Consider the following bivariate distribution $p(x, y)$ of two discrete random variables $X$ and $Y$. Bảng phân phối: $\begin{array}{c|ccc} & & Y & \\ X & 1 & 2 & 3 \\ \hline -1 & 0.1 & 0.2 & 0.3 \\ 1 & 0.1 & 0.1 & 0.2 \end{array}$ Compute $E(Y | X = 1)$.",
+        options: [
+        "a. 2",
+        "b. 2.5",
+        "c. None of the other choices is correct",
+        "d. 2.25",
+        "e. 2.75"
+        ],
+        answer: 3, // d. 2.25
+        explanation: "Sử dụng công thức $E(Y | X = 1) = \sum_{y} y \cdot P(Y=y | X=1)$.\n1. Tính xác suất $P(X=1)$ (tổng hàng $X=1$): $P(X=1) = 0.1 + 0.1 + 0.2 = 0.4$.\n2. Tính $P(Y=y | X=1) = \frac{P(X=1, Y=y)}{P(X=1)}$:\n$P(Y=1 | X=1) = 0.1 / 0.4 = 0.25$\n$P(Y=2 | X=1) = 0.1 / 0.4 = 0.25$\n$P(Y=3 | X=1) = 0.2 / 0.4 = 0.5$\n3. Tính kỳ vọng có điều kiện: $E(Y | X = 1) = (1 \times 0.25) + (2 \times 0.25) + (3 \times 0.5) = 0.25 + 0.5 + 1.5 = 2.25$."
+    },
+    {
+        id: "mai391_pdf_108",
+        status: "verified",
+        question: "Find the first order Taylor expansion of the function $f(x, y, z) = x^3 + xz^2 + xyz + z^2$ at the point $(x, y, z) = (1, 2, -1)$.",
+        options: [
+        "a. $1 + 2(x-1) - 2(y-2) - (z+1)$",
+        "b. $1 + 2(x-1) - (y-2) - 2(z+1)$",
+        "c. $1 - (x-1) - 2(y-2) + 2(z+1)$",
+        "d. $1 - (x-1) + 2(y-2) - 2(z+1)$"
+        ],
+        answer: 1, // b. 1 + 2(x-1) - (y-2) - 2(z+1)
+        explanation: "Công thức Taylor bậc 1 tại $P=(1, 2, -1)$ là: $f(P) + f_x(P)(x-1) + f_y(P)(y-2) + f_z(P)(z+1)$.\n1. $f(1, 2, -1) = 1^3 + 1(-1)^2 + 1(2)(-1) + (-1)^2 = 1 + 1 - 2 + 1 = 1$.\n2. $f_x = 3x^2 + z^2 + yz \implies f_x(P) = 3(1)^2 + (-1)^2 + (2)(-1) = 3 + 1 - 2 = 2$.\n3. $f_y = xz \implies f_y(P) = (1)(-1) = -1$.\n4. $f_z = 2xz + xy + 2z \implies f_z(P) = 2(1)(-1) + (1)(2) + 2(-1) = -2 + 2 - 2 = -2$.\n5. Kết hợp: $1 + 2(x-1) - 1(y-2) - 2(z+1)$."
+    },
+    {
+        id: "mai391_pdf_109",
+        status: "verified",
+        question: "Suppose that the characteristic polynomial of a matrix $A$ is $p_A(\lambda) = \lambda^4 + \lambda^3 - 11\lambda^2 - 5\lambda + 30$. The trace and the determinant of $A$ respectively are:",
+        options: [
+        "a. -1 and 30",
+        "b. 5 and 1",
+        "c. 1 and 11",
+        "d. -5 and -11",
+        "e. 11 and -30"
+        ],
+        answer: 0, // a. -1 and 30
+        explanation: "Với đa thức đặc trưng $p_A(\lambda) = \det(\lambda I - A) = \lambda^n - \text{tr}(A)\lambda^{n-1} + ... + (-1)^n \det(A)$.\nỞ đây $n=4$ và $p_A(\lambda) = \lambda^4 + (1)\lambda^3 - 11\lambda^2 - 5\lambda + 30$.\n1. So sánh hệ số của $\lambda^{n-1}$ (tức $\lambda^3$): $-\text{tr}(A) = 1 \implies \text{tr}(A) = -1$.\n2. So sánh hệ số hằng số (tức $\lambda^0$): $(-1)^4 \det(A) = 30 \implies \det(A) = 30$."
+    },
+    {
+        id: "mai391_pdf_110",
+        status: "verified",
+        question: "Find the Taylor polynomial of order 3 generated by $f(x) = \frac{1}{x + 1}$ at $a = 0$. (i) $1 - x - x^2 - x^3$ (ii) $x + x^2 + x^3 + x^4$ (iii) $1 - x + x^2 - x^3$ (iv) $1 + x + x^2 + x^3$",
+        options: [
+        "a. (iv)",
+        "b. None of the other choices is correct",
+        "c. (iii)",
+        "d. (i)",
+        "e. (ii)"
+        ],
+        answer: 2, // c. (iii)
+        explanation: "Hàm $f(x) = \frac{1}{1+x} = \frac{1}{1 - (-x)}$ là tổng của một chuỗi hình học (geometric series) với $a=1$ và $r=-x$.\nKhai triển Maclaurin (Taylor tại $a=0$) là: $f(x) = 1 + (-x) + (-x)^2 + (-x)^3 + ... = 1 - x + x^2 - x^3 + ...$\nĐa thức Taylor bậc 3 là $T_3(x) = 1 - x + x^2 - x^3$."
+    },
+    {
+        id: "mai391_pdf_111",
+        status: "verified",
+        question: "Find $\frac{\partial z}{\partial y}(2, -3)$ for $z = \sqrt{x^2 + y^2}$. (i) $\sqrt{13}/13$ (ii) $-3\sqrt{13}/13$ (iii) $-\sqrt{13}/13$ (iv) $3\sqrt{13}/13$",
+        options: ["a. (i)", "b. (ii)", "c. (iii)", "d. (iv)"],
+        answer: 1, // b. (ii)
+        explanation: "Viết $z = (x^2 + y^2)^{1/2}$.\nSử dụng quy tắc chuỗi: $\frac{\partial z}{\partial y} = \frac{1}{2}(x^2 + y^2)^{-1/2} \cdot (2y) = \frac{y}{\sqrt{x^2 + y^2}}$.\nThế $(x=2, y=-3)$ vào: $\frac{-3}{\sqrt{2^2 + (-3)^2}} = \frac{-3}{\sqrt{4 + 9}} = \frac{-3}{\sqrt{13}}$.\nTrục căn thức: $\frac{-3\sqrt{13}}{13}$."
+    },
+    {
+        id: "mai391_pdf_112",
+        status: "verified",
+        question: "Given the computation graph. Find the partial derivative $\frac{\partial f}{\partial x_2}$ at $x_1 = 1, x_2 = 0, x_3 = -1$.",
+        options: ["a. 0", "b. 1 - cos(1)", "c. 1 + cos(1)", "d. cos(1)"],
+        answer: 2, // c. 1 + cos(1)
+        explanation: "$f = b + d = \exp(x_1 x_2) + \sin(x_2 + x_3)$.\nTa cần $\frac{\partial f}{\partial x_2} = \frac{\partial}{\partial x_2}(\exp(x_1 x_2)) + \frac{\partial}{\partial x_2}(\sin(x_2 + x_3))$.\n1. $\frac{\partial}{\partial x_2}(\exp(x_1 x_2)) = \exp(x_1 x_2) \cdot (x_1)$.\n2. $\frac{\partial}{\partial x_2}(\sin(x_2 + x_3)) = \cos(x_2 + x_3) \cdot (1)$.\nTổng cộng: $\frac{\partial f}{\partial x_2} = x_1 \exp(x_1 x_2) + \cos(x_2 + x_3)$.\nThế $x_1 = 1, x_2 = 0, x_3 = -1$: $\frac{\partial f}{\partial x_2} = (1)\exp(1 \cdot 0) + \cos(0 + (-1)) = 1 \cdot e^0 + \cos(-1) = 1 + \cos(1)$."
+    },
+    {
+        id: "mai391_pdf_113",
+        status: "verified",
+        question: "Given $R(u, v) = 2u^2 + uv^3$; $u = x - 2y$; $v = 2x + y$. Use the Chain Rule to find $\frac{\partial R}{\partial y}$ when $x = 0, y = 1$.",
+        options: [
+        "a. -16",
+        "b. -2",
+        "c. 3",
+        "d. None of the other choices is correct",
+        "e. 16"
+        ],
+        answer: 3, // d. None of the other choices is correct
+        explanation: "Sử dụng Quy tắc Chuỗi: $\frac{\partial R}{\partial y} = \frac{\partial R}{\partial u} \frac{\partial u}{\partial y} + \frac{\partial R}{\partial v} \frac{\partial v}{\partial y}$.\n1. Khi $x=0, y=1$, ta có $u = 0 - 2(1) = -2$ và $v = 2(0) + 1 = 1$.\n2. Tính các đạo hàm riêng của $R$: $\frac{\partial R}{\partial u} = 4u + v^3$ và $\frac{\partial R}{\partial v} = 3uv^2$.\n3. Thế $(u=-2, v=1)$ vào: $\frac{\partial R}{\partial u} = 4(-2) + 1^3 = -7$ và $\frac{\partial R}{\partial v} = 3(-2)(1)^2 = -6$.\n4. Tính các đạo hàm riêng của $u, v$: $\frac{\partial u}{\partial y} = -2$ và $\frac{\partial v}{\partial y} = 1$.\n5. Áp dụng quy tắc chuỗi: $\frac{\partial R}{\partial y} = (-7)(-2) + (-6)(1) = 14 - 6 = 8$.\nGiá trị 8 không có trong các lựa chọn a, b, c, e. Do đó, đáp án là 'None of the other choices is correct'."
+    },
+    {
+        id: "mai391_pdf_114",
+        status: "verified",
+        question: "Find the dual optimization problem to the following linear programming $\min \ 3x_1 - 2x_2$ subject to $x_1 + x_2 \le 1$, $3x_1 - 4x_2 \le -2$, $x_2 \le -1$",
+        options: [
+        "a. (ii)",
+        "b. (iii)",
+        "c. (iv)",
+        "d. (i)"
+        ],
+        answer: 0, // a. (ii)
+        explanation: "Đây là bài toán đối ngẫu. Ta chuyển bài toán Primal (min) về dạng $\min c^T x$ s.t. $Ax \ge b$, $x$ không bị chặn.\nPrimal: $\min \ 3x_1 - 2x_2$\ns.t.\n$-x_1 - x_2 \ge -1 \quad (\lambda_1)$\n$-3x_1 + 4x_2 \ge 2 \quad (\lambda_2)$\n$-x_2 \ge 1 \quad (\lambda_3)$\nTa có $c = [3, -2]$, $b = [-1, 2, 1]$, $A = \begin{bmatrix} -1 & -1 \\ -3 & 4 \\ 0 & -1 \end{bmatrix}$.\nBài toán Dual (max) có dạng $\max b^T \lambda$ s.t. $A^T \lambda = c, \lambda \ge 0$.\n1. Objective: $\max \ b^T \lambda = \max \ -\lambda_1 + 2\lambda_2 + \lambda_3$.\n2. Constraints: $A^T \lambda = c \implies \begin{bmatrix} -1 & -3 & 0 \\ -1 & 4 & -1 \end{bmatrix} \begin{bmatrix} \lambda_1 \\ \lambda_2 \\ \lambda_3 \end{bmatrix} = \begin{bmatrix} 3 \\ -2 \end{bmatrix}$.\n   $-\lambda_1 - 3\lambda_2 = 3 \implies \lambda_1 + 3\lambda_2 = -3$\n   $-\lambda_1 + 4\lambda_2 - \lambda_3 = -2 \implies \lambda_1 - 4\lambda_2 + \lambda_3 = 2$\n3. Non-negativity: $\lambda_1 \ge 0, \lambda_2 \ge 0, \lambda_3 \ge 0$.\nKết hợp lại, ta được bài toán (ii)."
+    },
+    {
+        id: "mai391_pdf_115",
+        status: "verified",
+        question: "Consider the following bivariate distribution $p(x, y)$ of two discrete random variables $X$ and $Y$. Bảng phân phối: $\begin{array}{c|ccc} & & Y & \\ X & 1 & 2 & 3 \\ \hline 1 & 0.17 & 0.13 & 0.25 \\ 2 & 0.1 & 0.3 & 0.05 \end{array}$ Find the variance of $Y$.",
+        options: ["a. 0.57", "b. 0.37", "c. 0.47", "d. 0.27"],
+        answer: 0, // a. 0.57
+        explanation: "Tính phương sai $\text{Var}(Y) = E[Y^2] - (E[Y])^2$.\n1. Tính phân phối xác suất lề của Y (tổng các cột):\n   $P(Y=1) = 0.17 + 0.1 = 0.27$\n   $P(Y=2) = 0.13 + 0.3 = 0.43$\n   $P(Y=3) = 0.25 + 0.05 = 0.30$\n2. Tính $E[Y]$: $E[Y] = (1)(0.27) + (2)(0.43) + (3)(0.30) = 0.27 + 0.86 + 0.90 = 2.03$.\n3. Tính $E[Y^2]$: $E[Y^2] = (1^2)(0.27) + (2^2)(0.43) + (3^2)(0.30) = 0.27 + (4)(0.43) + (9)(0.30) = 0.27 + 1.72 + 2.70 = 4.69$.\n4. Tính $\text{Var}(Y)$: $\text{Var}(Y) = 4.69 - (2.03)^2 = 4.69 - 4.1209 = 0.5691$. Làm tròn thành 0.57."
+    },
+    {
+        id: "mai391_pdf_116",
+        status: "verified",
+        question: "Let $W = [X \ Y]^T$ be a 2-dimensional random variable with normal distribution $W = N(\mu, \Sigma)$, in which $\mu = [0 \ 1]^T$, $\Sigma = \begin{bmatrix} 1 & 0 \\ 0 & 2 \end{bmatrix}$. Find the formula for the probability density function $p(x, y)$ of $W$.",
+        options: ["a. (iii)", "b. (i)", "c. (ii)", "d. (iv)"],
+        answer: 0, // a. (iii)
+        explanation: "Ta có $\mu = [\mu_x, \mu_y]^T = [0, 1]^T$ và $\Sigma = \begin{bmatrix} \sigma_x^2 & \text{Cov} \\ \text{Cov} & \sigma_y^2 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 2 \end{bmatrix}$.\nDo $\text{Cov}(X, Y) = 0$, $X$ và $Y$ độc lập. Hàm mật độ xác suất (PDF) $p(x,y)$ là tích của PDF của $X$ và $Y$.\n$p(x, y) = p_X(x) p_Y(y) = \left( \frac{1}{\sigma_x \sqrt{2\pi}} e^{-\frac{(x-\mu_x)^2}{2\sigma_x^2}} \right) \left( \frac{1}{\sigma_y \sqrt{2\pi}} e^{-\frac{(y-\mu_y)^2}{2\sigma_y^2}} \right)$\n$p(x, y) = \left( \frac{1}{\sqrt{1} \sqrt{2\pi}} e^{-\frac{(x-0)^2}{2(1)}} \right) \left( \frac{1}{\sqrt{2} \sqrt{2\pi}} e^{-\frac{(y-1)^2}{2(2)}} \right)$\n$p(x, y) = \left( \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} \right) \left( \frac{1}{\sqrt{4\pi}} e^{-\frac{(y-1)^2}{4}} \right) = \frac{1}{\sqrt{8\pi^2}} e^{-\left(\frac{x^2}{2} + \frac{(y-1)^2}{4}\right)}$\n$p(x, y) = \frac{1}{2\pi\sqrt{2}} e^{-\left(\frac{x^2}{2} + \frac{(y-1)^2}{4}\right)}$. Điều này khớp với (iii)."
+    },
+    {
+        id: "mai391_pdf_117",
+        status: "verified",
+        question: "The second order Taylor polynomial of $f(x, y) = x^2y^3 + x$ about $(1, 1)$ is $a_1x^2 + a_2xy + a_3y^2 + a_4x + a_5y + a_6$. The value of $a_6$ is (i) 2 (ii) 4 (iii) 6 (iv) 8",
+        options: ["a. (i)", "b. (iii)", "c. (ii)", "d. (iv)"],
+        answer: 1, // b. (iii)
+        explanation: "Đa thức Taylor bậc 2 tại $P=(1,1)$ là $T_2(x,y) = f(P) + f_x(P)(x-1) + f_y(P)(y-1) + \frac{1}{2!}[f_{xx}(P)(x-1)^2 + 2f_{xy}(P)(x-1)(y-1) + f_{yy}(P)(y-1)^2]$.\n1. $f(1,1) = 1^2(1)^3 + 1 = 2$.\n2. $f_x = 2xy^3 + 1 \implies f_x(1,1) = 3$.\n3. $f_y = 3x^2y^2 \implies f_y(1,1) = 3$.\n4. $f_{xx} = 2y^3 \implies f_{xx}(1,1) = 2$.\n5. $f_{xy} = 6xy^2 \implies f_{xy}(1,1) = 6$.\n6. $f_{yy} = 6x^2y \implies f_{yy}(1,1) = 6$.\n$T_2 = 2 + 3(x-1) + 3(y-1) + \frac{1}{2}[2(x-1)^2 + 12(x-1)(y-1) + 6(y-1)^2]$\n$T_2 = 2 + 3x - 3 + 3y - 3 + (x^2 - 2x + 1) + 6(xy - x - y + 1) + 3(y^2 - 2y + 1)$\n$T_2 = (2 - 3 - 3 + 1 + 6 + 3) + x(3 - 2 - 6) + y(3 - 6 - 6) + x^2(1) + xy(6) + y^2(3)$\n$T_2 = 6 - 5x - 9y + x^2 + 6xy + 3y^2$.\nSo sánh với $a_1x^2 + a_2xy + a_3y^2 + a_4x + a_5y + a_6$, ta thấy $a_6 = 6$."
+    },
+    {
+        id: "mai391_pdf_118",
+        status: "verified",
+        question: "Consider a computation graph with inputs $x_1, x_2, x_3$, function value $f$ and intermediate variables $a, b, c, d$. Compute $\frac{\partial f}{\partial x_1}$.",
+        options: ["a. (iv)", "b. (ii)", "c. (i)", "d. (iii)"],
+        answer: 2, // c. (i)
+        explanation: "Từ đồ thị tính toán (giống Câu 12): $f = b + d$, $b = \exp(a)$, $a = x_1 x_2$, $d = \sin(c)$, $c = x_2 + x_3$.\nĐể tính $\frac{\partial f}{\partial x_1}$, ta sử dụng quy tắc chuỗi (chain rule) dọc theo đường đi từ $x_1$ đến $f$. Con đường duy nhất là $x_1 \to a \to b \to f$. $f$ không phụ thuộc vào $x_1$ qua $c$ và $d$.\n$\frac{\partial f}{\partial x_1} = \frac{\partial f}{\partial b} \cdot \frac{\partial b}{\partial a} \cdot \frac{\partial a}{\partial x_1}$.\nĐiều này khớp với (i) (và (iv), vốn giống hệt (i))."
+    },
+    {
+        id: "mai391_pdf_119",
+        status: "verified",
+        question: "Find basic eigenvectors corresponding to the eigenvalue $\lambda = 1$ of the matrix $\begin{bmatrix} 1 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 1 \end{bmatrix}$",
+        options: [
+        "a. None of the other choices is correct",
+        "b. $[1, 0, 0]$ and $[0, 1, 0]$",
+        "c. $[1, 0, 0]$ and $[0, 0, 1]$",
+        "d. $[1, 0, 0]$",
+        "e. $[0, 0, 1]$"
+        ],
+        answer: 3, // d. [1, 0, 0]
+        explanation: "Để tìm vector riêng $\mathbf{v}$ cho giá trị riêng $\lambda = 1$, ta giải hệ phương trình $(A - \lambda I)\mathbf{v} = 0$.\n$(A - 1 \cdot I)\mathbf{v} = \begin{bmatrix} (1-1) & 1 & 1 \\ 0 & (1-1) & 1 \\ 0 & 0 & (1-1) \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$\n$\begin{bmatrix} 0 & 1 & 1 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{bmatrix} \begin{bmatrix} v_1 \\ v_2 \\ v_3 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$\nHệ phương trình:\n1) $v_2 + v_3 = 0$\n2) $v_3 = 0$\nTừ (2) ta có $v_3 = 0$. Thế vào (1) ta được $v_2 + 0 = 0 \implies v_2 = 0$.\n$v_1$ là biến tự do. Không gian riêng là $t \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$.\nVector riêng cơ sở (basic eigenvector) là $\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$."
+    },
+    {
+        id: "mai391_pdf_120",
+        status: "verified",
+        question: "Compute the length of the vector $\mathbf{x} = [2 \ -1]^T$ using the inner product $\langle \mathbf{x}, \mathbf{y} \rangle = \mathbf{x}^T A \mathbf{y}$, in which $A = \begin{bmatrix} 2 & -1 \\ -1 & 1 \end{bmatrix}$. (i) 4 (ii) $\sqrt{17}$ (iii) $\sqrt{13}$ (iv) $\sqrt{15}$",
+        options: ["a. (iv)", "b. (i)", "c. (ii)", "d. (iii)"],
+        answer: 3, // d. (iii)
+        explanation: "Độ dài (length) của $\mathbf{x}$ được định nghĩa là $\|\mathbf{x}\| = \sqrt{\langle \mathbf{x}, \mathbf{x} \rangle} = \sqrt{\mathbf{x}^T A \mathbf{x}}$.\n$\|\mathbf{x}\|^2 = \mathbf{x}^T A \mathbf{x} = \begin{bmatrix} 2 & -1 \end{bmatrix} \begin{bmatrix} 2 & -1 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} 2 \\ -1 \end{bmatrix}$\n$= \begin{bmatrix} (2)(2) + (-1)(-1) & (2)(-1) + (-1)(1) \end{bmatrix} \begin{bmatrix} 2 \\ -1 \end{bmatrix}$\n$= \begin{bmatrix} 5 & -3 \end{bmatrix} \begin{bmatrix} 2 \\ -1 \end{bmatrix}$\n$= (5)(2) + (-3)(-1) = 10 + 3 = 13$.\nVậy, $\|\mathbf{x}\| = \sqrt{13}$."
+    },
+    {
+        id: "mai391_pdf_121",
+        status: "verified",
+        question: "The spectral norm of $A = [1 \ 0 \ 3]^T$ is: (i) $\sqrt{2}$ (ii) $\sqrt{6}$ (iii) $\sqrt{8}$ (iv) $\sqrt{10}$",
+        options: ["a. (iii)", "b. (i)", "c. (iv)", "d. (ii)"],
+        answer: 2, // c. (iv)
+        explanation: "Chuẩn phổ (spectral norm) $\|A\|_2$ là giá trị suy biến (singular value) lớn nhất của $A$. Các giá trị suy biến là căn bậc hai của các giá trị riêng của $A^T A$.\n$A = \begin{bmatrix} 1 \\ 0 \\ 3 \end{bmatrix}$, $A^T = \begin{bmatrix} 1 & 0 & 3 \end{bmatrix}$.\n$A^T A = \begin{bmatrix} 1 & 0 & 3 \end{bmatrix} \begin{bmatrix} 1 \\ 0 \\ 3 \end{bmatrix} = (1)(1) + (0)(0) + (3)(3) = 1 + 9 = 10$.\n$A^T A$ là ma trận 1x1 $[10]$. Giá trị riêng duy nhất của nó là $\lambda_1 = 10$.\nGiá trị suy biến lớn nhất là $\sigma_1 = \sqrt{\lambda_1} = \sqrt{10}$.\nVậy, $\|A\|_2 = \sqrt{10}$."
+    },
+    {
+        id: "mai391_pdf_122",
+        status: "verified",
+        question: "Consider the vector-valued function $f: \mathbb{R}^3 \to \mathbb{R}^3$: $f(x, y, z) = \begin{bmatrix} \sqrt{x^2 + 2y^2 + z^2} \\ e^{-x^2-2y^2-3z^2} \\ \ln(1 + x^2 + 3y^2 + 2z^2) \end{bmatrix}$. The $(3, 1)$-entry of the Jacobian of $f$ at $(x, y, z) = (-2, 0, 2)$ is: (i) $4e^{-8}$ (ii) 1 (iii) -1 (iv) 4/13 (v) -4/13",
+        options: ["a. (ii)", "b. (iv)", "c. (iii)", "d. (i)", "e. (v)"],
+        answer: 4, // e. (v)
+        explanation: "Ma trận Jacobian $J$ có phần tử $J_{ij} = \frac{\partial f_i}{\partial x_j}$. Ta cần tìm $J_{31} = \frac{\partial f_3}{\partial x_1} = \frac{\partial f_3}{\partial x}$.\n$f_3(x, y, z) = \ln(1 + x^2 + 3y^2 + 2z^2)$.\n$\frac{\partial f_3}{\partial x} = \frac{1}{1 + x^2 + 3y^2 + 2z^2} \cdot \frac{\partial}{\partial x}(1 + x^2 + 3y^2 + 2z^2)$\n$\frac{\partial f_3}{\partial x} = \frac{2x}{1 + x^2 + 3y^2 + 2z^2}$.\nThế điểm $(x, y, z) = (-2, 0, 2)$ vào:\n$\frac{\partial f_3}{\partial x} = \frac{2(-2)}{1 + (-2)^2 + 3(0)^2 + 2(2)^2} = \frac{-4}{1 + 4 + 0 + 8} = \frac{-4}{13}$."
+    },
+    {
+        id: "mai391_pdf_123",
+        status: "verified",
+        question: "Let $f(x, y) = \sin(3x + 2y) + \cos(2x - 3y)$. What is the value of the gradient of $f(x, y)$ at $(\pi/4, -\pi/4)$? (i) $[-1/\sqrt{2}, 2\sqrt{2}]$ (ii) $[5/\sqrt{2}, -1/\sqrt{2}]$ (iii) $[1/\sqrt{2}, 2\sqrt{2}]$ (iv) $[-5/\sqrt{2}, 1/\sqrt{2}]$",
+        options: ["a. (iv)", "b. (iii)", "c. (ii)", "d. (i)"],
+        answer: 2, // c. (ii)
+        explanation: "Gradient $\nabla f = [\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}]$.\n1. $\frac{\partial f}{\partial x} = \cos(3x + 2y) \cdot 3 + (-\sin(2x - 3y) \cdot 2) = 3\cos(3x + 2y) - 2\sin(2x - 3y)$.\n2. $\frac{\partial f}{\partial y} = \cos(3x + 2y) \cdot 2 + (-\sin(2x - 3y) \cdot (-3)) = 2\cos(3x + 2y) + 3\sin(2x - 3y)$.\n3. Tại $(x, y) = (\pi/4, -\pi/4)$:\n   $3x + 2y = 3\pi/4 - 2\pi/4 = \pi/4$.\n   $2x - 3y = 2\pi/4 + 3\pi/4 = 5\pi/4$.\n   $\cos(\pi/4) = 1/\sqrt{2}$.\n   $\sin(5\pi/4) = -1/\sqrt{2}$.\n4. Thế vào:\n   $\frac{\partial f}{\partial x} = 3(1/\sqrt{2}) - 2(-1/\sqrt{2}) = 3/\sqrt{2} + 2/\sqrt{2} = 5/\sqrt{2}$.\n   $\frac{\partial f}{\partial y} = 2(1/\sqrt{2}) + 3(-1/\sqrt{2}) = 2/\sqrt{2} - 3/\sqrt{2} = -1/\sqrt{2}$.\nVậy $\nabla f = [5/\sqrt{2}, -1/\sqrt{2}]$."
+    },
+    {
+        id: "mai391_pdf_124",
+        status: "verified",
+        question: "Let $x = [\frac{1}{2} \ \frac{1}{2} \ \frac{1}{2} \ c]^T$ be a vector in $\mathbb{R}^4$, where $c$ is a **negative** real number. Find $c$ such that $x$ is a unit vector with respect to the Euclidean norm.",
+        options: ["a. -1/4", "b. -3/4", "c. -1", "d. -1/2"],
+        answer: 3, // d. -1/2
+        explanation: "Một vector $\mathbf{x}$ là unit vector nếu norm Euclide của nó bằng 1, tức là $\|\mathbf{x}\| = \sqrt{x_1^2 + x_2^2 + x_3^2 + x_4^2} = 1$, hay $\|\mathbf{x}\|^2 = 1$. Ta có $\|\mathbf{x}\|^2 = (1/2)^2 + (1/2)^2 + (1/2)^2 + c^2 = 1/4 + 1/4 + 1/4 + c^2 = 3/4 + c^2$. Đặt $3/4 + c^2 = 1 \implies c^2 = 1 - 3/4 = 1/4 \implies c = \pm\sqrt{1/4} = \pm 1/2$. Vì $c$ là số âm, ta chọn $c = -1/2$."
+    },
+    {
+        id: "mai391_pdf_125",
+        status: "verified",
+        question: "Which of the following sets in $\mathbb{R}^2$ are convex? $U = \{[x \ y]^T \mid x + 2y = 1\}$ $V = \{[x \ y]^T \mid x + 2y \le 1\}$",
+        options: [
+        "a. None of U or V",
+        "b. Only U",
+        "c. Only V",
+        "d. Both U and V"
+        ],
+        answer: 3, // d. Both U and V
+        explanation: "Một tập hợp $S$ là lồi (convex) nếu đoạn thẳng nối hai điểm bất kỳ trong $S$ cũng nằm trọn trong $S$. $U$ là một đường thẳng (hyperplane trong $\mathbb{R}^2$) và $V$ là một nửa mặt phẳng (half-space). Cả hai đều là các ví dụ cơ bản của tập lồi."
+    },
+    {
+        id: "mai391_pdf_126",
+        status: "verified",
+        question: "Given a dataset consisting of the following vectors $x_1 = [0 \ 2 \ 2]^T$, $x_2 = [1 \ 0 \ 2]^T$, $x_3 = [2 \ -2 \ -1]^T$. Let $S = [s_{ij}]$ be the covariance matrix of this dataset. Find $s_{22}$.",
+        options: ["a. 2/3", "b. -4/3", "c. 8/3", "d. 2", "e. -1"],
+        answer: 2, // c. 8/3
+        explanation: "$s_{22}$ là phương sai của thành phần thứ hai (y-coordinates) của dữ liệu: $[2, 0, -2]$.\n1. Tính trung bình (mean) của thành phần thứ hai: $\bar{y} = \frac{2 + 0 + (-2)}{3} = 0$.\n2. Tính phương sai $s_{22} = \frac{1}{N} \sum_{i=1}^N (y_i - \bar{y})^2$ (sử dụng mẫu số $N=3$).\n$s_{22} = \frac{1}{3} [(2 - 0)^2 + (0 - 0)^2 + (-2 - 0)^2] = \frac{1}{3} [4 + 0 + 4] = 8/3$. (Nếu dùng mẫu số $N-1=2$ thì kết quả là $8/2 = 4$, không có trong đáp án)."
+    },
+    {
+        id: "mai391_pdf_127",
+        status: "verified",
+        question: "The Taylor expansion of function $f(x) = (x-1)\sin(x)$ centered at 0 is a polynomial of the form $a_0 + a_1x + ... + a_nx^n + ...$ What is the value of $a_0 + a_1 + a_2 + a_3$?",
+        options: [
+        "a. -1/6",
+        "b. None of the other choices is correct",
+        "c. 3/12",
+        "d. -3/4",
+        "e. 1/12",
+        "f. 1/6"
+        ],
+        answer: 5, // f. 1/6
+        explanation: "Sử dụng khai triển Maclaurin (Taylor tại 0) cho $\sin(x) = x - \frac{x^3}{3!} + ... = x - \frac{x^3}{6} + ...$\n$f(x) = (x-1)(x - \frac{x^3}{6} + ...) = x(x - \frac{x^3}{6} + ...) - 1(x - \frac{x^3}{6} + ...)$\n$f(x) = (x^2 - \frac{x^4}{6} + ...) - (x - \frac{x^3}{6} + ...)$\nSắp xếp lại theo bậc: $f(x) = (0) + (-1)x + (1)x^2 + (1/6)x^3 - \frac{x^4}{6} + ...$\nTa có $a_0 = 0$, $a_1 = -1$, $a_2 = 1$, $a_3 = 1/6$.\nTổng $a_0 + a_1 + a_2 + a_3 = 0 - 1 + 1 + 1/6 = 1/6$."
+    },
+    {
+        id: "mai391_pdf_128",
+        status: "verified",
+        question: "Suppose that $X$ has a discrete uniform distribution on the integers -7 through 7. The probability such that $X^2 \le 18$ is (i) 0.2 (ii) 0.4 (iii) 0.6 (iv) 0.8",
+        options: ["a. (ii)", "b. (i)", "c. (iv)", "d. (iii)"],
+        answer: 3, // d. (iii)
+        explanation: "Tổng số các số nguyên từ -7 đến 7 là $N = 7 - (-7) + 1 = 15$ giá trị. Phân phối đều nên xác suất của mỗi số là $1/15$.\nTa tìm các số nguyên $X$ trong khoảng $[-7, 7]$ sao cho $X^2 \le 18$. Các giá trị $X$ thỏa mãn là: $\{-4, -3, -2, -1, 0, 1, 2, 3, 4\}$.\nCó tổng cộng $M = 9$ giá trị thỏa mãn.\nXác suất là $P = \frac{\text{Số trường hợp thỏa mãn}}{\text{Tổng số trường hợp}} = \frac{M}{N} = \frac{9}{15} = \frac{3}{5} = 0.6$."
+    },
+    {
+        id: "mai391_pdf_129",
+        status: "verified",
+        question: "Let $U = \text{span}\{[1 \ 1 \ -2]^T, [1 \ 0 \ 1]^T\}$. Which of the following vectors are in $U^{\perp}$? $\mathbf{x} = [1 \ -3 \ -1]^T \quad \mathbf{y} = [0 \ 0 \ -1]^T$",
+        options: ["a. None of x or y", "b. Only x", "c. Both x and y", "d. Only y"],
+        answer: 1, // b. Only x
+        explanation: "Một vector $\mathbf{v}$ nằm trong $U^{\perp}$ (phần bù trực giao của $U$) nếu nó trực giao với tất cả các vector cơ sở của $U$. Đặt $\mathbf{u}_1 = [1, 1, -2]^T, \mathbf{u}_2 = [1, 0, 1]^T$.\n1. Kiểm tra $\mathbf{x} = [1, -3, -1]^T$:\n   $\mathbf{x} \cdot \mathbf{u}_1 = (1)(1) + (-3)(1) + (-1)(-2) = 1 - 3 + 2 = 0$.\n   $\mathbf{x} \cdot \mathbf{u}_2 = (1)(1) + (-3)(0) + (-1)(1) = 1 - 0 - 1 = 0$.\n   Vì $\mathbf{x}$ trực giao với cả hai vector cơ sở, $\mathbf{x} \in U^{\perp}$.\n2. Kiểm tra $\mathbf{y} = [0, 0, -1]^T$:\n   $\mathbf{y} \cdot \mathbf{u}_1 = (0)(1) + (0)(1) + (-1)(-2) = 2 \neq 0$.\n   Vì $\mathbf{y}$ không trực giao với $\mathbf{u}_1$, $\mathbf{y} \notin U^{\perp}$.\nDo đó, chỉ có $\mathbf{x}$."
+    },
+    {
+        id: "mai391_pdf_130",
+        status: "verified",
+        question: "Use the Gram-Schmidt algorithm to convert the basis $\{[-2 \ 3 \ 4]^T, [-4 \ 5 \ 4]^T, [-2 \ 1 \ -4]^T\}$ into an orthogonal basis $\{E_1, E_2, E_3\}$. What is the **third coordinate** of the vector $E_2$?",
+        options: [
+        "a. None of the other choices is correct",
+        "b. 28/29",
+        "c. 30/29",
+        "d. -38/29",
+        "e. -40/29"
+        ],
+        answer: 4, // e. -40/29
+        explanation: "Áp dụng thuật toán Gram-Schmidt. Đặt $\mathbf{v}_1 = [-2, 3, 4]^T, \mathbf{v}_2 = [-4, 5, 4]^T$.\n$E_1 = \mathbf{v}_1 = [-2, 3, 4]^T$.\n$E_2 = \mathbf{v}_2 - \text{proj}_{E_1}(\mathbf{v}_2) = \mathbf{v}_2 - \frac{\mathbf{v}_2 \cdot E_1}{\|E_1\|^2} E_1$.\n1. Tính $\mathbf{v}_2 \cdot E_1 = (-4)(-2) + (5)(3) + (4)(4) = 8 + 15 + 16 = 39$.\n2. Tính $\|E_1\|^2 = (-2)^2 + 3^2 + 4^2 = 4 + 9 + 16 = 29$.\n3. $E_2 = [-4, 5, 4]^T - \frac{39}{29} [-2, 3, 4]^T$.\n4. Ta chỉ cần tìm tọa độ thứ ba của $E_2$: $E_{2,3} = v_{2,3} - \frac{39}{29} E_{1,3} = 4 - \frac{39}{29}(4) = 4 - \frac{156}{29} = \frac{4 \times 29 - 156}{29} = \frac{116 - 156}{29} = -40/29$."
+    },
+    {
+        id: "mai391_pdf_131",
+        status: "verified",
+        question: "Consider the following bivariate distribution $p(x, y)$ of two random variables $X$ and $Y$. $p(x, y) = \begin{cases} xy, & \text{if } 0 \le x \le 2, 0 \le y \le 1 \\ 0, & \text{otherwise} \end{cases}$. The probability $P(0 < X < 1, 0 \le Y \le 0.5)$ is (i) 0.05 (ii) 0.0625 (iii) 0.075 (iv) 0.0825",
+        options: ["a. (ii)", "b. (iv)", "c. (i)", "d. (iii)"],
+        answer: 0, // a. (ii)
+        explanation: "Ta tính tích phân kép của hàm mật độ xác suất (PDF) trên miền được chỉ định:\n$P = \int_{x=0}^{1} \int_{y=0}^{0.5} p(x, y) \,dy \,dx = \int_{0}^{1} \int_{0}^{0.5} xy \,dy \,dx$.\nTính tích phân theo y trước: $\int_{0}^{1} \left[ x \frac{y^2}{2} \right]_{y=0}^{0.5} \,dx = \int_{0}^{1} x \left( \frac{(0.5)^2}{2} - 0 \right) \,dx = \int_{0}^{1} x \left( \frac{0.25}{2} \right) \,dx = \int_{0}^{1} \frac{x}{8} \,dx$.\nTính tích phân theo x: $\left[ \frac{x^2}{16} \right]_{0}^{1} = \frac{1^2}{16} - 0 = \frac{1}{16} = 0.0625$."
+    },
+    {
+        id: "mai391_pdf_132",
+        status: "verified",
+        question: "Let $f(x, y) = x^2y + 3y$. Applying the gradient descent algorithm with the step-size $\gamma = 0.1$ and the initial point $(x_0, y_0) = (-1, 1)$, what is the point $(x_2, y_2)$ after the $2^{\text{nd}}$ iteration?",
+        options: [
+        "a. (-1.181, 0.798)",
+        "b. (-0.704, 0.236)",
+        "c. (0.779, -1.202)",
+        "d. (1.536, -1.844)"
+        ],
+        answer: 1, // b. (-0.704, 0.236)
+        explanation: "Công thức cập nhật Gradient Descent: $\mathbf{x}_{t} = \mathbf{x}_{t-1} - \gamma \nabla f(\mathbf{x}_{t-1})$.\nGradient $\nabla f = [2xy, x^2 + 3]$.\nIteration 0: $\mathbf{x}_0 = (-1, 1)$.\nIteration 1: $\nabla f(-1, 1) = [2(-1)(1), (-1)^2+3] = [-2, 4]$.\n$\mathbf{x}_1 = (-1, 1) - 0.1[-2, 4] = (-1, 1) - [-0.2, 0.4] = (-1 + 0.2, 1 - 0.4) = (-0.8, 0.6)$.\nIteration 2: $\nabla f(-0.8, 0.6) = [2(-0.8)(0.6), (-0.8)^2+3] = [-0.96, 0.64+3] = [-0.96, 3.64]$.\n$\mathbf{x}_2 = (-0.8, 0.6) - 0.1[-0.96, 3.64] = (-0.8, 0.6) - [-0.096, 0.364] = (-0.8 + 0.096, 0.6 - 0.364) = (-0.704, 0.236)$."
+    },
+    {
+        id: "mai391_pdf_133",
+        status: "verified",
+        question: "The sum of all entries on the first row of the Hessian matrix of $f(x, y) = \frac{8x}{x + y}$ at $(1, 1)$ is (i) -2 (ii) 0 (iii) 2 (iv) 4",
+        options: ["a. (i)", "b. (ii)", "c. (iii)", "d. (iv)"],
+        answer: 0, // a. (i)
+        explanation: "Hàng đầu tiên của ma trận Hessian là $[f_{xx}, f_{xy}]$. Ta cần tính $f_{xx}(1, 1) + f_{xy}(1, 1)$.\n1. $f(x, y) = 8x(x+y)^{-1}$\n2. $f_x = \frac{\partial}{\partial x} f = 8(x+y)^{-1} + 8x(-1)(x+y)^{-2} = \frac{8}{x+y} - \frac{8x}{(x+y)^2} = \frac{8(x+y) - 8x}{(x+y)^2} = \frac{8y}{(x+y)^2}$.\n3. $f_{xx} = \frac{\partial}{\partial x} f_x = \frac{\partial}{\partial x} (8y(x+y)^{-2}) = 8y(-2)(x+y)^{-3} = \frac{-16y}{(x+y)^3}$.\n   $f_{xx}(1, 1) = \frac{-16(1)}{(1+1)^3} = \frac{-16}{8} = -2$.\n4. $f_{xy} = \frac{\partial}{\partial y} f_x = \frac{\partial}{\partial y} (\frac{8y}{(x+y)^2}) = \frac{8(x+y)^2 - 8y(2(x+y))}{((x+y)^2)^2} = \frac{8(x+y) - 16y}{(x+y)^3} = \frac{8x - 8y}{(x+y)^3}$.\n   $f_{xy}(1, 1) = \frac{8(1) - 8(1)}{(1+1)^3} = \frac{0}{8} = 0$.\n5. Tổng: $f_{xx}(1, 1) + f_{xy}(1, 1) = -2 + 0 = -2$."
     }
 ];
