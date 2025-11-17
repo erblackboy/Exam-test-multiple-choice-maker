@@ -1,3 +1,5 @@
+// File: js/subject.js
+
 document.addEventListener('DOMContentLoaded', () => {
     // Đảm bảo các biến dữ liệu đã được tải
     if (typeof quizData === 'undefined' || typeof subjectDetails === 'undefined') {
@@ -21,11 +23,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cập nhật tiêu đề và breadcrumb
     document.getElementById('subject-title').textContent = subject.title;
-    document.getElementById('subject-breadcrumb-name').textContent = subject.title;
+    document.getElementById('subject-breadcrumb').textContent = subject.title;
     document.title = `Học tập: ${subject.title}`;
 
-    const flashcardModeBtn = document.getElementById('flashcard-mode-btn');
     const quizModeBtn = document.getElementById('quiz-mode-btn');
+    const flashcardModeBtn = document.getElementById('flashcard-mode-btn');
+
+    // Xử lý sự kiện khi chọn "Làm Trắc Nghiệm"
+    quizModeBtn.addEventListener('click', () => {
+        if (allQuestions.length === 0) {
+            alert(`Môn ${subject.title} chưa có dữ liệu câu hỏi trắc nghiệm.`);
+            return;
+        }
+        // Chuyển đến trang thiết lập bài thi
+        window.location.href = `quiz-setup.html?subject=${subjectCode}`;
+    });
 
     // Xử lý sự kiện khi chọn "Học với Flashcard"
     flashcardModeBtn.addEventListener('click', () => {
@@ -44,10 +56,5 @@ document.addEventListener('DOMContentLoaded', () => {
         // Lưu vào localStorage và chuyển trang
         localStorage.setItem('flashcardSession', JSON.stringify(flashcardSettings));
         window.location.href = 'flashcards.html';
-    });
-
-    // Xử lý sự kiện khi chọn "Làm Trắc Nghiệm"
-    quizModeBtn.addEventListener('click', () => {
-        window.location.href = `quiz-setup.html?subject=${subjectCode}`;
     });
 });

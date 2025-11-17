@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="main-container">
+        <div class="breadcrumb">
+            <a href="index.html">Trang chủ</a> &gt; <a id="subject-breadcrumb-link" href="#">...</a> &gt; Flashcards
+        </div>
+
+        <div class="flashcard-body">
+            <div class="flashcard-main">
+                <div class="flashcard-info">
+                    <div id="flashcard-subject-code">MÔN HỌC</div>
+                    <div id="question-counter">Câu 1/N</div>
+                </div>
+
+                <!-- Cấu trúc thẻ lật -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div id="flashcard-question-text">Đây là mặt trước của thẻ (câu hỏi).</div>
+                            <img id="question-image" src="" alt="Hình ảnh câu hỏi" style="display: none;">
+                        </div>
+                        <div class="flip-card-back">
+                            <div id="options-container"></div>
+                            <div class="explanation" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-block">
+                    <button id="prev-btn">← Trước</button>
+                    <button id="flip-btn">Lật Thẻ</button>
+                    <button id="next-btn">Tiếp →</button>
+                </div>
+                <button id="back-to-home-btn">🏠 Về Trang chủ</button>
+            </div>
+
+            <div class="flashcard-sidebar">
+                <h3>Danh sách câu hỏi</h3>
+                <div id="palette-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tải các tệp dữ liệu câu hỏi -->
+    <script src="data/ssl101c.js"></script>
+    <script src="data/aig202c.js"></script>
+    <script src="data/mai391.js"></script>
+    <script src="data/ady201m_questions.js"></script>
+    <script src="data/database.js"></script>
+    <script src="js/flashcards.js"></script>
+</body>
+</html>

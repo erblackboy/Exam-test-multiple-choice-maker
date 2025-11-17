@@ -197,11 +197,13 @@ body {
 }
 
 .quiz-sidebar, .flashcard-sidebar {
-    width: 400px;
+    /* Sửa: Bỏ width cố định, cho phép co giãn */
+    flex-shrink: 0; /* Ngăn sidebar bị co lại trên màn hình lớn */
     padding: 35px;
     border-radius: 16px;
     box-shadow: var(--shadow-hover);
-    order: 2;
+    /* Sửa: Đặt order là 1 để nó hiện lên trước trên mobile */
+    order: 1;
 }
 
 .quiz-info, .flashcard-info {
@@ -212,6 +214,12 @@ body {
     font-weight: bold;
     color: var(--primary-color);
 }
+
+/* Sửa: Đặt order cho flashcard-main là 2 để nó hiện sau sidebar trên mobile */
+.flashcard-main {
+    order: 2;
+}
+
 
 #question-text, #flashcard-question-text {
     font-size: 1.5em;
@@ -258,6 +266,14 @@ body {
     background-color: #e7f3ff;
 }
 
+/* Vô hiệu hóa hiệu ứng hover và thay đổi con trỏ khi câu hỏi đã được trả lời */
+.options-container.answered .option-item:hover {
+    transform: none;
+    box-shadow: none;
+}
+.options-container.answered .option-item {
+    cursor: default;
+}
 /* Styles for correct/incorrect feedback */
 .option-item.option-correct {
     border-color: var(--correct-color);
@@ -266,10 +282,6 @@ body {
 .option-item.option-incorrect {
     border-color: var(--incorrect-color);
     background-color: #fbe9eb;
-}
-.flashcard-main .option-item.disabled {
-    cursor: not-allowed;
-    pointer-events: none;
 }
 body.dark-mode .option-item.selected { background-color: #003a75; }
 body.dark-mode .option-item.option-correct { background-color: #0c3d1c; }
@@ -313,6 +325,14 @@ button {
 }
 #submit-btn:hover {
     background-color: #218838;
+}
+
+#shuffle-btn {
+    background-color: var(--accent-color);
+    color: var(--dark-text);
+}
+#shuffle-btn:hover {
+    background-color: #ffca2c;
 }
 
 .palette-container {
@@ -465,12 +485,21 @@ body.dark-mode .review-options .option-user-incorrect { background-color: #5a1a2
     .quiz-body, .flashcard-body {
         flex-direction: row;
         gap: 40px;
+        /* Thêm: Căn chỉnh các item ở đầu */
+        align-items: flex-start;
     }
     .quiz-sidebar, .flashcard-sidebar {
         position: -webkit-sticky; /* For Safari */
         position: sticky;
         top: 30px;
         align-self: flex-start;
+        /* Thêm: Giới hạn chiều cao và cho phép cuộn */
+        max-height: calc(100vh - 60px); /* 100% chiều cao màn hình trừ đi khoảng đệm trên dưới */
+        overflow-y: auto;
+    }
+    /* Thêm: Đặt lại chiều rộng cho sidebar trên màn hình lớn */
+    .quiz-sidebar, .flashcard-sidebar {
+        width: 350px;
     }
 }
 
@@ -861,4 +890,52 @@ body {
     font-size: 1em;
     color: var(--secondary-color, #6c757d);
     line-height: 1.6;
+}
+
+/* --- Flip Card Effect --- */
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    min-height: 300px; /* Đảm bảo thẻ có chiều cao tối thiểu */
+    perspective: 1000px; /* Hiệu ứng 3D */
+    margin-bottom: 20px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s; /* Sửa giá trị ở đây để thay đổi tốc độ lật */
+    transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    /* Sửa: Bỏ position: absolute để thẻ có thể tự co giãn chiều cao */
+    width: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background: var(--white-color);
+    border: 1px solid var(--border-color);
+    /* Thêm: Đảm bảo thẻ có chiều cao tối thiểu */
+    min-height: 300px;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+    /* Sửa: Đặt lại vị trí tuyệt đối cho mặt sau để nó chồng lên mặt trước */
+    position: absolute;
+    top: 0;
+    left: 0;
 }

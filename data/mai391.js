@@ -859,23 +859,27 @@ const mai391_questions = [
         status: "verified",
         question: "Let $f(s,t) = xy + x + y$, where $x = s+t, y = st$. Find $\\frac{\\partial f}{\\partial s}(1,2)$.",
         options: ["a. 11", "b. 9", "c. 10", "d. 6", "e. 7"],
-        answer: 0, // a. 11
+        answer: 0,
         explanation: `
-            <p><strong>Công thức:</strong> Sử dụng Quy tắc Chuỗi (Chain Rule) cho đạo hàm riêng.<br>
-            $\\frac{\\partial f}{\\partial s} = \\frac{\\partial f}{\\partial x} \\cdot \\frac{\\partial x}{\\partial s} + \\frac{\\partial f}{\\partial y} \\cdot \\frac{\\partial y}{\\partial s}$.</p>
+            <p><strong>Công thức:</strong> Sử dụng Quy tắc Chuỗi (Chain Rule) cho đạo hàm riêng của hàm hợp.<br>
+            $\\frac{\\partial f}{\\partial s} = \\frac{\\partial f}{\\partial x} \\frac{\\partial x}{\\partial s} + \\frac{\\partial f}{\\partial y} \\frac{\\partial y}{\\partial s}$.</p>
             <ol>
                 <li><strong>Tính các đạo hàm riêng của $f$ (theo $x, y$) và của $x, y$ (theo $s$):</strong>
                     <ul>
-                        <li>$\\frac{\\partial f}{\\partial x} = y + 1$, $\\frac{\\partial f}{\\partial y} = x + 1$.</li>
-                        <li>$\\frac{\\partial x}{\\partial s} = 1$, $\\frac{\\partial y}{\\partial s} = t$.</li>
+                        <li>$\\frac{\\partial f}{\\partial x} = y + 1$</li>
+                        <li>$\\frac{\\partial f}{\\partial y} = x + 1$</li>
+                        <li>$\\frac{\\partial x}{\\partial s} = 1$</li>
+                        <li>$\\frac{\\partial y}{\\partial s} = t$</li>
                     </ul>
                 </li>
                 <li><strong>Tính giá trị của $x, y$ tại điểm $(s,t) = (1,2)$:</strong><br>
                     $x = s + t = 1 + 2 = 3$.<br>
                     $y = st = (1)(2) = 2$.
                 </li>
-                <li><strong>Thế tất cả giá trị vào công thức:</strong><br>
-                    $\\frac{\\partial f}{\\partial s}(1,2) = (y+1)\\frac{\\partial x}{\\partial s} + (x+1)\\frac{\\partial y}{\\partial s} = (2+1)(1) + (3+1)(2) = 3 + 8 = 11$.
+                <li><strong>Thế các giá trị vào công thức Quy tắc Chuỗi:</strong><br>
+                    Tại $(s,t)=(1,2)$, ta có $(x,y)=(3,2)$.<br>
+                    $\\frac{\\partial f}{\\partial s} = (y+1) \\cdot (1) + (x+1) \\cdot (t)$<br>
+                    $\\frac{\\partial f}{\\partial s}(1,2) = (2+1)(1) + (3+1)(2) = 3 + 8 = 11$.
                 </li>
             </ol>`
     },
@@ -1508,8 +1512,30 @@ const mai391_questions = [
         status: "verified",
         question: "Consider the function $f(x,y) = x^2 + 2xy$ and $x = s \\cos t, y = s \\sin t$. Find the partial derivative of f with respect to s at $(s,t) = (1, \\pi/4)$.",
         options: ["a. 2", "b. 5/2", "c. None of the others", "d. 1/2", "e. 3"],
-        answer: 4, // e. 3
-        explanation: "Công thức: Sử dụng Quy tắc Chuỗi (Chain Rule).\n$\\frac{\\partial f}{\\partial s} = \\frac{\\partial f}{\\partial x} \\cdot \\frac{\\partial x}{\\partial s} + \\frac{\\partial f}{\\partial y} \\cdot \\frac{\\partial y}{\\partial s}$.\n\n1.  **Tính các đạo hàm riêng của $f$ (theo $x, y$):**\n    * $\\frac{\\partial f}{\\partial x} = 2x + 2y$.\n    * $\\frac{\\partial f}{\\partial y} = 2x$.\n\n2.  **Tính các đạo hàm riêng của $x, y$ (theo $s$):**\n    * $\\frac{\\partial x}{\\partial s} = \\cos t$.\n    * $\\frac{\\partial y}{\\partial s} = \\sin t$.\n\n3.  **Lắp ráp công thức $\\frac{\\partial f}{\\partial s}$:**\n    * $\\frac{\\partial f}{\\partial s} = (2x + 2y)(\\cos t) + (2x)(\\sin t)$.\n\n4.  **Tính giá trị của $x, y, \cos t, \sin t$ tại điểm $(s,t) = (1, \\pi/4)$:**\n    * $t = \\pi/4 \implies \\cos t = 1/\\sqrt{2}, \\sin t = 1/\\sqrt{2}$.\n    * $x = s \\cos t = 1 \cdot (1/\\sqrt{2}) = 1/\\sqrt{2}$.\n    * $y = s \\sin t = 1 \cdot (1/\\sqrt{2}) = 1/\\sqrt{2}$.\n\n5.  **Thế các giá trị vào công thức (Bước 3):**\n    * $\\frac{\\partial f}{\\partial s} = (2(1/\\sqrt{2}) + 2(1/\\sqrt{2}))(1/\\sqrt{2}) + (2(1/\\sqrt{2}))(1/\\sqrt{2})$.\n    * $\\frac{\\partial f}{\\partial s} = (\\frac{4}{\\sqrt{2}}) (\\frac{1}{\\sqrt{2}}) + (\\frac{2}{\\sqrt{2}}) (\\frac{1}{\\sqrt{2}})$.\n    * $\\frac{\\partial f}{\\partial s} = \\frac{4}{2} + \\frac{2}{2} = 2 + 1 = 3$."
+        answer: 4,
+        explanation: `
+            <p><strong>Công thức:</strong> Sử dụng Quy tắc Chuỗi (Chain Rule) cho đạo hàm riêng của hàm hợp.<br>
+            $\\frac{\\partial f}{\\partial s} = \\frac{\\partial f}{\\partial x} \\frac{\\partial x}{\\partial s} + \\frac{\\partial f}{\\partial y} \\frac{\\partial y}{\\partial s}$.</p>
+            <ol>
+                <li><strong>Tính các đạo hàm riêng cần thiết:</strong>
+                    <ul>
+                        <li>$\\frac{\\partial f}{\\partial x} = 2x + 2y$</li>
+                        <li>$\\frac{\\partial f}{\\partial y} = 2x$</li>
+                        <li>$\\frac{\\partial x}{\\partial s} = \\cos t$</li>
+                        <li>$\\frac{\\partial y}{\\partial s} = \\sin t$</li>
+                    </ul>
+                </li>
+                <li><strong>Tính giá trị của $x, y$ tại điểm $(s,t) = (1, \\pi/4)$:</strong><br>
+                    $x = s \\cos t = 1 \\cdot \\cos(\\pi/4) = 1/\\sqrt{2}$.<br>
+                    $y = s \\sin t = 1 \\cdot \\sin(\\pi/4) = 1/\\sqrt{2}$.
+                </li>
+                <li><strong>Thế các giá trị vào công thức Quy tắc Chuỗi:</strong><br>
+                    Tại $(s,t)=(1, \\pi/4)$, ta có $(x,y)=(1/\\sqrt{2}, 1/\\sqrt{2})$.<br>
+                    $\\frac{\\partial f}{\\partial s} = (2x + 2y) \\cdot (\\cos t) + (2x) \\cdot (\\sin t)$<br>
+                    $\\frac{\\partial f}{\\partial s}(1, \\pi/4) = (2(\\frac{1}{\\sqrt{2}}) + 2(\\frac{1}{\\sqrt{2}}))(\\frac{1}{\\sqrt{2}}) + (2(\\frac{1}{\\sqrt{2}}))(\\frac{1}{\\sqrt{2}})$<br>
+                    $= (\\frac{4}{\\sqrt{2}})(\\frac{1}{\\sqrt{2}}) + \\frac{2}{2} = \\frac{4}{2} + 1 = 2 + 1 = 3$.
+                </li>
+            </ol>`
     },
     {
         id: "mai391_pdf_082",
@@ -1604,8 +1630,36 @@ const mai391_questions = [
         status: "verified",
         question: "Let $f(x,y) = vw - u^2 + v$ where $u = x+2y, v = 1-xy, w = x-y$. Evaluate $\\frac{\\partial f}{\\partial y}(0,1)$.",
         options: ["a. 0", "b. -9", "c. -4", "d. -3"],
-        answer: 1, // b. -9
-        explanation: "Công thức: Sử dụng Quy tắc Chuỗi (Chain Rule) cho nhiều biến trung gian.\n$\\frac{\\partial f}{\\partial y} = \\frac{\\partial f}{\\partial u} \\frac{\partial u}{\\partial y} + \\frac{\\partial f}{\\partial v} \\frac{\\partial v}{\\partial y} + \\frac{\\partial f}{\\partial w} \\frac{\\partial w}{\\partial y}$.\n\n1.  **Tính các đạo hàm của $f$ (theo $u, v, w$):**\n    * $\\frac{\\partial f}{\\partial u} = -2u$.\n    * $\\frac{\\partial f}{\\partial v} = w + 1$.\n    * $\\frac{\\partial f}{\\partial w} = v$.\n\n2.  **Tính các đạo hàm của $u, v, w$ (theo $y$):**\n    * $\\frac{\\partial u}{\\partial y} = 2$.\n    * $\\frac{\\partial v}{\\partial y} = -x$.\n    * $\\frac{\\partial w}{\\partial y} = -1$.\n\n3.  **Tính giá trị $u, v, w$ tại điểm $(x,y) = (0,1)$:**\n    * $u = 0 + 2(1) = 2$.\n    * $v = 1 - (0)(1) = 1$.\n    * $w = 0 - 1 = -1$.\n\n4.  **Thế các giá trị tại (0,1) vào các đạo hàm (Bước 1 & 2):**\n    * $\\frac{\\partial f}{\\partial u} = -2(2) = -4$.\n    * $\\frac{\\partial f}{\\partial v} = (-1) + 1 = 0$.\n    * $\\frac{\\partial f}{\\partial w} = 1$.\n    * $\\frac{\\partial u}{\\partial y} = 2$.\n    * $\\frac{\\partial v}{\\partial y} = -0 = 0$.\n    * $\\frac{\\partial w}{\\partial y} = -1$.\n\n5.  **Lắp ráp công thức $\\frac{\\partial f}{\\partial y}$:**\n    * $\\frac{\\partial f}{\\partial y} = (-4)(2) + (0)(0) + (1)(-1) = -8 + 0 - 1 = -9$."
+        answer: 1,
+        explanation: `
+            <p><strong>Công thức:</strong> Sử dụng Quy tắc Chuỗi (Chain Rule) cho nhiều biến trung gian.<br>
+            $\\frac{\\partial f}{\\partial y} = \\frac{\\partial f}{\\partial u} \\frac{\partial u}{\\partial y} + \\frac{\\partial f}{\\partial v} \\frac{\\partial v}{\\partial y} + \\frac{\\partial f}{\\partial w} \\frac{\\partial w}{\\partial y}$.</p>
+            <ol>
+                <li><strong>Tính các đạo hàm riêng của $f$ theo biến trung gian ($u, v, w$):</strong>
+                    <ul>
+                        <li>$\\frac{\\partial f}{\\partial u} = -2u$</li>
+                        <li>$\\frac{\\partial f}{\\partial v} = w + 1$</li>
+                        <li>$\\frac{\\partial f}{\\partial w} = v$</li>
+                    </ul>
+                </li>
+                <li><strong>Tính các đạo hàm riêng của biến trung gian theo $y$:</strong>
+                    <ul>
+                        <li>$\\frac{\\partial u}{\\partial y} = 2$</li>
+                        <li>$\\frac{\\partial v}{\\partial y} = -x$</li>
+                        <li>$\\frac{\\partial w}{\\partial y} = -1$</li>
+                    </ul>
+                </li>
+                <li><strong>Tính giá trị các biến tại điểm $(x,y) = (0,1)$:</strong><br>
+                    $u = 0 + 2(1) = 2$.<br>
+                    $v = 1 - (0)(1) = 1$.<br>
+                    $w = 0 - 1 = -1$.
+                </li>
+                <li><strong>Thế các giá trị vào công thức Quy tắc Chuỗi:</strong><br>
+                    $\\frac{\\partial f}{\\partial y}(0,1) = (-2u) \\cdot (2) + (w+1) \\cdot (-x) + (v) \\cdot (-1)$<br>
+                    $= (-2(2)) \\cdot (2) + ((-1)+1) \\cdot (-0) + (1) \\cdot (-1)$<br>
+                    $= (-4)(2) + (0)(0) + (-1) = -8 - 1 = -9$.
+                </li>
+            </ol>`
     },
     {
         "id": "mai391_pdf_094",

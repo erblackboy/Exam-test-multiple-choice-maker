@@ -36,8 +36,8 @@ const subjectDetails = {
     },
     "ADY201m": {
         title: "Phát triển Năng lực Doanh nghiệp (ADY201m)",
-        description: "Chưa có dữ liệu.",
-        disabled: true
+        description: "Câu hỏi trắc nghiệm ôn tập.",
+        questions: typeof ady201m_questions !== 'undefined' ? ady201m_questions : []
     }
 };
 

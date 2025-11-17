@@ -1,51 +1,83 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const subjectCode = localStorage.getItem('selectedSubject');
-    
-    if (!subjectCode || !quizData[subjectCode]) {
-        alert("Vui lòng chọn môn học trước!");
+    const flashcardSessionData = localStorage.getItem('flashcardSession');
+    if (!flashcardSessionData) {
+        alert('Không tìm thấy dữ liệu flashcard. Vui lòng thử lại.');
         window.location.href = 'index.html';
         return;
     }
-    
-    const subjectTitle = quizData[subjectCode].title;
-    document.getElementById('flashcard-title').textContent = `Flashcards: ${subjectTitle}`;
-    
-    const allQuestions = quizData[subjectCode].questions;
-    if (!allQuestions || allQuestions.length === 0) {
-        document.getElementById('flashcard-question-text').textContent = "Không có câu hỏi để hiển thị.";
-        return;
+
+    const { subjectCode, subjectTitle, questions } = JSON.parse(flashcardSessionData);
+
+    // DOM Elements
+    const subjectBreadcrumbLink = document.getElementById('subject-breadcrumb-link');
+    const subjectCodeEl = document.getElementById('flashcard-subject-code');
+    const questionCounterEl = document.getElementById('question-counter');
+    const questionTextEl = document.getElementById('flashcard-question-text');
+    const questionImageEl = document.getElementById('question-image');
+    const optionsContainerEl = document.getElementById('options-container');
+    const explanationEl = document.querySelector('.explanation');
+    const paletteContainerEl = document.getElementById('palette-container');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const flipBtn = document.getElementById('flip-btn');
+    const shuffleBtn = document.getElementById('shuffle-btn');
+    const flipCard = document.querySelector('.flip-card');
+    const backToHomeBtn = document.getElementById('back-to-home-btn');
+
+    let currentQuestionIndex = 0;
+    let answeredState = new Array(questions.length).fill(false);
+
+    function renderPalette() {
+        paletteContainerEl.innerHTML = '';
+        questions.forEach((_, index) => {
+            const paletteBtn = document.createElement('button');
+            paletteBtn.className = 'palette-btn';
+            paletteBtn.textContent = index + 1;
+
+            if (answeredState[index]) {
+                paletteBtn.classList.add('answered');
+            }
+            if (index === currentQuestionIndex) {
+                paletteBtn.classList.add('current');
+            }
+
+            paletteBtn.addEventListener('click', () => {
+                currentQuestionIndex = index;
+                loadQuestion(currentQuestionIndex);
+            });
+            paletteContainerEl.appendChild(paletteBtn);
+        });
     }
 
-    let currentCardIndex = 0;
+    function loadQuestion(index) {
+        // Reset card state
+        flipCard.classList.remove('flipped');
+        optionsContainerEl.classList.remove('answered');
+        explanationEl.style.display = 'none';
 
-    const questionTextEl = document.getElementById('flashcard-question-text');
-    const optionsAreaEl = document.getElementById('options-area');
-    const feedbackAreaEl = document.getElementById('feedback-area');
-    const feedbackTextEl = document.getElementById('feedback-text');
-    const explanationTextEl = document.getElementById('explanation-text');
-    const counterEl = document.getElementById('flashcard-counter');
-    const prevBtn = document.getElementById('prev-flashcard-btn');
-    const nextBtn = document.getElementById('next-flashcard-btn');
-
-    function displayCard(index) {
-        feedbackAreaEl.style.display = 'none';
-        optionsAreaEl.innerHTML = '';
+        const question = questions[index];
+        questionCounterEl.textContent = `Câu ${index + 1}/${questions.length}`;
         
-        const card = allQuestions[index];
-        questionTextEl.innerHTML = `<b>Câu hỏi ${index + 1}:</b> ${card.question}`;
-        counterEl.textContent = `Câu ${index + 1}/${allQuestions.length}`;
-        
-        // Xác định kiểu đáp án (mảng hay không)
-        const isMultiChoice = Array.isArray(card.answer) && card.answer.length > 1;
+        // Hiển thị câu hỏi ở mặt trước
+        questionTextEl.innerHTML = question.question;
+        if (question.image) {
+            questionImageEl.src = `imgs/${question.image}`;
+            questionImageEl.style.display = 'block';
+        } else {
+            questionImageEl.style.display = 'none';
+            questionImageEl.src = '';
+        }
 
-        card.options.forEach((option, optionIndex) => {
+        // Chuẩn bị đáp án ở mặt sau
+        optionsContainerEl.innerHTML = '';
+        const isMultiChoice = Array.isArray(question.answer);
+
+        question.options.forEach((option, optionIndex) => {
             const wrapper = document.createElement('div');
             wrapper.className = 'option-item';
-            
             const input = document.createElement('input');
-            // Sửa: Dùng isMultiChoice để quyết định radio hay checkbox
             input.type = isMultiChoice ? 'checkbox' : 'radio';
-            input.name = `flashcard${index}`;
+            input.name = `question${index}`;
             input.id = `option${optionIndex}_${index}`;
             input.value = optionIndex;
 
@@ -55,103 +87,136 @@ document.addEventListener('DOMContentLoaded', () => {
 
             wrapper.appendChild(input);
             wrapper.appendChild(label);
-            optionsAreaEl.appendChild(wrapper);
+            optionsContainerEl.appendChild(wrapper);
 
-            // Sửa: Chỉ gọi handleSelection khi click, không cần truyền tham số
-            wrapper.addEventListener('click', () => handleSelection(card));
+            wrapper.addEventListener('click', () => {
+                if (optionsContainerEl.classList.contains('answered')) return;
+                
+                if (isMultiChoice) {
+                    input.checked = !input.checked;
+                } else {
+                    input.checked = true;
+                }
+                checkAnswer(index);
+            });
         });
 
         updateNavButtons();
-        
+        renderPalette();
+
         if (window.MathJax && window.MathJax.typesetPromise) {
-            window.MathJax.typesetPromise([questionTextEl, optionsAreaEl]).then(() => {}).catch((err) => console.log('MathJax typeset error:', err));
+            window.MathJax.typesetPromise([questionTextEl, optionsContainerEl]).catch(err => console.log('MathJax typeset error:', err));
         }
     }
 
-    // --- BẮT ĐẦU SỬA LỖI LOGIC ---
-    function handleSelection(card) {
-        const inputs = optionsAreaEl.querySelectorAll('input');
-        const selectedIndexes = [];
-        inputs.forEach(input => {
-            if (input.checked) {
-                selectedIndexes.push(parseInt(input.value));
-            }
-        });
+    function checkAnswer(questionIndex) {
+        if (optionsContainerEl.classList.contains('answered')) return;
 
-        const correctAnswers = card.answer;
-        let isCorrect = false;
-
-        if (Array.isArray(correctAnswers)) {
-            // Trường hợp 1: Đáp án là MẢNG (cho SSL101c, AIG202c)
-            if (correctAnswers.length > 1) {
-                // Nhiều đáp án đúng (so sánh 2 mảng)
-                const sortedUser = [...selectedIndexes].sort();
-                const sortedCorrect = [...correctAnswers].sort();
-                isCorrect = JSON.stringify(sortedUser) === JSON.stringify(sortedCorrect);
-            } else {
-                // Một đáp án đúng (lưu trong mảng 1 phần tử)
-                isCorrect = selectedIndexes.length === 1 && selectedIndexes[0] === correctAnswers[0];
-            }
-        } else {
-            // Trường hợp 2: Đáp án là SỐ (cho MAI391)
-            isCorrect = selectedIndexes.length === 1 && selectedIndexes[0] === correctAnswers;
-        }
-        // --- KẾT THÚC SỬA LỖI LOGIC ---
-
-        if (isCorrect) {
-            feedbackTextEl.textContent = 'Chính xác! 🎉';
-            feedbackTextEl.className = 'feedback-text feedback-correct';
-        } else {
-            feedbackTextEl.textContent = 'Không chính xác. 🙁';
-            feedbackTextEl.className = 'feedback-text feedback-incorrect';
-        }
-
-        // Đánh dấu và vô hiệu hóa các lựa chọn
-        optionsAreaEl.querySelectorAll('.option-item').forEach((item, optIndex) => {
-            item.classList.add('disabled'); // Vô hiệu hóa click
-            
-            const isUserSelection = selectedIndexes.includes(optIndex);
-            
-            // Kiểm tra đáp án đúng (bất kể là mảng hay số)
-            const isCorrectAnswer = Array.isArray(correctAnswers) ? 
-                                    correctAnswers.includes(optIndex) : 
-                                    correctAnswers === optIndex;
-
-            if(isCorrectAnswer) {
-                item.classList.add('option-correct');
-            } else if (isUserSelection && !isCorrectAnswer) {
-                item.classList.add('option-incorrect');
-            }
-        });
-
-        explanationTextEl.innerHTML = `<b>Giải thích:</b> ${card.explanation || "Không có giải thích."}`;
-        feedbackAreaEl.style.display = 'block';
+        const question = questions[questionIndex];
+        const options = optionsContainerEl.querySelectorAll('.option-item');
+        const correctAnswer = question.answer;
         
-        if (window.MathJax && window.MathJax.typesetPromise) {
-            window.MathJax.typesetPromise([explanationTextEl]).then(() => {}).catch((err) => console.log('MathJax typeset error:', err));
+        answeredState[questionIndex] = true;
+        optionsContainerEl.classList.add('answered');
+
+        options.forEach((wrapper, index) => {
+            const input = wrapper.querySelector('input');
+            input.disabled = true;
+
+            const isCorrectOption = Array.isArray(correctAnswer) ? correctAnswer.includes(index) : (index === correctAnswer);
+            const isUserChoice = input.checked;
+
+            if (isCorrectOption) {
+                wrapper.classList.add('option-correct');
+            } else if (isUserChoice && !isCorrectOption) {
+                wrapper.classList.add('option-incorrect');
+            }
+        });
+
+        if (question.explanation) {
+            explanationEl.innerHTML = `<strong>Giải thích:</strong> ${question.explanation || 'Không có giải thích.'}`;
+            explanationEl.style.display = 'block';
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise([explanationEl]).catch(err => console.log('MathJax typeset error:', err));
+            }
         }
+        
+        renderPalette();
     }
-    // --- HẾT PHẦN SỬA LỖI ---
+
+    function shuffleQuestions() {
+        // Thuật toán xáo trộn Fisher-Yates
+        for (let i = questions.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [questions[i], questions[j]] = [questions[j], questions[i]];
+        }
+
+        // Reset lại trạng thái
+        currentQuestionIndex = 0;
+        answeredState = new Array(questions.length).fill(false);
+
+        // Tải lại câu hỏi đầu tiên và giao diện
+        loadQuestion(currentQuestionIndex);
+        alert('Đã xáo trộn thứ tự câu hỏi!');
+    }
 
     function updateNavButtons() {
-        prevBtn.disabled = currentCardIndex === 0;
-        nextBtn.disabled = currentCardIndex === allQuestions.length - 1;
+        prevBtn.disabled = currentQuestionIndex === 0;
+        nextBtn.disabled = currentQuestionIndex === questions.length - 1;
     }
 
+    // Event Listeners
+    flipBtn.addEventListener('click', () => {
+        const isFlipped = flipCard.classList.toggle('flipped');
+        
+        // --- THÊM LOGIC ĐIỀU CHỈNH CHIỀU CAO ---
+        const front = flipCard.querySelector('.flip-card-front');
+        const back = flipCard.querySelector('.flip-card-back');
+        const inner = flipCard.querySelector('.flip-card-inner');
+
+        if (isFlipped) {
+            // Khi lật ra mặt sau, đặt chiều cao của thẻ bằng chiều cao của mặt sau
+            inner.style.height = back.offsetHeight + 'px';
+        } else {
+            // Khi lật về mặt trước, đặt chiều cao bằng chiều cao của mặt trước
+            inner.style.height = front.offsetHeight + 'px';
+        }
+    });
+
+    shuffleBtn.addEventListener('click', () => {
+        shuffleQuestions();
+    });
+
     prevBtn.addEventListener('click', () => {
-        if (currentCardIndex > 0) {
-            currentCardIndex--;
-            displayCard(currentCardIndex);
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            loadQuestion(currentQuestionIndex);
         }
     });
 
     nextBtn.addEventListener('click', () => {
-        if (currentCardIndex < allQuestions.length - 1) {
-            currentCardIndex++;
-            displayCard(currentCardIndex);
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            loadQuestion(currentQuestionIndex);
         }
     });
 
+    backToHomeBtn.addEventListener('click', () => {
+        window.location.href = 'index.html';
+    });
+
     // Initial Load
-    displayCard(currentCardIndex);
+    if (subjectBreadcrumbLink) {
+        subjectBreadcrumbLink.textContent = subjectTitle;
+        subjectBreadcrumbLink.href = `subject.html?subject=${subjectCode}`;
+    }
+    if (subjectCodeEl) {
+        subjectCodeEl.textContent = subjectTitle;
+    }
+    if (questions.length > 0) {
+        loadQuestion(currentQuestionIndex);
+    } else {
+        document.querySelector('.flashcard-main').innerHTML = '<h1>Không có câu hỏi nào cho môn học này.</h1>';
+        return;
+    }
 });

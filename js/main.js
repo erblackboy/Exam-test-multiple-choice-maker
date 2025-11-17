@@ -53,7 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.addEventListener('click', () => {
                     if (!subject.disabled) {
                         if (subject.customLink) {
-                            window.location.href = `${subjectId}_Web/${subjectId}_index.html`;
+                            // Sửa lại để xử lý đường dẫn không có thư mục con
+                            if (subject.customLink.includes('/')) {
+                                window.location.href = subject.customLink;
+                            } else {
+                                window.location.href = `${subjectId}_Web/${subject.customLink}`;
+                            }
                         } else {
                             window.location.href = `subject.html?subject=${subjectId}`;
                         }
