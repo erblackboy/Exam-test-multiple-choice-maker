@@ -1,4 +1,4 @@
-const ady201m_questions = [
+var ady201m_questions = [
   {
     id: "ady201m_001",
     status: "verified",

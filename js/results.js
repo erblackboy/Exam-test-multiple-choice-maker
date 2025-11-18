@@ -16,35 +16,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let correctCount = 0;
     const reviewItems = [];
 
-    // --- BẮT ĐẦU SỬA LOGIC CHẤM ĐIỂM ---
+    // --- TỐI ƯU HÓA LOGIC CHẤM ĐIỂM ---
     questions.forEach((q, index) => {
-        const userAnswer = userAnswers[index]; // Có thể là số (2) hoặc mảng ([2]) hoặc mảng ([0, 2])
-        const correctAnswer = q.answer;        // Tương tự, có thể là số hoặc mảng
+        const userAnswer = userAnswers[index];
+        const correctAnswer = q.answer;
         let isCorrect = false;
 
-        if (userAnswer === null || userAnswer === undefined) {
-            isCorrect = false;
-        } else if (Array.isArray(correctAnswer)) {
-            // TRƯỜNG HỢP 1: Đáp án là MẢNG (dành cho SSL101c, AIG202c)
-            if (Array.isArray(userAnswer)) {
-                // A. Câu hỏi nhiều đáp án VÀ user chọn nhiều đáp án
-                const sortedUser = [...userAnswer].sort();
-                const sortedCorrect = [...correctAnswer].sort();
-                isCorrect = JSON.stringify(sortedUser) === JSON.stringify(sortedCorrect);
-            } else {
-                // B. Câu hỏi 1 đáp án (lưu dạng [2]) VÀ user chọn 1 đáp án (lưu dạng 2)
-                isCorrect = (correctAnswer.length === 1 && userAnswer === correctAnswer[0]);
-            }
+        // Chuyển cả hai về dạng mảng để so sánh nhất quán
+        const userAnswerAsArray = Array.isArray(userAnswer) ? userAnswer : [userAnswer];
+        const correctAnswerAsArray = Array.isArray(correctAnswer) ? correctAnswer : [correctAnswer];
+
+        // Loại bỏ các giá trị null/undefined khỏi câu trả lời của người dùng
+        const cleanedUserAnswer = userAnswerAsArray.filter(ans => ans !== null && ans !== undefined);
+
+        if (cleanedUserAnswer.length === correctAnswerAsArray.length) {
+            // Sắp xếp cả hai mảng để so sánh không phụ thuộc thứ tự
+            const sortedUser = [...cleanedUserAnswer].sort();
+            const sortedCorrect = [...correctAnswerAsArray].sort();
+            isCorrect = JSON.stringify(sortedUser) === JSON.stringify(sortedCorrect);
         } else {
-            // TRƯỜNG HỢP 2: Đáp án là SỐ (dành cho MAI391)
-            // C. Câu hỏi 1 đáp án (lưu dạng 2) VÀ user chọn 1 đáp án (lưu dạng 2)
-            isCorrect = (userAnswer === correctAnswer);
+            isCorrect = false; // Số lượng lựa chọn không khớp
         }
 
         if (isCorrect) correctCount++;
         reviewItems.push({ question: q, userAnswer, isCorrect, index });
     });
-    // --- KẾT THÚC SỬA LOGIC CHẤM ĐIỂM ---
 
     const incorrectCount = questions.length - correctCount;
     const score = (correctCount / questions.length) * 10;

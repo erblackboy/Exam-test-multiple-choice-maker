@@ -1,120 +1,122 @@
-// Đảm bảo quizData đã được load trước khi chạy
-function initQuizSetup() {
-    // Kiểm tra quizData đã sẵn sàng chưa
-    if (typeof quizData === 'undefined') {
-        console.error('quizData chưa được định nghĩa! Đang đợi...');
-        setTimeout(initQuizSetup, 100);
-        return;
-    }
-    
-    // Check URL parameters first, then localStorage
-    const urlParams = new URLSearchParams(window.location.search);
-    let subjectCode = urlParams.get('subject');
-    let subjectTitle = null;
-    
-    if (subjectCode && quizData[subjectCode]) {
-        subjectTitle = quizData[subjectCode].title;
-        localStorage.setItem('selectedSubject', subjectCode);
-        localStorage.setItem('selectedSubjectTitle', subjectTitle);
-    } else {
-        subjectCode = localStorage.getItem('selectedSubject');
-        if (subjectCode && quizData[subjectCode]) {
-            subjectTitle = quizData[subjectCode].title;
-        } else {
-            subjectTitle = localStorage.getItem('selectedSubjectTitle');
-        }
-    }
-    
-    if (!subjectCode || !quizData[subjectCode]) {
-        alert("Vui lòng chọn một môn học trước!");
-        window.location.href = 'index.html';
-        return;
-    }
-    
-    // Ensure subjectTitle is set from quizData
-    if (!subjectTitle) {
-        subjectTitle = quizData[subjectCode].title;
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    // Hàm tải script động
+    // --- TỐI ƯU HÓA: Thêm màn hình chờ ---
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.className = 'loading-overlay';
+    loadingOverlay.innerHTML = '<p style="font-size: 1.5em;">Đang tải dữ liệu...</p>';
+    document.body.appendChild(loadingOverlay);
+    loadingOverlay.style.display = 'none'; // Ẩn ban đầu
+    // --- KẾT THÚC ---
 
-    // Kiểm tra xem có questions không
-    if (!quizData[subjectCode].questions || quizData[subjectCode].questions.length === 0) {
-        alert(`Môn học ${subjectTitle} chưa có câu hỏi. Vui lòng kiểm tra lại file data.`);
-        console.error(`Subject ${subjectCode} has no questions.`, {
-            subjectCode: subjectCode,
-            subject: quizData[subjectCode],
-            questions: quizData[subjectCode].questions,
-            mai391_questions_loaded: typeof mai391_questions !== 'undefined',
-            mai391_questions_count: typeof mai391_questions !== 'undefined' ? mai391_questions.length : 0,
-            quizData_keys: Object.keys(quizData)
+    function loadScript(src) {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error(`Không thể tải script: ${src}`));
+            document.head.appendChild(script);
         });
-        window.location.href = 'index.html';
-        return;
     }
 
-    const maxQuestions = quizData[subjectCode].questions.length;
-    const maxQuestionsSpan = document.getElementById('max-questions');
-    const numQuestionsInput = document.getElementById('num-questions');
-    const timeLimitInput = document.getElementById('time-limit');
-    const startQuizBtn = document.getElementById('start-quiz-btn');
-    const backBtn = document.getElementById('back-to-subject-btn');
-    const setupTitle = document.getElementById('setup-title');
+    // Hàm khởi tạo chính
+    async function initializeQuizSetup() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const subjectCode = urlParams.get('subject');
 
-    // --- SỬA LỖI LOGIC ---
-    // Xác định đúng trang để quay về và cập nhật breadcrumb
-    const subjectBreadcrumbLink = document.getElementById('subject-breadcrumb-link');
-    let backUrl = 'subject.html'; // Mặc định cho các môn không có customLink
+        if (subjectCode && quizData[subjectCode]) {
+            const subjectInfo = quizData[subjectCode];
+            
+            if (!subjectInfo.dataFile) {
+                alert(`Môn học ${subjectInfo.title} chưa được cấu hình tệp dữ liệu.`);
+                window.location.href = 'index.html';
+                return;
+            }
 
-    if (quizData[subjectCode].customLink) {
-        // Nếu là môn có trang riêng (như MAI391, MAS291)
-        backUrl = quizData[subjectCode].customLink;
+            try {
+                // --- TỐI ƯU HÓA: Hiển thị màn hình chờ ---
+                loadingOverlay.style.display = 'flex';
+                // --- KẾT THÚC ---
+                await loadScript(subjectInfo.dataFile);
+                // Sử dụng thuộc tính questionVar để lấy đúng tên biến
+                const questions = window[subjectInfo.questionVar];
+
+                if (!questions || questions.length === 0) {
+                    throw new Error('Tệp dữ liệu không chứa câu hỏi hoặc có lỗi.');
+                }
+
+                // Gán câu hỏi vào subjectDetails để các phần khác có thể dùng
+                subjectDetails[subjectCode].questions = questions;
+
+                // Bắt đầu logic của trang setup
+                setupUI(subjectCode, subjectInfo.title, questions);
+
+            } catch (error) {
+                console.error(error);
+                alert(`Đã xảy ra lỗi khi tải dữ liệu câu hỏi cho môn ${subjectInfo.title}.`);
+                window.location.href = 'index.html';
+            } finally {
+                // --- TỐI ƯU HÓA: Luôn ẩn màn hình chờ ---
+                loadingOverlay.style.display = 'none';
+            }
+        } else {
+            alert("Mã môn học không hợp lệ.");
+            window.location.href = 'index.html';
+        }
     }
 
-    subjectBreadcrumbLink.href = backUrl;
-    subjectBreadcrumbLink.textContent = subjectTitle;
-    // --- KẾT THÚC SỬA LỖI ---
+    function setupUI(subjectCode, subjectTitle, questions) {
+        const maxQuestions = questions.length;
+        const maxQuestionsSpan = document.getElementById('max-questions');
+        const numQuestionsInput = document.getElementById('num-questions');
+        const timeLimitInput = document.getElementById('time-limit');
+        const startQuizBtn = document.getElementById('start-quiz-btn');
+        const backBtn = document.getElementById('back-to-subject-btn');
+        const setupTitle = document.getElementById('setup-title');
+        const subjectBreadcrumbLink = document.getElementById('subject-breadcrumb-link');
 
-    setupTitle.textContent = `Thiết Lập Bài Thi: ${subjectTitle}`;
-    maxQuestionsSpan.textContent = maxQuestions;
-    numQuestionsInput.value = Math.min(50, maxQuestions); 
-    numQuestionsInput.max = maxQuestions;
-
-    backBtn.addEventListener('click', () => {
-        window.location.href = backUrl; // Sửa để quay về đúng trang
-    });
-
-    startQuizBtn.addEventListener('click', () => {
-        const numQuestions = parseInt(numQuestionsInput.value);
-        const timeLimit = parseInt(timeLimitInput.value);
-
-        if (isNaN(numQuestions) || numQuestions <= 0 || numQuestions > maxQuestions) {
-            alert(`Số câu hỏi phải nằm trong khoảng từ 1 đến ${maxQuestions}.`);
-            return;
-        }
-        if (isNaN(timeLimit) || timeLimit <= 0) {
-            alert("Thời gian phải là một số dương.");
-            return;
+        let backUrl = 'subject.html?subject=' + subjectCode;
+        if (quizData[subjectCode] && quizData[subjectCode].customLink) {
+            backUrl = quizData[subjectCode].customLink;
         }
 
-        const allQuestions = quizData[subjectCode].questions;
-        const shuffledQuestions = [...allQuestions].sort(() => 0.5 - Math.random());
-        const selectedQuestions = shuffledQuestions.slice(0, numQuestions);
+        subjectBreadcrumbLink.href = backUrl;
+        subjectBreadcrumbLink.textContent = subjectTitle;
 
-        const quizSettings = {
-            subjectCode,
-            subjectTitle,
-            questions: selectedQuestions,
-            timeLimit: timeLimit * 60 // Chuyển sang giây
-        };
-        localStorage.setItem('quizSession', JSON.stringify(quizSettings));
+        setupTitle.textContent = `Thiết Lập Bài Thi: ${subjectTitle}`;
+        maxQuestionsSpan.textContent = maxQuestions;
+        numQuestionsInput.value = Math.min(50, maxQuestions);
+        numQuestionsInput.max = maxQuestions;
 
-        window.location.href = 'quiz.html';
-    });
-}
+        backBtn.addEventListener('click', () => {
+            window.location.href = `subject.html?subject=${subjectCode}`;
+        });
 
-// Chạy khi DOM đã sẵn sàng
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initQuizSetup);
-} else {
-    // DOM đã loaded
-    initQuizSetup();
-}
+        startQuizBtn.addEventListener('click', () => {
+            const numQuestions = parseInt(numQuestionsInput.value);
+            const timeLimit = parseInt(timeLimitInput.value);
+
+            if (isNaN(numQuestions) || numQuestions <= 0 || numQuestions > maxQuestions) {
+                alert(`Số câu hỏi phải nằm trong khoảng từ 1 đến ${maxQuestions}.`);
+                return;
+            }
+            if (isNaN(timeLimit) || timeLimit <= 0) {
+                alert("Thời gian phải là một số dương.");
+                return;
+            }
+
+            const shuffledQuestions = [...questions].sort(() => 0.5 - Math.random());
+            const selectedQuestions = shuffledQuestions.slice(0, numQuestions);
+
+            const quizSettings = {
+                subjectCode,
+                subjectTitle,
+                questions: selectedQuestions,
+                timeLimit: timeLimit * 60
+            };
+            localStorage.setItem('quizSession', JSON.stringify(quizSettings));
+            window.location.href = 'quiz.html';
+        });
+    }
+
+    initializeQuizSetup();
+});

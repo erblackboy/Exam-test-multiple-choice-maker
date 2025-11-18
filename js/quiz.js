@@ -67,6 +67,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadQuestion(index) {
+        // --- TỐI ƯU HÓA: Thêm hiệu ứng mờ khi tải câu hỏi mới ---
+        const quizMain = document.querySelector('.quiz-main');
+        quizMain.style.opacity = '0.5';
+
         const question = questions[index];
         questionCounterEl.textContent = `Câu ${index + 1}/${questions.length}`;
         questionTextEl.innerHTML = question.question;
@@ -80,7 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         optionsContainerEl.innerHTML = '';
-        const isMultiChoice = question.answer.length > 1;
+        // --- TỐI ƯU HÓA LOGIC: Kiểm tra đáp án là mảng hay không ---
+        // Điều này đáng tin cậy hơn là kiểm tra length, vì câu 1 đáp án có thể lưu là [2]
+        const isMultiChoice = Array.isArray(question.answer);
 
         question.options.forEach((option, optionIndex) => {
             const wrapper = document.createElement('div');
@@ -126,6 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Trigger MathJax to render all formulas (question and options) together
         if (window.MathJax && window.MathJax.typesetPromise) {
             window.MathJax.typesetPromise([questionTextEl, optionsContainerEl]).then(() => {}).catch((err) => console.log('MathJax typeset error:', err));
+        }
+
+        setTimeout(() => {
+            quizMain.style.opacity = '1';
         }
     }
 

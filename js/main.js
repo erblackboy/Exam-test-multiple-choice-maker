@@ -47,18 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const subjectDescription = document.createElement('p');
                 subjectDescription.textContent = subject.description;
 
-                card.appendChild(subjectName);
                 card.appendChild(subjectDescription);
+                card.appendChild(subjectName);
                 
                 card.addEventListener('click', () => {
                     if (!subject.disabled) {
                         if (subject.customLink) {
-                            // Sửa lại để xử lý đường dẫn không có thư mục con
-                            if (subject.customLink.includes('/')) {
-                                window.location.href = subject.customLink;
-                            } else {
-                                window.location.href = `${subjectId}_Web/${subject.customLink}`;
-                            }
+                            window.location.href = subject.customLink;
                         } else {
                             window.location.href = `subject.html?subject=${subjectId}`;
                         }

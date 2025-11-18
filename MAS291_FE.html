@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công thức Xác suất Thống kê (MAS291)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+    <style>
+        .formula-container {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .formula-container h2 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            color: var(--header-color);
+        }
+        .formula {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: var(--card-bg-color);
+            border-left: 4px solid var(--primary-color);
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <nav class="breadcrumb">
+            <a href="index.html">Trang chủ</a> &gt; Sổ tay MAS291
+        </nav>
+        <h1 class="main-header">Sổ tay Công thức MAS291</h1>
+
+        <div class="formula-container">
+            <h2>📸 Các công thức cơ bản</h2>
+            <div class="formula">$$P(A+B) = P(A) + P(B) - P(A \cap B)$$</div>
+            <div class="formula">$$P(A|B) = \frac{P(A \cap B)}{P(B)}$$</div>
+            <div class="formula">$$P(AB) = P(A|B) P(B)$$</div>
+            <div class="formula">$$P(B) = P(B|A) P(A) + P(B|A') P(A')$$</div>
+            <div class="formula">$$P(B) = P(B|A_1) P(A_1) + P(B|A_2) P(A_2) + P(B|A_3) P(A_3)$$</div>
+            <div class="formula">$$P(E_i | B) = \frac{P(B | E_i) P(E_i)}{P(B)}$$</div>
+            <div class="formula">$$X \sim b(n, p), \quad P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad E(X) = n.p, \quad V(X) = n.p(1-p)$$</div>
+            <div class="formula">$$X \sim nb(r, p), \quad P(X=k) = \binom{k-1}{r-1} p^r (1-p)^{k-r}, \quad E(X) = \frac{r}{p}, \quad V(X) = \frac{r(1-p)}{p^2}$$</div>
+            <div class="formula">$$X \sim N(\mu, \sigma^2), \quad P(a \le X \le b) = \Phi\left(\frac{b-\mu}{\sigma}\right) - \Phi\left(\frac{a-\mu}{\sigma}\right)$$</div>
+            <div class="formula">$$P(X \le k) = \Phi\left(\frac{k-\mu}{\sigma}\right), \quad P(X > a) = 1 - P\left(Z \le \frac{a-\mu}{\sigma}\right)$$</div>
+        </div>
+
+        <div class="formula-container">
+            <h2>📸 Ước lượng và Kiểm định</h2>
+            <div class="formula">
+                $$X \sim \text{uniform}(a, b)$$
+                $$E(X) = \frac{a+b}{2}, \quad V(X) = \frac{(b-a)^2}{12}$$
+            </div>
+            <div class="formula">
+                $$X: \text{exponential}(\lambda)$$
+                $$E(X) = \frac{1}{\lambda}, \quad V(X) = \frac{1}{\lambda^2}$$
+                $$f(x) = \lambda e^{-\lambda x}, \quad x > 0$$
+            </div>
+            <div class="formula">$$\frac{\hat{p} - p}{\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}} \approx Z$$</div>
+
+            <h3>Interval Estimation (Ước lượng khoảng)</h3>
+            <div class="formula">$$\frac{\bar{X} - \mu}{\sigma / \sqrt{n}} = Z$$</div>
+            <div class="formula">
+                $$\frac{\bar{X} - \mu}{s / \sqrt{n}} = T$$
+                $$\approx Z \quad (\text{if } n > 40)$$
+            </div>
+
+            <h3>Hypothesis Testing (Kiểm định giả thuyết)</h3>
+            <div class="formula">
+                $$H_0: \mu = \mu_0$$
+                $$H_1: \mu \ne \mu_0$$
+                $$Z_0 = \frac{\bar{X} - \mu_0}{\sigma / \sqrt{n}}$$
+            </div>
+        </div>
+
+        <button class="back-btn" style="margin-top: 30px;" onclick="location.href='index.html'">← Quay về Trang chủ</button>
+
+    </div>
+</body>
+</html>

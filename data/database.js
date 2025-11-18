@@ -4,12 +4,16 @@ const subjectDetails = {
     "SSL101c": {
         title: "Kỹ năng học tập (SSL101c)",
         description: "Câu hỏi trắc nghiệm ôn tập.",
-        questions: typeof ssl101c_questions !== 'undefined' ? ssl101c_questions : []
+        dataFile: "data/ssl101c.js",
+        questionVar: "ssl101c_questions",
+        questions: []
     },
     "AIG202c": {
         title: "Trí tuệ nhân tạo (AIG202c)",
         description: "Câu hỏi trắc nghiệm ôn tập.",
-        questions: typeof aig202c_questions !== 'undefined' ? aig202c_questions : []
+        dataFile: "data/aig202c.js",
+        questionVar: "aig202c_questions",
+        questions: []
     },
     
     // --- SỬA CÁC ĐƯỜNG DẪN customLink ---
@@ -26,8 +30,10 @@ const subjectDetails = {
     "MAI391": {
         title: "Toán ứng dụng và AI (MAI391)",
         description: "Mathematics for Machine Learning.",
-        customLink: "MAI391_Web/MAI391_index.html",
-        questions: typeof mai391_questions !== 'undefined' ? mai391_questions : []
+        customLink: "MAI391_Web/MAI391_index.html", // Vẫn giữ customLink
+        dataFile: "data/mai391.js",
+        questionVar: "mai391_questions",
+        questions: []
     },
     "JPD123": {
         title: "Tiếng Nhật 2 (JPD123)",
@@ -37,13 +43,25 @@ const subjectDetails = {
     "ADY201m": {
         title: "Phát triển Năng lực Doanh nghiệp (ADY201m)",
         description: "Câu hỏi trắc nghiệm ôn tập.",
-        questions: typeof ady201m_questions !== 'undefined' ? ady201m_questions : []
+        dataFile: "data/ady201m_questions.js",
+        questionVar: "ady201m_questions",
+        questions: []
+    }
+    ,
+    "DBI202": {
+        title: "Hệ quản trị Cơ sở dữ liệu (DBI202)",
+        description: "Câu hỏi trắc nghiệm ôn tập.",
+        dataFile: "data/dbi202_questions.js",
+        questionVar: "dbi202_questions",
+        questions: []
     }
 };
 
 const semesterLayout = {
-    "Học Kỳ 2": ["SSL101c", "AIG202c", "JPD113"],
-    "Học Kỳ 3": ["MAS291", "MAI391", "JPD123", "ADY201m"]
+    "Học Kỳ 2": ["SSL101c", "AIG202c", "DBI202", "JPD113"],
+    "Học Kỳ 3": ["MAS291", "MAI391", "JPD123", "ADY201m"],
+    // Thêm một kỳ học mới nếu cần
+    // "Học Kỳ 4": ["Môn A", "Môn B"]
 };
 
 const quizData = subjectDetails;

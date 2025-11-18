@@ -1,4 +1,4 @@
-const aig202c_questions = [
+var aig202c_questions = [
     {
         id: "aig202c_001",
         question: "Which of these is NOT a current application of AI?",
@@ -8,7 +8,7 @@ const aig202c_questions = [
             "C. Collaborative Robots helping humans lift heavy containers",
             "D. Making precise patient diagnosis and prescribing independent treatment"
         ],
-        answer: [3],
+        answer: 3,
         explanation: "AI hiện tại hỗ trợ bác sĩ trong việc chẩn đoán, nhưng không có quyền hoặc khả năng kê đơn điều trị độc lập. Bước cuối cùng này vẫn yêu cầu sự tham gia của các chuyên gia y tế con người.",
         image: null
     },
@@ -21,7 +21,7 @@ const aig202c_questions = [
             "C. Clarity adds to the complexity of the prompt",
             "D. Clarity ensures the prompt is lengthy"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Lời nhắc rõ ràng và không mơ hồ giúp mô hình AI hiểu ý định của người dùng, ngữ cảnh và định dạng đầu ra mong muốn, dẫn đến kết quả chính xác và phù hợp hơn.",
         image: null
     },
@@ -34,7 +34,7 @@ const aig202c_questions = [
             "C. Inserting a digitizer into the stethoscope tube to convert analog sound into a digital signal",
             "D. Graphing heart beat data on the mobile device allowing a physician to spot trends"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Thành phần AI cốt lõi là mô hình máy học trong ứng dụng, được huấn luyện trên dữ liệu trước đó để nhận diện mẫu và hỗ trợ chẩn đoán.",
         image: null
     },
@@ -47,7 +47,7 @@ const aig202c_questions = [
             "C. AI Accountability",
             "D. AI Fairness"
         ],
-        answer: [3],
+        answer: 3,
         explanation: "Công bằng AI là lĩnh vực đảm bảo các thuật toán AI không duy trì hoặc khuếch đại các thiên kiến xã hội hiện có, đối xử công bằng với tất cả các cá nhân và nhóm.",
         image: null
     },
@@ -60,7 +60,7 @@ const aig202c_questions = [
             "C. Providing effective training data and performing regular tests and audits",
             "D. Using government-approved algorithms"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Ngăn chặn thiên kiến đòi hỏi cách tiếp cận chủ động, bao gồm việc chọn lọc dữ liệu huấn luyện đa dạng và đại diện, đồng thời liên tục kiểm tra mô hình để phát hiện kết quả thiên vị.",
         image: null
     },
@@ -73,7 +73,7 @@ const aig202c_questions = [
             "C. Something that we need to apply today",
             "D. Something that somebody else is going to do in the future"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Đạo đức trong AI là vấn đề cấp bách cần được giải quyết ngay từ bây giờ để đảm bảo các hệ thống AI được phát triển và sử dụng một cách có trách nhiệm, minh bạch và công bằng.",
         image: null
     },
@@ -86,7 +86,7 @@ const aig202c_questions = [
             "C. Acknowledging the digression and exploring the new topic briefly",
             "D. Terminating the conversation abruptly"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Bỏ qua đầu vào của người dùng và tiếp tục với kịch bản định sẵn không phải là cách hiệu quả để quản lý lệch hướng, vì nó làm giảm tính tự nhiên và tương tác của cuộc trò chuyện.",
         image: null
     },
@@ -99,7 +99,7 @@ const aig202c_questions = [
             "C. To slow down the conversation pace",
             "D. To enforce strict conversation paths"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Các đoạn lệch hướng được sử dụng để làm cho cuộc trò chuyện tự nhiên hơn, cho phép chatbot xử lý các chủ đề ngoài lề một cách linh hoạt, từ đó tăng tính hấp dẫn.",
         image: null
     },
@@ -112,7 +112,7 @@ const aig202c_questions = [
             "C. Relies on providing human-labeled data - the more samples, the more precise",
             "D. Relies on providing a set of rules and constraints to achieve goals"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Học có giám sát sử dụng dữ liệu được gắn nhãn bởi con người để huấn luyện thuật toán, giúp nó phân loại hoặc dự đoán chính xác hơn khi có nhiều mẫu dữ liệu.",
         image: null
     },
@@ -125,7 +125,7 @@ const aig202c_questions = [
             "C. Ability to generate dynamic films",
             "D. Ability to synthesize images"
         ],
-        answer: [3],
+        answer: 3,
         explanation: "Tiana đang sử dụng khả năng tổng hợp hình ảnh của AI tạo sinh để tạo ra một nhân vật ảo với các đặc điểm cụ thể, chẳng hạn như tính cách hoặc ngoại hình.",
         image: null
     },
@@ -138,7 +138,7 @@ const aig202c_questions = [
             "C. To provide explicit instructions to generate neutral responses",
             "D. To generate meaningful responses without prior training on specific prompts"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Vòng phản hồi người dùng giúp tinh chỉnh lời nhắc dựa trên các phản hồi trước đó của mô hình, đảm bảo đầu ra ngày càng phù hợp và chính xác.",
         image: null
     },
@@ -151,7 +151,7 @@ const aig202c_questions = [
             "C. Generate three creative and detailed ideas for a digital marketing campaign to promote a new eco-friendly home cleaning product",
             "D. Give information about the price of an eco-friendly home cleaning product"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Lời nhắc C cụ thể, chi tiết và định hướng rõ ràng, giúp AI tạo ra các ý tưởng sáng tạo phù hợp với mục tiêu tiếp thị, xem xét các yếu tố quan trọng như đối tượng và kênh tiếp thị.",
         image: null
     },
@@ -164,7 +164,7 @@ const aig202c_questions = [
             "C. Customers unaware they are interacting with a chatbot",
             "D. AI systems in call centers providing context-sensitive assistance"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Hệ thống nhận diện hình ảnh liên kết không đúng với giới tính (B) là một ví dụ về thiên kiến giới tính, trong khi các lựa chọn khác không thể hiện thiên kiến.",
         image: null
     },
@@ -177,7 +177,7 @@ const aig202c_questions = [
             "C. Serve as a messenger between input data and output files on local machines",
             "D. Help AI professionals build apps for mobile devices"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "API Nhận thức của IBM hoạt động bằng cách nhận dữ liệu đầu vào, xử lý qua Watson và trả về kết quả, phù hợp với mô tả của lựa chọn A.",
         image: null
     },
@@ -190,7 +190,7 @@ const aig202c_questions = [
             "C. What's the difference between a zebra and a cat?",
             "D. Find a zebra-striped cat that wears a purple hat"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Lời nhắc B cụ thể và trực tiếp yêu cầu tạo hình ảnh theo mô tả, phù hợp với mục tiêu của Emily khi sử dụng công cụ AI tạo sinh.",
         image: null
     },
@@ -203,7 +203,7 @@ const aig202c_questions = [
             "C. Increasing response times",
             "D. Reducing chatbot functionality"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Các đoạn lệch hướng được triển khai tốt giúp cuộc trò chuyện trở nên tự nhiên và hấp dẫn hơn, cải thiện trải nghiệm người dùng.",
         image: null
     },
@@ -216,7 +216,7 @@ const aig202c_questions = [
             "C. By asking the user for clarification about entities",
             "D. By randomly selecting a response from a list"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Các thực thể được sử dụng để xác định và trích xuất thông tin cụ thể từ đầu vào của người dùng, sau đó khớp với các phản hồi hoặc hành động phù hợp.",
         image: null
     },
@@ -229,7 +229,7 @@ const aig202c_questions = [
             "C. Increasing pollution levels",
             "D. Ignoring ecological issues"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "AI hỗ trợ bảo tồn môi trường bằng cách tối ưu hóa sử dụng năng lượng, quản lý tài nguyên và giảm thiểu lãng phí thông qua các phân tích dữ liệu thông minh.",
         image: null
     },
@@ -242,7 +242,7 @@ const aig202c_questions = [
             "C. The avoidance of AI in decision-making processes",
             "D. The reliability of AI systems"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Trách nhiệm AI liên quan đến việc các nhà phát triển và người dùng chịu trách nhiệm về các quyết định và hành động của hệ thống AI, đảm bảo sử dụng có đạo đức.",
         image: null
     },
@@ -255,7 +255,7 @@ const aig202c_questions = [
             "C. By ignoring prompts that may lead to biased outputs",
             "D. By training models using biased datasets"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Thiết kế lời nhắc để khuyến khích các phản hồi đa dạng và hòa nhập giúp giảm thiểu thiên kiến bằng cách định hướng mô hình tạo ra kết quả công bằng hơn.",
         image: null
     },
@@ -268,7 +268,7 @@ const aig202c_questions = [
             "C. Lack of available tools and resources for prompt engineering",
             "D. Difficulty in training models using only prompts that produce desired responses"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Hiện nay có nhiều công cụ và tài nguyên hỗ trợ kỹ thuật thiết kế lời nhắc, do đó lựa chọn C không phải là thách thức phổ biến.",
         image: null
     },
@@ -281,7 +281,7 @@ const aig202c_questions = [
             "C. To optimize website speed",
             "D. To conduct financial transactions"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Các khe được sử dụng để thu thập và lưu trữ thông tin cụ thể từ người dùng (ví dụ: ngày, địa điểm), giúp chatbot duy trì ngữ cảnh và cung cấp phản hồi phù hợp.",
         image: null
     },
@@ -294,7 +294,7 @@ const aig202c_questions = [
             "C. Reducing customer engagement and interactions",
             "D. Decreasing customer satisfaction levels"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "AI cải thiện trải nghiệm khách hàng bằng cách cung cấp các đề xuất cá nhân hóa và hỗ trợ nhanh chóng, hiệu quả dựa trên dữ liệu người dùng.",
         image: null
     },
@@ -307,7 +307,7 @@ const aig202c_questions = [
             "C. The program will bypass that statement",
             "D. The program will delete the paired punctuation that is not missing"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Trong lập trình, nếu thiếu một dấu câu đôi như dấu ngoặc, chương trình sẽ không biên dịch được và sẽ báo lỗi cú pháp cho lập trình viên.",
         image: null
     },
@@ -320,7 +320,7 @@ const aig202c_questions = [
             "C. Detecting patterns in movement datasets to aid patients with neurological damage",
             "D. Using facial recognition algorithms for suspect identification by law enforcement"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "IBM Watson hỗ trợ truy xuất thông tin kỹ thuật là một ví dụ thực tế về ứng dụng AI trong việc cung cấp thông tin nhanh chóng và chính xác.",
         image: null
     },
@@ -333,7 +333,7 @@ const aig202c_questions = [
             "C. Identifying best routes for bee transportation based on traffic and conditions",
             "D. Analyzing financial data to predict market trends and stock performance"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Watson giúp giảm thời gian tìm kiếm kiến thức bằng cách tổng hợp chuyên môn từ nhiều nguồn, cải thiện hiệu quả công việc.",
         image: null
     },
@@ -346,7 +346,7 @@ const aig202c_questions = [
             "C. Detecting fraudulent transactions",
             "D. On-demand online tutors"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Tầm nhìn Máy tính cho phép phân tích hình ảnh, chẳng hạn như phát hiện các nốt ruồi ung thư trên da, thông qua việc nhận diện mẫu trong hình ảnh.",
         image: null
     },
@@ -359,7 +359,7 @@ const aig202c_questions = [
             "C. Perform independent tasks",
             "D. Can perform specific tasks, but cannot learn new ones"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "AI Mạnh (Tổng quát) có khả năng hoạt động với ý thức và khả năng học hỏi tương tự con người, khác với AI Hẹp chỉ thực hiện các nhiệm vụ cụ thể.",
         image: null
     },
@@ -372,7 +372,7 @@ const aig202c_questions = [
             "C. To classify the purpose or goal of the user's input",
             "D. To generate random responses"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Ý định được sử dụng để phân loại mục đích hoặc mục tiêu của câu hỏi hoặc câu lệnh của người dùng, giúp chatbot phản hồi phù hợp.",
         image: null
     },
@@ -385,7 +385,7 @@ const aig202c_questions = [
             "C. Unsupervised learning",
             "D. Deep learning"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Học không giám sát cho phép AI tìm ra các mẫu và cấu trúc trong dữ liệu mà không cần nhãn hoặc hướng dẫn rõ ràng từ con người.",
         image: null
     },
@@ -398,7 +398,7 @@ const aig202c_questions = [
             "C. AI systems' inability to learn from data",
             "D. The ethical use of AI in robotics"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Minh bạch AI liên quan đến việc làm rõ cách thức hoạt động và ra quyết định của AI, giúp người dùng hiểu và tin tưởng vào hệ thống.",
         image: null
     },
@@ -411,7 +411,7 @@ const aig202c_questions = [
             "C. Mimics the human ability to classify data",
             "D. Mimics the human ability to create data"
         ],
-        answer: [3],
+        answer: 3,
         explanation: "AI tạo sinh tập trung vào việc tạo ra dữ liệu mới (như văn bản, hình ảnh), trong khi AI phân biệt tập trung vào việc phân loại hoặc phân tích dữ liệu hiện có.",
         image: null
     },
@@ -424,7 +424,7 @@ const aig202c_questions = [
             "C. Training subset is the data used to train the algorithm",
             "D. None of the above"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Dữ liệu huấn luyện không được sử dụng để đánh giá mô hình; việc này thuộc về tập xác thực hoặc tập kiểm tra. Lựa chọn B là không đúng.",
         image: null
     },
@@ -437,7 +437,7 @@ const aig202c_questions = [
             "C. Lack of available tools and resources for prompt engineering",
             "D. Difficulty in generating prompts automatically using AI algorithms"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Kiểm soát hạn chế đối với đầu ra là một thách thức lớn trong kỹ thuật thiết kế lời nhắc, vì kết quả của mô hình có thể không luôn đúng như mong đợi.",
         image: null
     },
@@ -450,7 +450,7 @@ const aig202c_questions = [
             "C. Human input is only required during the training phase of AI models",
             "D. Human input is necessary for adjusting hyperparameters during model generation"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Đầu vào của con người rất quan trọng trong việc thiết kế lời nhắc hiệu quả và đánh giá, tinh chỉnh đầu ra của mô hình để đạt kết quả mong muốn.",
         image: null
     },
@@ -463,7 +463,7 @@ const aig202c_questions = [
             "C. Data Acquisition",
             "D. Prototyping"
         ],
-        answer: [3],
+        answer: 3,
         explanation: "Chu kỳ dự án AI thường bao gồm xác định vấn đề, thu thập dữ liệu, khám phá dữ liệu, mô hình hóa và triển khai. Tạo mẫu không phải là một giai đoạn tiêu chuẩn.",
         image: null
     },
@@ -476,7 +476,7 @@ const aig202c_questions = [
             "C. By strategically introducing deviations without overwhelming the user",
             "D. By restricting conversational choices to pre-set options"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Việc giới thiệu các lệch hướng một cách chiến lược giúp duy trì sự tự nhiên và hấp dẫn trong cuộc trò chuyện mà không làm người dùng mất tập trung.",
         image: null
     },
@@ -489,7 +489,7 @@ const aig202c_questions = [
             "C. Basic principles and concepts of chatbots",
             "D. Robotics in AI applications"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Mô-đun giới thiệu tập trung vào việc cung cấp các khái niệm cơ bản về cách chatbot hoạt động và cách thiết kế chúng mà không cần lập trình phức tạp.",
         image: null
     },
@@ -502,7 +502,7 @@ const aig202c_questions = [
             "C. Enhancing visual design elements",
             "D. Analyzing server performance metrics"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Các thực thể được sử dụng để trích xuất thông tin cụ thể (như tên, địa điểm) từ đầu vào của người dùng, giúp chatbot hiểu và phản hồi chính xác.",
         image: null
     },
@@ -515,7 +515,7 @@ const aig202c_questions = [
             "C. In healthcare, AI predicts where the next disease outbreak will occur",
             "D. In agriculture, AI identifies and recommends treatment for plant diseases"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Việc xác định tội phạm trước khi họ phạm tội (B) là không thực tế và gây tranh cãi về đạo đức, trong khi các ứng dụng khác là thực tế và mang lại lợi ích.",
         image: null
     },
@@ -528,7 +528,7 @@ const aig202c_questions = [
             "C. By ignoring prompts and allowing autonomous model output",
             "D. By training models using only prompts that produce desired responses"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Thiết kế lời nhắc để tạo ra phản hồi phù hợp và mạch lạc giúp cải thiện chất lượng đầu ra của mô hình AI, đảm bảo tính liên quan và chính xác.",
         image: null
     },
@@ -541,7 +541,7 @@ const aig202c_questions = [
             "C. Anomaly Detection",
             "D. All of them"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Phát hiện bất thường là kỹ thuật Học Máy chuyên biệt để xác định các điểm dữ liệu bất thường hoặc khác biệt so với mẫu chung.",
         image: null
     },
@@ -554,7 +554,7 @@ const aig202c_questions = [
             "C. Suggesting different prompt formats tailored to preferred storytelling styles",
             "D. Offering a library of pre-defined story beginnings for genres"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Đề xuất các định dạng lời nhắc phù hợp với phong cách kể chuyện giúp Monica tạo ra các câu chuyện sáng tạo và phù hợp với thể loại mong muốn.",
         image: null
     },
@@ -567,7 +567,7 @@ const aig202c_questions = [
             "C. Relational Databases",
             "D. Social media"
         ],
-        answer: [0, 1, 3],
+        answer: 0,
         explanation: "Email, bài đăng blog và mạng xã hội là các nguồn dữ liệu không cấu trúc vì chúng không được tổ chức theo định dạng cố định, trong khi cơ sở dữ liệu quan hệ là dữ liệu có cấu trúc.",
         image: null
     },
@@ -580,7 +580,7 @@ const aig202c_questions = [
             "C. Digressions encourage users to provide more information about preferences",
             "D. Digressions have no impact on the flow of the conversation"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Các đoạn lệch hướng khuyến khích người dùng chia sẻ thêm thông tin, giúp chatbot hiểu rõ hơn về nhu cầu và tạo ra cuộc trò chuyện phong phú hơn.",
         image: null
     },
@@ -593,7 +593,7 @@ const aig202c_questions = [
             "C. Adjusting temperature has no effect on the output",
             "D. Adjusting temperature increases computational resources required"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Tham số nhiệt độ điều chỉnh mức độ ngẫu nhiên của đầu ra. Giảm nhiệt độ làm cho phản hồi tập trung và ít đa dạng hơn, trong khi tăng nhiệt độ làm tăng tính sáng tạo và đa dạng.",
         image: null
     },
@@ -606,7 +606,7 @@ const aig202c_questions = [
             "C. The process of evaluating the performance of generative AI models",
             "D. The process of generating prompts automatically using AI algorithms"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Kỹ thuật thiết kế lời nhắc là việc tạo ra các hướng dẫn hoặc câu hỏi cụ thể để định hướng mô hình AI tạo sinh sản xuất đầu ra phù hợp và mong muốn.",
         image: null
     },
@@ -619,7 +619,7 @@ const aig202c_questions = [
             "C. By promoting a back-and-forth exchange of information with the model",
             "D. By providing a single static prompt to the model"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Cách tiếp cận phỏng vấn khuyến khích trao đổi thông tin qua lại, cho phép mô hình phản hồi dựa trên ngữ cảnh và điều chỉnh theo đầu vào của người dùng.",
         image: null
     },
@@ -632,7 +632,7 @@ const aig202c_questions = [
             "C. Augmented data sets",
             "D. Clear and contextually relevant text"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Nền tảng metaverse sử dụng AI tạo sinh cho phép tạo và tương tác với các nhân vật ảo trong môi trường ảo, một khả năng độc đáo so với các công cụ AI tạo sinh khác.",
         image: null
     },
@@ -645,7 +645,7 @@ const aig202c_questions = [
             "C. Ingest numerous voice samples until it can identify a new sample",
             "D. Correct the sample repetitively till an accurate voice sample is created"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Phân tích ngữ cảnh của câu không cần thiết để tổng hợp giọng nói, vì quá trình này tập trung vào việc tái tạo đặc điểm âm thanh, không phải nội dung ngữ nghĩa.",
         image: null
     },
@@ -658,7 +658,7 @@ const aig202c_questions = [
             "C. To differentiate their business into educating people about geology",
             "D. A production target of 17 million barrels per day"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "ADNOC sử dụng AI để thu thập và lưu giữ kiến thức doanh nghiệp, giúp cải thiện hiệu quả và duy trì chuyên môn trong tổ chức.",
         image: null
     },
@@ -671,7 +671,7 @@ const aig202c_questions = [
             "C. To provide diverse and engaging conversation experiences",
             "D. To avoid conversing with users"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Các đoạn lệch hướng được thiết kế để làm cho cuộc trò chuyện đa dạng và hấp dẫn hơn, tạo trải nghiệm tự nhiên và thú vị cho người dùng.",
         image: null
     },
@@ -684,7 +684,7 @@ const aig202c_questions = [
             "C. Data encryption protocols",
             "D. Graphics design in chat interfaces"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Việc triển khai các đoạn lệch hướng thuộc về quản lý luồng hội thoại, giúp tăng cường sự tương tác và tính tự nhiên của chatbot.",
         image: null
     },
@@ -697,7 +697,7 @@ const aig202c_questions = [
             "C. Something that every AI developer should address to mitigate risks",
             "D. Short-term and easily addressed when developing new AI systems"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Đạo đức trong AI là mối quan tâm quan trọng mà mọi nhà phát triển cần chú ý, để đảm bảo các hệ thống AI được phát triển một cách có trách nhiệm và giảm thiểu rủi ro.",
         image: null
     },
@@ -710,7 +710,7 @@ const aig202c_questions = [
             "C. By generating random responses",
             "D. By terminating the conversation after a set number of interactions"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Quản lý hội thoại sử dụng các phản hồi của người dùng để dẫn dắt cuộc trò chuyện theo một chuỗi tương tác logic và phù hợp với ngữ cảnh.",
         image: null
     },
@@ -723,7 +723,7 @@ const aig202c_questions = [
             "C. Machine Learning models can be continuously trained",
             "D. Defines behavioral rules by comparing large datasets to find patterns"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Học Máy không nhận câu trả lời làm đầu vào để tạo quy tắc; thay vào đó, nó sử dụng dữ liệu và quy tắc hoặc nhãn để học và đưa ra dự đoán.",
         image: null
     },
@@ -736,7 +736,7 @@ const aig202c_questions = [
             "C. To design user-friendly interfaces for generative AI models",
             "D. To provide suggestions for improving NLP techniques"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Công cụ thiết kế lời nhắc tập trung vào việc tối ưu hóa lời nhắc để đảm bảo mô hình AI tạo sinh tạo ra đầu ra phù hợp và hiệu quả.",
         image: null
     },
@@ -749,7 +749,7 @@ const aig202c_questions = [
             "C. Augmented reality technologies",
             "D. Network security protocols"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Mô-đun Dialog tập trung vào việc quản lý luồng hội thoại và các phản hồi của chatbot để đảm bảo cuộc trò chuyện tự nhiên và hiệu quả.",
         image: null
     },
@@ -762,7 +762,7 @@ const aig202c_questions = [
             "C. Decreasing agent satisfaction due to fear of job loss",
             "D. Increasing agent turnover"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Hệ thống AI trong trung tâm cuộc gọi giúp giảm chi phí bằng cách tự động hóa các nhiệm vụ lặp lại và cung cấp hỗ trợ nhanh chóng, hiệu quả.",
         image: null
     },
@@ -775,7 +775,7 @@ const aig202c_questions = [
             "C. A prompt consists of a question and a correct answer for context",
             "D. A prompt includes a series of related questions without the correct answer"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Cách tiếp cận Chuỗi Suy nghĩ yêu cầu lời nhắc bao gồm câu hỏi và các bước hoặc câu trả lời đúng để hướng dẫn mô hình suy nghĩ từng bước.",
         image: null
     },
@@ -788,7 +788,7 @@ const aig202c_questions = [
             "C. Philosophy",
             "D. Statistics"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "AI là sự kết hợp của nhiều lĩnh vực, bao gồm Toán học, Thống kê, Triết học và các lĩnh vực khác, cùng với Khoa học Máy tính, để phát triển các hệ thống thông minh.",
         image: null
     },
@@ -801,7 +801,7 @@ const aig202c_questions = [
             "C. GreetUser",
             "D. Number of passengers"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Chào hỏi người dùng là một hành động hoặc ý định, không phải là thực thể. Các thực thể là các thông tin cụ thể như điểm đến, thời gian khởi hành hoặc số lượng hành khách.",
         image: null
     },
@@ -814,7 +814,7 @@ const aig202c_questions = [
             "C. Adjusting the temperature parameter during model generation",
             "D. Designing prompts to elicit specific types of responses"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Sử dụng mô hình ngôn ngữ mà không có lời nhắc không phải là kỹ thuật thiết kế lời nhắc, vì kỹ thuật này yêu cầu lời nhắc để định hướng đầu ra của mô hình.",
         image: null
     },
@@ -827,7 +827,7 @@ const aig202c_questions = [
             "C. Variables that store the user's personal information",
             "D. Variables used to determine the intent of the user's input"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Biến ngữ cảnh được sử dụng để lưu trữ thông tin tạm thời trong cuộc trò chuyện (như tên người dùng, thành phố được hỏi) để sử dụng trong các phản hồi sau.",
         image: null
     },
@@ -840,7 +840,7 @@ const aig202c_questions = [
             "C. To process images",
             "D. To perform complex calculations"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Mục đích chính của chatbot là tự động hóa các nhiệm vụ lặp lại, chẳng hạn như trả lời câu hỏi hoặc hỗ trợ khách hàng, nhằm tiết kiệm thời gian và nguồn lực.",
         image: null
     },
@@ -853,7 +853,7 @@ const aig202c_questions = [
             "C. Telephone sales person",
             "D. Shop worker"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Bác sĩ (B) yêu cầu khả năng ra quyết định phức tạp, đồng cảm và phán đoán y khoa, điều mà AI hiện tại chưa thể thay thế hoàn toàn, trong khi các công việc khác có thể được tự động hóa dễ dàng hơn.",
         image: null
     },
@@ -866,7 +866,7 @@ const aig202c_questions = [
             "C. What is the square root of one million?",
             "D. Who has scored the most goals in Premier League history?"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Câu hỏi về sở thích cá nhân như món ăn yêu thích (B) yêu cầu trải nghiệm chủ quan, điều mà AI khó trả lời một cách thuyết phục như con người.",
         image: null
     },
@@ -878,7 +878,7 @@ const aig202c_questions = [
             "B. Audio generation",
             "C. Text generation"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Mô hình ngôn ngữ lớn chủ yếu được thiết kế để tạo văn bản, chẳng hạn như câu trả lời, bài viết hoặc hội thoại, dựa trên dữ liệu huấn luyện.",
         image: null
     },
@@ -891,7 +891,7 @@ const aig202c_questions = [
             "C. Learn from",
             "D. Identify patterns and classify"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Mô hình AI tạo sinh học từ dữ liệu huấn luyện để tạo ra nội dung mới, chẳng hạn như văn bản, hình ảnh hoặc âm thanh, dựa trên các mẫu đã học.",
         image: null
     },
@@ -904,7 +904,7 @@ const aig202c_questions = [
             "C. Cognitive systems can only process structured data",
             "D. Cognitive systems can learn from their successes and failures"
         ],
-        answer: [3],
+        answer: 3,
         explanation: "Hệ thống nhận thức có khả năng học từ kinh nghiệm, bao gồm cả thành công và thất bại, để cải thiện hiệu suất theo thời gian.",
         image: null
     },
@@ -917,7 +917,7 @@ const aig202c_questions = [
             "C. Writing a joke",
             "D. Playing hangman"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Viết một câu đùa (C) yêu cầu sự sáng tạo và hiểu biết về văn hóa, điều mà AI thường khó thực hiện tốt hơn các nhiệm vụ dựa trên dữ liệu hoặc quy tắc như các lựa chọn khác.",
         image: null
     },
@@ -930,7 +930,7 @@ const aig202c_questions = [
             "C. A program to chat with friends",
             "D. A game we play online"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Chatbot là một chương trình máy tính được thiết kế để mô phỏng cuộc trò chuyện của con người, thường được sử dụng trong dịch vụ khách hàng hoặc hỗ trợ tự động.",
         image: null
     },
@@ -943,7 +943,7 @@ const aig202c_questions = [
             "C. Computer Vision",
             "D. Machine Learning"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Tầm nhìn Máy tính là lĩnh vực AI tập trung vào việc diễn giải và xử lý thông tin từ hình ảnh hoặc video, chẳng hạn như nhận diện đối tượng hoặc khuôn mặt.",
         image: null
     },
@@ -956,7 +956,7 @@ const aig202c_questions = [
             "C. Signal",
             "D. Stimulus"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Lời nhắc đóng vai trò như một kích hoạt (trigger) để định hướng mô hình AI tạo sinh tạo ra các phản hồi phù hợp với ngữ cảnh và mục tiêu của người dùng.",
         image: null
     },
@@ -969,7 +969,7 @@ const aig202c_questions = [
             "C. A voice assistant predicts if the user needs an umbrella",
             "D. A chess computer chooses its next move"
         ],
-        answer: [0],
+        answer: 0,
         explanation: "Việc xe tự lái phải chọn tránh ai trong hai người đi bộ là một tình huống đạo đức, vì nó liên quan đến việc đưa ra quyết định có thể ảnh hưởng đến tính mạng con người.",
         image: null
     },
@@ -982,7 +982,7 @@ const aig202c_questions = [
             "C. Proactive Learning",
             "D. Unsupervised Learning"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Học chủ động (Proactive Learning) không phải là một phương pháp học AI tiêu chuẩn. Các phương pháp chính bao gồm học có giám sát, học không giám sát và học tăng cường.",
         image: null
     },
@@ -995,7 +995,7 @@ const aig202c_questions = [
             "C. It makes random decisions",
             "D. It explores multiple possibilities simultaneously using a hierarchical structure"
         ],
-        answer: [3],
+        answer: 3,
         explanation: "Cây Suy nghĩ khám phá nhiều con đường suy luận đồng thời thông qua một cấu trúc phân cấp, giúp giải quyết vấn đề phức tạp hơn so với cách tiếp cận tuyến tính.",
         image: null
     },
@@ -1008,7 +1008,7 @@ const aig202c_questions = [
             "C. The model will minimize the need for user interaction",
             "D. The model will generate a random travel plan"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Cách tiếp cận phỏng vấn cho phép mô hình hỏi về sở thích của người dùng và điều chỉnh hành trình, tạo ra kế hoạch cá nhân hóa hơn so với lời nhắc tĩnh.",
         image: null
     },
@@ -1021,7 +1021,7 @@ const aig202c_questions = [
             "C. Shift in job roles, with some jobs becoming obsolete",
             "D. Unchanged job market dynamics"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "AI sẽ tự động hóa một số nhiệm vụ, khiến một số công việc trở nên lỗi thời, nhưng đồng thời tạo ra các vai trò mới đòi hỏi hợp tác với hệ thống AI.",
         image: null
     },
@@ -1034,7 +1034,7 @@ const aig202c_questions = [
             "C. The unrestricted development of AI technologies",
             "D. Eliminating the need for ethical considerations in AI development"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Quản trị AI Đạo đức tập trung vào việc đảm bảo các hệ thống AI được phát triển và sử dụng theo các tiêu chuẩn đạo đức, giảm thiểu rủi ro và tăng cường trách nhiệm.",
         image: null
     },
@@ -1047,7 +1047,7 @@ const aig202c_questions = [
             "C. To limit the capabilities of machines",
             "D. To create autonomous robots"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Mục tiêu chính của AI là mô phỏng trí tuệ con người trong máy móc để thực hiện các nhiệm vụ thông minh, chẳng hạn như học hỏi, ra quyết định và giải quyết vấn đề.",
         image: null
     },
@@ -1060,7 +1060,7 @@ const aig202c_questions = [
             "C. By refining prompts step-by-step until satisfied with the output",
             "D. By experimenting with the autocomplete feature"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Chế độ streamline trong PromptPerfect cho phép tinh chỉnh lời nhắc từng bước dựa trên đầu ra, đảm bảo kết quả ngày càng phù hợp với mong muốn của người dùng.",
         image: null
     },
@@ -1073,7 +1073,7 @@ const aig202c_questions = [
             "C. They limit the chatbot's vocabulary",
             "D. They delay response times"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Các đoạn lệch hướng làm tăng tính tự nhiên và đa dạng của cuộc trò chuyện, giúp trải nghiệm người dùng trở nên phong phú và hấp dẫn hơn.",
         image: null
     },
@@ -1086,7 +1086,7 @@ const aig202c_questions = [
             "C. To randomly select prompts for generating outputs",
             "D. To fine-tune prompts based on feedback from model outputs"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Đánh giá hiệu quả lời nhắc giúp đảm bảo rằng đầu ra của mô hình là liên quan và mạch lạc, từ đó cải thiện chất lượng của các phản hồi AI.",
         image: null
     },
@@ -1099,7 +1099,7 @@ const aig202c_questions = [
             "C. Freepik",
             "D. StyleGAN"
         ],
-        answer: [3],
+        answer: 3,
         explanation: "StyleGAN được thiết kế để kiểm soát chính xác các đặc điểm như tư thế hoặc biểu cảm khuôn mặt, đặc biệt trong việc tạo hình ảnh chất lượng cao với các thuộc tính cụ thể.",
         image: null
     },
@@ -1112,7 +1112,7 @@ const aig202c_questions = [
             "C. They are trying to replicate the human heart",
             "D. The human brain is very complex"
         ],
-        answer: [3],
+        answer: 3,
         explanation: "Sự phức tạp của bộ não con người là một thách thức lớn trong việc phát triển AI, đặc biệt là trong việc tái tạo trí tuệ tổng quát (AGI).",
         image: null
     },
@@ -1125,7 +1125,7 @@ const aig202c_questions = [
             "C. By ignoring prompts that may lead to overly creative responses",
             "D. By randomly selecting prompts from a predefined list"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Điều chỉnh tham số nhiệt độ cho phép kiểm soát mức độ sáng tạo của mô hình; nhiệt độ cao hơn dẫn đến phản hồi sáng tạo hơn, trong khi nhiệt độ thấp hơn tạo ra phản hồi bảo thủ hơn.",
         image: null
     },
@@ -1138,7 +1138,7 @@ const aig202c_questions = [
             "C. Bard",
             "D. Synthesia"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "GitHub Copilot là công cụ AI được thiết kế để hỗ trợ lập trình viên bằng cách đề xuất mã, tự động hoàn thành và lập chỉ mục mã, phù hợp với nhu cầu của Ravi.",
         image: null
     },
@@ -1151,7 +1151,7 @@ const aig202c_questions = [
             "C. By offering engaging and unexpected conversational turns",
             "D. By limiting conversational flexibility"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Các đoạn lệch hướng được triển khai tốt mang lại các lượt hội thoại bất ngờ và hấp dẫn, làm tăng sự hài lòng và trải nghiệm của người dùng.",
         image: null
     },
@@ -1164,7 +1164,7 @@ const aig202c_questions = [
             "C. Access token",
             "D. Login credential"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Mã thông báo truy cập (access token) là cần thiết để xác thực và cho phép xuất bản notebook lên kho lưu trữ GitHub một cách an toàn.",
         image: null
     },
@@ -1177,7 +1177,7 @@ const aig202c_questions = [
             "C. Graphic design elements",
             "D. Server configurations"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Biến ngữ cảnh là các biến tạm thời lưu trữ thông tin trong cuộc trò chuyện, như sở thích người dùng hoặc thông tin đã đề cập, để duy trì tính liên tục.",
         image: null
     },
@@ -1190,7 +1190,7 @@ const aig202c_questions = [
             "C. By generating random responses",
             "D. By terminating the conversation after a set number of interactions"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Biến ngữ cảnh và khe lưu trữ thông tin về sở thích và tương tác trước đó của người dùng, giúp chatbot duy trì ngữ cảnh và cung cấp phản hồi phù hợp.",
         image: null
     },
@@ -1203,7 +1203,7 @@ const aig202c_questions = [
             "C. Younger workers found the technology difficult to incorporate",
             "D. Retiring workers were proud to leave their knowledge as a legacy"
         ],
-        answer: [3],
+        answer: 3,
         explanation: "Woodside nhận thấy rằng các nhân viên sắp nghỉ hưu tự hào khi kiến thức của họ được lưu giữ trong hệ thống AI, để lại di sản cho tương lai.",
         image: null
     },
@@ -1216,7 +1216,7 @@ const aig202c_questions = [
             "C. By allowing flexibility in conversation flows",
             "D. By limiting user interactions"
         ],
-        answer: [2],
+        answer: 2,
         explanation: "Các đoạn lệch hướng cho phép chatbot xử lý các chủ đề ngoài lề một cách linh hoạt, làm tăng tính tự nhiên và chức năng của cuộc trò chuyện.",
         image: null
     },
@@ -1229,7 +1229,7 @@ const aig202c_questions = [
             "C. Limiting model capabilities to specific domains",
             "D. Generating random outputs without training"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Học chuyển giao sử dụng các mô hình đã được huấn luyện trước và tinh chỉnh chúng cho các nhiệm vụ cụ thể, giúp tiết kiệm thời gian và tài nguyên huấn luyện.",
         image: null
     },
@@ -1242,7 +1242,7 @@ const aig202c_questions = [
             "C. Limited creativity in outputs",
             "D. Higher computational costs with no benefits"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "AI tạo sinh có thể sản xuất một lượng lớn nội dung (văn bản, hình ảnh, âm thanh) một cách nhanh chóng, giảm thời gian và công sức so với cách làm thủ công.",
         image: null
     },
@@ -1255,7 +1255,7 @@ const aig202c_questions = [
             "C. Optimizing server performance",
             "D. Conducting network security audits"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "AI tạo sinh được sử dụng để tạo hiệu ứng đặc biệt chân thực, chẳng hạn như hình ảnh hoặc hoạt hình, trong ngành giải trí, nâng cao chất lượng sản xuất phim.",
         image: null
     },
@@ -1268,7 +1268,7 @@ const aig202c_questions = [
             "C. To reduce the model's accuracy",
             "D. To remove the need for training data"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Tinh chỉnh (fine-tuning) điều chỉnh một mô hình đã được huấn luyện trước để phù hợp với một nhiệm vụ hoặc lĩnh vực cụ thể, cải thiện hiệu suất mà không cần huấn luyện lại từ đầu.",
         image: null
     },
@@ -1281,7 +1281,7 @@ const aig202c_questions = [
             "C. Complete elimination of computational costs",
             "D. Lack of scalability in AI models"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Một thách thức lớn khi triển khai AI tạo sinh là khả năng tạo ra nội dung thiên vị hoặc không phù hợp, đòi hỏi các biện pháp kiểm soát và giám sát chặt chẽ.",
         image: null
     },
@@ -1294,7 +1294,7 @@ const aig202c_questions = [
             "C. By reducing the need for teachers",
             "D. By standardizing all educational content"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "AI tạo sinh có thể tạo ra các tài liệu học tập được cá nhân hóa dựa trên nhu cầu và trình độ của từng học sinh, nâng cao hiệu quả học tập.",
         image: null
     },
@@ -1307,7 +1307,7 @@ const aig202c_questions = [
             "C. To eliminate the need for training data",
             "D. To simplify the model's architecture"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Cơ chế chú ý (attention mechanisms) giúp mô hình ngôn ngữ lớn tập trung vào các phần liên quan của dữ liệu đầu vào, cải thiện khả năng xử lý ngữ cảnh và tạo phản hồi chính xác.",
         image: null
     },
@@ -1320,7 +1320,7 @@ const aig202c_questions = [
             "C. A model that predicts stock prices",
             "D. A model that detects fraudulent transactions"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Mô hình tạo sinh tạo ra dữ liệu mới, như hình ảnh khuôn mặt con người (B), trong khi các mô hình khác tập trung vào phân loại hoặc dự đoán.",
         image: null
     },
@@ -1333,7 +1333,7 @@ const aig202c_questions = [
             "C. By eliminating the need for clinical trials",
             "D. By focusing only on existing drugs"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "AI tạo sinh hỗ trợ phát hiện thuốc bằng cách tạo ra các cấu trúc phân tử tiềm năng, giúp các nhà nghiên cứu khám phá các hợp chất mới một cách hiệu quả hơn.",
         image: null
     },
@@ -1346,7 +1346,7 @@ const aig202c_questions = [
             "C. Reduced need for human creativity",
             "D. Improved content quality"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "AI tạo sinh có thể tạo ra thông tin sai lệch hoặc gây hiểu lầm, gây ra các vấn đề đạo đức nếu không được kiểm soát chặt chẽ.",
         image: null
     },
@@ -1359,7 +1359,7 @@ const aig202c_questions = [
             "C. It increases computational costs significantly",
             "D. It limits the model's ability to generalize"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Học vài lần (few-shot learning) cho phép mô hình học từ một số lượng nhỏ ví dụ, giúp tiết kiệm dữ liệu huấn luyện và thích nghi nhanh với các nhiệm vụ mới.",
         image: null
     },
@@ -1372,7 +1372,7 @@ const aig202c_questions = [
             "C. Rule-based systems",
             "D. Linear regression"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Cơ chế chú ý là thành phần cốt lõi của mô hình transformer, cho phép xử lý các mối quan hệ phức tạp trong dữ liệu đầu vào, đặc biệt trong các tác vụ tạo sinh.",
         image: null
     },
@@ -1385,7 +1385,7 @@ const aig202c_questions = [
             "C. Inability to generate creative content",
             "D. Excessive model accuracy"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "Thiên kiến trong dữ liệu huấn luyện là thách thức chính trong việc đảm bảo tính công bằng của đầu ra AI tạo sinh, vì mô hình có thể tái tạo các thiên kiến này.",
         image: null
     },
@@ -1398,7 +1398,7 @@ const aig202c_questions = [
             "C. By reducing the need for musical instruments",
             "D. By focusing only on classical music"
         ],
-        answer: [1],
+        answer: 1,
         explanation: "AI tạo sinh hỗ trợ sáng tác nhạc bằng cách tạo ra các giai điệu và hòa âm nguyên bản, giúp các nhạc sĩ khám phá ý tưởng mới và sáng tạo.",
         image: null
     }

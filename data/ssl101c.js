@@ -1,4 +1,4 @@
-const ssl101c_questions = [
+var ssl101c_questions = [
     {
         "id": "ssl101c_001",
         "question": "Which is true about an essay introduction? Check 2 options.",

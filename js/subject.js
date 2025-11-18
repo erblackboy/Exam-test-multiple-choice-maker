@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const subject = subjectDetails[subjectCode];
-    const allQuestions = subject.questions || [];
 
     // Cập nhật tiêu đề và breadcrumb
     document.getElementById('subject-title').textContent = subject.title;
@@ -29,16 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Xử lý sự kiện khi chọn "Học với Flashcard"
     flashcardModeBtn.addEventListener('click', () => {
-        if (allQuestions.length === 0) {
-            alert(`Môn ${subject.title} chưa có dữ liệu câu hỏi cho Flashcard.`);
+        // Thay vì kiểm tra `questions.length`, kiểm tra xem môn học có được cấu hình để có câu hỏi không
+        if (!subject.dataFile) {
+            alert(`Môn ${subject.title} chưa được cấu hình dữ liệu câu hỏi.`);
             return;
         }
 
         // Chuẩn bị dữ liệu cho phiên flashcard
         const flashcardSettings = {
             subjectCode: subjectCode,
-            subjectTitle: subject.title,
-            questions: allQuestions // Lấy tất cả câu hỏi
+            subjectTitle: subject.title
+            // Không cần gửi 'questions' nữa vì nó sẽ được tải động trên trang flashcards.html
         };
 
         // Lưu vào localStorage và chuyển trang

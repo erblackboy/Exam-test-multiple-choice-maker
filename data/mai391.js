@@ -1,4 +1,4 @@
-const mai391_questions = [
+var mai391_questions = [
     {
         id: "mai391_pdf_001",
         status: "verified",
