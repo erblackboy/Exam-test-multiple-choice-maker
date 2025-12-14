@@ -12,35 +12,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Hàm khởi tạo chính
     async function initializeFlashcards() {
-        // --- SỬA LỖI: Quản lý màn hình chờ bên trong hàm async ---
+        // --- TỐI ƯU HÓA: Quản lý màn hình chờ bên trong hàm async ---
         const loadingOverlay = document.createElement('div');
         loadingOverlay.className = 'loading-overlay';
         loadingOverlay.innerHTML = '<p style="font-size: 1.5em;">Đang tải dữ liệu...</p>';
         document.body.appendChild(loadingOverlay);
-        // --- KẾT THÚC SỬA LỖI ---
+        // --- KẾT THÚC TỐI ƯU HÓA ---
 
-        const flashcardSessionData = localStorage.getItem('flashcardSession');
-        if (!flashcardSessionData) {
-            alert('Không tìm thấy dữ liệu flashcard. Vui lòng thử lại.');
+        const urlParams = new URLSearchParams(window.location.search);
+        const subjectCode = urlParams.get('subject');
+
+        if (!subjectCode || !subjectDetails[subjectCode]) {
+            alert('Mã môn học không hợp lệ hoặc không được cung cấp.');
             window.location.href = 'index.html';
             return;
         }
 
-        const { subjectCode, subjectTitle } = JSON.parse(flashcardSessionData);
-        const subjectInfo = subjectDetails[subjectCode];
-
-        if (!subjectInfo || !subjectInfo.dataFile) {
-            alert('Không tìm thấy thông tin hoặc tệp dữ liệu cho môn học.');
-            return;
-        }
-
+        const subjectInfo = subjectDetails[subjectCode]; 
+        // Lấy title từ subjectDetails, nếu không có thì lấy từ subjectCode
+        const subjectTitle = subjectInfo.title || subjectDetails[subjectCode].title || subjectCode;
+        
         try {
+            if (!subjectInfo.dataFile) {
+                throw new Error(`Môn học ${subjectCode} chưa được cấu hình tệp dữ liệu.`);
+            }
+
+            loadingOverlay.style.display = 'flex'; // Hiển thị màn hình chờ
+
             await loadScript(subjectInfo.dataFile);
             // Sử dụng thuộc tính questionVar để lấy đúng tên biến
             const questions = window[subjectInfo.questionVar];
             
             if (!questions || questions.length === 0) {
-                throw new Error('Tệp dữ liệu không chứa câu hỏi hoặc có lỗi.');
+                throw new Error(`Tệp dữ liệu ${subjectInfo.dataFile} không chứa câu hỏi hoặc có lỗi. (Biến: ${subjectInfo.questionVar})`);
             }
 
             // Bắt đầu logic của trang flashcard từ đây
@@ -48,11 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error(error);
-            alert('Đã xảy ra lỗi khi tải dữ liệu câu hỏi.');
+            alert('Đã xảy ra lỗi khi tải dữ liệu câu hỏi: ' + error.message);
         } finally {
-            // --- SỬA LỖI: Luôn ẩn màn hình chờ sau khi hoàn tất hoặc có lỗi ---
+            // --- TỐI ƯU HÓA: Luôn ẩn màn hình chờ sau khi hoàn tất hoặc có lỗi ---
             loadingOverlay.style.display = 'none';
-            // --- KẾT THÚC SỬA LỖI ---
+            // --- KẾT THÚC TỐI ƯU HÓA ---
         }
     }
 

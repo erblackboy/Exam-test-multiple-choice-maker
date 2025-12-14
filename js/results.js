@@ -58,26 +58,93 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     localStorage.setItem('quizHistory', JSON.stringify(history.slice(0, 10)));
 
-    // Render Chart (Phần này đã đúng)
+    // Render Chart (Cải tiến: Doughnut chart với text ở giữa)
     if (chartCanvas) {
+        // Lấy giá trị màu từ biến CSS để Chart.js hiển thị đúng (hỗ trợ Dark Mode)
+        const computedStyle = getComputedStyle(document.body);
+        const correctColor = computedStyle.getPropertyValue('--correct-color').trim();
+        const incorrectColor = computedStyle.getPropertyValue('--incorrect-color').trim();
+        const whiteColor = computedStyle.getPropertyValue('--white-color').trim();
+        const textColor = computedStyle.getPropertyValue('--dark-text').trim();
+
+        // Plugin vẽ điểm số ở giữa biểu đồ
+        const centerTextPlugin = {
+            id: 'centerText',
+            beforeDraw: function(chart) {
+                const width = chart.width,
+                      height = chart.height,
+                      ctx = chart.ctx;
+        
+                ctx.restore();
+                // Tính toán cỡ chữ dựa trên chiều cao biểu đồ
+                const fontSize = (height / 150).toFixed(2);
+                ctx.font = `bold ${fontSize}em sans-serif`;
+                ctx.textBaseline = "middle";
+                ctx.fillStyle = textColor;
+        
+                const text = `${Math.round((correctCount / questions.length) * 100)}%`;
+                const textX = Math.round((width - ctx.measureText(text).width) / 2);
+                
+                // Căn chỉnh vị trí Y để nằm giữa phần biểu đồ (trừ đi phần legend ở dưới)
+                const legendHeight = chart.legend ? chart.legend.height : 0;
+                const textY = (height - legendHeight) / 2;
+
+                ctx.fillText(text, textX, textY);
+                ctx.save();
+            }
+        };
+
         new Chart(chartCanvas, {
             type: 'doughnut',
             data: {
                 labels: ['Đúng', 'Sai'],
                 datasets: [{
                     data: [correctCount, incorrectCount],
-                    backgroundColor: ['var(--correct-color)', 'var(--incorrect-color)'],
-                    borderColor: 'var(--white-color)',
-                    borderWidth: 2
+                    backgroundColor: [correctColor, incorrectColor],
+                    borderColor: whiteColor,
+                    borderWidth: 3,
+                    hoverOffset: 4
                 }]
             },
-            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%', // Tạo khoảng trống ở giữa
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: textColor,
+                            font: { size: 14, family: 'sans-serif' },
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.raw;
+                                const total = context.chart._metasets[context.datasetIndex].total;
+                                const percentage = Math.round((value / total) * 100) + '%';
+                                return `${context.label}: ${value} câu (${percentage})`;
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            },
+            plugins: [centerTextPlugin]
         });
     }
 
     function renderReview(filter = 'all') {
         if (!reviewContainerEl) return;
         reviewContainerEl.innerHTML = '';
+        // --- TỐI ƯU HÓA: Sử dụng DocumentFragment để giảm reflow/repaint ---
+        const fragment = document.createDocumentFragment();
+
         const filteredItems = reviewItems.filter(item => {
             if (filter === 'correct') return item.isCorrect;
             if (filter === 'incorrect') return !item.isCorrect;
@@ -85,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (filteredItems.length === 0) {
-            reviewContainerEl.innerHTML = `<p style="text-align: center;">Không có câu hỏi nào trong mục này.</p>`;
+            reviewContainerEl.innerHTML = `<p class="empty-message">Không có câu hỏi nào trong mục này.</p>`;
             return;
         }
 
@@ -140,8 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <strong>Giải thích:</strong> ${question.explanation || "Không có giải thích."}
                 </div>
             `;
-            reviewContainerEl.appendChild(itemEl);
+            fragment.appendChild(itemEl);
         });
+
+        // Thêm tất cả các mục vào DOM chỉ một lần
+        reviewContainerEl.appendChild(fragment);
         
         // Trigger MathJax
         if (window.MathJax && window.MathJax.typesetPromise) {

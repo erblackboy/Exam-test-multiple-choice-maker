@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Hàm tải script động
-    // --- TỐI ƯU HÓA: Thêm màn hình chờ ---
+    // --- TỐI ƯU HÓA: Thêm màn hình chờ để cải thiện trải nghiệm người dùng ---
     const loadingOverlay = document.createElement('div');
     loadingOverlay.className = 'loading-overlay';
     loadingOverlay.innerHTML = '<p style="font-size: 1.5em;">Đang tải dữ liệu...</p>';
     document.body.appendChild(loadingOverlay);
-    loadingOverlay.style.display = 'none'; // Ẩn ban đầu
-    // --- KẾT THÚC ---
+    // --- KẾT THÚC TỐI ƯU HÓA ---
 
     function loadScript(src) {
         return new Promise((resolve, reject) => {
@@ -33,19 +32,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                // --- TỐI ƯU HÓA: Hiển thị màn hình chờ ---
-                loadingOverlay.style.display = 'flex';
-                // --- KẾT THÚC ---
+                loadingOverlay.style.display = 'flex'; // Hiển thị màn hình chờ
+
                 await loadScript(subjectInfo.dataFile);
                 // Sử dụng thuộc tính questionVar để lấy đúng tên biến
                 const questions = window[subjectInfo.questionVar];
 
                 if (!questions || questions.length === 0) {
-                    throw new Error('Tệp dữ liệu không chứa câu hỏi hoặc có lỗi.');
+                    throw new Error(`Tệp dữ liệu không chứa câu hỏi hoặc có lỗi. (Biến: ${subjectInfo.questionVar})`);
                 }
 
-                // Gán câu hỏi vào subjectDetails để các phần khác có thể dùng
-                subjectDetails[subjectCode].questions = questions;
+                // Gán câu hỏi vào quizData (là subjectDetails) để các phần khác có thể dùng
+                quizData[subjectCode].questions = questions;
 
                 // Bắt đầu logic của trang setup
                 setupUI(subjectCode, subjectInfo.title, questions);
@@ -55,8 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(`Đã xảy ra lỗi khi tải dữ liệu câu hỏi cho môn ${subjectInfo.title}.`);
                 window.location.href = 'index.html';
             } finally {
-                // --- TỐI ƯU HÓA: Luôn ẩn màn hình chờ ---
-                loadingOverlay.style.display = 'none';
+                loadingOverlay.style.display = 'none'; // Luôn ẩn màn hình chờ
             }
         } else {
             alert("Mã môn học không hợp lệ.");

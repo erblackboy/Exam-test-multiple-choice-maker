@@ -24,7 +24,9 @@
 <body>
     <div class="main-container">
         <div class="breadcrumb">
-            <a href="index.html">Trang chủ</a> > <a href="subject.html">Môn học</a> > <a href="quiz-setup.html">Thiết lập</a> > Bài Thi
+            <a href="index.html">Trang chủ</a> &gt; 
+            <a id="breadcrumb-subject" href="#">Môn học</a> &gt; 
+            <a id="breadcrumb-setup" href="#">Thiết lập</a> &gt; Bài Thi
         </div>
         <div class="quiz-body">
             <div class="quiz-main">
@@ -59,7 +61,6 @@
 
     <!-- Dữ liệu bài thi được lấy từ localStorage, không cần tải tệp tĩnh -->
     <!-- database.js vẫn cần cho các thông tin chung nếu cần -->
-    <script src="data/database.js" defer></script>
-    <script src="js/quiz.js"></script>
+    <script src="js/quiz.js" defer></script>
 </body>
 </html>

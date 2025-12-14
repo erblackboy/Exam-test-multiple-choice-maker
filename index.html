@@ -3,25 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ - Hệ thống học tập</title>
+    <title>Trang chủ - Luyện thi trắc nghiệm</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="main-container">
+        <h1 class="main-header">Danh sách môn học</h1>
+        <main id="subject-selection-container">
+            <div class="loading-spinner"></div>
+        </main>
+    </div>
+
     <div class="dark-mode-toggle" id="dark-mode-toggle">🌙</div>
 
-    <div class="main-container">
-        <h1 class="main-header">Hệ Thống Học Tập</h1>
-        <p class="breadcrumb" style="text-align: center; margin-top: -20px; margin-bottom: 30px;">Vui lòng chọn môn học để bắt đầu.</p>
-        
-        <div id="subject-selection-container">
-            <p style="text-align: center;">Đang tải danh sách môn học...</p>
-        </div>
-    </div>
-    
-    <!-- Chỉ tải các tệp dữ liệu cần thiết cho trang chủ -->
-    <!-- Các tệp câu hỏi sẽ được tải trên các trang tương ứng -->
-    <script src="data/database.js" defer></script>
-    
-    <script src="js/main.js" defer></script>
+    <!-- Data files -->
+    <script src="data/database.js"></script>
+
+    <!-- Logic file -->
+    <script src="js/main.js"></script>
 </body>
 </html>

@@ -16,57 +16,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Render Subjects by Semester ---
     if (container && typeof semesterLayout !== 'undefined' && typeof subjectDetails !== 'undefined') {
-        container.innerHTML = ''; // Xóa nội dung cũ
+        // Tối ưu hóa: Sử dụng DocumentFragment để giảm thiểu reflow/repaint
+        const fragment = document.createDocumentFragment();
 
         // Lặp qua từng kỳ trong semesterLayout
-        for (const semesterName in semesterLayout) {
-            const subjectIds = semesterLayout[semesterName];
+        for (const semesterKey in semesterLayout) {
+            const semester = semesterLayout[semesterKey];
+            const subjectIds = semester.subjects;
 
+            // Tạo tiêu đề học kỳ
             const semesterHeader = document.createElement('h2');
             semesterHeader.className = 'semester-header';
-            semesterHeader.textContent = semesterName;
-            container.appendChild(semesterHeader);
+            semesterHeader.textContent = semester.title;
+            fragment.appendChild(semesterHeader);
 
+            // Tạo lưới chứa các môn học
             const subjectGrid = document.createElement('div');
             subjectGrid.className = 'subject-grid';
 
             // Lặp qua ID các môn trong kỳ
-            subjectIds.forEach(subjectId => {
+            subjectIds.forEach((subjectId, index) => {
                 const subject = subjectDetails[subjectId]; // Tra cứu thông tin chi tiết
-                if (!subject) return; // Bỏ qua nếu không tìm thấy thông tin
+                if (!subject) {
+                    console.warn(`Không tìm thấy thông tin cho môn học với ID: ${subjectId}`);
+                    return; // Bỏ qua nếu không tìm thấy thông tin
+                }
 
+                // Tạo thẻ môn học
                 const card = document.createElement('div');
-                card.className = 'subject-card';
+                card.className = 'subject-card fade-in';
+                card.style.animationDelay = `${index * 0.05}s`; // Hiệu ứng xuất hiện so le
                 if (subject.disabled) {
                     card.classList.add('disabled');
                 }
 
-                const subjectName = document.createElement('h3');
-                subjectName.textContent = subject.title;
+                // Sửa lỗi: Dùng createElement để tạo cấu trúc, an toàn và đúng thứ tự hơn
+                const titleEl = document.createElement('h3');
+                titleEl.textContent = subjectId.toUpperCase();
 
-                const subjectDescription = document.createElement('p');
-                subjectDescription.textContent = subject.description;
+                const descEl = document.createElement('p');
+                descEl.textContent = subject.title;
 
-                card.appendChild(subjectDescription);
-                card.appendChild(subjectName);
-                
+                card.appendChild(titleEl);
+                card.appendChild(descEl);
+                // --- Kết thúc sửa lỗi ---
+
                 card.addEventListener('click', () => {
                     if (!subject.disabled) {
-                        if (subject.customLink) {
-                            window.location.href = subject.customLink;
-                        } else {
-                            window.location.href = `subject.html?subject=${subjectId}`;
-                        }
+                        // Ưu tiên customLink, nếu không có thì dùng trang subject.html
+                        window.location.href = subject.customLink || `subject.html?subject=${subjectId}`;
                     }
                 });
 
                 subjectGrid.appendChild(card);
             });
             
-            container.appendChild(subjectGrid);
+            fragment.appendChild(subjectGrid);
         }
+        // Xóa nội dung cũ và chèn toàn bộ fragment vào DOM chỉ một lần
+        container.innerHTML = ''; 
+        container.appendChild(fragment);
     } else {
         // Thông báo lỗi này sẽ hiển thị nếu file database.js sai hoặc không được tải
-        container.innerHTML = '<p>Không tải được dữ liệu môn học. Vui lòng kiểm tra lại file `data/database.js`.</p>';
+        if (container) {
+            container.innerHTML = '<p style="text-align:center; color:red;">Không tải được dữ liệu môn học. Vui lòng kiểm tra lại file <code>data/database.js</code> và các file dữ liệu.</p>';
+        } else {
+            console.error("Không tìm thấy phần tử chứa danh sách môn học (ID: subject-selection-container).");
+        }
     }
 });

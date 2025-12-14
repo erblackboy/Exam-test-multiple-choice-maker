@@ -5,87 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sổ tay MAI391</title>
     <link rel="stylesheet" href="../css/style.css">
-    
-    <style>
-        body {
-            background-color: var(--light-bg); 
-        }
-        .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 20px;
-            background-color: var(--white-color); 
-            border-radius: 8px;
-            box-shadow: var(--shadow); 
-        }
-        h1, h2 {
-            color: var(--dark-text); 
-            border-bottom: 2px solid var(--primary-color); 
-            padding-bottom: 10px;
-        }
-        .toc-list {
-            list-style-type: decimal; /* Đổi thành số cho rõ ràng */
-            padding-left: 20px;
-            margin-bottom: 2rem; 
-        }
-        .toc-list li { margin: 10px 0; }
-        .toc-list a {
-            text-decoration: none;
-            color: var(--primary-color); 
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        .toc-list a:hover {
-            color: var(--primary-hover); 
-            text-decoration: underline;
-        }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            color: var(--primary-color); 
-            text-decoration: none;
-        }
-        .back-link:hover { text-decoration: underline; }
-
-        .quiz-section {
-            background-color: #e7f3ff; /* Màu xanh nhạt hơn */
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            border: 1px solid var(--primary-color);
-        }
-        .start-btn-link {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            padding: 12px 25px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .start-btn-link:hover {
-            background-color: var(--primary-hover);
-            color: var(--white-color);
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="main-container">
         <a href="../index.html" class="back-link">&larr; Quay lại trang chủ</a>
         
-        <h1>Sổ tay học tập MAI391</h1>
+        <h1 class="main-header">Sổ tay học tập MAI391</h1>
         <p style="margin-top: -10px;">Mathematics for Machine Learning</p>
 
         <div class="quiz-section">
             <h2>Ôn tập Trắc nghiệm</h2>
             <p>Kiểm tra kiến thức của bạn với ngân hàng câu hỏi tổng hợp.</p>
-            <a href="../quiz-setup.html?subject=MAI391" class="start-btn-link">
+            <a href="../subject.html?subject=mai391" class="btn">
                 Làm bài kiểm tra MAI391 →
             </a>
         </div>

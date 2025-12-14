@@ -1,17 +1,20 @@
 /* --- General & Variables --- */
 :root {
-    --primary-color: #007bff;
-    --primary-hover: #0056b3;
-    --correct-color: #28a745;
-    --incorrect-color: #dc3545;
-    --light-bg: #f8f9fa;
-    --dark-text: #343a40;
-    --border-color: #dee2e6;
+    --primary-color: #4f46e5; /* Indigo-600: Màu chủ đạo hiện đại hơn */
+    --primary-hover: #4338ca; /* Indigo-700 */
+    --correct-color: #10b981; /* Emerald-500: Xanh lá dịu hơn */
+    --incorrect-color: #ef4444; /* Red-500: Đỏ tươi nhưng không gắt */
+    --light-bg: #f3f4f6; /* Gray-50: Nền sáng nhẹ */
+    --dark-text: #1f2937; /* Gray-900: Chữ đậm dễ đọc */
+    --border-color: #e5e7eb; /* Gray-200 */
     --white-color: #ffffff;
-    --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
-    --secondary-color: #6c757d;
-    --accent-color: #ffc107;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --secondary-color: #6b7280; /* Gray-500 */
+    --accent-color: #f59e0b; /* Amber-500 */
+    --card-radius: 16px;
+    --btn-radius: 10px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* --- Dark Mode --- */
@@ -24,7 +27,7 @@ body.dark-mode {
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background-color: var(--light-bg);
     color: var(--dark-text);
     margin: 0;
@@ -34,15 +37,16 @@ body {
     align-items: flex-start;
     min-height: 100vh;
     box-sizing: border-box;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1.6;
 }
 
 .main-container, .results-container {
     width: 100%;
     max-width: 1400px; /* Tăng max-width để layout rộng rãi hơn */
     background: var(--white-color);
-    padding: 30px;
-    border-radius: 16px;
+    padding: 40px;
+    border-radius: var(--card-radius);
     box-shadow: var(--shadow-hover); /* Tăng shadow cho đẹp hơn */
     transition: background-color 0.3s;
 }
@@ -53,7 +57,8 @@ body {
     margin-bottom: 30px;
     border-bottom: 2px solid var(--border-color);
     padding-bottom: 20px;
-    font-size: 1.8em;
+    font-size: 2em;
+    font-weight: 800;
 }
 
 .breadcrumb {
@@ -82,6 +87,16 @@ body {
     font-size: 1.5rem;
 }
 
+/* Sửa lỗi: Thêm CSS cho tiêu đề học kỳ */
+.semester-header {
+    font-size: 1.6em;
+    color: var(--dark-text);
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
 /* --- Subject & Mode Selection --- */
 .subject-grid {
     display: grid;
@@ -91,25 +106,56 @@ body {
 }
 
 .subject-card {
-    background: linear-gradient(135deg, var(--white-color), var(--light-bg));
+    background: var(--white-color);
     padding: 30px;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
+    border-radius: var(--card-radius);
+    border: 1px solid transparent;
     text-align: center;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+/* Sửa lỗi: Thêm CSS cho thẻ bị vô hiệu hóa */
+.subject-card.disabled {
+    background: #e9ecef;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.subject-card.disabled:hover {
+    transform: none;
+    box-shadow: var(--shadow);
+    border-color: var(--border-color);
+}
+
+body.dark-mode .subject-card.disabled {
+    background: #2c3034;
 }
 
 .subject-card:hover {
     transform: translateY(-10px);
-    box-shadow: var(--shadow-hover);
+    box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.15), 0 10px 10px -5px rgba(79, 70, 229, 0.1);
     border-color: var(--primary-color);
 }
 
 .subject-card h3 {
-    margin: 0;
-    font-size: 1.4em;
+    margin: 0 0 5px 0;
+    font-size: 1.8em; /* Tăng kích thước cho mã môn học */
     color: var(--dark-text);
+    font-weight: 700;
+    color: var(--primary-color); /* Dùng màu chủ đạo cho nổi bật */
+    letter-spacing: 1px;
+}
+
+.subject-card p {
+    margin: 0; /* Sửa: Bỏ khoảng cách mặc định của thẻ p */
+    font-size: 0.95em; /* Giảm nhẹ kích thước cho tên môn học (phụ) */
+    color: var(--secondary-color);
 }
 
 .mode-selection-container {
@@ -129,7 +175,7 @@ body {
     flex: 1;
     padding: 35px;
     text-align: center;
-    border-radius: 12px;
+    border-radius: var(--card-radius);
     border: 1px solid var(--border-color);
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
@@ -148,7 +194,7 @@ body {
     margin: 40px auto;
     padding: 30px;
     background-color: var(--light-bg);
-    border-radius: 12px;
+    border-radius: var(--card-radius);
     box-shadow: var(--shadow);
 }
 
@@ -167,7 +213,7 @@ body {
     width: 100%;
     padding: 12px 15px;
     font-size: 1em;
-    border-radius: 8px;
+    border-radius: var(--btn-radius);
     border: 1px solid var(--border-color);
     background-color: var(--white-color);
     color: var(--dark-text);
@@ -192,18 +238,19 @@ body {
     flex: 1.3;
     padding: 35px;
     background: var(--white-color);
-    border-radius: 16px;
+    border-radius: var(--card-radius);
     box-shadow: var(--shadow);
+    order: 1; /* Hiển thị nội dung chính trước trên mobile */
 }
 
 .quiz-sidebar, .flashcard-sidebar {
     /* Sửa: Bỏ width cố định, cho phép co giãn */
     flex-shrink: 0; /* Ngăn sidebar bị co lại trên màn hình lớn */
     padding: 35px;
-    border-radius: 16px;
+    border-radius: var(--card-radius);
     box-shadow: var(--shadow-hover);
-    /* Sửa: Đặt order là 1 để nó hiện lên trước trên mobile */
-    order: 1;
+    /* Sửa: Đặt order là 2 để nó hiện sau nội dung chính trên mobile */
+    order: 2;
 }
 
 .quiz-info, .flashcard-info {
@@ -213,11 +260,6 @@ body {
     font-size: 1.3em;
     font-weight: bold;
     color: var(--primary-color);
-}
-
-/* Sửa: Đặt order cho flashcard-main là 2 để nó hiện sau sidebar trên mobile */
-.flashcard-main {
-    order: 2;
 }
 
 
@@ -240,7 +282,7 @@ body {
     padding: 20px;
     margin-bottom: 20px;
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: var(--btn-radius);
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
@@ -304,13 +346,14 @@ button {
 
 .nav-block button, #submit-btn, .start-btn {
     padding: 15px 30px;
-    font-size: 1.1em;
-    border-radius: 10px;
+    font-size: 1em;
+    border-radius: var(--btn-radius);
     background-color: var(--primary-color);
     color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 .nav-block button:hover, #submit-btn:hover, .start-btn:hover {
-    transform: scale(1.05);
+    transform: translateY(-2px);
     background-color: var(--primary-hover);
 }
 .nav-block button:disabled {
@@ -346,7 +389,7 @@ button {
     font-size: 1.1em;
     width: 45px;
     height: 45px;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.1);
     background-color: var(--light-bg);
     border: 1px solid var(--border-color);
@@ -378,7 +421,7 @@ button {
 .summary-card {
     background: linear-gradient(135deg, var(--light-bg), var(--white-color));
     padding: 25px;
-    border-radius: 12px;
+    border-radius: var(--card-radius);
     text-align: center;
     box-shadow: var(--shadow);
 }
@@ -413,7 +456,7 @@ button {
 
 .filter-btn {
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: var(--btn-radius);
     background-color: var(--light-bg);
     color: var(--dark-text);
     border: 1px solid var(--border-color);
@@ -426,7 +469,7 @@ button {
 
 .review-item {
     padding: 25px;
-    border-radius: 12px;
+    border-radius: var(--card-radius);
     margin-bottom: 20px;
     border: 1px solid var(--border-color);
     border-left-width: 6px;
@@ -448,7 +491,7 @@ button {
 #back-to-home-btn {
     padding: 15px 30px;
     font-size: 1.1em;
-    border-radius: 10px;
+    border-radius: var(--btn-radius);
     background-color: var(--secondary-color);
     color: white;
     margin-top: 20px;
@@ -520,7 +563,7 @@ body.dark-mode .review-options .option-user-incorrect { background-color: #5a1a2
 .modal-content {
     background-color: var(--white-color);
     padding: 40px;
-    border-radius: 16px;
+    border-radius: var(--card-radius);
     text-align: center;
     box-shadow: var(--shadow-hover);
     max-width: 500px;
@@ -534,7 +577,7 @@ body.dark-mode .review-options .option-user-incorrect { background-color: #5a1a2
 .modal-content button {
     padding: 15px 30px;
     margin: 10px;
-    border-radius: 10px;
+    border-radius: var(--btn-radius);
     font-size: 1em;
 }
 #confirm-submit-btn {
@@ -550,7 +593,7 @@ body.dark-mode .review-options .option-user-incorrect { background-color: #5a1a2
 .feedback-area {
     margin-top: 20px;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: var(--card-radius);
     background-color: var(--light-bg);
 }
 .feedback-text {
@@ -563,192 +606,6 @@ body.dark-mode .review-options .option-user-incorrect { background-color: #5a1a2
 }
 .feedback-incorrect {
     color: var(--incorrect-color);
-}
-/* General Styles (if not already present) */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f7f6; /* Light grey background */
-    color: #333;
-    line-height: 1.6;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.page-title {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 10px;
-    font-size: 2.5em;
-    font-weight: bold;
-}
-
-.page-description {
-    text-align: center;
-    color: #7f8c8d;
-    margin-bottom: 30px;
-    font-size: 1.1em;
-}
-
-.breadcrumb {
-    padding: 10px 0;
-    font-size: 0.9em;
-    color: #6c757d;
-    margin-bottom: 20px;
-}
-
-.breadcrumb a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.breadcrumb a:hover {
-    text-decoration: underline;
-}
-
-/* Back Button */
-.back-button {
-    background-color: #6c757d;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    margin-bottom: 30px;
-    transition: background-color 0.3s ease;
-    display: inline-block; /* Để nó không chiếm toàn bộ chiều rộng */
-}
-
-.back-button:hover {
-    background-color: #5a6268;
-}
-
-/* Card Grid for Alphabet Selection */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.alphabet-card {
-    background-color: #fdfdfd;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.alphabet-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-.alphabet-card .card-title {
-    font-size: 2em;
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: #34495e;
-}
-
-/* Specific card colors (optional) */
-.hiragana-card .card-title { color: #e74c3c; } /* Reddish */
-.katakana-card .card-title { color: #2980b9; } /* Blueish */
-.kanji-card .card-title { color: #f39c12; }    /* Orangeish */
-
-
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.btn {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 600;
-    text-decoration: none; /* In case it's an <a> tag disguised as button */
-    display: block; /* Make buttons take full width of their container */
-    width: 100%;
-    box-sizing: border-box; /* Include padding in width calculation */
-}
-
-.btn:hover {
-    opacity: 0.9;
-    transform: translateY(-2px);
-}
-
-.primary-btn {
-    background-color: #007bff; /* Blue */
-    color: white;
-}
-
-.primary-btn:hover {
-    background-color: #0056b3;
-}
-
-.secondary-btn {
-    background-color: #6c757d; /* Grey */
-    color: white;
-}
-
-.secondary-btn:hover {
-    background-color: #5a6268;
-}
-
-.disabled-btn {
-    background-color: #e0e0e0;
-    color: #a0a0a0;
-    cursor: not-allowed;
-    transform: none; /* No hover effect for disabled */
-    box-shadow: none;
-}
-
-.disabled-btn:hover {
-    opacity: 1;
-}
-
-/* Game Area (initially hidden) */
-.game-area {
-    margin-top: 40px;
-    padding: 25px;
-    border: 1px dashed #ccc;
-    border-radius: 8px;
-    background-color: #f8f8f8;
-    text-align: center;
-}
-
-.hidden {
-    display: none;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .page-title {
-        font-size: 2em;
-    }
-    .page-description {
-        font-size: 1em;
-    }
-    .card-grid {
-        grid-template-columns: 1fr; /* Stack cards on smaller screens */
-    }
 }
 /* =============================================== */
 /* == CSS CHO TRANG BẢNG CHỮ CÁI (ALPHABET PAGE) == */
@@ -770,7 +627,7 @@ body {
 
 .alphabet-card {
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: var(--card-radius);
     padding: 30px;
     text-align: center;
     background: linear-gradient(145deg, var(--white-color), var(--light-bg));
@@ -819,7 +676,7 @@ body {
     padding: 14px;
     font-size: 1.1em;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: var(--btn-radius);
     cursor: pointer;
     border: 2px solid transparent;
     transition: all 0.3s ease;
@@ -848,7 +705,7 @@ body {
 .game-area {
     margin-top: 40px;
     padding: 30px;
-    border-radius: 16px;
+    border-radius: var(--card-radius);
     background-color: var(--light-bg);
 }
 
@@ -884,7 +741,7 @@ body.dark-mode .loading-overlay {
     display: block;
     background: var(--white-color);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: var(--card-radius);
     padding: 25px;
     text-decoration: none;
     color: inherit; /* Kế thừa màu chữ từ thẻ cha */
@@ -944,7 +801,7 @@ body.dark-mode .loading-overlay {
     align-items: stretch; /* Kéo dài các phần tử con */
     padding: 20px;
     box-sizing: border-box;
-    border-radius: 16px;
+    border-radius: var(--card-radius);
     background: var(--white-color);
     border: 1px solid var(--border-color);
 }
@@ -952,6 +809,125 @@ body.dark-mode .loading-overlay {
 .flip-card-back {
     /* Sửa: Đặt lại vị trí tuyệt đối cho mặt sau để nó nằm chồng lên mặt trước */
     position: absolute;
+    height: 100%;
     top: 0;
     transform: rotateY(180deg);
 }
+
+/* Animation Classes */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Loading Spinner for Home Page */
+.loading-spinner {
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 50px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* =================================== */
+/* == RESPONSIVE DESIGN FOR MOBILE == */
+/* =================================== */
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .main-container, .results-container {
+        padding: 20px 15px; /* Giảm padding ngang */
+    }
+
+    .main-header, .results-header {
+        font-size: 1.6em;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+
+    .breadcrumb {
+        font-size: 0.9em;
+        margin-bottom: 20px;
+    }
+
+    /* --- Homepage & Module Pages --- */
+    .subject-grid, .module-menu {
+        grid-template-columns: 1fr; /* Stack cards on mobile */
+        gap: 15px;
+    }
+    .subject-card, .menu-card {
+        padding: 20px;
+    }
+    .subject-card h3 {
+        font-size: 1.5em;
+    }
+
+    /* --- Quiz & Flashcard Pages --- */
+    .quiz-main, .flashcard-main, .quiz-sidebar, .flashcard-sidebar {
+        padding: 20px;
+    }
+
+    #question-text, #flashcard-question-text {
+        font-size: 1.2em;
+    }
+    .option-item {
+        padding: 15px;
+    }
+    .option-item label {
+        font-size: 1em;
+    }
+}
+
+/* --- Module Index Pages (MAI391, JPD113, etc.) --- */
+.quiz-section {
+    background-color: #e7f3ff;
+    padding: 20px;
+    border-radius: var(--card-radius);
+    margin: 2rem 0;
+    text-align: center;
+    border: 1px solid var(--primary-color);
+}
+body.dark-mode .quiz-section {
+    background-color: #1a202c;
+    border-color: var(--primary-color);
+}
+
+.toc-list {
+    list-style-type: decimal;
+    padding-left: 20px;
+    margin-bottom: 2rem;
+}
+.toc-list li { margin: 10px 0; }
+.toc-list a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+.toc-list a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+.back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+.back-link:hover { text-decoration: underline; }

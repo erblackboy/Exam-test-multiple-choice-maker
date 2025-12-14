@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const quizSessionData = localStorage.getItem('quizSession');
+    // Sửa lỗi: Kiểm tra nếu không có dữ liệu bài thi thì báo lỗi và dừng lại
     if (!quizSessionData) {
-        alert('Không tìm thấy dữ liệu bài thi. Vui lòng thử lại.');
-        window.location.href = 'index.html';
+        document.body.innerHTML = '<div class="main-container" style="text-align: center;"><h1>Lỗi</h1><p>Không tìm thấy dữ liệu bài thi. Vui lòng bắt đầu từ trang chủ.</p><a href="index.html" class="back-btn">Quay về Trang chủ</a></div>';
         return;
     }
+    // --- Kết thúc sửa lỗi ---
 
     const { subjectCode, subjectTitle, questions, timeLimit } = JSON.parse(quizSessionData);
     
@@ -22,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmModal = document.getElementById('confirm-modal');
     const confirmSubmitBtn = document.getElementById('confirm-submit-btn');
     const cancelSubmitBtn = document.getElementById('cancel-submit-btn');
+    const breadcrumbSubjectEl = document.getElementById('breadcrumb-subject');
+    const breadcrumbSetupEl = document.getElementById('breadcrumb-setup');
+    const quizMain = document.querySelector('.quiz-main'); // Tối ưu: Cache element này để không phải query lại nhiều lần
 
     let currentQuestionIndex = 0;
     let userAnswers = new Array(questions.length).fill(null);
@@ -43,32 +47,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    function renderPalette() {
+    // Tối ưu: Hàm này chỉ chạy 1 lần để tạo cấu trúc DOM
+    function initPalette() {
         paletteContainerEl.innerHTML = '';
         questions.forEach((_, index) => {
             const paletteBtn = document.createElement('button');
             paletteBtn.className = 'palette-btn';
             paletteBtn.textContent = index + 1;
-
-            const answer = userAnswers[index];
-            if (answer !== null && (!Array.isArray(answer) || answer.length > 0)) {
-                paletteBtn.classList.add('answered');
-            }
-            if (index === currentQuestionIndex) {
-                paletteBtn.classList.add('current');
-            }
-
             paletteBtn.addEventListener('click', () => {
                 currentQuestionIndex = index;
                 loadQuestion(currentQuestionIndex);
             });
             paletteContainerEl.appendChild(paletteBtn);
         });
+        updatePalette(); // Cập nhật trạng thái ngay sau khi tạo
+    }
+
+    // Tối ưu: Hàm này chỉ cập nhật class, không render lại DOM
+    function updatePalette() {
+        Array.from(paletteContainerEl.children).forEach((btn, index) => {
+            btn.classList.remove('current', 'answered');
+            
+            const answer = userAnswers[index];
+            if (answer !== null && (!Array.isArray(answer) || answer.length > 0)) {
+                btn.classList.add('answered');
+            }
+            if (index === currentQuestionIndex) {
+                btn.classList.add('current');
+            }
+        });
     }
 
     function loadQuestion(index) {
         // --- TỐI ƯU HÓA: Thêm hiệu ứng mờ khi tải câu hỏi mới ---
-        const quizMain = document.querySelector('.quiz-main');
+        if (quizMain.style.opacity === '1') { // Chỉ làm mờ nếu đang hiển thị
+            quizMain.style.transition = 'opacity 0.3s ease-out';
+        }
         quizMain.style.opacity = '0.5';
 
         const question = questions[index];
@@ -127,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         updateNavButtons();
-        renderPalette();
+        updatePalette(); // Sử dụng hàm update nhẹ nhàng hơn
         
         // Trigger MathJax to render all formulas (question and options) together
         if (window.MathJax && window.MathJax.typesetPromise) {
@@ -135,8 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         setTimeout(() => {
-            quizMain.style.opacity = '1';
-        }
+            quizMain.style.opacity = '1'; // Làm rõ trở lại sau khi tải xong
+        }, 100); // Một khoảng trễ nhỏ để trình duyệt kịp render
     }
 
     function handleOptionSelect(questionIndex, isMultiChoice) {
@@ -164,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             userAnswers[questionIndex] = selectedValue;
         }
-        renderPalette();
+        updatePalette(); // Chỉ cập nhật trạng thái màu sắc
     }
 
     function updateNavButtons() {
@@ -216,6 +230,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial Load
     subjectCodeEl.textContent = subjectTitle;
+    // Cập nhật breadcrumb
+    if (breadcrumbSubjectEl) {
+        breadcrumbSubjectEl.textContent = subjectTitle;
+        breadcrumbSubjectEl.href = `subject.html?subject=${subjectCode}`;
+    }
+    if (breadcrumbSetupEl) breadcrumbSetupEl.href = `quiz-setup.html?subject=${subjectCode}`;
+    initPalette(); // Khởi tạo palette lần đầu
     loadQuestion(currentQuestionIndex);
     startTimer();
 });

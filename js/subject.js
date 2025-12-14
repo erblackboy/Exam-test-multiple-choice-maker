@@ -1,53 +1,56 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Đảm bảo các biến dữ liệu đã được tải
-    if (typeof quizData === 'undefined' || typeof subjectDetails === 'undefined') {
-        console.error("Dữ liệu môn học (quizData) chưa được tải.");
-        alert("Lỗi tải dữ liệu, vui lòng thử lại.");
-        window.location.href = 'index.html';
-        return;
-    }
+document.addEventListener('DOMContentLoaded', function () {
+    const subjectTitleEl = document.getElementById('subject-title');
+    const breadcrumbNameEl = document.getElementById('subject-breadcrumb-name');
+    const flashcardBtn = document.getElementById('flashcard-mode-btn');
+    const quizBtn = document.getElementById('quiz-mode-btn');
+    const modeSelectionContainer = document.querySelector('.mode-selection-container');
 
+    // 1. Lấy mã môn học từ URL
     const urlParams = new URLSearchParams(window.location.search);
     const subjectCode = urlParams.get('subject');
 
-    if (!subjectCode || !subjectDetails[subjectCode]) {
-        alert("Mã môn học không hợp lệ.");
-        window.location.href = 'index.html';
+    // 2. Kiểm tra xem subjectDetails đã được tải chưa
+    if (typeof subjectDetails === 'undefined') {
+        displayError("Lỗi: Không thể tải dữ liệu môn học (database.js).");
         return;
     }
 
+    // 3. Tìm thông tin môn học và kiểm tra sự tồn tại
     const subject = subjectDetails[subjectCode];
 
-    // Cập nhật tiêu đề và breadcrumb
-    document.getElementById('subject-title').textContent = subject.title;
-    document.getElementById('subject-breadcrumb-name').textContent = subject.title;
-    document.title = `Học tập: ${subject.title}`;
+    if (!subjectCode || !subject) {
+        // 4. Xử lý lỗi nếu không tìm thấy môn học
+        displayError(`Lỗi: Không tìm thấy môn học với mã "${subjectCode || 'trống'}".`);
+        return;
+    }
 
-    const flashcardModeBtn = document.getElementById('flashcard-mode-btn');
-    const quizModeBtn = document.getElementById('quiz-mode-btn');
+    // 5. Cập nhật giao diện với thông tin môn học
+    subjectTitleEl.textContent = subject.title;
+    breadcrumbNameEl.textContent = subject.title;
 
-    // Xử lý sự kiện khi chọn "Học với Flashcard"
-    flashcardModeBtn.addEventListener('click', () => {
-        // Thay vì kiểm tra `questions.length`, kiểm tra xem môn học có được cấu hình để có câu hỏi không
-        if (!subject.dataFile) {
-            alert(`Môn ${subject.title} chưa được cấu hình dữ liệu câu hỏi.`);
-            return;
+    // 6. Thiết lập sự kiện click cho các nút chế độ
+    // Xác định mã môn học sẽ được sử dụng cho flashcard và quiz
+    const flashcardSubjectCode = subject.flashcardSubject || subjectCode;
+    const quizSubjectCode = subject.quizSubject || subjectCode;
+
+    flashcardBtn.addEventListener('click', () => {
+        // Sửa lỗi: Kiểm tra đúng mã môn học cho flashcard
+        if (subjectDetails[flashcardSubjectCode]) {
+            window.location.href = `flashcards.html?subject=${flashcardSubjectCode}`;
         }
-
-        // Chuẩn bị dữ liệu cho phiên flashcard
-        const flashcardSettings = {
-            subjectCode: subjectCode,
-            subjectTitle: subject.title
-            // Không cần gửi 'questions' nữa vì nó sẽ được tải động trên trang flashcards.html
-        };
-
-        // Lưu vào localStorage và chuyển trang
-        localStorage.setItem('flashcardSession', JSON.stringify(flashcardSettings));
-        window.location.href = 'flashcards.html';
     });
 
-    // Xử lý sự kiện khi chọn "Làm Trắc Nghiệm"
-    quizModeBtn.addEventListener('click', () => {
-        window.location.href = `quiz-setup.html?subject=${subjectCode}`;
+    quizBtn.addEventListener('click', () => {
+        // Sửa lỗi: Kiểm tra đúng mã môn học cho quiz
+        if (subjectDetails[quizSubjectCode]) {
+            window.location.href = `quiz-setup.html?subject=${quizSubjectCode}`;
+        }
     });
+
+    // Hàm tiện ích để hiển thị lỗi
+    function displayError(message) {
+        subjectTitleEl.textContent = "Lỗi";
+        breadcrumbNameEl.textContent = "Lỗi";
+        modeSelectionContainer.innerHTML = `<p style="color: red; text-align: center;">${message}<br>Vui lòng kiểm tra lại đường dẫn hoặc quay về trang chủ.</p>`;
+    }
 });
